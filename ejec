@@ -1,0 +1,1 @@
+gcc -Wall -Werror -Wextra minishell.c gnl/*.c ft_split_marks.c access_cmd.c errors.c && ./a.out

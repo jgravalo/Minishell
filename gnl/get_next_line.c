@@ -6,7 +6,7 @@
 /*   By: jgravalo <jgravalo@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 15:40:27 by jgravalo          #+#    #+#             */
-/*   Updated: 2022/07/14 15:48:22 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/06/14 15:09:46 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*makeline(char *text)
 	}
 	if (text[i] == '\n')
 	{
-		line[i] = text[i];
+//		line[i] = text[i];
 		i++;
 	}
 	line[i] = '\0';

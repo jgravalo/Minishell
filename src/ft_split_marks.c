@@ -6,12 +6,11 @@
 /*   By: jgravalo <jgravalo@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 13:29:05 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/06/13 15:08:29 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/06/19 17:08:56 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../inc/pipex.h"
-#include "minishell.h"
+#include "../inc/minishell.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
@@ -91,16 +90,12 @@ char	*c_str(char const *s, char c, int *n)
 	return (new);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split_loop(char **res, char const *s, char c)
 {
-	char	**res;
 	int		j;
 	int		i;
 
 	j = 0;
-	res = (char **) malloc((words(s, c) * (sizeof(char *))) + 8);
-	if (!res || !s)
-		return (0);
 	while (*s)
 	{
 		if (*s != c)
@@ -117,5 +112,17 @@ char	**ft_split(char const *s, char c)
 		else
 			++s;
 	}
+	res[j++] = NULL;
+	return (res);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	**res;
+
+	res = (char **) malloc((words(s, c) * (sizeof(char *))) + 8);
+	if (!res || !s)
+		return (0);
+	res = ft_split_loop(res, s, c);
 	return (res);
 }

@@ -6,13 +6,12 @@
 /*   By: jgravalo <jgravalo@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 13:29:05 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/06/13 15:08:26 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/06/19 15:40:41 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../inc/pipex.h"
-#include "minishell.h"
-
+#include "../inc/minishell.h"
+/*
 size_t	ft_strlen(const char *str)
 {
 	unsigned long	count;
@@ -22,7 +21,7 @@ size_t	ft_strlen(const char *str)
 		count++;
 	return (count);
 }
-
+*/
 int	ft_strcmp(char *s1, char *s2)
 {
 	while (*s1 || *s2)
@@ -34,7 +33,7 @@ int	ft_strcmp(char *s1, char *s2)
 	}
 	return (0);
 }
-
+/*
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*new;
@@ -58,7 +57,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	new[i] = '\0';
 	return (new);
 }
-
+*/
 char	*ft_strdup(char *str)
 {
 	char	*new;
