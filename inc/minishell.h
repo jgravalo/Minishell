@@ -28,6 +28,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 char	**ft_split(char const *s, char c);
 
+void	free_m(char **fdf);
+
+int		search_var(char *name, char **envp);
+
 char	*file_cmd(char *cmd, char **envp);
 
 #endif

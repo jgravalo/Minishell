@@ -6,11 +6,12 @@ int	parse_line(char *line, char **envp)
 	char	*cmd;
 	pid_t	pid;
 
-	if (!envp)
-		return (0);
 	//check_redir(); //si hay redireccion, borrarla de la linea
 	args = ft_split(line, ' ');
-	
+//	int n = search_var("OLDPWD", envp);
+//	write(1, envp[n], ft_strlen(envp[n]));
+
+/*	
 	int i;
 //	for (i = 0; i < 3; i++)
 	for (i = 0; args[i]; i++)
@@ -19,14 +20,12 @@ int	parse_line(char *line, char **envp)
 		write(1, ",", 1);
 	}
 	write(1, "\n", 1);
+*/	
 	
-	
-//	cmd = args[0];
-//	cmd = "/bin/echo";
-	cmd = file_cmd(args[0], envp);
 	pid = fork();
 	if (pid == 0)
 	{
+		cmd = file_cmd(args[0], envp);
 		execve(cmd, args, envp);
 	}
 	waitpid(pid, NULL, 0);

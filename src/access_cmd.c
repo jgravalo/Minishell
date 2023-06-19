@@ -6,7 +6,7 @@
 /*   By: jgravalo <jgravalo@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:09:57 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/06/19 16:55:18 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/06/19 18:26:33 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,17 @@ char	*access_cmd(char *cmd, char**docs, int env)
 			return (docs[i]);
 		i++;
 	}
+	
 	if (env == -1 && access(cmd, F_OK) == 0)
 		return (cmd);
 	if (is_local(cmd) == 0 && !(cmd[0] == '.' && cmd[1] == '/'))
 	{
-		cmd_error(cmd);
+//		cmd_error(cmd);
 		exit(127);
 	}
 	if (access(cmd, F_OK) != -1 && access(cmd, X_OK) != -1)
 		return (cmd);
-	cmd_error(cmd);
+//	cmd_error(cmd);
 	exit(126);
 }
 

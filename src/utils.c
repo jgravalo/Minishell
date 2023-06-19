@@ -6,7 +6,7 @@
 /*   By: jgravalo <jgravalo@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 13:29:05 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/06/19 15:40:41 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/06/19 18:14:30 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,20 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (new);
 }
 */
+
+void	free_m(char **fdf)
+{
+	int	i;
+
+	i = 0;
+	while (fdf[i])
+	{
+		free(fdf[i]);
+		i++;
+	}
+	free(fdf);
+}
+
 char	*ft_strdup(char *str)
 {
 	char	*new;
