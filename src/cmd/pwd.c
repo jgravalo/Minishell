@@ -2,11 +2,9 @@
 
 int pwd(char **envp)
 {
-	int		env;
 	char	*pwd;
 
-	env = search_var("PWD", envp);
-	pwd = ft_strchr(envp[env], '/');
+	pwd = search_var("PWD", envp);
 	write(1, pwd, ft_strlen(pwd));
 	write(1, "\n", 1);
 	return (0);
