@@ -22,6 +22,8 @@ int	parse_line(char *line, char **envp)
 	pid = fork();
 	if (pid == 0)
 	{
+//		dup2(fdin, 0);
+//		dup2(fdout, 1);
 		cmd = file_cmd(args[0], envp);
 		execve(cmd, args, envp);
 	}
@@ -33,11 +35,14 @@ int parse_pipex(char *line, char **envp)
 {
 	char	**pipes;
 	int		i;
+//	t_pipe	*p;
+
 
 	pipes = ft_split(line, '|');
 	i = 0;
 	while (pipes[i])
 	{
+//		pipei[p];
 		parse_line(pipes[i], envp);
 		i++;
 	}

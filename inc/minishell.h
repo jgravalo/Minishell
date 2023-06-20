@@ -22,6 +22,11 @@ typedef struct s_hist{
 	struct s_hist	*ant;
 }	t_hist;
 
+typedef struct s_pipe{
+	int				p[2];
+	struct s_pipe	*next;
+}	t_pipe;
+
 int		cmd_error(char *str);
 
 size_t	ft_strlen(const char *str);
