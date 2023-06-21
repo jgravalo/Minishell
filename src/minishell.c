@@ -5,13 +5,15 @@ int	parse_line(char *line, char **envp)
 	char	**args;
 	char	*cmd;
 	pid_t	pid;
-
+/*
 	write(1, line, ft_strlen(line));
+	write(1, "\n", 1);
 	check_vars(line, envp);
 	write(1, line, ft_strlen(line));
-	args = ft_split_marks(line, ' ');
+	write(1, "\n", 1);
+*/	args = ft_split_marks(line, ' ');
 	//fd = check_redir(); //si hay redireccion, borrarla de la linea
-	//
+	/*
 	int i;
 	for (i = 0; args[i]; i++)
 	{
@@ -19,7 +21,7 @@ int	parse_line(char *line, char **envp)
 		write(1, ", ", 2);
 	}
 	write(1, "\n", 1);
-	//
+	*/
 //	ft_strcmp(tmp, (char *){27, 91, 65});
 	
 	pid = fork();

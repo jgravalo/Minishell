@@ -53,10 +53,12 @@ void    check_vars(char *args, char **envp);
 
 char	*file_cmd(char *cmd, char **envp);
 
+int		count_ascii(char *line, int c);
+/*
 void	make_history(t_hist *hist, char *line);
 
 void	print_history(t_hist *hist);
 
 void	free_history(t_hist *hist);
-
+*/
 #endif
