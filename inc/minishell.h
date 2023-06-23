@@ -23,8 +23,10 @@ typedef struct s_hist{
 }	t_hist;
 
 typedef struct s_pipe{
-	int				p[2];
-	struct s_pipe	*next;
+	int	p[2];
+	int	fdin;
+	int	fdout;
+//	struct s_pipe	*next;
 }	t_pipe;
 
 int		cmd_error(char *str);
@@ -43,17 +45,22 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 char	**ft_split(char const *s, char c);
 
+char	**ft_split_double(char const *s, char c);
+
 char	**ft_split_marks(char const *s, char c);
 
 void	free_m(char **fdf);
 
 char	*search_var(char *name, char **envp);
 
-void    check_vars(char *args, char **envp);
+char	*check_vars(char *args, char **envp);
 
 char	*file_cmd(char *cmd, char **envp);
 
 int		count_ascii(char *line, int c);
+
+int		count_arr(char **args);
+
 /*
 void	make_history(t_hist *hist, char *line);
 

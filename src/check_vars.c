@@ -19,6 +19,17 @@ int	count_ascii(char *line, int c)
 	return (count);
 }
 
+int	count_arr(char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
+	{
+		i++;
+	}
+	return (i);
+}
 
 
 
@@ -69,7 +80,7 @@ char	*modify_line(char *args, char **vars, int len)
 	return (new);
 }
 
-void	check_vars(char *args, char **envp)
+char	*check_vars(char *args, char **envp)
 {
 	int		i;
 	int		j;
@@ -121,9 +132,17 @@ void	check_vars(char *args, char **envp)
 	len = 0;
 	while (vars[i])
 	{
-		printf("vars[i] = %s\n", vars[i]);
+//		printf("vars[i] = %s\n", vars[i]);
 		len += ft_strlen(vars[i]);
 		i++;
 	}
+
+//			write(1, "old = ", 6);
+//			write(1, args, ft_strlen(args));
+//			write(1, "\n", 1);
 	args = modify_line(args, vars, len);
+//			write(1, "new = ", 6);
+//			write(1, args, ft_strlen(args));
+//			write(1, "\n", 1);
+	return (args);
 }

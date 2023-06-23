@@ -6,7 +6,7 @@
 /*   By: jgravalo <jgravalo@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 13:29:05 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/06/20 13:40:13 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:23:35 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (s2);
 }
 
-int	words(const char *s, char c)
-{
-	int	j;
-
-	j = 0;
-	while (*s)
-	{
-		if (*s != c)
-		{
-			while (*s && *s != c)
-			{
-				s++;
-			}
-			j++;
-		}
-		else
-			++s;
-	}
-	return (j);
-}
-
 char	*mark_str(char const *s, char c, int *n)
 {
 	char	*new;
@@ -90,6 +69,27 @@ char	*c_str(char const *s, char c, int *n)
 	return (new);
 }
 
+int	words(const char *s, char c)
+{
+	int	j;
+
+	j = 0;
+	while (*s)
+	{
+		if (*s != c)
+		{
+			while (*s && *s != c)
+			{
+				s++;
+			}
+			j++;
+		}
+		else
+			++s;
+	}
+	return (j);
+}
+
 char	**ft_split(char const *s, char c)
 {
 	int		i;
@@ -109,6 +109,56 @@ char	**ft_split(char const *s, char c)
 		{
 			size = 0;
 			while (*s && *s != c && ++size)
+				s++;
+			res[j++] = ft_substr(s - size, 0, size);
+		}
+		else
+			++s;
+	}
+	res[j] = NULL;
+	return (res);
+}
+
+int	words_double(const char *s, char c)
+{
+	int	j;
+
+	j = 0;
+	while (*s)
+	{
+		if (*s != c && *(s + 1) != c)
+		{
+			while (*s && *s != c && *(s + 1) != c)
+			{
+				s++;
+			}
+			j++;
+		}
+		else
+			++s;
+	}
+	return (j);
+}
+
+char	**ft_split_double(char const *s, char c)
+{
+	int		i;
+	int		size;
+	int		j;
+	char	**res;
+
+	i = 0;
+	size = 0;
+	j = 0;
+	res = (char **) malloc((words(s, c) * (sizeof(char *))) + 8);
+	if (!res || !s)
+		return (0);
+	while (*s)
+	{
+		if (*s != c && *(s + 1) != c)
+		{
+			size = -1;
+			while (*s && *s != c && *(s + 1) != c && ++size)
 				s++;
 			res[j++] = ft_substr(s - size, 0, size);
 		}
