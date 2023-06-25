@@ -7,6 +7,7 @@ int	check_redir(char **args, int type)
 	int fd;
 	int i;
 
+	i = 0;
 	while (args[i])
 	{
 		if (type == 0 && ft_strcmp(args[i], ">"))
@@ -21,17 +22,28 @@ int	check_redir(char **args, int type)
 	return (fd);
 }
 
+void test_pipe(t_pipe *p)
+{
+//	write(p->p[1], "el pipe funciona\n", 17);
+	char buffer[17];
+	read(p->p[0], buffer, 17);
+	write(1, "<<<", 3);
+	write(1, buffer, 17);
+	write(1, ">>>", 3);
+	write(1, "\n", 1);
+}
+
 int	parse_line(char *line, char **envp, t_pipe *in, t_pipe *out)
 //int	parse_line(char *line, char **envp)
 {
 	char	**args;
 	char	*cmd;
 	pid_t	pid;
-	t_pipe	p;
+//	t_pipe	p;
 	int		exit;
 
-//	write(1, line, ft_strlen(line));
-//	write(1, "\n", 1);
+	write(1, line, ft_strlen(line));
+	write(1, "\n", 1);
 //	line = check_vars(line, envp);
 //	write(1, line, ft_strlen(line));
 //	write(1, "\n", 1);
@@ -46,12 +58,14 @@ int	parse_line(char *line, char **envp, t_pipe *in, t_pipe *out)
 	write(1, "\n", 1);
 	*/
 //	ft_strcmp(tmp, (char *){27, 91, 65});
-
-	write(p[1], "el pipe funciona\n", 17);
+/*
+	pipe(p.p);
+	write(p.p[1], "el pipe funciona\n", 17);
 	char buffer[17];
-	read(p[0], buffer, 17);
+	read(p.p[0], buffer, 17);
 	write(1, buffer, 17);
-
+*/
+/*
 	if (!in)
 		p.fdin = 0;
 	else
@@ -60,20 +74,35 @@ int	parse_line(char *line, char **envp, t_pipe *in, t_pipe *out)
 		p.fdout = 1;
 	else
 		p.fdout = out->p[1];
-	pid = fork();
+*/	pid = fork();
 	if (pid == 0)
 	{
 		//fd = check_redir(args); //si hay redireccion, borrarla de la linea
 
-		/*
-		if (in)
+		if (in != NULL)
+		{
+			close(out->p[1]);
 			dup2(in->p[0], 0);
-		if (out)
+			close(out->p[0]);
+//			test_pipe(in);
+
+			/*
+			char buffer[17];
+			write(in->p[1], "el pipe funciona\n", 17);
+			read(in->p[0], buffer, 17);
+			write(1, buffer, 17);
+			*/
+		}
+		if (out != NULL)
+		{
+			close(out->p[0]);
 			dup2(out->p[1], 1);
-		*/
-		dup2(p.fdin, 0);
-		dup2(p.fdout, 1);
+			close(out->p[1]);
+		}
+//		dup2(p.fdin, 0);
+//		dup2(p.fdout, 1);
 		cmd = file_cmd(args[0], envp);
+
 		execve(cmd, args, envp);
 	}
 	waitpid(pid, &exit, 0);
@@ -90,25 +119,32 @@ int parse_pipex(char *line, char **envp)
 	t_pipe	*p;
 
 	pipex = count_ascii(line, '|'); 
+	printf("n_pipes = %d\n", pipex);
 	pipes = ft_split(line, '|');
 	if (pipex > 0)
 	{
 		p = (t_pipe *)malloc(sizeof(t_pipe) * (pipex + 1));
 		pipe(p[0].p);
 		exit = parse_line(pipes[0], envp, NULL, &p[0]); //primer pipe
+		test_pipe(&p[0]);
+		close(p[0].p[0]);
 	}
 	else 
 		exit = parse_line(pipes[0], envp, NULL, NULL); //sin pipe
 	i = 1;
-	while (pipex > 1 && pipes[i])
+	while (pipex > 1 && pipes[i + 1])
 	{
 		pipe(p[i].p);
+		
 		exit = parse_line(pipes[i], envp, &p[i - 1], &p[i]);// pipe intermedio
+//		test_pipe(&p[i]);
 		i++;
 	}
 	if (pipex > 0)
 	{
+		write(1, "aqui\n", 5);
 		exit = parse_line(pipes[i], envp, &p[i - 1], NULL); //ultimo pipe
+//		test_pipe(&p[1]);
 	}
 	return (exit);
 }
@@ -159,18 +195,22 @@ int main(int argc, char **argv, char **envp)
 	{
 //		write(1, "jgravalo> ", 10);
 		c = readline("jgravalo> ");
+		if (ft_strcmp(c, "") == 0)
+			continue;
+		add_history(c);
 //		c = get_next_line(0);
 //		make_history(&history, c);
 //		print_history(&history);
 	
-		write(1, "line = |", 8);
+		write(1, "line = <", 8);
 		write(1, c, ft_strlen(c));
-		write(1, "|\n", 2);
+		write(1, ">\n", 2);
 		
 		exit = parse_pipex(c, envp);
 //		parse_line(c, envp);
 		free(c);
 	}
+//	free_history();
 //	print_history(&history);
 	return (exit);
 }
