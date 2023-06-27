@@ -1,6 +1,6 @@
 #include "../inc/minishell.h"
 
-int search_varnum(char *name, char **envp)
+int search_var_num(char *name, char **envp)
 {
     int     i;
     int     j;
@@ -23,7 +23,7 @@ char *search_var(char *name, char **envp)
 	int		env;
     char	*var;
 
-    env = search_varnum(name, envp);
+    env = search_var_num(name, envp);
     var = ft_strchr(envp[env], '=') + 1;
 	return (var);
 }
