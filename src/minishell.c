@@ -41,9 +41,10 @@ int	parse_line(char *line, char **envp, t_pipe *in, t_pipe *out)
 	pid_t	pid;
 //	t_pipe	p;
 	int		exit;
-
+/*
 	write(1, line, ft_strlen(line));
 	write(1, "\n", 1);
+*/
 //	line = check_vars(line, envp);
 //	write(1, line, ft_strlen(line));
 //	write(1, "\n", 1);
@@ -64,16 +65,16 @@ int	parse_line(char *line, char **envp, t_pipe *in, t_pipe *out)
 		//fd = check_redir(args); //si hay redireccion, borrarla de la linea
 		if (in != NULL)
 		{
-			close(out->p[1]);
 			dup2(in->p[0], 0);
-			close(out->p[0]);
+//			close(in->p[0]);
+//			close(in->p[1]);
 //			test_pipe(in);
 		}
 		if (out != NULL)
 		{
-			close(out->p[0]);
 			dup2(out->p[1], 1);
-			close(out->p[1]);
+//			close(out->p[0]);
+//			close(out->p[1]);
 		}
 		args = ft_split_marks(line, ' ');
 		cmd = file_cmd(args[0], envp);
@@ -97,35 +98,27 @@ int parse_pipex(char *line, char **envp)
 //	t_pipe	p[pipex];
 	printf("n_pipes = %d\n", pipex);
 	pipes = ft_split(line, '|');
-	if (pipex > 0)
+	if (pipex == 0)
+		exit = parse_line(pipes[0], envp, NULL, NULL); //sin pipe
+	else 
 	{
 		p = (t_pipe *)malloc(sizeof(t_pipe) * (pipex + 1));
 		pipe(p[0].p);
-//		write(1, "entrada: ", 9);
 		exit = parse_line(pipes[0], envp, NULL, &p[0]); //primer pipe
-		write(1, "salida: ", 8);
 		test_pipe(&p[0]);
-		close(p[0].p[0]);
-	}
-	else 
-		exit = parse_line(pipes[0], envp, NULL, NULL); //sin pipe
-	i = 1;
-	while (pipex > 1 && pipes[i + 1])
-	{
-		pipe(p[i].p);
-		printf("pipe[%d]\n", i - 1);
-		write(1, "entrada: ", 9);
-		test_pipe(&p[i - 1]);
-		exit = parse_line(pipes[i], envp, &p[i - 1], &p[i]);// pipe intermedio
-		write(1, "salida: ", 8);
-		test_pipe(&p[i]);
-		i++;
-	}
-	if (pipex > 0)
-	{
-//		write(1, "aqui\n", 5);
+		close(p[0].p[0]); // cierras la entrada/lectura del pipe
+		close(p[0].p[1]); // cierras la salida/escritura del pipe
+		i = 1;
+		while (pipex > 1 && pipes[i + 1])
+		{
+			pipe(p[i].p);
+			test_pipe(&p[i - 1]);
+			exit = parse_line(pipes[i], envp, &p[i - 1], &p[i]);// pipe intermedio
+			test_pipe(&p[i]);
+			close(p[i - 1].p[0]);
+			i++;
+		}
 		exit = parse_line(pipes[i], envp, &p[i - 1], NULL); //ultimo pipe
-//		test_pipe(&p[1]);
 	}
 	return (exit);
 }

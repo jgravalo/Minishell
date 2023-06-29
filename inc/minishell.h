@@ -53,7 +53,7 @@ void	free_m(char **fdf);
 
 char	*search_var(char *name, char **envp);
 
-char	*search_var_num(char *name, char **envp);
+int		search_var_num(char *name, char **envp);
 
 char	*check_vars(char *args, char **envp);
 
