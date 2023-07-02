@@ -76,6 +76,7 @@ int	parse_line(char *line, char **envp, t_pipe *in, t_pipe *out)
 //			close(out->p[0]);
 //			close(out->p[1]);
 		}
+		dup2(1, 2);
 		args = ft_split_marks(line, ' ');
 		cmd = file_cmd(args[0], envp);
 		execve(cmd, args, envp);
@@ -172,7 +173,9 @@ int main(int argc, char **argv, char **envp)
 		c = readline("jgravalo> ");
 		write(1,  "aqui", 4);
 		write(1,  "\n", 1);
+//		rl_on_new_line();
 		if (ft_strcmp(c, "") == 0)
+//			rl_on_new_line();
 			continue;
 		write(1,  "aqui", 4);
 		write(1,  "\n", 1);
@@ -183,7 +186,6 @@ int main(int argc, char **argv, char **envp)
 		write(1, ">\n", 2);
 		
 		exit = parse_pipex(c, envp);
-//		parse_line(c, envp);
 		free(c);
 	}
 	return (exit);
