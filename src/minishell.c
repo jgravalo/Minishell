@@ -105,20 +105,22 @@ int parse_pipex(char *line, char **envp)
 		p = (t_pipe *)malloc(sizeof(t_pipe) * (pipex + 1));
 		pipe(p[0].p);
 		exit = parse_line(pipes[0], envp, NULL, &p[0]); //primer pipe
-		test_pipe(&p[0]);
-		close(p[0].p[0]); // cierras la entrada/lectura del pipe
+//		test_pipe(&p[0]);
 		close(p[0].p[1]); // cierras la salida/escritura del pipe
 		i = 1;
 		while (pipex > 1 && pipes[i + 1])
 		{
 			pipe(p[i].p);
-			test_pipe(&p[i - 1]);
+//			test_pipe(&p[i - 1]);
 			exit = parse_line(pipes[i], envp, &p[i - 1], &p[i]);// pipe intermedio
-			test_pipe(&p[i]);
+//			test_pipe(&p[i]);
 			close(p[i - 1].p[0]);
+			close(p[i].p[1]);
+//			close(p[0].p[0]); // cierras la entrada/lectura del pipe
 			i++;
 		}
 		exit = parse_line(pipes[i], envp, &p[i - 1], NULL); //ultimo pipe
+		close(p[i].p[1]);
 	}
 	return (exit);
 }
@@ -167,15 +169,15 @@ int main(int argc, char **argv, char **envp)
 		return (0);
 	while (1)
 	{
-//		write(1, "jgravalo> ", 10);
 		c = readline("jgravalo> ");
+		write(1,  "aqui", 4);
+		write(1,  "\n", 1);
 		if (ft_strcmp(c, "") == 0)
 			continue;
+		write(1,  "aqui", 4);
+		write(1,  "\n", 1);
 		add_history(c);
-//		c = get_next_line(0);
-//		make_history(&history, c);
-//		print_history(&history);
-	
+
 		write(1, "line = <", 8);
 		write(1, c, ft_strlen(c));
 		write(1, ">\n", 2);
@@ -184,7 +186,17 @@ int main(int argc, char **argv, char **envp)
 //		parse_line(c, envp);
 		free(c);
 	}
-//	free_history();
-//	print_history(&history);
 	return (exit);
 }
+
+/*
+int main(int argc, char **argv, char **envp)
+{
+	if (argc != 2)
+		return (0);
+	char *c = argv[1];
+	int exit;
+
+	exit = parse_pipex(c, envp);
+	return (exit);
+}*/

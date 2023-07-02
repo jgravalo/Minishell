@@ -1,5 +1,5 @@
 #include "../../inc/minishell.h"
-
+/*
 int	cd(char *rute, char **envp)
 {
 	int	*pwd;
@@ -13,11 +13,28 @@ int	cd(char *rute, char **envp)
 	envp[pwd] = ft_strjoin("PWD=", rute);
 	return (0);
 }
+*/
+int	cd(char *rute)
+{
+	int exit;
 
-int main(int argc, char **argv, char **envp)
+	exit = chdir(rute);
+	/*
+	if (exit < 0)
+	{
+		write(1, rute, ft_strlen(rute));
+		write(1, ": no such file or directory\n", 28);
+		exit (-1);
+	}
+	*/
+	return (0);
+}
+
+int main(int argc, char **argv)//, char **envp)
 {
 	if (!argc)
 		return (0);
-	env(envp);
+	printf("rute = %s\n", argv[1]);
+	cd(argv[1]);
 	return (0);
 }
