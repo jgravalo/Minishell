@@ -13,11 +13,3 @@ int	env(char **envp)
 	}
 	return (0);
 }
-
-int main(int argc, char **argv, char **envp)
-{
-	if (!argc)
-		return (0);
-	env(envp);
-	return (0);
-}

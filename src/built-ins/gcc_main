@@ -1,0 +1,1 @@
+gcc -Wall -Werror -Wextra main.c env.c pwd.c echo.c cd.c ../../gnl/get_next_line_utils.c ../ft_split_marks.c ../utils.c ../utils_env.c  -o exec

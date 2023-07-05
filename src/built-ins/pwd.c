@@ -9,11 +9,3 @@ int pwd(char **envp)
 	write(1, "\n", 1);
 	return (0);
 }
-
-int main(int argc, char **argv, char **envp)
-{
-	pwd(envp);
-	if (!argv || !argc)
-		return (0);
-	return (0);
-}

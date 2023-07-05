@@ -1,1 +1,0 @@
-gcc pwd.c ../utils_env.c ../../gnl/get_next_line_utils.c -o pwd

@@ -66,15 +66,15 @@ int	parse_line(char *line, char **envp, t_pipe *in, t_pipe *out)
 		if (in != NULL)
 		{
 			dup2(in->p[0], 0);
-//			close(in->p[0]);
-//			close(in->p[1]);
+			close(in->p[0]);
+			close(in->p[1]);
 //			test_pipe(in);
 		}
 		if (out != NULL)
 		{
 			dup2(out->p[1], 1);
-//			close(out->p[0]);
-//			close(out->p[1]);
+			close(out->p[0]);
+			close(out->p[1]);
 		}
 		dup2(1, 2);
 		args = ft_split_marks(line, ' ');
@@ -97,7 +97,7 @@ int parse_pipex(char *line, char **envp)
 
 	pipex = count_ascii(line, '|'); 
 //	t_pipe	p[pipex];
-	printf("n_pipes = %d\n", pipex);
+//	printf("n_pipes = %d\n", pipex);
 	pipes = ft_split(line, '|');
 	if (pipex == 0)
 		exit = parse_line(pipes[0], envp, NULL, NULL); //sin pipe
@@ -117,7 +117,6 @@ int parse_pipex(char *line, char **envp)
 //			test_pipe(&p[i]);
 			close(p[i - 1].p[0]);
 			close(p[i].p[1]);
-//			close(p[0].p[0]); // cierras la entrada/lectura del pipe
 			i++;
 		}
 		exit = parse_line(pipes[i], envp, &p[i - 1], NULL); //ultimo pipe
@@ -171,14 +170,12 @@ int main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		c = readline("jgravalo> ");
-		write(1,  "aqui", 4);
-		write(1,  "\n", 1);
+		write(1,  "aqui\n", 5);
 //		rl_on_new_line();
 		if (ft_strcmp(c, "") == 0)
-//			rl_on_new_line();
-			continue;
-		write(1,  "aqui", 4);
-		write(1,  "\n", 1);
+			rl_on_new_line();
+//			continue;
+		write(1,  "aqui\n", 5);
 		add_history(c);
 
 		write(1, "line = <", 8);

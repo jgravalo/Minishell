@@ -1,1 +1,0 @@
-gcc env.c ../../gnl/get_next_line_utils.c -o env
