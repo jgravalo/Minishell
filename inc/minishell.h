@@ -10,11 +10,12 @@
 # include <errno.h>
 # include <unistd.h>
 # include <stdbool.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include "../gnl/get_next_line.h"
+# include "builtins.h"
 
 # define DEF_PATH "/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:"
-# include "../gnl/get_next_line.h"
 
 typedef struct s_hist{
 	char			*line;

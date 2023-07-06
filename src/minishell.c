@@ -59,6 +59,7 @@ int	parse_line(char *line, char **envp, t_pipe *in, t_pipe *out)
 	write(1, "\n", 1);
 	*/
 //	ft_strcmp(tmp, (char *){27, 91, 65});
+	exit = built_ins(args, envp);
 	pid = fork();
 	if (pid == 0)
 	{
@@ -76,7 +77,7 @@ int	parse_line(char *line, char **envp, t_pipe *in, t_pipe *out)
 			close(out->p[0]);
 			close(out->p[1]);
 		}
-		dup2(1, 2);
+//		dup2(1, 2);
 		args = ft_split_marks(line, ' ');
 		cmd = file_cmd(args[0], envp);
 		execve(cmd, args, envp);
@@ -96,7 +97,6 @@ int parse_pipex(char *line, char **envp)
 	t_pipe	*p;
 
 	pipex = count_ascii(line, '|'); 
-//	t_pipe	p[pipex];
 //	printf("n_pipes = %d\n", pipex);
 	pipes = ft_split(line, '|');
 	if (pipex == 0)
@@ -116,11 +116,13 @@ int parse_pipex(char *line, char **envp)
 			exit = parse_line(pipes[i], envp, &p[i - 1], &p[i]);// pipe intermedio
 //			test_pipe(&p[i]);
 			close(p[i - 1].p[0]);
-			close(p[i].p[1]);
+			close(p[i].p[1]); // cierras la salida/escritura del pipe
 			i++;
 		}
 		exit = parse_line(pipes[i], envp, &p[i - 1], NULL); //ultimo pipe
-		close(p[i].p[1]);
+		close(p[i - 1].p[0]); // cierras la entrada/lectura del pipe
+//		close(p[i].p[1]); // cierras la salida/escritura del pipe
+//		close(p[i].p[0]); // cierras la entrada/lectura del pipe
 	}
 	return (exit);
 }
@@ -170,20 +172,27 @@ int main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		c = readline("jgravalo> ");
-		write(1,  "aqui\n", 5);
+//		write(1, "jgravalo> ", 10);
+//		c = get_next_line(0);
+//		write(1,  "aqui\n", 5);
 //		rl_on_new_line();
-		if (ft_strcmp(c, "") == 0)
-			rl_on_new_line();
-//			continue;
-		write(1,  "aqui\n", 5);
+//		if (ft_strcmp(c, "") == 0)
+		if (ft_strlen(c) == 0)
+		{
+			write(1,  "aqui\n", 5);
+//			rl_on_new_line();
+			continue;
+		}
+//		write(1,  "aqui\n", 5);
 		add_history(c);
 
-		write(1, "line = <", 8);
-		write(1, c, ft_strlen(c));
-		write(1, ">\n", 2);
+//		write(1, "line = <", 8);
+//		write(1, c, ft_strlen(c));
+//		write(1, ">\n", 2);
 		
 		exit = parse_pipex(c, envp);
 		free(c);
+		c = NULL;
 	}
 	return (exit);
 }

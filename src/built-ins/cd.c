@@ -1,8 +1,10 @@
 #include "../../inc/minishell.h"
 
-int	cd(char *rute)
+int	cd(char *rute, char **envp)
 {
 	int out;
+	int pwd;
+	int oldpwd;
 
 	
 	if (rute[1] != '/')
