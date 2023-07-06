@@ -59,7 +59,7 @@ int	parse_line(char *line, char **envp, t_pipe *in, t_pipe *out)
 	write(1, "\n", 1);
 	*/
 //	ft_strcmp(tmp, (char *){27, 91, 65});
-	exit = built_ins(args, envp);
+//	exit = built_ins(args, envp);
 	pid = fork();
 	if (pid == 0)
 	{

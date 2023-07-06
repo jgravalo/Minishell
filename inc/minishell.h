@@ -13,7 +13,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../gnl/get_next_line.h"
-# include "builtins.h"
+//# include "builtins.h"
 
 # define DEF_PATH "/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:"
 
@@ -63,6 +63,14 @@ char	*file_cmd(char *cmd, char **envp);
 int		count_ascii(char *line, int c);
 
 int		count_arr(char **args);
+
+int		env(char **envp);
+
+int		pwd(char **envp);
+
+int		echo(char **argv);
+
+int		cd(char *rute, char **envp);
 
 /*
 void	make_history(t_hist *hist, char *line);

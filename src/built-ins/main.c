@@ -1,5 +1,4 @@
 #include "../../inc/minishell.h"
-#include "builtins.h"
 
 int built_ins(char **argv, char **envp)
 {
@@ -9,9 +8,10 @@ int built_ins(char **argv, char **envp)
 	printf("%s\n", argv[1]);
 	if (ft_strcmp(argv[1], "cd") == 0)
 	{
-		pwd(envp);
-		out = cd(argv[1]);
-		pwd(envp);
+//		pwd(envp);
+		out = cd(argv[2], envp);
+//		pwd(envp);
+		env(envp);
 	}
 	else if (ft_strcmp(argv[1], "echo") == 0)
 		out = echo(++argv);
