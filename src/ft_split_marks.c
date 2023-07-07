@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_marks.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgravalo <jgravalo@student.42barcel>       +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 13:29:05 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/06/23 17:23:35 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/07/07 14:52:27 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,8 @@ char	*mark_str(char const *s, char c, int *n)
 {
 	char	*new;
 	int		i;
-	int		tmp;
 
 	i = 0;
-	tmp = 0;
 	while (*s && !(*s == c && *(s - 1) != '\\') && ++i)
 		s++;
 	new = ft_substr(s - i, 0, i);
@@ -92,12 +90,10 @@ int	words(const char *s, char c)
 
 char	**ft_split(char const *s, char c)
 {
-	int		i;
 	int		size;
 	int		j;
 	char	**res;
 
-	i = 0;
 	size = 0;
 	j = 0;
 	res = (char **) malloc((words(s, c) * (sizeof(char *))) + 8);
@@ -142,12 +138,10 @@ int	words_double(const char *s, char c)
 
 char	**ft_split_double(char const *s, char c)
 {
-	int		i;
 	int		size;
 	int		j;
 	char	**res;
 
-	i = 0;
 	size = 0;
 	j = 0;
 	res = (char **) malloc((words(s, c) * (sizeof(char *))) + 8);
