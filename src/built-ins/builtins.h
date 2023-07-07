@@ -10,4 +10,8 @@ int	echo(char **argv);
 
 int	cd(char *rute, char **envp);
 
+int unset(char *var, char ***envp);
+
+int export(char *var, char ***envp);
+
 #endif

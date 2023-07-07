@@ -10,6 +10,9 @@
 # include <errno.h>
 # include <unistd.h>
 # include <stdbool.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../gnl/get_next_line.h"
@@ -29,6 +32,17 @@ typedef struct s_pipe{
 	int	fdout;
 //	struct s_pipe	*next;
 }	t_pipe;
+
+typedef struct s_shell
+{
+    char **tokens;
+    char **pipes;
+    int pipex;
+    int exit;
+    t_pipe *p;
+    char **args;
+    char *cmd;
+}               t_shell;
 
 int		cmd_error(char *str);
 
@@ -71,6 +85,14 @@ int		pwd(char **envp);
 int		echo(char **argv);
 
 int		cd(char *rute, char **envp);
+
+int unset(char **var, char ***envp);
+
+int export(char **var, char ***envp);
+
+int set_signals(int pid, char **envp);
+
+int new_shell(char **envp);
 
 /*
 void	make_history(t_hist *hist, char *line);
