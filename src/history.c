@@ -1,4 +1,4 @@
-#include "../../inc/minishell.h"
+#include "../inc/minishell.h"
 
 void	make_history(t_hist *hist, char *line)
 {
