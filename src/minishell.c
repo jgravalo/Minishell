@@ -98,6 +98,7 @@ int new_shell(char **envp)
 {	
 	char				*c;
 	int					exit_code;
+	char 				**tokens;
 
 	while (1)
 	{	
@@ -112,7 +113,9 @@ int new_shell(char **envp)
 		if (c[0] != 0)
 		{	
 			add_history(c);
-			exit_code = parse_pipex(c, envp);
+			tokens = lexer(c); // creo recomendable empezar desde un lexer ya que tendriamos todos los simbolos en un array.
+			ft_printarr(tokens); // funcion que imprime el array de tokens, para debugear.
+			//exit_code = parse_pipex(c, envp);
 			free(c);
 		}
 	}

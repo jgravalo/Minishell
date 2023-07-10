@@ -62,6 +62,8 @@ char	*ft_strdup(char *str);
 
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 
+void	ft_printarr(char **arr);
+
 char	**ft_split(char const *s, char c);
 
 char	**ft_split_double(char const *s, char c);
@@ -84,11 +86,22 @@ int		count_ascii(char *line, int c);
 
 int		count_arr(char **args);
 
-int set_signals(int pid, char **envp);
+int 	set_signals(int pid, char **envp);
 
-int new_shell(char **envp);
+int 	new_shell(char **envp);
 
-int parse_pipex(char *line, char **envp);
+int 	parse_pipex(char *line, char **envp);
+
+char 	**lexer(char *line);
+
+int		count_tokens(char *line);
+
+int 	is_pipe_or_dollar(char c);
+
+int		is_redir(char *str);
+
+int		is_meta(char c);
+
 
 /*
 void	make_history(t_hist *hist, char *line);
