@@ -1,5 +1,12 @@
 #include "../inc/minishell.h"
 
+static void dup_and_close(t_pipe *pipe, int mode)
+{
+	dup2(pipe->p[mode], mode);
+	close(pipe->p[0]);
+	close(pipe->p[1]);
+}
+
 int	parse_line(char *line, char **envp, t_pipe *in, t_pipe *out)
 //int	parse_line(char *line, char **envp)
 {
@@ -27,6 +34,9 @@ int	parse_line(char *line, char **envp, t_pipe *in, t_pipe *out)
 	*/
 //	ft_strcmp(tmp, (char *){27, 91, 65});
 //	exit = built_ins(args, envp);
+	args = ft_split_marks(line, ' ');
+	if(run_cd(args, envp) == 0) // éxito en ejecutar cd, que no genera proceso hijo.
+			return (0); 
 	pid = fork();
 	if (pid > 0)
 		exit_code = set_signals(pid, envp);
@@ -34,20 +44,11 @@ int	parse_line(char *line, char **envp, t_pipe *in, t_pipe *out)
 	{	
 		//fd = check_redir(args); //si hay redireccion, borrarla de la linea
 		if (in != NULL)
-		{
-			dup2(in->p[0], 0);
-			close(in->p[0]);
-			close(in->p[1]);
-//			test_pipe(in);
-		}
+			dup_and_close(in, 0);
 		if (out != NULL)
-		{
-			dup2(out->p[1], 1);
-			close(out->p[0]);
-			close(out->p[1]);
-		}
-//		dup2(1, 2);
-		args = ft_split_marks(line, ' ');
+			dup_and_close(out, 1);
+		if (run_builtin(args, envp) == 0)
+			exit (0);
 		cmd = file_cmd(args[0], envp); // error handling dentro de file_cmd
 		if (cmd == NULL)
 			exit(1);

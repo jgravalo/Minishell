@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:09:57 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/07/10 02:08:46 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/10 10:30:46 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*access_cmd(char *cmd, char**docs, int env)
 	int		i;
 
 	i = 0;
-	if (cmd[0] != '/')   //si no empieza por backslash, bash pensará que es un comando
+	if (cmd[0] != '/')   //si no empieza por backslash, bash pensará que es un comando (para dar error)
 	{	
 		while (docs[i])
 		{
@@ -96,7 +96,7 @@ char	*file_cmd(char *cmd, char **envp)
 	char	*file;
 	char	**docs;
 
-	env = 0;
+	env = 0;						
 	if (!(cmd[0] == '.' && cmd[1] == '/'))
 		env = search_path(envp);
 	if (env != -1)

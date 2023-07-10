@@ -17,6 +17,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../gnl/get_next_line.h"
+# include "../src/built-ins/builtins.h"
 //# include "builtins.h"
 
 # define DEF_PATH "/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:"
@@ -82,18 +83,6 @@ char	*parse_redir(char *line);
 int		count_ascii(char *line, int c);
 
 int		count_arr(char **args);
-
-int		env(char **envp);
-
-int		pwd(char **envp);
-
-int		echo(char **argv);
-
-int		cd(char *rute, char **envp);
-
-int unset(char **var, char ***envp);
-
-int export(char **var, char ***envp);
 
 int set_signals(int pid, char **envp);
 
