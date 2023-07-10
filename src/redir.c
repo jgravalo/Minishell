@@ -78,38 +78,18 @@ char	*check_redir(char *line)
 int		len_redir(char *line)
 {
 	int i;
-	int j;
-	char *here_doc;
-	char *tmp;
-	int len_heredoc;
 
-	i = 1;
-	if (*line == '<' && *(line + 1) == '<')
-	{
-		j = 0;
-		line += 2;
-		i += 2;
-		while (*line == ' ' && ++i)
-			line++;
-		while (*line != ' ' && ++i && j++)
-			line++;
-		here_doc = ft_substr(line - j, 0, j);
-		len_heredoc = ft_strlen(here_doc);
-		tmp = ft_substr(line, 0, len_heredoc);
-		while (ft_strcmp(here_doc, tmp) != 0 && i++ && ++line)
-			tmp = ft_substr(line, 0, len_heredoc);
-		i += len_heredoc;
-	}
-	else
-	{
+	i = 0;
+	if ((*line == '>' || *line == '<') && ++i)
 		line++;
-		if (*line == '>' && ++i)
-			line++;
-		while (*line == ' ' && ++i)
-			line++;
-		while (*line != ' ' && ++i)
-			line++;
-	}
+	if ((*line == '>' || *line == '<') && ++i)
+		line++;
+	while (*line && *line == ' ' && ++i)
+		line++;
+	while (*line && *line != ' ' && ++i)
+		line++;
+	while (*line && *line == ' ' && ++i)
+		line++;
 	return (i);
 }
 
@@ -117,21 +97,14 @@ int		count_redir(char *line)
 {
 	int i;
 
+	i = 0;
 	while (*line != '\0')
 	{
-		printf("line = |%s|\n", line);
-		i = 0;
-		if (*line == '<' || *line == '>')
-		{
-//			printf("line = %c\n", *line);
-//			printf("aqui\n");
+		if ((*line == '<' || *line == '>') && ++i)
 			line += len_redir(line);
-		}
-		if (!(*line == '<' || *line == '>') && ++i)
-		{
-			while (!(*line == '<' || *line == '>'))
+		if (*line && *line != '<' && *line != '>' && ++i)
+			while (*line && *line != '<' && *line != '>')
 				line++;
-		}
 	}
 	return (i);
 }
@@ -141,28 +114,97 @@ char	**ft_split_redir(char *line)
 	char	**m;
 	int		i;
 	int		j;
+	int len;
 
-//	printf("aqui\n");
 //	printf("count = %d\n", count_redir(line));
 //	printf("aqui\n");
 	m = (char **)malloc(sizeof(char *) * (count_redir(line) + 1));
-	j = 0;
+	j = -1;
 	while (*line)
 	{
 		if (*line == '<' || *line == '>')
 		{
-			m[++j] = ft_substr(line, 0, len_redir(line));
-			line += len_redir(line);
+			len = len_redir(line);
+			m[++j] = ft_substr(line, 0, len);
+			line += len;
+//			printf("m[%d] = |%s|\n", j, m[j]);
 		}
 		else
 		{
 			i = 0;
-			while (!(*line == '<' || *line == '>') && ++i)
+			while (*line && *line != '<' && *line != '>' && ++i)
 				line++;
-			m[++j] = ft_substr(line, 0, i);
-			line += i;
+			m[++j] = ft_substr(line - i, 0, i);
+//			printf("m[%d] = |%s|\n", j, m[j]);
 		}
 	}
 	m[++j] = NULL;
 	return (m);
 }
+
+int	make_redir(char *line)
+{
+	char **tmp;
+	int fd;
+
+	tmp = ft_split_marks(line, ' ');
+	printf("tmp[1] = %s\n", tmp[1]);
+	if (ft_strcmp(tmp[0], "<") == 0)
+		fd = open(tmp[1], O_RDONLY);
+	if (ft_strcmp(tmp[0], ">") == 0)
+		fd = open(tmp[1], O_RDWR | O_CREAT | O_TRUNC, 00644);
+	if (ft_strcmp(tmp[0], ">>") == 0)
+		fd = open(tmp[1], O_RDWR | O_CREAT | O_APPEND, 00644);
+	if (line[0] == '>')
+		dup2(fd, 1);
+	else if (line[0] == '<')
+		dup2(fd, 1);
+	free(tmp);
+	return (fd);
+}
+
+char *parse_redir(char *line)
+{
+	char **args;
+	char *cmd;
+	int i;
+
+	cmd = NULL;
+	args = ft_split_redir(line);
+//	printf("aqui\n");
+	i = 0;
+	while (args[i])
+	{
+		if (args[i][0] == '<' || args[i][0] == '>')
+		{
+			make_redir(args[i]);
+//			printf("args[%d] = |%s|\n", i, args[i]);
+		}
+		else
+		{
+//			printf("args[%d] = |%s|\n", i, args[i]);
+			cmd = ft_strjoin(cmd, ft_strdup(args[i]));
+//			printf("cmd = |%s|\n", cmd);
+		}
+		i++;
+	}
+	free_m(args);
+	return (cmd);
+}
+/*
+int main(int argc, char **argv)
+{
+	if (argc != 2)
+		return (0);
+	/
+	printf("len = %d\n", len_redir(argv[1]));
+	printf("count = %d\n", count_redir(argv[1]));
+	char **m = ft_split_redir(argv[1]);
+	int i;
+	for (i = 0; m[i]; i++)
+		printf("m[%d] = |%s|\n", i, m[i]);
+	*
+	char *cmd = parse_redir(argv[1]);
+	printf("cmd = |%s|\n", cmd);
+	return (0);
+}*/

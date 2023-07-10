@@ -57,6 +57,8 @@ char	*ft_strcat(char *dest, char *src);
 
 char	*ft_strjoin(char *s1, char *s2);
 
+char	*ft_strdup(char *str);
+
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 char	**ft_split(char const *s, char c);
@@ -74,6 +76,8 @@ int		search_var_num(char *name, char **envp);
 char	*check_vars(char *args, char **envp);
 
 char	*file_cmd(char *cmd, char **envp);
+
+char	*parse_redir(char *line);
 
 int		count_ascii(char *line, int c);
 

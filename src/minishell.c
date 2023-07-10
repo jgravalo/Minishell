@@ -1,27 +1,5 @@
 #include "../inc/minishell.h"
 
-//int	search_redir(char **args)
-
-int	check_redir(char **args, int type)
-{
-	int fd;
-	int i;
-
-	i = 0;
-	while (args[i])
-	{
-		if (type == 0 && ft_strcmp(args[i], ">"))
-			fd = open(args[i + 1], O_RDWR | O_CREAT | O_TRUNC, 00644); // > salida
-		if (ft_strcmp(args[i], ">>"))
-			fd = open(args[i + 1], O_RDWR | O_CREAT | O_APPEND, 00644); // >> salida
-		if (ft_strcmp(args[i], "<"))
-			fd = open(args[i + 1], O_RDONLY); // < entrada
-//		if (ft_strcmp(args[i], "<<"))
-		i++;
-	}
-	return (fd);
-}
-
 void test_pipe(t_pipe *p)
 {
 //	write(p->p[1], "el pipe funciona\n", 17);
