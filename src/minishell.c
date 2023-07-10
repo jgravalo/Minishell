@@ -1,27 +1,5 @@
 #include "../inc/minishell.h"
 
-//int	search_redir(char **args)
-
-int	check_redir(char **args, int type)
-{
-	int fd;
-	int i;
-
-	i = 0;
-	while (args[i])
-	{
-		if (type == 0 && ft_strcmp(args[i], ">"))
-			fd = open(args[i + 1], O_RDWR | O_CREAT | O_TRUNC, 00644); // > salida
-		if (ft_strcmp(args[i], ">>"))
-			fd = open(args[i + 1], O_RDWR | O_CREAT | O_APPEND, 00644); // >> salida
-		if (ft_strcmp(args[i], "<"))
-			fd = open(args[i + 1], O_RDONLY); // < entrada
-//		if (ft_strcmp(args[i], "<<"))
-		i++;
-	}
-	return (fd);
-}
-
 void test_pipe(t_pipe *p)
 {
 //	write(p->p[1], "el pipe funciona\n", 17);
@@ -41,6 +19,7 @@ int	parse_line(char *line, char **envp, t_pipe *in, t_pipe *out)
 	pid_t	pid;
 //	t_pipe	p;
 	int		exit;
+	char	*tmp;
 /*
 	write(1, line, ft_strlen(line));
 	write(1, "\n", 1);
@@ -80,7 +59,8 @@ int	parse_line(char *line, char **envp, t_pipe *in, t_pipe *out)
 			close(out->p[1]);
 		}
 //		dup2(1, 2);
-		args = ft_split_marks(line, ' ');
+		tmp = parse_redir(line);
+		args = ft_split_marks(tmp, ' ');
 		cmd = file_cmd(args[0], envp);
 		execve(cmd, args, envp);
 	}

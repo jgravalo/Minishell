@@ -1,6 +1,6 @@
 M_SRCS		= src/utils.c src/ft_split_marks.c src/minishell.c \
 			  src/access_cmd.c src/errors.c src/utils_env.c \
-			  src/count.c src/signal.c src/history.c
+			  src/count.c src/signal.c src/history.c src/redir.c
 #			  src/cmd/echo.c src/cmd/cd.c src/cmd/export.c \
 			  src/cmd/unset.c src/cmd/exit.c src/cmd/env.c src/cmd/pwd.c \
 			
