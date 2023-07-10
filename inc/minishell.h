@@ -3,6 +3,7 @@
 
 #include <fcntl.h>
 //# include <defines.h>
+# include <errno.h>
 # include <stdlib.h>
 # include <string.h>
 # include <stdio.h>
@@ -93,6 +94,8 @@ int export(char **var, char ***envp);
 int set_signals(int pid, char **envp);
 
 int new_shell(char **envp);
+
+int parse_pipex(char *line, char **envp);
 
 /*
 void	make_history(t_hist *hist, char *line);
