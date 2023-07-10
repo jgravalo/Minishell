@@ -93,6 +93,7 @@ static int handle_pipes(t_shell *shell, char **envp)
 	}
 	shell->exit = parse_line(shell->pipes[i], envp, &shell->p[i - 1], NULL); //ultimo pipe
 	close(shell->p[i - 1].p[0]);
+	free(shell->p);
 	return (shell->exit);
 }
 
@@ -107,6 +108,5 @@ int parse_pipex(char *line, char **envp)
 	else 
 		shell.exit = handle_pipes(&shell, envp);
 	free_m(shell.pipes);
-	free(shell.p);
 	return (shell.exit);
 }

@@ -114,8 +114,8 @@ int new_shell(char **envp)
 		{	
 			add_history(c);
 			tokens = lexer(c); // creo recomendable empezar desde un lexer ya que tendriamos todos los simbolos en un array.
-			ft_printarr(tokens); // funcion que imprime el array de tokens, para debugear.
-			//exit_code = parse_pipex(c, envp);
+			//ft_printarr(tokens); // funcion que imprime el array de tokens, para debugear.
+			exit_code = parse_pipex(c, envp);
 			free(c);
 		}
 	}
