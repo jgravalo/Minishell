@@ -158,7 +158,7 @@ int	make_redir(char *line)
 	if (line[0] == '>')
 		dup2(fd, 1);
 	else if (line[0] == '<')
-		dup2(fd, 1);
+		dup2(fd, 0);
 	free(tmp);
 	return (fd);
 }
@@ -167,9 +167,10 @@ char *parse_redir(char *line)
 {
 	char **args;
 	char *cmd;
+	char *c;
 	int i;
 
-	cmd = NULL;
+	cmd = ft_strdup("");
 	args = ft_split_redir(line);
 //	printf("aqui\n");
 	i = 0;
@@ -183,7 +184,9 @@ char *parse_redir(char *line)
 		else
 		{
 //			printf("args[%d] = |%s|\n", i, args[i]);
+			c = cmd;
 			cmd = ft_strjoin(cmd, ft_strdup(args[i]));
+			free(c);
 //			printf("cmd = |%s|\n", cmd);
 		}
 		i++;
@@ -196,14 +199,14 @@ int main(int argc, char **argv)
 {
 	if (argc != 2)
 		return (0);
-	/
+	//
 	printf("len = %d\n", len_redir(argv[1]));
 	printf("count = %d\n", count_redir(argv[1]));
 	char **m = ft_split_redir(argv[1]);
 	int i;
 	for (i = 0; m[i]; i++)
 		printf("m[%d] = |%s|\n", i, m[i]);
-	*
+	//
 	char *cmd = parse_redir(argv[1]);
 	printf("cmd = |%s|\n", cmd);
 	return (0);

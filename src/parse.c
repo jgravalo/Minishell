@@ -8,30 +8,13 @@ static void dup_and_close(t_pipe *pipe, int mode)
 }
 
 int	parse_line(char *line, char **envp, t_pipe *in, t_pipe *out)
-//int	parse_line(char *line, char **envp)
 {
 	char	**args;
 	char	*cmd;
+	char	*tmp;
 	pid_t	pid;
-//	t_pipe	p;
 	int		exit_code;
-/*
-	write(1, line, ft_strlen(line));
-	write(1, "\n", 1);
-*/
-//	line = check_vars(line, envp);
-//	write(1, line, ft_strlen(line));
-//	write(1, "\n", 1);
-//	args = ft_split_marks(line, ' ');
-	/*
-	int i;
-	for (i = 0; args[i]; i++)
-	{
-		write(1, args[i], ft_strlen(args[i]));
-		write(1, ", ", 2);
-	}
-	write(1, "\n", 1);
-	*/
+
 //	ft_strcmp(tmp, (char *){27, 91, 65});
 //	exit = built_ins(args, envp);
 	args = ft_split_marks(line, ' ');
@@ -49,8 +32,10 @@ int	parse_line(char *line, char **envp, t_pipe *in, t_pipe *out)
 			dup_and_close(out, 1);
 		if (run_builtin(args, envp) == 0)
 			exit (0);
+		tmp = parse_redir(line); // aplica las redirecciones (de momento solo de salida)
+		args = ft_split_marks(tmp, ' ');
 		cmd = file_cmd(args[0], envp); // error handling dentro de file_cmd
-		if (cmd == NULL)
+		if (cmd == NULL) // file_cmd ya mide errores
 			exit(1);
 		execve(cmd, args, envp);
 	}

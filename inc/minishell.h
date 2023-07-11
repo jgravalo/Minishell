@@ -16,7 +16,7 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "../gnl/get_next_line.h"
+//# include "../gnl/get_next_line.h"
 # include "../src/built-ins/builtins.h"
 //# include "builtins.h"
 
@@ -99,6 +99,8 @@ int		count_tokens(char *line);
 int 	is_pipe_or_dollar(char c);
 
 int		is_redir(char *str);
+
+char *parse_heredoc(char *line);
 
 int		is_meta(char c);
 
