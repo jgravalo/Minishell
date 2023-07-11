@@ -88,7 +88,34 @@ char	last_sign(char *line)
 	return (line[i]);
 }
 
-char *parse_heredoc(char *line)
+char	*find_heredoc(char *cmd, char **here_doc)
+{
+	char	*c;
+	int		j;
+
+	c = ft_strdup("");
+	j = 0;
+	while (here_doc[j])
+	{
+		printf("here_doc = %s\n", here_doc[j]);
+		while (ft_strcmp(c, here_doc[j]) != 0)
+		{
+			if (last_sign(cmd) == '|')
+				cmd = ft_strjoin(cmd, c);
+//			free(c);
+//	printf("aqui\n");
+			c = readline("> ");
+			printf("c = %s\n", c);
+			printf("cmd = %s\n", cmd);
+		}
+		free(c);
+		j++;
+	}
+	free_m(here_doc);
+	return (cmd);
+}
+
+char	*parse_heredoc(char *line)
 {
 	char **args;
 	char **here_doc;
@@ -121,27 +148,9 @@ char *parse_heredoc(char *line)
 		}
 		i++;
 	}
-	c = ft_strdup("");
-	j = 0;
-	while (here_doc[j])
-	{
-		printf("here_doc = %s\n", here_doc[j]);
-		while (ft_strcmp(c, here_doc[j]) != 0)
-		{
-			if (last_sign(cmd) == '|')
-				cmd = ft_strjoin(cmd, c);
-//			free(c);
-//	printf("aqui\n");
-			c = readline("> ");
-			printf("c = %s\n", c);
-			printf("cmd = %s\n", cmd);
-		}
-		free(c);
-		j++;
-	}
 	free_m(args);
-	free_m(here_doc);
-	return (cmd);
+	cmd = find_heredoc(cmd, here_doc);
+	return (cmd)
 }
 /*
 int main(int argc, char **argv)
