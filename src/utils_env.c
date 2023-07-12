@@ -24,6 +24,8 @@ char *search_var(char *name, char **envp)
     char	*var;
 
     env = search_var_num(name, envp);
+	if (env < 0)
+		return (NULL);
     var = ft_strchr(envp[env], '=') + 1;
 	return (var);
 }

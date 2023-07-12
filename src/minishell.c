@@ -97,6 +97,7 @@ static void handler(int sig)
 int new_shell(char **envp)
 {	
 	char				*c;
+	char				*tmp;
 	int					exit_code;
 	char 				**tokens;
 
@@ -105,7 +106,8 @@ int new_shell(char **envp)
 		signal(SIGINT, handler);
 		signal(SIGQUIT, handler);
 		c = readline("jgravalo> ");
-		c = parse_heredoc(c); 
+		tmp = expand_var(c, envp);
+		c = parse_heredoc(tmp); 
 		if (c == NULL)
 		{	
 			write(1, "exit\n", 6);

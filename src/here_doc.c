@@ -150,7 +150,7 @@ char	*parse_heredoc(char *line)
 	}
 	free_m(args);
 	cmd = find_heredoc(cmd, here_doc);
-	return (cmd)
+	return (cmd);
 }
 /*
 int main(int argc, char **argv)

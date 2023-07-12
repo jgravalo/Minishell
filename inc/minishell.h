@@ -46,6 +46,15 @@ typedef struct s_shell
     char *cmd;
 }               t_shell;
 
+typedef struct	s_var
+{
+	char	**tmp;
+	char	*new;
+	char	*exp;
+	char	*var;
+	char	*c;
+}	t_var;
+
 int		cmd_error(char *str);
 
 size_t	ft_strlen(const char *str);
@@ -104,6 +113,7 @@ char *parse_heredoc(char *line);
 
 int		is_meta(char c);
 
+char	*expand_meta(char *line, char **envp);
 
 /*
 void	make_history(t_hist *hist, char *line);
