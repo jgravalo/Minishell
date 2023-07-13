@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/13 18:23:00 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/13 18:37:29 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,6 @@ int	new_shell(char **envp)
 		signal(SIGINT, handler);
 		signal(SIGQUIT, handler);
 		c = readline("jgravalo> ");
-		tmp = expand_meta(c, envp);
-		c = parse_heredoc(tmp); 
 		if (c == NULL)
 		{
 			write(1, "exit\n", 6);
@@ -127,7 +125,9 @@ int	new_shell(char **envp)
 		}
 		if (c[0] != 0)
 		{
-			add_history(c);
+			tmp = expand_meta(c, envp);
+			c = parse_heredoc(tmp);
+			add_history(c); 
 			exit_code = parse_pipex(c, envp);
 			free(c);
 		}
