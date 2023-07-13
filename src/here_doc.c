@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   here_doc.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/13 17:40:05 by theonewhokn       #+#    #+#             */
+/*   Updated: 2023/07/13 17:41:46 by theonewhokn      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/minishell.h"
 
-int		len_heredoc(char *line)
+int	len_heredoc(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (*line == '<' && *(line + 1) == '<' && ++i && ++i)
@@ -16,9 +28,9 @@ int		len_heredoc(char *line)
 	return (i);
 }
 
-int		count_heredoc(char *line)
+int	count_heredoc(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (*line != '\0')
@@ -37,10 +49,8 @@ char	**ft_split_heredoc(char *line)
 	char	**m;
 	int		i;
 	int		j;
-	int len;
+	int		len;
 
-//	printf("count = %d\n", count_redir(line));
-//	printf("aqui\n");
 	m = (char **)malloc(sizeof(char *) * (count_heredoc(line) + 1));
 	j = -1;
 	while (*line)
@@ -50,7 +60,6 @@ char	**ft_split_heredoc(char *line)
 			len = len_heredoc(line);
 			m[++j] = ft_substr(line, 0, len);
 			line += len;
-//			printf("m[%d] = |%s|\n", j, m[j]);
 		}
 		else
 		{
@@ -58,7 +67,6 @@ char	**ft_split_heredoc(char *line)
 			while (*line && *line != '<' && *line != '>' && ++i)
 				line++;
 			m[++j] = ft_substr(line - i, 0, i);
-//			printf("m[%d] = |%s|\n", j, m[j]);
 		}
 	}
 	m[++j] = NULL;
@@ -67,7 +75,7 @@ char	**ft_split_heredoc(char *line)
 
 char	*make_heredoc(char *line)
 {
-	char **tmp;
+	char	**tmp;
 
 	tmp = ft_split_marks(line, ' ');
 	printf("tmp[1] = %s\n", tmp[1]);
@@ -102,8 +110,6 @@ char	*find_heredoc(char *cmd, char **here_doc)
 		{
 			if (last_sign(cmd) == '|')
 				cmd = ft_strjoin(cmd, c);
-//			free(c);
-//	printf("aqui\n");
 			c = readline("> ");
 			printf("c = %s\n", c);
 			printf("cmd = %s\n", cmd);

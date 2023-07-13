@@ -1,15 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer_aux.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/13 17:39:35 by theonewhokn       #+#    #+#             */
+/*   Updated: 2023/07/13 18:17:52 by theonewhokn      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/minishell.h"
 
-int 	is_pipe_or_dollar(char c)
-{	
+int	is_pipe_or_dollar(char c)
+{
 	if (c == '|' || c == '$')
 		return (1);
 	return (0);
 }
 
 int	is_redir(char *str)
-{	
-	int i;
+{
+	int	i;
 
 	i = 0;
 	if (str[i] == '<' && str[i + 1] == '<')
@@ -23,9 +35,9 @@ int	is_redir(char *str)
 }
 
 static int	count_meta(char *line, int *i, int *tokens, int word)
-{	
+{
 	if (is_pipe_or_dollar(line[*i]) == 1)
-	{	
+	{
 		(*tokens)++;
 		if (word == 1)
 			(*tokens)++;
@@ -33,7 +45,7 @@ static int	count_meta(char *line, int *i, int *tokens, int word)
 		return (1);
 	}
 	else if (is_redir(&line[*i]) == 2)
-	{	
+	{
 		(*tokens)++;
 		if (word == 1)
 			(*tokens)++;
@@ -41,7 +53,7 @@ static int	count_meta(char *line, int *i, int *tokens, int word)
 		return (1);
 	}
 	else if (is_redir(&line[*i]) == 1)
-	{	
+	{
 		(*tokens)++;
 		if (word == 1)
 			(*tokens)++;
@@ -51,17 +63,17 @@ static int	count_meta(char *line, int *i, int *tokens, int word)
 	return (0);
 }
 
-static void loop(char *line, int *i, int *tokens, int *word)
+static void	loop(char *line, int *i, int *tokens, int *word)
 {
 	if (count_meta(line, i, tokens, *word) > 0)
 		*word = 0;
-	else if(line[*i] != ' ' && *word == 0)
-	{	
+	else if (line[*i] != ' ' && *word == 0)
+	{
 		(*i)++;
 		*word = 1;
 	}
 	else if (line[*i] == ' ' && *word == 1)
-	{	
+	{
 		(*tokens)++;
 		(*i)++;
 		*word = 0;
@@ -72,16 +84,16 @@ static void loop(char *line, int *i, int *tokens, int *word)
 
 int	count_tokens(char *line)
 {
-	int i;
-	int tokens;
-	int word;
+	int	i;
+	int	tokens;
+	int	word;
 
 	i = 0;
 	tokens = 0;
 	word = 0;
 	while (line[i])
 		loop(line, &i, &tokens, &word);
-	if (word == 1)	
+	if (word == 1)
 		tokens++;
 	return (tokens);
 }

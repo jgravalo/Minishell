@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgravalo <jgravalo@student.42barcel>       +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 15:41:10 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/07/11 14:27:40 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/07/13 18:20:55 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	size_t	i;
 	size_t	j;
 	char	*new;
-	
+
 	if (!s1 || ft_strcmp("", s1) == 0)
 		return (s2);
 	if (!s2 || ft_strcmp("", s2) == 0)
@@ -63,7 +63,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2[j] != '\0')
 		new[i++] = s2[j++];
 	new[ft_strlen(s1) + ft_strlen(s2)] = '\0';
-//	free(s1);
 	return (new);
 }
 
@@ -88,4 +87,18 @@ int	ft_atoi(char *str)
 		str++;
 	}
 	return (n * sign);
+}
+
+int	is_local(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '/' && cmd[i - 1] != '.')
+			return (-1);
+		i++;
+	}
+	return (0);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redir.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
+/*   Updated: 2023/07/13 17:27:58 by theonewhokn      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/minishell.h"
 
 //int	search_redir(char **args)
@@ -75,9 +87,9 @@ char	*check_redir(char *line)
 	return (line);
 }
 */
-int		len_redir(char *line)
+int	len_redir(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if ((*line == '>' || *line == '<') && ++i)
@@ -93,9 +105,9 @@ int		len_redir(char *line)
 	return (i);
 }
 
-int		count_redir(char *line)
+int	count_redir(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (*line != '\0')
@@ -114,7 +126,7 @@ char	**ft_split_redir(char *line)
 	char	**m;
 	int		i;
 	int		j;
-	int len;
+	int		len;
 
 //	printf("count = %d\n", count_redir(line));
 //	printf("aqui\n");

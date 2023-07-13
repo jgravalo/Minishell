@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/13 17:59:28 by theonewhokn       #+#    #+#             */
+/*   Updated: 2023/07/13 17:59:52 by theonewhokn      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
-int export_n(char *var, char ***envp)
+int	export_n(char *var, char ***envp)
 {
 	char	**new;
 	int		i;
@@ -26,15 +38,15 @@ int export_n(char *var, char ***envp)
 	return (0);
 }
 
-int export(char **argv, char ***envp)
+int	export(char **argv, char ***envp)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (argv[i])
-    {
-        export_n(argv[i], envp);
-        i++;
-    }
-    return (0);
+	i = 0;
+	while (argv[i])
+	{
+		export_n(argv[i], envp);
+		i++;
+	}
+	return (0);
 }

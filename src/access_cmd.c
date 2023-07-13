@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:09:57 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/07/10 10:30:46 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/13 18:17:39 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,50 +43,39 @@ char	**split_docs(char *path)
 	return (docs);
 }
 
-int	is_local(char *cmd)
+static char	*access_loop(char **docs, char *cmd)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
 	i = 0;
-	while (cmd[i])
+	while (docs[i])
 	{
-		if (cmd[i] == '/' && cmd[i - 1] != '.')
-			return (-1);
+		tmp = ft_strjoin(docs[i], "/");
+		docs[i] = ft_strjoin(tmp, cmd);
+		if ((access(docs[i], F_OK)) != -1)
+			return (docs[i]);
 		i++;
 	}
-	return (0);
+	printf("%s: Command not found\n", cmd);
+	free(tmp);
+	return (NULL);
 }
 
 char	*access_cmd(char *cmd, char**docs, int env)
 {
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	if (cmd[0] != '/')   //si no empieza por backslash, bash pensará que es un comando (para dar error)
-	{	
-		while (docs[i])
-		{
-			tmp = ft_strjoin(docs[i], "/");
-			docs[i] = ft_strjoin(tmp, cmd);
-			if ((access(docs[i], F_OK)) != -1)
-				return (docs[i]);
-			i++;
-		}
-		printf("%s: Command not found\n", cmd);
-		free(tmp);
-		return (NULL);
-	}
+	if (cmd[0] != '/') 
+		return (access_loop(docs, cmd));
 	if (env == -1 && access(cmd, F_OK) == 0)
 		return (cmd);
 	if (is_local(cmd) == 0 && !(cmd[0] == '.' && cmd[1] == '/'))
 	{
-//		cmd_error(cmd);
+		cmd_error(cmd);
 		exit(127);
 	}
 	if (access(cmd, F_OK) != -1 && access(cmd, X_OK) != -1)
 		return (cmd);
-//	cmd_error(cmd);
+	cmd_error(cmd);
 	exit(126);
 }
 
@@ -96,7 +85,7 @@ char	*file_cmd(char *cmd, char **envp)
 	char	*file;
 	char	**docs;
 
-	env = 0;						
+	env = 0;
 	if (!(cmd[0] == '.' && cmd[1] == '/'))
 		env = search_path(envp);
 	if (env != -1)

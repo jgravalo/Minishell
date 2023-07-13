@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
+/*   Updated: 2023/07/13 18:23:00 by theonewhokn      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/minishell.h"
 
-void test_pipe(t_pipe *p)
+void	test_pipe(t_pipe *p)
 {
-//	write(p->p[1], "el pipe funciona\n", 17);
-	char buffer[17];
+	char	buffer[17];
+
 	read(p->p[0], buffer, 17);
 	write(1, "<<<", 3);
 	write(1, buffer, 17);
@@ -84,51 +96,48 @@ int main(int argc, char **argv, char **envp)
 }
 */
 
-static void handler(int sig) 
-{	
+static void	handler(int sig)
+{
 	if (sig == SIGINT)
-    	write(1, "\njgravalo> ", 11);
+		write(1, "\njgravalo> ", 11);
 	if (sig == SIGQUIT)
-	{	
+	{
 		return ;
 	}
 }
-  
-int new_shell(char **envp)
-{	
+
+int	new_shell(char **envp)
+{
 	char				*c;
 	char				*tmp;
 	int					exit_code;
-	char 				**tokens;
+	char				**tokens;
 
 	while (1)
-	{	
+	{
 		signal(SIGINT, handler);
 		signal(SIGQUIT, handler);
 		c = readline("jgravalo> ");
-		tmp = expand_var(c, envp);
+		tmp = expand_meta(c, envp);
 		c = parse_heredoc(tmp); 
 		if (c == NULL)
-		{	
+		{
 			write(1, "exit\n", 6);
 			exit(1);
 		}
 		if (c[0] != 0)
-		{	
+		{
 			add_history(c);
-			tokens = lexer(c); // creo recomendable empezar desde un lexer ya que tendriamos todos los simbolos en un array.
-			//ft_printarr(tokens); // funcion que imprime el array de tokens, para debugear.
 			exit_code = parse_pipex(c, envp);
 			free(c);
 		}
 	}
-		return (exit_code);
+	return (exit_code);
 }
 
-int main(int argc, char **argv, char **envp)
-{	
+int	main(int argc, char **argv, char **envp)
+{
 	if (!argc && !argv && !envp)
 		return (0);
-	new_shell(envp);		
+	new_shell(envp);
 }
-

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   meta.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
+/*   Updated: 2023/07/13 18:19:04 by theonewhokn      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/minishell.h"
 
 char	*meta_str(char const *s, char c, int *n)
@@ -10,7 +22,7 @@ char	*meta_str(char const *s, char c, int *n)
 	{
 		if (*s == '\'' && ++s && ++i)
 			while (*s && *s != '\'' && ++i)
-				s++;	
+				s++;
 		s++;
 	}
 	new = ft_substr(s - i, 0, i);
@@ -82,6 +94,7 @@ void	get_var(t_var *p, char **envp, int n)
 		n++;
 	}
 }
+
 char	*expand_meta(char *line, char **envp)
 {
 	t_var	p;
@@ -95,7 +108,7 @@ char	*expand_meta(char *line, char **envp)
 		p.new = NULL;
 		n = 0;
 	}
-	get_var(&p, envp, n);	
+	get_var(&p, envp, n);
 	return (p.new);
 }
 /*

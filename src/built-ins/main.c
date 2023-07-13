@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/13 18:11:14 by theonewhokn       #+#    #+#             */
+/*   Updated: 2023/07/13 18:11:31 by theonewhokn      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
-int built_ins(char **argv, char **envp)
+int	built_ins(char **argv, char **envp)
 {
-	int out;
+	int	out;
 
 	out = 0;
 //	printf("%s\n", argv[1]);

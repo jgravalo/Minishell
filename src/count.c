@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   count.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/13 18:20:04 by theonewhokn       #+#    #+#             */
+/*   Updated: 2023/07/13 18:20:37 by theonewhokn      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/minishell.h"
 
 int	count_ascii(char *line, int c)
@@ -31,23 +43,17 @@ int	count_arr(char **args)
 	return (i);
 }
 
-
-
-
-
-
-
 char	*modify_line(char *args, char **vars, int len)
 {
 	int		i;
 	int		j;
 	int		n;
-//	char	*var;
+	char	*new;
 
 	i = 0;
 	j = 0;
 	n = 0;
-	char	*new = (char *)malloc(sizeof(char) * (ft_strlen(args) + len));
+	new = (char *)malloc(sizeof(char) * (ft_strlen(args) + len));
 	while (args[i])
 	{
 		if (args[i] && args[i - 1] == '\'')
@@ -64,9 +70,9 @@ char	*modify_line(char *args, char **vars, int len)
 		}
 		if (args[i - 1] == '$')
 		{
-			while (args[i] && ((args[i] > '0' && args[i] < '9') ||
-				(args[i] > 'A' && args[i] < 'Z') ||
-				(args[i] > 'a' && args[i] < 'z')))
+			while (args[i] && ((args[i] > '0' && args[i] < '9') 
+					|| (args[i] > 'A' && args[i] < 'Z') 
+					|| (args[i] > 'a' && args[i] < 'z')))
 				i++;
 			ft_strcat(new, vars[j]);
 			n += ft_strlen(vars[j]);
@@ -107,9 +113,9 @@ char	*check_vars(char *args, char **envp)
 		if (args[i - 1] == '$')
 		{
 			start = i;
-			while (args[i] && ((args[i] > '0' && args[i] < '9') ||
-				(args[i] > 'A' && args[i] < 'Z') ||
-				(args[i] > 'a' && args[i] < 'z')))
+			while (args[i] && ((args[i] > '0' && args[i] < '9') 
+					|| (args[i] > 'A' && args[i] < 'Z') 
+					|| (args[i] > 'a' && args[i] < 'z')))
 			{
 				i++;
 			}

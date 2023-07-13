@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_others.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/13 17:35:05 by theonewhokn       #+#    #+#             */
+/*   Updated: 2023/07/13 17:42:50 by theonewhokn      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/minishell.h"
 
-int parse_ands(char *line, char **envp)
+int	parse_ands(char *line, char **envp)
 {
 	char	**ands;
 	int		i;
 	int		exit;
 
-	ands = ft_split(line, '&');//modificarlo para que parta con strings
+	ands = ft_split(line, '&');
 	i = 0;
 	while (ands[i])
 	{
@@ -16,13 +28,13 @@ int parse_ands(char *line, char **envp)
 	return (exit);
 }
 
-int parse_ors(char *line, char **envp)
+int	parse_ors(char *line, char **envp)
 {
 	char	**ors;
 	int		i;
 	int		exit;
 
-	ors = ft_split(line, '|');//modificarlo para que parta con strings
+	ors = ft_split(line, '|');
 	i = 0;
 	while (ors[i])
 	{

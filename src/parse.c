@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/13 17:34:38 by theonewhokn       #+#    #+#             */
+/*   Updated: 2023/07/13 17:37:23 by theonewhokn      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/minishell.h"
 
-static void dup_and_close(t_pipe *pipe, int mode)
+static void	dup_and_close(t_pipe *pipe, int mode)
 {
 	dup2(pipe->p[mode], mode);
 	close(pipe->p[0]);
@@ -54,29 +66,30 @@ static int first_pipe(t_shell *shell, char **envp)
 	return (shell->exit);
 }
 
-static int middle_pipe(t_shell *shell, char **envp, int *i)
+static int	middle_pipe(t_shell *shell, char **envp, int *i)
 {
 	pipe(shell->p[*i].p);
-	shell->exit = parse_line(shell->pipes[*i], envp, &shell->p[*i - 1], &shell->p[*i]);// pipes intermedios
+	shell->exit = parse_line(shell->pipes[*i],
+			envp, &shell->p[*i - 1], &shell->p[*i]);
 	close(shell->p[*i - 1].p[0]);
 	close(shell->p[*i].p[1]);
 	(*i)++;
 	return (shell->exit);
 }
 
-static int handle_pipes(t_shell *shell, char **envp)
-{	
-	int i;
+static int	handle_pipes(t_shell *shell, char **envp)
+{
+	int	i;
 
 	i = 1;
-	if(first_pipe(shell, envp) == -1) // error handling 
+	if (first_pipe(shell, envp) == -1)
 		return (-1);
 	while (i < shell->pipex - 1)
 	{
-		if (middle_pipe(shell, envp, &i) == -1) // error handling 
+		if (middle_pipe(shell, envp, &i) == -1) 
 			return (-1);
 	}
-	shell->exit = parse_line(shell->pipes[i], envp, &shell->p[i - 1], NULL); //ultimo pipe
+	shell->exit = parse_line(shell->pipes[i], envp, &shell->p[i - 1], NULL);
 	close(shell->p[i - 1].p[0]);
 	free(shell->p);
 	return (shell->exit);
@@ -84,12 +97,12 @@ static int handle_pipes(t_shell *shell, char **envp)
 
 int parse_pipex(char *line, char **envp)
 {	
-	t_shell shell;
+	t_shell	shell;
 
 	shell.pipex = count_ascii(line, '|');
 	shell.pipes = ft_split(line, '|');
 	if (shell.pipex == 0)
-		shell.exit = parse_line(shell.pipes[0], envp, NULL, NULL); //sin pipe
+		shell.exit = parse_line(shell.pipes[0], envp, NULL, NULL);
 	else 
 		shell.exit = handle_pipes(&shell, envp);
 	free_m(shell.pipes);

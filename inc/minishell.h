@@ -1,7 +1,19 @@
-# ifndef MINISHELL_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
+/*   Updated: 2023/07/13 18:12:18 by theonewhokn      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include <fcntl.h>
+# include <fcntl.h>
 //# include <defines.h>
 # include <errno.h>
 # include <stdlib.h>
@@ -37,16 +49,16 @@ typedef struct s_pipe{
 
 typedef struct s_shell
 {
-    char **tokens;
-    char **pipes;
-    int pipex;
-    int exit;
-    t_pipe *p;
-    char **args;
-    char *cmd;
-}               t_shell;
+	char	**tokens;
+	char	**pipes;
+	int		pipex;
+	int		exit;
+	t_pipe	*p;
+	char	**args;
+	char	*cmd;
+}			t_shell;
 
-typedef struct	s_var
+typedef struct s_var
 {
 	char	**tmp;
 	char	*new;
@@ -95,25 +107,31 @@ int		count_ascii(char *line, int c);
 
 int		count_arr(char **args);
 
-int 	set_signals(int pid, char **envp);
+int		set_signals(int pid, char **envp);
 
-int 	new_shell(char **envp);
+int		new_shell(char **envp);
 
-int 	parse_pipex(char *line, char **envp);
+int		parse_pipex(char *line, char **envp);
 
-char 	**lexer(char *line);
+char	**lexer(char *line);
 
 int		count_tokens(char *line);
 
-int 	is_pipe_or_dollar(char c);
+int		is_pipe_or_dollar(char c);
 
 int		is_redir(char *str);
 
-char *parse_heredoc(char *line);
+char	*parse_heredoc(char *line);
 
 int		is_meta(char c);
 
 char	*expand_meta(char *line, char **envp);
+
+char	*c_str(char const *s, char c, int *n);
+
+int		words(const char *s, char c);
+
+int		is_local(char *cmd);
 
 /*
 void	make_history(t_hist *hist, char *line);
