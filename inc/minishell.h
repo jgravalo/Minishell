@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/13 18:12:18 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/18 22:11:27 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,8 @@ char	*c_str(char const *s, char c, int *n);
 int		words(const char *s, char c);
 
 int		is_local(char *cmd);
+
+size_t	ft_strlcpy(char *dst, char *src, size_t dstsize);
 
 /*
 void	make_history(t_hist *hist, char *line);

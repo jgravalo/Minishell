@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:00:23 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/13 18:07:05 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/18 21:56:46 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,12 @@ static void	unset_aux(char ***envp, char **new, int n)
 int	unset_n(char *var, char ***envp)
 {
 	char	**new;
-	int		i;
-	int		j;
 	int		n;
 
 	n = search_var_num(var, *envp);
 	if (n < 0)
 		return (0);
 	new = (char **)malloc(sizeof(char *) * count_arr(*envp));
-	i = 1;
-	j = 0;
 	env(*envp);
 	unset_aux(envp, new, n);
 	env(*envp);

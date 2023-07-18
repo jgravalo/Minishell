@@ -6,11 +6,66 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:59:28 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/13 17:59:52 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/18 22:34:14 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+static void print_env(char **envp, int *order)
+{
+	int n;
+	int count;
+	int i;
+
+	i = 0;
+	count = 0;
+	n = count_arr(envp);
+	while (n)
+	{
+		while (order[i])
+		{	
+			if (order[i] == count)
+			{
+				write(1, "declare -x ", 12);
+				write(1, envp[i], ft_strlen(envp[i]));
+				write(1, "\n", 1);
+				break;
+			}
+			i++;
+		}
+		i = 0;
+		count++;
+		n--;
+	}
+}
+
+static void	order_env(char **envp)
+{
+	int *order;
+	int i;
+	int count;
+	int j;
+
+	i = 0;
+	j = 0;
+	order = (int *)malloc(sizeof (int) * count_arr(envp));
+	while (envp[i])
+	{	
+		while (envp[j + 1])
+		{
+			if (ft_strcmp(envp[i], envp[j + 1]) > 0)
+				count++;
+			j++;
+		}
+		order[i] = count;
+		count = 0;
+		j = 0;
+		i++;
+	}
+	print_env(envp, order);
+	free(order);
+}
 
 int	export_n(char *var, char ***envp)
 {
@@ -38,14 +93,19 @@ int	export_n(char *var, char ***envp)
 	return (0);
 }
 
-int	export(char **argv, char ***envp)
+int	export(char **args, char ***envp)
 {
 	int	i;
 
 	i = 0;
-	while (argv[i])
+	if (args[1] == NULL)
+	{	
+		order_env(*envp);
+		return (0);
+	}
+	while (args[i])
 	{
-		export_n(argv[i], envp);
+		export_n(args[i], envp);
 		i++;
 	}
 	return (0);

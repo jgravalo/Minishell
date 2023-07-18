@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:03:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/13 18:07:50 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/18 20:43:50 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	cd(char *rute, char **envp);
 
 int	unset(char **var, char ***envp);
 
-int	export(char **var, char ***envp);
+int	export(char **args, char ***envp);
 
 int	run_cd(char **args, char **envp);
 

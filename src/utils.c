@@ -6,22 +6,12 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 13:29:05 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/07/12 14:41:28 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/07/18 20:49:33 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-/*
-size_t	ft_strlen(const char *str)
-{
-	unsigned long	count;
 
-	count = 0;
-	while (str[count] != '\0')
-		count++;
-	return (count);
-}
-*/
 int	ft_strcmp(char *s1, char *s2)
 {
 	while (*s1 || *s2)
@@ -33,31 +23,6 @@ int	ft_strcmp(char *s1, char *s2)
 	}
 	return (0);
 }
-/*
-char	*ft_strjoin(char *s1, char *s2)
-{
-	char	*new;
-	int		i;
-	int		j;
-
-	new = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	i = 0;
-	while (s1[i])
-	{	
-		new[i] = s1[i];
-		i++;
-	}
-	j = 0;
-	while (s2[j])
-	{	
-		new[i] = s2[j];
-		i++;
-		j++;
-	}
-	new[i] = '\0';
-	return (new);
-}
-*/
 
 void	free_m(char **fdf)
 {
