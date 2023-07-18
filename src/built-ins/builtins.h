@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:03:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/18 20:43:50 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/18 22:44:43 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,11 @@ int	export(char **args, char ***envp);
 int	run_cd(char **args, char **envp);
 
 int	run_builtin(char **args, char **envp);
+
+int is_digit(char c);
+
+int is_alpha(char c);
+
+int is_alpha_num(char c);
 
 #endif
