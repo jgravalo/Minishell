@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:59:28 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/18 23:26:02 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/19 09:18:44 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,12 +125,6 @@ int	export(char **args, char ***envp)
 	while (args[i])
 	{
 		export_n(args[i], envp);
-		i++;
-	}
-	i = 0;
-	while ((*envp)[i])
-	{
-		printf("%s\n", (*envp)[i]);
 		i++;
 	}
 	return (0);

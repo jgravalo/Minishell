@@ -6,43 +6,34 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:00:23 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/18 21:56:46 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/19 09:35:35 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static void	unset_aux(char ***envp, char **new, int n)
-{
-	int		i;
-	int		j;
-
-	i = 1;
-	j = 0;
-	while (*envp[i + j])
-	{
-		if (i == n)
-		{
-			free(*envp[i]);
-			j++;
-		}
-		new[i] = *envp[i + j];
-		i++;
-	}
-}
-
-int	unset_n(char *var, char ***envp)
+static int	unset_n(char *var, char ***envp)
 {
 	char	**new;
 	int		n;
+	int		i;
 
 	n = search_var_num(var, *envp);
 	if (n < 0)
-		return (0);
+		return (1);
 	new = (char **)malloc(sizeof(char *) * count_arr(*envp));
-	env(*envp);
-	unset_aux(envp, new, n);
-	env(*envp);
+	i = 0;
+	while ((*envp)[i])
+	{	
+		if (n == i)
+		{	
+			i++;
+			break ;
+		}
+		new[i] = ft_strdup((*envp)[i]);
+		i++;
+	}
+	new [i] = NULL;
 	*envp = new;
 	return (0);
 }
@@ -50,12 +41,21 @@ int	unset_n(char *var, char ***envp)
 int	unset(char **argv, char ***envp)
 {
 	int	i;
+	int exit;
 
 	i = 1;
+	exit = 0;
+	if (argv[i] == NULL)
+		return (1);
 	while (argv[i])
-	{
-		unset_n(argv[i], envp);
+	{	
+		if (ft_strchr(argv[i], '=') != NULL)
+		{
+			exit++;
+			break;
+		}
+		exit += unset_n(argv[i], envp);
 		i++;
 	}
-	return (0);
+	return (exit);
 }

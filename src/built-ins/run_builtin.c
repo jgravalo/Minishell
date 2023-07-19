@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:07:19 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/13 18:25:29 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/19 09:44:12 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,13 @@ int	run_builtin(char **args, char **envp)
 	if (ft_strcmp(args[0], "echo") == 0)
 		return (echo(args));
 	else if (ft_strcmp(args[0], "env") == 0)
-	{
-		env(envp);
-		return (0);
-	}
+		return (env(envp));
 	else if (ft_strcmp(args[0], "export") == 0)
-	{
-		export(args, &envp);
-		return (0);
-	}
+		return (export(args, &envp));
 	else if (ft_strcmp(args[0], "pwd") == 0)
-	{
-		pwd(envp);
-		return (0);
-	}
+		return (pwd(envp));
 	else if (ft_strcmp(args[0], "unset") == 0)
-	{
-		unset(args, &envp);
-		return (0);
-	}
+		return (unset(args, &envp));
 	else
 		return (1);
 }
