@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/13 18:37:29 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/19 18:02:13 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,9 @@ int	new_shell(char **envp)
 		}
 		if (c[0] != 0)
 		{
-			tmp = expand_meta(c, envp);
+			tmp = expand_meta(c, envp); // implementar parseo single/double quotes (metachars dependen de ellas)
 			c = parse_heredoc(tmp);
-			add_history(c); 
+			add_history(c);
 			exit_code = parse_pipex(c, envp);
 			free(c);
 		}

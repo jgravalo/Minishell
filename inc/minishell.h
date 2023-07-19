@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/18 23:26:41 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/19 18:12:13 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ int		words(const char *s, char c);
 
 int		is_local(char *cmd);
 
-size_t	ft_strlcpy(char *dst, char *src, size_t dstsize);
+int		parse_no_pipes_line(char *line, char **envp);
 
 /*
 void	make_history(t_hist *hist, char *line);

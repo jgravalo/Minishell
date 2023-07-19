@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:03:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/18 22:44:43 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/19 17:42:30 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	unset(char **var, char ***envp);
 
 int	export(char **args, char ***envp);
 
-int	run_cd(char **args, char **envp);
+int	check_builtin(char **args, char **envp);
 
 int	run_builtin(char **args, char **envp);
 
