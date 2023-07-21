@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/19 18:12:13 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/19 18:43:08 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,11 @@ typedef struct s_shell
 {
 	char	**tokens;
 	char	**pipes;
+	char 	**envp;
+	char	**args;
 	int		pipex;
 	int		exit;
 	t_pipe	*p;
-	char	**args;
 	char	*cmd;
 }			t_shell;
 

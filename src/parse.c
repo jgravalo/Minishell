@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:34:38 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/19 18:17:11 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/21 09:32:23 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,42 @@ static void	dup_and_close(t_pipe *pipe, int mode)
 	close(pipe->p[0]);
 	close(pipe->p[1]);
 }
+
+/*
+typedef struct s_cmd
+{
+int pipex;
+char **pipes;
+t_pipe *pipe;
+char **envp
+} t_cmd;
+
+int parse_line(t_cmd *c, int n, t_pipe *in, t_pipe *out)
+{
+pid_t pid;
+pid = fork();
+if (pid > 0)
+{
+exit = set_signals(pid, c->envp);
+exit = builtins();
+n++;
+if (out != NULL)
+exit = parse_line(&cmd, n, c->p[n - 1], c->p[n]);
+}
+if (pid == 0)
+{
+if (in != NULL)
+dup_and_close(in, 0);
+if (out != NULL)
+dup_and_close(out, 1);
+tmp = parse_redir(line);
+args = ft_split_marks(tmp, ' ');
+cmd = file_cmd(args[0], c->envp);
+execve(cmd, args, c->envp);
+}
+return (exit);
+}
+*/
 
 int	parse_line(char *line, char **envp, t_pipe *in, t_pipe *out)
 {
@@ -39,7 +75,6 @@ int	parse_line(char *line, char **envp, t_pipe *in, t_pipe *out)
 		exit_code = set_signals(pid, envp);
 	if (pid == 0)
 	{	
-		//fd = check_redir(args); //si hay redireccion, borrarla de la linea
 		if (in != NULL)
 			dup_and_close(in, 0);
 		if (out != NULL)
