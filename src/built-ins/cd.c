@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/13 18:10:08 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/21 14:33:25 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,11 @@ int	cd(char *rute, char **envp)
 		rute = ft_strjoin(tmp, rute);
 		free(tmp);
 	}
-	printf("%s\n", getcwd(buffer, 100));
 	oldpwd = search_var_num("OLDPWD", envp);
 	envp[oldpwd] = ft_strjoin("OLDPWD=", getcwd(buffer, 100));
 	if (chdir(rute) < 0)
 		return (cd_error(rute));
 	pwd = search_var_num("PWD", envp);
 	envp[pwd] = ft_strjoin("PWD=", getcwd(buffer, 100));
-	printf("%s\n", getcwd(buffer, 100));
 	return (0);
 }
