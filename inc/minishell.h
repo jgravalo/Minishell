@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/19 18:43:08 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/22 11:09:17 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 //# include "builtins.h"
 
 # define DEF_PATH "/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:"
+# define READ 0
+# define WRITE 1
 
 typedef struct s_hist{
 	char			*line;
@@ -53,8 +55,11 @@ typedef struct s_shell
 	char	**pipes;
 	char 	**envp;
 	char	**args;
+	int		inpipe;
+	int		outpipe;
 	int		pipex;
 	int		exit;
+	int		children;
 	t_pipe	*p;
 	char	*cmd;
 }			t_shell;

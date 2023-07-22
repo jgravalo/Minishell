@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:09:57 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/07/13 18:17:39 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/21 21:11:57 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static char	*access_loop(char **docs, char *cmd)
 			return (docs[i]);
 		i++;
 	}
-	printf("%s: Command not found\n", cmd);
+	//printf("%s: Command not found\n", cmd);
 	free(tmp);
 	return (NULL);
 }
