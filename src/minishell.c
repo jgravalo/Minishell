@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/21 21:11:18 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/22 19:29:33 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,9 @@ int	new_shell(char **envp)
 	char				*c;
 	char				*tmp;
 	int					exit_code;
-	char				**tokens;
 
 	while (1)
-	{
+	{	
 		signal(SIGINT, handler);
 		signal(SIGQUIT, handler);
 		c = readline("jgravalo> ");

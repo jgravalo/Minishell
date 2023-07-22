@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/22 11:09:17 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/22 19:24:38 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,15 @@ typedef struct s_shell
 	char	**pipes;
 	char 	**envp;
 	char	**args;
+	char	*cmd;
+	t_pipe	*p;
 	int		inpipe;
 	int		outpipe;
 	int		pipex;
 	int		exit;
 	int		children;
-	t_pipe	*p;
-	char	*cmd;
+	int		last_builtin;
+	int		i;
 }			t_shell;
 
 typedef struct s_var
@@ -139,7 +141,19 @@ int		words(const char *s, char c);
 
 int		is_local(char *cmd);
 
-int		parse_no_pipes_line(char *line, char **envp);
+int		parse_no_pipes_line(t_shell *shell, char **envp);
+
+int		parse_line(t_shell *shell, char **envp, int i);
+
+void 	parent_close(t_shell *shell);
+
+void 	parent_close_but_one(t_shell *shell);
+
+void 	close_fd(t_shell *shell, int i);
+
+void 	create_pipes(t_shell *shell);
+
+void	check_pipe(t_shell *shell, int i);
 
 /*
 void	make_history(t_hist *hist, char *line);

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/19 18:12:59 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/22 19:29:10 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,31 +46,32 @@ int	parse_ors(char *line, char **envp)
 	return (exit);
 }
 
-int	parse_no_pipes_line(char *line, char **envp)
+int	parse_no_pipes_line(t_shell *shell, char **envp)
 {
-	char	**args;
 	char	*cmd;
 	char	*tmp;
 	pid_t	pid;
-	int		exit_code;
 
-	args = ft_split_marks(line, ' ');
-	if (run_builtin(args, envp) == 0) 
-			return (0);
+	shell->args = ft_split_marks(shell->pipes[0], ' ');
+	if (run_builtin(shell->args, envp) == 0)
+	{
+		free_m(shell->args);
+		return (0);
+	}		
 	pid = fork();
 	if (pid > 0)
-		exit_code = set_signals(pid, envp);
+		shell->exit = set_signals(pid, envp);
 	if (pid == 0)
 	{	
 		//fd = check_redir(args); //si hay redireccion, borrarla de la linea
-		tmp = parse_redir(line); // aplica las redirecciones (de momento solo de salida)
-		args = ft_split_marks(tmp, ' ');
-		cmd = file_cmd(args[0], envp); // error handling dentro de file_cmd
+		//tmp = parse_redir(line); // aplica las redirecciones (de momento solo de salida)
+		shell->args = ft_split_marks(tmp, ' ');
+		cmd = file_cmd(shell->args[0], envp); // error handling dentro de file_cmd
 		if (cmd == NULL) // file_cmd ya mide errores
 			exit(1);
-		execve(cmd, args, envp);
+		execve(cmd, shell->args, envp);
 	}
-	waitpid(pid, &exit_code, 0);
-	exit_code = WEXITSTATUS(exit_code);
-	return (exit_code);
+	waitpid(-1, &shell->exit, 0);
+	shell->exit = WEXITSTATUS(shell->exit);
+	return (shell->exit);
 }
