@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:34:38 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/22 13:56:32 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/22 17:44:27 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ static void close_fd(t_shell *shell, int i)
 
 	if (i == 0)
 	{	
+		//printf("proces %d entra en primer comando\n", getpid());
 		i++;
 		while (i < shell->pipex)
 		{
@@ -134,6 +135,7 @@ static void close_fd(t_shell *shell, int i)
 	}
 	else if (i == shell->pipex)
 	{	
+		//printf("proces %d entra en ultimo comando aqui\n", getpid());
 		i -= 2;
 		while (i >= 0)
 		{
@@ -151,7 +153,6 @@ static void close_fd(t_shell *shell, int i)
 			close(shell->p[i].p[READ]);
 			close(shell->p[i].p[WRITE]);
 			i++;
-			
 		}
 		i = store;
 		i -= 2;
@@ -175,8 +176,6 @@ int	parse_line(t_shell *shell, char **envp, int i)
 	inpipe = -1;
 	outpipe = -1;
 	check_pipe(shell, i);
-	if (i < shell->pipex)
-		pipe(shell->p[i].p);
 	shell->args = ft_split_marks(shell->pipes[i], ' ');
 	if (check_builtin(shell->args, envp) == 1 && shell->outpipe == 0) // es ultimo proceso y si es built in se corre en la misma shell
 	{	
@@ -197,6 +196,7 @@ int	parse_line(t_shell *shell, char **envp, int i)
 	}
 	if (pid == 0)
 	{	
+		
 		if (shell->inpipe == 1) // hay pipe de entrada
 		{	
 			close(shell->p[i - 1].p[WRITE]);
@@ -240,8 +240,16 @@ int parse_pipex(char *line, char **envp)
 	if (shell.pipex == 0)
 		shell.exit = parse_no_pipes_line(shell.pipes[0], envp); // si no hay pipes, built ins siempre correran en la misma shell
 	else
-	{
+	{	
+		/*Se crean las pipes antes, porque si pipeline es larga da error, ya que procesos quieren
+		cerrar filedescriptors de pipes que aún no están generadas*/
 		shell.p = (t_pipe *)malloc(sizeof(t_pipe) * (shell.pipex));
+		while (i < shell.pipex)
+		{	
+			pipe(shell.p[i].p);
+			i++;
+		}
+		i = 0; // resetamos la i a cero, ya que esencial para la recursividad de parse_line
 		shell.exit = parse_line(&shell, envp, i);
 		free(shell.p);
 	}
