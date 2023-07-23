@@ -6,11 +6,12 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/23 10:44:44 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/23 11:12:45 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+#include <stdio.h>
 
 int	parse_ands(char *line, char **envp)
 {
@@ -50,7 +51,6 @@ int	parse_no_pipes_line(t_shell *shell, char **envp)
 {
 	char	*cmd;
 	char	*tmp;
-	pid_t	pid;
 
 	shell->args = ft_split_marks(shell->pipes[0], ' ');
 	if (run_builtin(shell->args, envp) == 0)
@@ -58,10 +58,14 @@ int	parse_no_pipes_line(t_shell *shell, char **envp)
 		free_m(shell->args);
 		return (0);
 	}		
-	pid = fork();
-	if (pid > 0)
-		shell->exit = set_signals(shell, envp);
-	if (pid == 0)
+	shell->pid[0] = fork();
+	if (shell->pid[0] > 0)
+	{
+		shell->pid[1] = 0;
+		shell->children++;
+		return(set_signals(shell, envp));
+	}
+	if (shell->pid[0] == 0)
 	{	
 		//fd = check_redir(args); //si hay redireccion, borrarla de la linea
 		//tmp = parse_redir(line); // aplica las redirecciones (de momento solo de salida)
@@ -71,5 +75,4 @@ int	parse_no_pipes_line(t_shell *shell, char **envp)
 			exit(1);
 		execve(cmd, shell->args, envp);
 	}
-	return(set_signals(shell, envp));
 }

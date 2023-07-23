@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/23 10:40:33 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/23 11:10:29 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,8 @@ void 	create_pipes(t_shell *shell);
 void	check_pipe(t_shell *shell, int i);
 
 void	clear_buffer();
+
+int		wait_for_children(t_shell *shell);
 
 /*
 void	make_history(t_hist *hist, char *line);

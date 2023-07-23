@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:24:57 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/23 10:53:21 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/23 11:12:30 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,20 @@ void	handler(int signal)
 	i = 0;
 	if (signal == SIGINT)
 	{	
-		kill(g_pid[i], SIGINT);
-		i++;
+		while (g_pid[i])
+		{
+			kill(g_pid[i], SIGINT);
+			i++;
+		}
+		write(1, "\n", 1);
 	}
-	write(1, "\n", 1);
 }
 
-static int	wait_for_children(t_shell *shell)
+int	wait_for_children(t_shell *shell)
 {	
 	pid_t	pid;
 	
+
 	while (shell->children)
 	{	
 		pid = waitpid(-1, &shell->exit, WNOHANG);

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:34:38 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/23 10:51:24 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/23 11:03:24 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ int	parse_line(t_shell *shell, char **envp, int i)
 	if (shell->pid[i] == 0)
 		child_routine(shell, envp, i);
 	parent_close(shell);
-	shell->pid[i] = NULL;
+	shell->pid[i] = 0;
 	return (set_signals(shell, envp));
 	/* exit_code = set_signals(pid, envp);
 	exit_code = WEXITSTATUS(exit_code); */
