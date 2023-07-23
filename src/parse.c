@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:34:38 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/22 19:34:05 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/23 10:51:24 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,20 @@ return (exit);
 	return (shell->exit);
 } */
 
+	/* if (shell->outpipe == 0 && check_builtin(shell->args, envp) == 1) // es ultimo proceso y si es built in se corre en la misma shell
+	{
+		close(shell->p[i - 1].p[WRITE]);
+		dup2(shell->p[i - 1].p[READ], STDIN_FILENO);
+		close(shell->p[i - 1].p[READ]);
+		if (shell->pipex > 1)
+			parent_close_but_one(shell);
+		if (run_builtin(shell->args, envp) == 0)
+		{	
+			free_m(shell->args);
+			return (wait_for_children(shell));	
+		}			
+	} */
+
 static void	parent_routine(t_shell *shell, char **envp, int i)
 {
 	free_m(shell->args);
@@ -98,14 +112,14 @@ static void child_routine(t_shell *shell, char **envp, int i)
 {
 	if (shell->inpipe == 1) // hay pipe de entrada
 	{	
+		close(shell->p[i - 1].p[WRITE]);
 		dup2(shell->p[i - 1].p[READ], STDIN_FILENO);
 		close(shell->p[i - 1].p[READ]);
-		close(shell->p[i - 1].p[WRITE]);
 	}
 	if (shell->outpipe == 1) // hay pipe de salida
 	{	
-		dup2(shell->p[i].p[WRITE], STDOUT_FILENO);
 		close(shell->p[i].p[READ]);
+		dup2(shell->p[i].p[WRITE], STDOUT_FILENO);
 		close(shell->p[i].p[WRITE]);
 	}
 	if (shell->pipex > 1)
@@ -119,45 +133,22 @@ static void child_routine(t_shell *shell, char **envp, int i)
 	execve(shell->cmd, shell->args, envp);
 }
 
-static int	wait_for_children(t_shell *shell)
-{	
-	pid_t	pid;
-	
-	while (shell->children)
-	{	
-		pid = waitpid(-1, &shell->exit, WNOHANG);
-		if (pid > 0)
-			shell->children--;
-	}
-	return (shell->exit);
-}
-
 int	parse_line(t_shell *shell, char **envp, int i)
 {	
 	char	*tmp;
-	pid_t	pid;
 
 	check_pipe(shell, i);
 	shell->args = ft_split_marks(shell->pipes[i], ' ');
-	if (shell->outpipe == 0 && check_builtin(shell->args, envp) == 1) // es ultimo proceso y si es built in se corre en la misma shell
-	{
-		dup2(shell->p[i - 1].p[READ], STDIN_FILENO);
-		close(shell->p[i - 1].p[READ]);
-		close(shell->p[i - 1].p[WRITE]);
-		if (run_builtin(shell->args, envp) == 0)
-		{	
-			free_m(shell->args);
-			parent_close_but_one(shell);
-			return (wait_for_children(shell));	
-		}			
-	}
-	pid = fork();
-	if (pid > 0)
+	/* comentado de momento (en l.89), hay que revisar si efectivamente vale la pena complicarse, 
+	no es tan claro que si el ultimo proceso de una pipeline es un builtin, lo haga la misma shell*/
+	shell->pid[i] = fork();
+	if (shell->pid[i] > 0)
 		parent_routine(shell, envp, i);
-	if (pid == 0)
+	if (shell->pid[i] == 0)
 		child_routine(shell, envp, i);
 	parent_close(shell);
-	return (wait_for_children(shell));
+	shell->pid[i] = NULL;
+	return (set_signals(shell, envp));
 	/* exit_code = set_signals(pid, envp);
 	exit_code = WEXITSTATUS(exit_code); */
 }
@@ -166,6 +157,7 @@ static void init_shell(t_shell *shell, char *line)
 {
 	shell->pipex = count_ascii(line, '|');
 	shell->pipes = ft_split(line, '|');
+	shell->pid = (pid_t *)malloc(sizeof (pid_t) * shell->pipex + 1);
 	shell->children = 0;
 	shell->last_builtin = 0;
 }

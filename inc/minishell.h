@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/22 19:24:38 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/23 10:40:33 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_shell
 	char	**args;
 	char	*cmd;
 	t_pipe	*p;
+	pid_t	*pid;
 	int		inpipe;
 	int		outpipe;
 	int		pipex;
@@ -115,7 +116,7 @@ int		count_ascii(char *line, int c);
 
 int		count_arr(char **args);
 
-int		set_signals(int pid, char **envp);
+int		set_signals(t_shell *shell, char **envp);
 
 int		new_shell(char **envp);
 
@@ -154,6 +155,8 @@ void 	close_fd(t_shell *shell, int i);
 void 	create_pipes(t_shell *shell);
 
 void	check_pipe(t_shell *shell, int i);
+
+void	clear_buffer();
 
 /*
 void	make_history(t_hist *hist, char *line);

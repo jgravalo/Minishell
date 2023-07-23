@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/22 19:29:33 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/23 10:28:04 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,21 @@ static void	handler(int sig)
 	if (sig == SIGINT)
 		write(1, "\njgravalo> ", 11);
 	if (sig == SIGQUIT)
-	{
+	{	
+		//exit(1);
 		return ;
 	}
+}
+
+void clear_buffer()
+{	
+	char buf[1024];
+	int ret;
+
+	ret = 0;
+	ret = read(STDIN_FILENO, buf, 1);
+	while (ret > 0)
+		ret = read(STDIN_FILENO, buf, 1);	
 }
 
 int	new_shell(char **envp)
@@ -118,12 +130,12 @@ int	new_shell(char **envp)
 		signal(SIGQUIT, handler);
 		c = readline("jgravalo> ");
 		if (c == NULL)
-		{
+		{	
 			write(1, "exit\n", 6);
 			exit(1);
 		}
 		if (c[0] != 0)
-		{
+		{	
 			//tmp = expand_meta(c, envp); // implementar parseo single/double quotes (metachars dependen de ellas)
 			//c = parse_heredoc(tmp);
 			add_history(c);
