@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:24:57 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/23 11:12:30 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/23 11:20:04 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	handler(int signal)
 	}
 }
 
-int	wait_for_children(t_shell *shell)
+static int	wait_for_children(t_shell *shell)
 {	
 	pid_t	pid;
 	
