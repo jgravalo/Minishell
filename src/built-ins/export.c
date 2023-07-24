@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:59:28 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/19 09:18:44 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/24 22:45:57 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void print_env(char **envp, int *order)
 	i = 0;
 	count = 0;
 	n = count_arr(envp);
+	printf("count arr es %d\n", n);
 	while (n)
 	{
 		while (order[i])
@@ -101,7 +102,7 @@ int	export_n(char *var, char ***envp)
 	if (!new)
 		return (1);
 	i = 0;
-	while ((*envp)[i])
+	while ((*envp)[i] != NULL)
 	{	
 		new[i] = ft_strdup((*envp)[i]);
 		i++;
@@ -123,9 +124,10 @@ int	export(char **args, char ***envp)
 	}
 	i = 1;
 	while (args[i])
-	{
+	{	
 		export_n(args[i], envp);
 		i++;
 	}
+	//ft_printarr(*envp);
 	return (0);
 }

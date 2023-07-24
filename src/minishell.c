@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/24 13:22:11 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/24 20:19:30 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,23 +99,9 @@ int main(int argc, char **argv, char **envp)
 static void	handler(int sig)
 {
 	if (sig == SIGINT)
-		write(1, "\njgravalo> ", 11);
-	if (sig == SIGQUIT)
-	{	
-		//exit(1);
 		return ;
-	}
-}
-
-void clear_buffer()
-{	
-	char buf[1024];
-	int ret;
-
-	ret = 0;
-	ret = read(STDIN_FILENO, buf, 1);
-	while (ret > 0)
-		ret = read(STDIN_FILENO, buf, 1);	
+	if (sig == SIGQUIT)
+		return ;
 }
 
 int	new_shell(char **envp)
