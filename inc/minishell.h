@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/23 11:18:50 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/24 13:11:09 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ int		cmd_error(char *str);
 size_t	ft_strlen(const char *str);
 
 int		ft_strcmp(char *s1, char *s2);
+
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 char	*ft_strchr(char *str, int c);
 
@@ -157,6 +159,8 @@ void 	create_pipes(t_shell *shell);
 void	check_pipe(t_shell *shell, int i);
 
 void	clear_buffer();
+
+char 	*get_prompt(char **envp);
 
 /*
 void	make_history(t_hist *hist, char *line);
