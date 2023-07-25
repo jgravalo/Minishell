@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:34:38 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/25 09:30:07 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/25 13:01:09 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,8 @@ static void child_routine(t_shell *shell, char **envp, int i)
 	}
 	if (shell->pipex > 1)
 		close_fd(shell, i);
-	//tmp = parse_redir(line); // aplica las redirecciones (de momento solo de salida)
+	char *tmp = parse_redir(shell->pipes[i]);
+	shell->args = ft_split_marks(tmp, ' ');
 	if (run_builtin(shell->args, envp) == 0)
 		exit(1);
 	shell->cmd = file_cmd(shell->args[0], envp); // error handling dentro de file_cmd

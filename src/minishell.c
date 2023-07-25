@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/25 09:36:50 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/25 12:51:12 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,8 +135,13 @@ int	new_shell(char **envp)
 	{	
 		signal(SIGINT, handler);
 		signal(SIGQUIT, handler);
+		/*
 		prompt = get_prompt(envp);
+		write(1, prompt, 500);
 		c = readline(prompt);
+		*/
+		c = readline("jgravalo> ");
+///		write(1, "aqui\n", 5);
 		if (c == NULL)
 		{	
 			write(1, "exit\n", 6);

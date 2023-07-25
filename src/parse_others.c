@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/25 09:31:02 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/25 13:01:33 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,8 @@ int	parse_no_pipes_line(t_shell *shell, char **envp)
 	}
 	if (shell->pid[0] == 0)
 	{	
-		//fd = check_redir(args); //si hay redireccion, borrarla de la linea
-		//tmp = parse_redir(line); // aplica las redirecciones (de momento solo de salida)
-		//shell->args = ft_split_marks(tmp, ' ');
+		tmp = parse_redir(shell->pipes[0]);
+		shell->args = ft_split_marks(tmp, ' ');
 		cmd = file_cmd(shell->args[0], envp); // error handling dentro de file_cmd
 		if (cmd == NULL) // file_cmd ya mide errores
 			exit(1);
