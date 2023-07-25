@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:59:28 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/24 22:45:57 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/25 07:59:03 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void print_env(char **envp, int *order)
 	i = 0;
 	count = 0;
 	n = count_arr(envp);
-	printf("count arr es %d\n", n);
+	//printf("count arr es %d\n", n);
 	while (n)
 	{
 		while (order[i])
@@ -98,7 +98,7 @@ int	export_n(char *var, char ***envp)
 		write(2, var, ft_strlen(var));
 		write(2, "': not a valid identifier\n", 27);
 	}
-	new = (char **)malloc(sizeof(char *) * count_arr(*envp) + 2);
+	new = (char **)malloc(sizeof(char *) * (count_arr(*envp) + 2));
 	if (!new)
 		return (1);
 	i = 0;

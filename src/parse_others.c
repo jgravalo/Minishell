@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/23 11:12:45 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/25 07:55:05 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ int	parse_no_pipes_line(t_shell *shell, char **envp)
 	char	*tmp;
 
 	shell->args = ft_split_marks(shell->pipes[0], ' ');
-	if (run_builtin(shell->args, envp) == 0)
-	{
+	if (run_builtin(shell->args, &envp) == 0)
+	{	
 		free_m(shell->args);
 		return (0);
 	}		

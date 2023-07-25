@@ -56,6 +56,40 @@ static char *get_cwd(char **envp)
 		return (cwd);
 }
 
+static char *get_user(char *prompt)
+{
+	int		pipefd[2];
+	char	buf[256];
+	char	*argv[2];
+	pid_t 	pid;
+
+	argv[0] = "whoami";
+	argv[1] = NULL;
+	pipe(pipefd);
+	pid = fork();
+	if (pid < 0)
+	{
+		perror("fork");
+		return (NULL);
+	}
+	if (pid > 0)
+	{
+		close(pipefd[1]);
+		buf[read(pipefd[0], buf, sizeof (buf) - 1)] = '\0';
+		close(pipefd[0]);
+		prompt = ft_strdup(buf);
+		prompt[ft_strlen(prompt) - 1] = '\0';
+		return (prompt);
+	}
+	if (pid == 0)
+	{
+		close(pipefd[0]);
+		dup2(pipefd[1], 1);
+		close(pipefd[1]);
+		execve("/usr/bin/whoami", argv, NULL);
+	}
+}
+
 char *get_prompt(char **envp)
 {	
 	char *	prompt;
@@ -65,7 +99,7 @@ char *get_prompt(char **envp)
 		printf("%s ", prompt);
 	else
 	{
-		prompt = search_var("USER", envp);
+		prompt = get_user(prompt);
 		prompt = ft_strjoin(prompt, "@");
 		prompt = ft_strjoin(prompt, get_hostname());
 		prompt = ft_strjoin(prompt, ":");
