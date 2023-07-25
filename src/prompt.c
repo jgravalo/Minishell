@@ -92,7 +92,9 @@ static char *get_user(char *prompt)
 
 char *get_prompt(char **envp)
 {	
-	char *	prompt;
+	char 	*prompt;
+	char 	*host;
+	char	*dir;
 
 	prompt = search_var("PS1", envp);
 	if (prompt != NULL)
@@ -100,10 +102,14 @@ char *get_prompt(char **envp)
 	else
 	{
 		prompt = get_user(prompt);
-		prompt = ft_strjoin(prompt, "@");
-		prompt = ft_strjoin(prompt, get_hostname());
-		prompt = ft_strjoin(prompt, ":");
-		prompt = ft_strjoin(prompt, get_cwd(envp));
-		prompt = ft_strjoin(prompt, "$ ");
+		prompt = prompt_join(prompt, "@");
+		host = get_hostname();
+		prompt = prompt_join(prompt, host);
+		free(host);
+		prompt = prompt_join(prompt, ":");
+		dir = get_cwd(envp);
+		prompt = prompt_join(prompt, dir);
+		free(dir);
+		prompt = prompt_join(prompt, "$ ");
 	}
 }

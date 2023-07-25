@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/24 13:11:09 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/25 08:37:57 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,8 @@ void	check_pipe(t_shell *shell, int i);
 void	clear_buffer();
 
 char 	*get_prompt(char **envp);
+
+char	*prompt_join(char *s1, char *s2);
 
 /*
 void	make_history(t_hist *hist, char *line);

@@ -1,4 +1,4 @@
-M_SRCS		= src/utils.c src/ft_split_marks.c src/minishell.c src/pipes.c \
+M_SRCS		= src/utils.c src/ft_split_marks.c src/minishell.c src/pipes.c src/prompt2.c \
 			  src/access_cmd.c src/errors.c src/utils_env.c src/here_doc.c src/prompt.c \
 			  src/count.c src/signal.c src/history.c src/parse.c src/redir.c src/close_fd.c \
 			  src/lexer.c src/lexer_aux.c src/utils2.c src/utils3.c src/utils4.c src/meta.c src/parse_others.c

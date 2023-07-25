@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/24 20:19:30 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/25 08:45:03 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,15 +109,18 @@ int	new_shell(char **envp)
 	char				*c;
 	char				*tmp;
 	int					exit_code;
+	char 				*prompt;
 
 	while (1)
 	{	
 		signal(SIGINT, handler);
 		signal(SIGQUIT, handler);
-		c = readline(get_prompt(envp));
+		prompt = get_prompt(envp);
+		c = readline(prompt);
 		if (c == NULL)
 		{	
 			write(1, "exit\n", 6);
+			free(prompt);
 			exit(1);
 		}
 		if (c[0] != 0)
@@ -128,6 +131,7 @@ int	new_shell(char **envp)
 			exit_code = parse_pipex(c, envp);
 			free(c);
 		}
+		free(prompt);
 	}
 	return (exit_code);
 }
