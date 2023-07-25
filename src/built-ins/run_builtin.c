@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:07:19 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/25 07:59:48 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/25 09:28:53 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ int	run_builtin(char **args, char **envp)
 		return (env(envp));
 	else if (ft_strcmp(args[0], "export") == 0)
 	{	
-		ft_printarr(envp);
-		return (export(args, &envp));
+		export(args, &envp);
+		printf("countarr fuera de export : %d\n", count_arr(envp));
+		return (0);
 	}
 	else if (ft_strcmp(args[0], "pwd") == 0)
 		return (pwd(envp));

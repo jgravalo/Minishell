@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:59:28 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/25 07:59:03 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/25 09:28:19 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ static void	order_env(char **envp)
 	int count;
 	int j;
 
-	i = 0;
+	ft_printarr(envp);
+	/* i = 0;
 	j = 0;
+	printf("entra en order_env\n");
 	order = (int *)malloc(sizeof (int) * count_arr(envp));
 	while (envp[i])
 	{	
@@ -65,7 +67,7 @@ static void	order_env(char **envp)
 		i++;
 	}
 	print_env(envp, order);
-	free(order);
+	free(order); */
 }
 
 static int	parse_var(char *var)
@@ -92,6 +94,7 @@ int	export_n(char *var, char ***envp)
 	char	**new;
 	int		i;
 
+	printf("countarr : %d\n", count_arr(*envp));
 	if (parse_var(var) == 1)
 	{
 		write(2, "bash: export: `", 15);
@@ -107,9 +110,11 @@ int	export_n(char *var, char ***envp)
 		new[i] = ft_strdup((*envp)[i]);
 		i++;
 	}
-	new[i++] = ft_strdup(var);
+	new[i] = ft_strdup(var);
+	i++;
 	new[i] = NULL;
 	*envp = new;
+	printf("countarr : %d\n", count_arr(*envp));
 	return (0);
 }
 
@@ -128,6 +133,6 @@ int	export(char **args, char ***envp)
 		export_n(args[i], envp);
 		i++;
 	}
-	//ft_printarr(*envp);
+	printf("countarr en export: %d\n", count_arr(*envp));
 	return (0);
 }

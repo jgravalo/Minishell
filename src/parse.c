@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:34:38 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/23 11:03:24 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/25 09:30:07 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,7 @@ int parse_pipex(char *line, char **envp)
 		shell.exit = parse_line(&shell, envp, i);
 		free(shell.p);
 	}
+	printf("countarr fuera de parse : %d\n", count_arr(envp));
 	free_m(shell.pipes);
 	return (shell.exit);
 }

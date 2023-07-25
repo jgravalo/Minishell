@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/25 08:37:57 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/25 09:24:49 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,8 +157,6 @@ void 	close_fd(t_shell *shell, int i);
 void 	create_pipes(t_shell *shell);
 
 void	check_pipe(t_shell *shell, int i);
-
-void	clear_buffer();
 
 char 	*get_prompt(char **envp);
 

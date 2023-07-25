@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/25 08:45:03 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/25 09:36:50 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,33 @@ static void	handler(int sig)
 		return ;
 }
 
+static char**	init_envp(char **envp)
+{
+	char	**new;
+	int		i;
+
+	new = (char **)malloc(sizeof(char *) * (count_arr(envp) + 1));
+	if (!new)
+		return (NULL);
+	i = 0;
+	while (envp[i] != NULL)
+	{	
+		new[i] = ft_strdup(envp[i]);
+		i++;
+	}
+	new[i] = NULL;
+	return (new);
+}
+
 int	new_shell(char **envp)
 {
 	char				*c;
 	char				*tmp;
 	int					exit_code;
 	char 				*prompt;
-
+	//char **envpcpy;
+	
+	//envpcpy = init_envp(envp);
 	while (1)
 	{	
 		signal(SIGINT, handler);
