@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 16:35:07 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/26 17:10:41 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 //# include "../gnl/get_next_line.h"
-# include "../src/built-ins/builtins.h"
 //# include "builtins.h"
 
 # define DEF_PATH "/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:"
@@ -55,7 +54,9 @@ typedef struct s_shell
 	char	**pipes;
 	char 	**envp;
 	char	**args;
+	char	*readline;
 	char	*cmd;
+	char	*prompt;
 	t_pipe	*p;
 	pid_t	*pid;
 	int		inpipe;
@@ -66,6 +67,8 @@ typedef struct s_shell
 	int		last_builtin;
 	int		i;
 }			t_shell;
+
+# include "../src/built-ins/builtins.h"
 
 typedef struct s_var
 {
@@ -122,7 +125,7 @@ int		set_signals(t_shell *shell, char **envp);
 
 int		new_shell(t_shell *shell);
 
-int		parse_pipex(char *line, t_shell *shell);
+void	parse_pipex(char *line, t_shell *shell);
 
 char	**lexer(char *line);
 

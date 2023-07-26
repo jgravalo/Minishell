@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 16:33:13 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:44:31 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,33 +125,30 @@ static void	handler(int sig)
 
 int	new_shell(t_shell *shell)
 {	
-	char				*c;
 	char				*tmp;
-	int					exit_code;
-	char 				*prompt;
 
 	while (1)
 	{	
-		prompt = get_prompt(shell->envp);
+		shell->prompt = get_prompt(shell->envp);
 		signal(SIGINT, handler);
-		c = readline(prompt);
-		if (c == NULL)
+		shell->readline = readline(shell->prompt);
+		if (shell->readline == NULL)
 		{	
 			write(1, "exit\n", 5);
-			free(prompt);
+			free(shell->prompt);
 			exit(1);
 		}
-		if (c[0] != 0)
+		if (shell->readline[0] != 0)
 		{	
 			//tmp = expand_meta(c, envp); // implementar parseo single/double quotes (metachars dependen de ellas)
 			//c = parse_heredoc(tmp);
-			add_history(c);
-			exit_code = parse_pipex(c, shell);
-			free(c);
+			add_history(shell->readline);
+			parse_pipex(shell->readline, shell);
+			free(shell->readline);
 		}
-		free(prompt);
+		free(shell->prompt);
 	}
-	return (exit_code);
+	return (shell->exit);
 }
 
 int	main(int argc, char **argv, char **envp)

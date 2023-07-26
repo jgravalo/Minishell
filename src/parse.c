@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:34:38 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 16:37:03 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/26 17:10:09 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ static void child_routine(t_shell *shell, int i)
 		close_fd(shell, i);
 	char *tmp = parse_redir(shell->pipes[i]);
 	shell->args = ft_split_marks(tmp, ' ');
-	if (run_builtin(shell->args, shell->envp) == 0)
+	if (run_builtin(shell) == 0)
 		exit(1);
 	shell->cmd = file_cmd(shell->args[0], shell->envp); // error handling dentro de file_cmd
 	if (shell->cmd == NULL) // file_cmd ya mide errores
@@ -166,7 +166,7 @@ static void init_shell(t_shell *shell, char *line)
 	shell->last_builtin = 0;
 }
 
-int parse_pipex(char *line, t_shell *shell)
+void parse_pipex(char *line, t_shell *shell)
 {	
 	int i;
 
@@ -187,5 +187,4 @@ int parse_pipex(char *line, t_shell *shell)
 	}
 	free(shell->pid);
 	free_m(shell->pipes);
-	return (shell->exit);
 }

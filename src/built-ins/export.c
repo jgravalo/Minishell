@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:59:28 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 16:24:24 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/26 17:58:00 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,51 +21,46 @@ static void print_env(char **envp, int *order)
 	i = 0;
 	count = 0;
 	n = count_arr(envp);
-	//printf("count arr es %d\n", n);
-	while (n)
-	{
-		while (order[i])
-		{	
-			if (order[i] == count)
-			{
-				write(1, "declare -x ", 12);
-				write(1, envp[i], ft_strlen(envp[i]));
-				write(1, "\n", 1);
-				break;
-			}
+	while (n > 0)
+	{	
+		printf("n es %d\n", n);
+		while (order[i] != count)
 			i++;
-		}
+		write(1, "declare -x ", 12);
+		write(1, envp[i], ft_strlen(envp[i]));
+		write(1, "\n", 1);
 		i = 0;
 		count++;
 		n--;
 	}
 }
 
-static void	order_env(char **envp)
+static void	order_env(t_shell *shell, char **envp)
 {
 	int *order;
 	int i;
 	int count;
 	int j;
 
-	//ft_printarr(envp);
+	count = 0;
 	i = 0;
 	j = 0;
-	order = (int *)malloc(sizeof (int) * count_arr(envp));
-	while (envp[i])
+	order = (int *)malloc(sizeof (int) * count_arr(shell->envp));
+	while (shell->envp[i])
 	{	
-		while (envp[j + 1])
-		{
-			if (ft_strcmp(envp[i], envp[j + 1]) > 0)
+		while (shell->envp[j] != NULL)
+		{	
+			if (ft_strcmp(shell->envp[i], envp[j]) > 0)
 				count++;
 			j++;
 		}
 		order[i] = count;
+		printf("order %d is count %d\n", i, count);
 		count = 0;
 		j = 0;
 		i++;
 	}
-	print_env(envp, order);
+	print_env(shell->envp, order);
 	free(order);
 }
 
@@ -88,7 +83,7 @@ static int	parse_var(char *var)
 	return (0);
 }
 
-static char **export_n(char *var, char **envp)
+static int export_n(char *var, t_shell *shell)
 {
 	char	**new;
 	int		i;
@@ -98,39 +93,41 @@ static char **export_n(char *var, char **envp)
 		write(2, "bash: export: `", 15);
 		write(2, var, ft_strlen(var));
 		write(2, "': not a valid identifier\n", 27);
-		return (NULL);
+		return (1);
 	}
-	new = (char **)malloc(sizeof(char *) * (count_arr(envp) + 2));
+	new = (char **)malloc(sizeof(char *) * (count_arr(shell->envp) + 2));
 	if (!new)
-		return (NULL);
+		return (1);
 	i = 0;
-	while (envp[i] != NULL)
+	while (shell->envp[i] != NULL)
 	{	
-		new[i] = ft_strdup(envp[i]);
+		new[i] = ft_strdup(shell->envp[i]);
 		i++;
 	}
 	new[i] = ft_strdup(var);
 	i++;
 	new[i] = NULL;
-	//free_m(envp);
-	return (new);
+	free(shell->envp);
+	shell->envp = new;
+	return (0);
 }
 
-int	export(char **args, char ***envp)
+int	export(t_shell *shell)
 {
 	int	i;
 	
-	if (args[1] == NULL)
+	if (shell->args[1] == NULL)
 	{	
-		order_env(*envp);
+		printf("entra en order env\n");
+		order_env(shell, shell->envp);
 		return (0);
 	}
 	i = 1;
-	while (args[i])
+	while (shell->args[i])
 	{	
-		*envp = export_n(args[i], *envp);
+		export_n(shell->args[i], shell);
 		i++;
 	}
-	//ft_printarr(envp);
+	printf("last variable is %s\n", shell->envp[count_arr(shell->envp) - 1]);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:11:14 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/13 18:11:31 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/26 17:03:16 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ int	built_ins(char **argv, char **envp)
 	return (out);
 }
 
-int main(int argc, char **argv, char **envp)
+/* int main(int argc, char **argv, char **envp)
 {
 	if (argc < 2)
 		return (0);
 	return (built_ins(argv, envp));
-}
+}  */

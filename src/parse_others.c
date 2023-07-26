@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 16:37:28 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/26 17:05:57 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,12 @@ int	parse_no_pipes_line(t_shell *shell)
 	char	*tmp;
 
 	shell->args = ft_split_marks(shell->pipes[0], ' ');
-	if (run_builtin(shell->args, shell->envp) == 0)
+	if (run_builtin(shell) == 0)
+	{
+		//ft_printarr(shell->envp);
 		return (0);	
+	}
+		
 	shell->pid[0] = fork();
 	if (shell->pid[0] > 0)
 	{
