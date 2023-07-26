@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:34:38 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 14:06:42 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:28:59 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,10 @@ int parse_pipex(char *line, char **envp)
 	i = 0;
 	init_shell(&shell, line);
 	if (shell.pipex == 0)
+	{	
 		shell.exit = parse_no_pipes_line(&shell, envp); // si no hay pipes, built ins siempre correran en la misma shell
+		free_m(shell.args);
+	}
 	else
 	{	
 		/*Se crean las pipes antes, porque si pipeline es larga da error, ya que procesos quieren
@@ -185,6 +188,5 @@ int parse_pipex(char *line, char **envp)
 	}
 	free(shell.pid);
 	free_m(shell.pipes);
-	free_m(shell.args);
 	return (shell.exit);
 }

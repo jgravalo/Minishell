@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 14:23:21 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:25:48 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int	new_shell(char **envp)
 		c = readline(prompt);
 		if (c == NULL)
 		{	
-			write(1, "\nexit\n", 6);
+			write(1, "exit\n", 5);
 			free(prompt);
 			exit(1);
 		}
