@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:07:19 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/25 09:28:53 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/26 16:23:04 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,11 @@ int	run_builtin(char **args, char **envp)
 	else if (ft_strcmp(args[0], "env") == 0)
 		return (env(envp));
 	else if (ft_strcmp(args[0], "export") == 0)
-	{	
-		export(args, &envp);
-		printf("countarr fuera de export : %d\n", count_arr(envp));
-		return (0);
-	}
+		return (export(args, &envp));
 	else if (ft_strcmp(args[0], "pwd") == 0)
 		return (pwd(envp));
 	else if (ft_strcmp(args[0], "unset") == 0)
-		return (unset(args, &envp));
+		return (unset(args, envp));
 	else if (ft_strcmp(args[0], "exit") == 0)
 		exit(1);
 	else

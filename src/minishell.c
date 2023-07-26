@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 15:25:48 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:33:13 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,8 @@ static void	handler(int sig)
     rl_redisplay();
 }
 
-int	new_shell(char **envp)
-{
+int	new_shell(t_shell *shell)
+{	
 	char				*c;
 	char				*tmp;
 	int					exit_code;
@@ -132,7 +132,7 @@ int	new_shell(char **envp)
 
 	while (1)
 	{	
-		prompt = get_prompt(envp);
+		prompt = get_prompt(shell->envp);
 		signal(SIGINT, handler);
 		c = readline(prompt);
 		if (c == NULL)
@@ -146,7 +146,7 @@ int	new_shell(char **envp)
 			//tmp = expand_meta(c, envp); // implementar parseo single/double quotes (metachars dependen de ellas)
 			//c = parse_heredoc(tmp);
 			add_history(c);
-			exit_code = parse_pipex(c, envp);
+			exit_code = parse_pipex(c, shell);
 			free(c);
 		}
 		free(prompt);
@@ -156,11 +156,11 @@ int	new_shell(char **envp)
 
 int	main(int argc, char **argv, char **envp)
 {	
-	char **envpcpy;
+	t_shell				shell;
 
-	envpcpy = alloc_envp(envp);
+	shell.envp = alloc_envp(envp);
 	if (!argc && !argv && !envp)
 		return (0);
-	new_shell(envpcpy);
-	free_m(envpcpy);
+	new_shell(&shell);
+	free_m(shell.envp);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/25 09:24:49 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/26 16:35:07 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +120,9 @@ int		count_arr(char **args);
 
 int		set_signals(t_shell *shell, char **envp);
 
-int		new_shell(char **envp);
+int		new_shell(t_shell *shell);
 
-int		parse_pipex(char *line, char **envp);
+int		parse_pipex(char *line, t_shell *shell);
 
 char	**lexer(char *line);
 
@@ -144,9 +144,9 @@ int		words(const char *s, char c);
 
 int		is_local(char *cmd);
 
-int		parse_no_pipes_line(t_shell *shell, char **envp);
+int		parse_no_pipes_line(t_shell *shell);
 
-int		parse_line(t_shell *shell, char **envp, int i);
+int		parse_line(t_shell *shell, int i);
 
 void 	parent_close(t_shell *shell);
 

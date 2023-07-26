@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:59:28 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 13:04:57 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:24:24 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ static void	order_env(char **envp)
 	//ft_printarr(envp);
 	i = 0;
 	j = 0;
-	printf("entra en order_env\n");
 	order = (int *)malloc(sizeof (int) * count_arr(envp));
 	while (envp[i])
 	{	
@@ -89,33 +88,32 @@ static int	parse_var(char *var)
 	return (0);
 }
 
-int	export_n(char *var, char ***envp)
+static char **export_n(char *var, char **envp)
 {
 	char	**new;
 	int		i;
 
-	printf("countarr : %d\n", count_arr(*envp));
 	if (parse_var(var) == 1)
 	{
 		write(2, "bash: export: `", 15);
 		write(2, var, ft_strlen(var));
 		write(2, "': not a valid identifier\n", 27);
+		return (NULL);
 	}
-	new = (char **)malloc(sizeof(char *) * (count_arr(*envp) + 2));
+	new = (char **)malloc(sizeof(char *) * (count_arr(envp) + 2));
 	if (!new)
-		return (1);
+		return (NULL);
 	i = 0;
-	while ((*envp)[i] != NULL)
+	while (envp[i] != NULL)
 	{	
-		new[i] = ft_strdup((*envp)[i]);
+		new[i] = ft_strdup(envp[i]);
 		i++;
 	}
 	new[i] = ft_strdup(var);
 	i++;
 	new[i] = NULL;
-	*envp = new;
-	printf("countarr : %d\n", count_arr(*envp));
-	return (0);
+	//free_m(envp);
+	return (new);
 }
 
 int	export(char **args, char ***envp)
@@ -130,8 +128,9 @@ int	export(char **args, char ***envp)
 	i = 1;
 	while (args[i])
 	{	
-		export_n(args[i], envp);
+		*envp = export_n(args[i], *envp);
 		i++;
 	}
+	//ft_printarr(envp);
 	return (0);
 }

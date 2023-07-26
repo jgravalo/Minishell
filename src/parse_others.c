@@ -6,14 +6,14 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 15:31:00 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:37:28 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include <stdio.h>
 
-int	parse_ands(char *line, char **envp)
+/* int	parse_ands(char *line, char **envp)
 {
 	char	**ands;
 	int		i;
@@ -45,31 +45,31 @@ int	parse_ors(char *line, char **envp)
 		i++;
 	}
 	return (exit);
-}
+} */
 
-int	parse_no_pipes_line(t_shell *shell, char **envp)
+int	parse_no_pipes_line(t_shell *shell)
 {
 	char	*cmd;
 	char	*tmp;
 
 	shell->args = ft_split_marks(shell->pipes[0], ' ');
-	if (run_builtin(shell->args, envp) == 0)
+	if (run_builtin(shell->args, shell->envp) == 0)
 		return (0);	
 	shell->pid[0] = fork();
 	if (shell->pid[0] > 0)
 	{
 		shell->pid[1] = 0;
 		shell->children++;
-		return(set_signals(shell, envp));
+		return(set_signals(shell, shell->envp));
 	}
 	else
 	{	
 		tmp = parse_redir(shell->pipes[0]);
 		shell->args = ft_split_marks(tmp, ' ');
-		cmd = file_cmd(shell->args[0], envp); // error handling dentro de file_cmd
+		cmd = file_cmd(shell->args[0], shell->envp); // error handling dentro de file_cmd
 		if (cmd == NULL) // file_cmd ya mide errores
 			exit(1);
-		execve(cmd, shell->args, envp);
+		execve(cmd, shell->args, shell->envp);
 		return (1);
 	}
 }

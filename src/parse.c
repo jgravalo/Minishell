@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:34:38 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 15:28:59 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:37:03 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,15 +100,15 @@ return (exit);
 		}			
 	} */
 
-static void	parent_routine(t_shell *shell, char **envp, int i)
+static void	parent_routine(t_shell *shell, int i)
 {
 	free_m(shell->args);
 	shell->children++;
 	if (i < shell->pipex)
-		parse_line(shell, envp, i + 1); 
+		parse_line(shell, i + 1); 
 }
 
-static void child_routine(t_shell *shell, char **envp, int i)
+static void child_routine(t_shell *shell, int i)
 {
 	if (shell->inpipe == 1) // hay pipe de entrada
 	{	
@@ -126,15 +126,15 @@ static void child_routine(t_shell *shell, char **envp, int i)
 		close_fd(shell, i);
 	char *tmp = parse_redir(shell->pipes[i]);
 	shell->args = ft_split_marks(tmp, ' ');
-	if (run_builtin(shell->args, envp) == 0)
+	if (run_builtin(shell->args, shell->envp) == 0)
 		exit(1);
-	shell->cmd = file_cmd(shell->args[0], envp); // error handling dentro de file_cmd
+	shell->cmd = file_cmd(shell->args[0], shell->envp); // error handling dentro de file_cmd
 	if (shell->cmd == NULL) // file_cmd ya mide errores
 		exit(1);
-	execve(shell->cmd, shell->args, envp);
+	execve(shell->cmd, shell->args, shell->envp);
 }
 
-int	parse_line(t_shell *shell, char **envp, int i)
+int	parse_line(t_shell *shell, int i)
 {	
 	char	*tmp;
 
@@ -144,12 +144,12 @@ int	parse_line(t_shell *shell, char **envp, int i)
 	no es tan claro que si el ultimo proceso de una pipeline es un builtin, lo haga la misma shell*/
 	shell->pid[i] = fork();
 	if (shell->pid[i] > 0)
-		parent_routine(shell, envp, i);
+		parent_routine(shell, i);
 	if (shell->pid[i] == 0)
-		child_routine(shell, envp, i);
+		child_routine(shell, i);
 	parent_close(shell);
 	shell->pid[i] = 0;
-	return (set_signals(shell, envp));
+	return (set_signals(shell, shell->envp));
 	/* exit_code = set_signals(pid, envp);
 	exit_code = WEXITSTATUS(exit_code); */
 }
@@ -166,27 +166,26 @@ static void init_shell(t_shell *shell, char *line)
 	shell->last_builtin = 0;
 }
 
-int parse_pipex(char *line, char **envp)
+int parse_pipex(char *line, t_shell *shell)
 {	
-	t_shell	shell;
 	int i;
 
 	i = 0;
-	init_shell(&shell, line);
-	if (shell.pipex == 0)
+	init_shell(shell, line);
+	if (shell->pipex == 0)
 	{	
-		shell.exit = parse_no_pipes_line(&shell, envp); // si no hay pipes, built ins siempre correran en la misma shell
-		free_m(shell.args);
+		shell->exit = parse_no_pipes_line(shell); // si no hay pipes, built ins siempre correran en la misma shell
+		free_m(shell->args);
 	}
 	else
 	{	
 		/*Se crean las pipes antes, porque si pipeline es larga da error, ya que procesos quieren
 		cerrar filedescriptors de pipes que aún no están generadas*/
-		create_pipes(&shell);
-		shell.exit = parse_line(&shell, envp, i);
-		free(shell.p);
+		create_pipes(shell);
+		shell->exit = parse_line(shell, i);
+		free(shell->p);
 	}
-	free(shell.pid);
-	free_m(shell.pipes);
-	return (shell.exit);
+	free(shell->pid);
+	free_m(shell->pipes);
+	return (shell->exit);
 }
