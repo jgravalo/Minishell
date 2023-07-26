@@ -22,5 +22,7 @@ char	*prompt_join(char *s1, char *s2)
 		new[i++] = s2[j++];
 	new[ft_strlen(s1) + ft_strlen(s2)] = '\0';
 	free(s1);
+	if (ft_strlen(s2) > 1 && ft_strchr(s2, '~') != NULL)
+		free (s2);
 	return (new);
 }

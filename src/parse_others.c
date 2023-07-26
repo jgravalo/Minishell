@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 08:49:57 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/26 12:31:05 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	parse_no_pipes_line(t_shell *shell, char **envp)
 	shell->args = ft_split_marks(shell->pipes[0], ' ');
 	if (run_builtin(shell->args, envp) == 0)
 	{	
-		printf("countarr fuera de runbuiltin : %d\n", count_arr(envp));
 		free_m(shell->args);
 		return (0);
 	}		

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:59:28 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/25 09:28:19 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/26 13:04:57 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ static void	order_env(char **envp)
 	int count;
 	int j;
 
-	ft_printarr(envp);
-	/* i = 0;
+	//ft_printarr(envp);
+	i = 0;
 	j = 0;
 	printf("entra en order_env\n");
 	order = (int *)malloc(sizeof (int) * count_arr(envp));
@@ -67,7 +67,7 @@ static void	order_env(char **envp)
 		i++;
 	}
 	print_env(envp, order);
-	free(order); */
+	free(order);
 }
 
 static int	parse_var(char *var)
@@ -133,6 +133,5 @@ int	export(char **args, char ***envp)
 		export_n(args[i], envp);
 		i++;
 	}
-	printf("countarr en export: %d\n", count_arr(*envp));
 	return (0);
 }

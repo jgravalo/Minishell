@@ -6,11 +6,12 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 08:51:25 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/26 13:09:52 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+#include "../../../../.brew/opt/readline/include/readline/readline.h"
 
 void	test_pipe(t_pipe *p)
 {
@@ -96,30 +97,30 @@ int main(int argc, char **argv, char **envp)
 }
 */
 
-static void	handler(int sig)
-{
-	if (sig == SIGINT)
-		return ;
-	if (sig == SIGQUIT)
-		return ;
-}
+int g_sig = 0;
 
-static char**	init_envp(char **envp)
-{
-	char	**new;
-	int		i;
+static char **alloc_envp(char **envp)
+{	
+	char **envpcpy;
+	int i;
 
-	new = (char **)malloc(sizeof(char *) * (count_arr(envp) + 1));
-	if (!new)
-		return (NULL);
+	envpcpy = (char **)malloc(sizeof (char *) * (count_arr(envp) + 1));
 	i = 0;
-	while (envp[i] != NULL)
-	{	
-		new[i] = ft_strdup(envp[i]);
+	while (envp[i])
+	{
+		envpcpy[i] = ft_strdup(envp[i]);
 		i++;
 	}
-	new[i] = NULL;
-	return (new);
+	envpcpy[i] = NULL;
+	return (envpcpy);
+}
+
+static void	handler(int sig)
+{	
+	write(1, "\n", 1); // Move to a new line
+    rl_on_new_line(); // Regenerate the prompt on a newline
+   // rl_replace_line("", 0); // Clear the previous text
+    rl_redisplay();
 }
 
 int	new_shell(char **envp)
@@ -128,21 +129,15 @@ int	new_shell(char **envp)
 	char				*tmp;
 	int					exit_code;
 	char 				*prompt;
-	//char **envpcpy;
-	
-	//envpcpy = init_envp(envp);
+
 	while (1)
 	{	
+		prompt = get_prompt(envp);
 		signal(SIGINT, handler);
-		signal(SIGQUIT, handler);
-/* 		prompt = get_prompt(envp);
-		write(1, prompt, 500);
-		c = readline(prompt); */
-		c = readline(get_prompt(envp));
-///		write(1, "aqui\n", 5);
+		c = readline(prompt);
 		if (c == NULL)
 		{	
-			write(1, "exit\n", 6);
+			write(1, "\nexit\n", 6);
 			free(prompt);
 			exit(1);
 		}
@@ -160,8 +155,12 @@ int	new_shell(char **envp)
 }
 
 int	main(int argc, char **argv, char **envp)
-{
+{	
+	char **envpcpy;
+
+	envpcpy = alloc_envp(envp);
 	if (!argc && !argv && !envp)
 		return (0);
-	new_shell(envp);
+	new_shell(envpcpy);
+	free_m(envpcpy);
 }

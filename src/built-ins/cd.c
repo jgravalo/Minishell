@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/21 14:33:25 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/26 13:22:32 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ int	cd(char *rute, char **envp)
 	int		pwd;
 	int		oldpwd;
 	char	buffer[100];
+	int		join;
 
+	join = 0;
 	if (!envp)
 		return (1);
 	if (rute == NULL)
@@ -35,13 +37,18 @@ int	cd(char *rute, char **envp)
 	{
 		tmp = ft_strjoin(search_var("PWD", envp), "/");
 		rute = ft_strjoin(tmp, rute);
+		join = 1;
 		free(tmp);
 	}
 	oldpwd = search_var_num("OLDPWD", envp);
+	free(envp[oldpwd]);
 	envp[oldpwd] = ft_strjoin("OLDPWD=", getcwd(buffer, 100));
 	if (chdir(rute) < 0)
 		return (cd_error(rute));
 	pwd = search_var_num("PWD", envp);
+	free(envp[pwd]);
 	envp[pwd] = ft_strjoin("PWD=", getcwd(buffer, 100));
+	if (join == 1)
+		free(rute);
 	return (0);
 }

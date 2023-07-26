@@ -122,7 +122,6 @@ char *get_prompt(char **envp)
 		prompt = prompt_join(prompt, ":");
 		dir = get_cwd(envp);
 		prompt = prompt_join(prompt, dir);
-		free(dir);
 		prompt = prompt_join(prompt, "$ ");
 		return (prompt);
 	}

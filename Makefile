@@ -21,7 +21,7 @@ CC			= gcc
 
 CFLAGS		= -Wall -Werror -Wextra -I inc/
 
-LFLAGS		= -lreadline
+LFLAGS		= -lreadline 
 
 #GNL			= -Ignl
 
@@ -35,7 +35,7 @@ $(NAME): $(M_OBJS) $(BUILT_OBJS) $(GNL_OBJS) inc/minishell.h
 	$(CC) $(CFLAGS) $(M_OBJS) $(BUILT_OBJS) -o $(NAME) $(LFLAGS)
 
 $(OBJECTS_DIR)/%.o : src/%.c inc/minishell.h | $(OBJECTS_DIR)
-	$(CC) -c  $< -o $@
+	$(CC) -c  $< -o $@ 
 
 #$(OBJECTS_DIR)/%.o : gnl/%.c  gnl/get_next_line.h | $(OBJECTS_DIR)
 #	$(CC) -c  $< -o $@
