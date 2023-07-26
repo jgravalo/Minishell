@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:34:38 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 13:10:56 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:06:42 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,8 +158,10 @@ static void init_shell(t_shell *shell, char *line)
 {
 	shell->pipex = count_ascii(line, '|');
 	shell->pipes = ft_split(line, '|');
-	if (shell->pipex > 0)
-		shell->pid = (pid_t *)malloc(sizeof (pid_t) * shell->pipex + 1);
+	if (shell->pipex == 0)
+		shell->pid = (pid_t *)malloc(sizeof (pid_t) * (2));
+	else
+		shell->pid = (pid_t *)malloc(sizeof (pid_t) * (shell->pipex + 1));
 	shell->children = 0;
 	shell->last_builtin = 0;
 }
@@ -181,6 +183,8 @@ int parse_pipex(char *line, char **envp)
 		shell.exit = parse_line(&shell, envp, i);
 		free(shell.p);
 	}
+	free(shell.pid);
 	free_m(shell.pipes);
+	free_m(shell.args);
 	return (shell.exit);
 }
