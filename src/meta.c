@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   meta.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/13 18:19:04 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/26 18:34:42 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	get_var(t_var *p, char **envp, int n)
 			(p->tmp[n][j] >= '0' && p->tmp[n][j] <= '9')))
 			j++;
 		p->var = ft_substr(p->tmp[n], 0, j);
-		p->exp = search_var(p->var, envp);
+		p->exp = search_var_line(p->var, envp);
 		p->c = ft_strjoin(p->new, p->exp);
 		p->tmp[n] += j;
 		p->new = ft_strjoin(p->c, p->tmp[n]);

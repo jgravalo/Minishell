@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:07:19 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 17:14:04 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/26 18:01:24 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,7 @@ int	run_builtin(t_shell *shell)
 	else if (ft_strcmp(shell->args[0], "env") == 0)
 		return (env(shell->envp));
 	else if (ft_strcmp(shell->args[0], "export") == 0)
-	{	
-		export(shell);
-		printf("count arr is %d\n", count_arr(shell->envp));
-		return (0);
-	}
+		return (export(shell));
 	else if (ft_strcmp(shell->args[0], "pwd") == 0)
 		return (pwd(shell->envp));
 	else if (ft_strcmp(shell->args[0], "unset") == 0)

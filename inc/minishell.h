@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 17:10:41 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/26 18:51:18 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ int		ft_strcmp(char *s1, char *s2);
 
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
+int		ft_varcmp(const char *s1, const char *s2, size_t n);
+
 char	*ft_strchr(char *str, int c);
 
 char	*ft_strcat(char *dest, char *src);
@@ -107,9 +109,11 @@ char	**ft_split_marks(char const *s, char c);
 
 void	free_m(char **fdf);
 
-char	*search_var(char *name, char **envp);
+char	*search_var_line(char *name, char **envp);
 
 int		search_var_num(char *name, char **envp);
+
+int		is_existing(char *line, char **envp);
 
 char	*check_vars(char *args, char **envp);
 

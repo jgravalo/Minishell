@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:20:04 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/13 18:20:37 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/26 18:34:27 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ char	*check_vars(char *args, char **envp)
 //			write(1, name, ft_strlen(name));
 //			write(1, "\n", 1);
 //			var = search_var(name, envp);
-			vars[j++] = search_var(name, envp);
+			vars[j++] = search_var_line(name, envp);
 //			write(1, "new = ", 6);
 //			write(1, var, ft_strlen(vars));
 //			write(1, "\n", 1);

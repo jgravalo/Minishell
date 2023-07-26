@@ -54,8 +54,8 @@ static char *get_cwd(char **envp)
 	char *home;
 	int home_len;
 
-	cwd = search_var("PWD", envp);
-	home = search_var("HOME", envp);
+	cwd = search_var_line("PWD", envp);
+	home = search_var_line("HOME", envp);
 	ft_strchr(home, '=');
 	home_len = ft_strlen(home);
 	if (ft_strncmp(cwd, home, home_len) == 0)
@@ -109,7 +109,7 @@ char *get_prompt(char **envp)
 	char 	*host;
 	char	*dir;
 
-	prompt = search_var("PS1", envp);
+	prompt = search_var_line("PS1", envp);
 	if (prompt != NULL)
 		return (prompt);
 	else

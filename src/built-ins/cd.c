@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 13:57:02 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/26 18:35:35 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ int	cd(char *rute, char **envp)
 	if (!envp)
 		return (1);
 	if (rute == NULL)
-		rute = search_var("HOME", envp);
+		rute = search_var_line("HOME", envp);
 	else if (rute[0] != '/' && ft_strcmp(rute, "..") != 0)
 	{
-		tmp = ft_strjoin(search_var("PWD", envp), "/");
+		tmp = ft_strjoin(search_var_line("PWD", envp), "/");
 		rute = ft_strjoin(tmp, rute);
 		join = 1;
 		free(tmp);
