@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:22:59 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 19:06:09 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/26 19:10:19 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,11 @@ int	is_existing(char *line, char **envp)
 	while (line[i] != '=' && line[i] != '\0')
 		i++;
 	var = ft_substr(line, 0, i);
-	printf("var es %s\n", var);
 	i = 0;
 	while (envp[i])
 	{
 		if (ft_varcmp(var, envp[i], ft_strlen(var)) == 0)
 		{	
-			printf("var es %s envp es %s\n", var, envp[i]);
 			if (ft_strchr(envp[i], '=') != NULL && ft_strchr(line, '=') == NULL)
 				return (1);
 			else

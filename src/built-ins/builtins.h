@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:03:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 18:15:25 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/26 19:08:36 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	echo(char **argv);
 
 int	cd(char *rute, char **envp);
 
-int	unset(char **var, char **envp);
+int	unset(t_shell *shell);
 
 int	export(t_shell *shell);
 
