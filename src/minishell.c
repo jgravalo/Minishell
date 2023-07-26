@@ -6,12 +6,12 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 13:09:52 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:23:21 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-#include "../../../../.brew/opt/readline/include/readline/readline.h"
+#include <readline/readline.h>
 
 void	test_pipe(t_pipe *p)
 {
@@ -119,7 +119,7 @@ static void	handler(int sig)
 {	
 	write(1, "\n", 1); // Move to a new line
     rl_on_new_line(); // Regenerate the prompt on a newline
-   // rl_replace_line("", 0); // Clear the previous text
+    rl_replace_line("", 0); // Clear the previous text
     rl_redisplay();
 }
 
