@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_others.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/25 13:01:33 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/07/26 08:49:57 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	parse_no_pipes_line(t_shell *shell, char **envp)
 		shell->children++;
 		return(set_signals(shell, envp));
 	}
-	if (shell->pid[0] == 0)
+	else
 	{	
 		tmp = parse_redir(shell->pipes[0]);
 		shell->args = ft_split_marks(tmp, ' ');
@@ -74,5 +74,6 @@ int	parse_no_pipes_line(t_shell *shell, char **envp)
 		if (cmd == NULL) // file_cmd ya mide errores
 			exit(1);
 		execve(cmd, shell->args, envp);
+		return (1);
 	}
 }

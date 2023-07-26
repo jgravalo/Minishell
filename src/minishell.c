@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/25 12:51:12 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/07/26 08:51:25 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,12 +135,10 @@ int	new_shell(char **envp)
 	{	
 		signal(SIGINT, handler);
 		signal(SIGQUIT, handler);
-		/*
-		prompt = get_prompt(envp);
+/* 		prompt = get_prompt(envp);
 		write(1, prompt, 500);
-		c = readline(prompt);
-		*/
-		c = readline("jgravalo> ");
+		c = readline(prompt); */
+		c = readline(get_prompt(envp));
 ///		write(1, "aqui\n", 5);
 		if (c == NULL)
 		{	

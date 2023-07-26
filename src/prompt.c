@@ -2,28 +2,39 @@
 
 static char *get_hostname(void)
 {	
-	int fd;
-	char buf[256];
-	int ret;
-	int i;
+	int		pipefd[2];
+	char	buf[256];
+	char	*argv[2];
+	char 	*host;
+	pid_t 	pid;
 
-	i = 0;
-	fd = open("/etc/hostname", O_RDONLY);
-	if (fd < 0)
+	argv[0] = "hostname";
+	argv[1] = NULL;
+	pipe(pipefd);
+	pid = fork();
+	if (pid < 0)
 	{
-		printf("open error\n");
+		perror("fork");
 		return (NULL);
 	}
-	ret = read(fd, buf, 0);
-	if (ret < 0)
+	if (pid > 0)
 	{
-		printf("read error\n");
+		close(pipefd[1]);
+		buf[read(pipefd[0], buf, sizeof (buf) - 1)] = '\0';
+		close(pipefd[0]);
+		host = ft_strdup(buf);
+		host[ft_strlen(host) - 1] = '\0';
+		return (host);
+	}
+	if (pid == 0)
+	{
+		close(pipefd[0]);
+		dup2(pipefd[1], 1);
+		close(pipefd[1]);
+		execve("/bin/hostname", argv, NULL);
 		return (NULL);
 	}
-	ret = read(fd, buf, sizeof (buf));
-	close (fd);
-	buf[ret - 1] = '\0';	
-	return (ft_strdup(buf));
+	return (NULL);
 }
 
 static char *put_home(char *cwd, int home_len)
@@ -87,7 +98,9 @@ static char *get_user(char *prompt)
 		dup2(pipefd[1], 1);
 		close(pipefd[1]);
 		execve("/usr/bin/whoami", argv, NULL);
+		return (NULL);
 	}
+	return (NULL);
 }
 
 char *get_prompt(char **envp)
@@ -98,7 +111,7 @@ char *get_prompt(char **envp)
 
 	prompt = search_var("PS1", envp);
 	if (prompt != NULL)
-		printf("%s ", prompt);
+		return (prompt);
 	else
 	{
 		prompt = get_user(prompt);
@@ -111,5 +124,6 @@ char *get_prompt(char **envp)
 		prompt = prompt_join(prompt, dir);
 		free(dir);
 		prompt = prompt_join(prompt, "$ ");
+		return (prompt);
 	}
 }
