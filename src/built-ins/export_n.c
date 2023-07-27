@@ -74,7 +74,7 @@ static int add_envp(char *var, t_shell *shell)
 	new[i] = ft_strdup(var);
 	i++;
 	new[i] = NULL;
-	free(shell->envp);
+	free_m(shell->envp);
 	shell->envp = new;
 	return (0);
 }

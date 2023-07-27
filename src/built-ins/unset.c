@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:00:23 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 19:19:25 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/27 09:45:49 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ static int unset_n(char *var, t_shell *shell)
 	char	**new;
 	int		n;
 	int		i;
+	int		j;
 	
 	n = search_var_num(var, shell->envp);
 	if (n < 0)
 		return (1);
 	new = (char **)malloc(sizeof(char *) * count_arr(shell->envp));
 	i = 0;
+	j = 0;
 	while (shell->envp[i])
 	{	
 		if (n == i)
@@ -30,10 +32,11 @@ static int unset_n(char *var, t_shell *shell)
 			i++;
 			continue ;
 		}
-		new[i] = ft_strdup(shell->envp[i]);
+		new[j] = ft_strdup(shell->envp[i]);
 		i++;
+		j++;
 	}
-	new[i] = NULL;
+	new[j] = NULL;
 	free_m(shell->envp);
 	shell->envp = new;
 	return (0);

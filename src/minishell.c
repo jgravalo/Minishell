@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 16:44:31 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/27 10:27:46 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,6 @@ int main(int argc, char **argv, char **envp)
 }
 */
 
-int g_sig = 0;
-
 static char **alloc_envp(char **envp)
 {	
 	char **envpcpy;
@@ -135,8 +133,7 @@ int	new_shell(t_shell *shell)
 		if (shell->readline == NULL)
 		{	
 			write(1, "exit\n", 5);
-			free(shell->prompt);
-			exit(1);
+			break ;
 		}
 		if (shell->readline[0] != 0)
 		{	
@@ -148,6 +145,8 @@ int	new_shell(t_shell *shell)
 		}
 		free(shell->prompt);
 	}
+	free(shell->prompt);
+	free_m(shell->envp);
 	return (shell->exit);
 }
 
@@ -159,5 +158,5 @@ int	main(int argc, char **argv, char **envp)
 	if (!argc && !argv && !envp)
 		return (0);
 	new_shell(&shell);
-	free_m(shell.envp);
-}
+	return (0);
+}	
