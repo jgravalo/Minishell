@@ -28,6 +28,12 @@ char	*parse_quotes(char *s)
 	{
 		if (/*(type == 0 || type == 1) &&*/ s[i] &&
 				!(s[i - 1] != '\\' && s[i] == '\"') && ++i)
+		{
+			while (s[i] && !(s[i - 1] != '\\' && s[i] == '\"'))
+				j++;
+			if (!s[i])
+				return (search_quote(s));
+		}
 		if (/*(type == 0 || type == 1) &&*/ s[i] &&
 				!(s[i - 1] != '\\' && s[i] == '\'') && ++i)
 		{
@@ -35,7 +41,6 @@ char	*parse_quotes(char *s)
 				j++;
 			if (!s[i])
 				return (search_quote(s));
-//				return (NULL);
 		}
 		i++;
 	}
