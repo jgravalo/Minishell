@@ -21,7 +21,9 @@ CC			= gcc
 
 CFLAGS		= -Wall -Werror -Wextra -I inc/
 
-LFLAGS		= -lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include
+LFLAGS		= -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include
+
+LRFLAG		= -lreadline
 
 #GNL			= -Ignl
 
@@ -32,7 +34,7 @@ NAME		= minishell
 all:		$(NAME)
 
 $(NAME): $(M_OBJS) $(BUILT_OBJS) $(GNL_OBJS) inc/minishell.h
-	$(CC) $(CFLAGS) $(M_OBJS) $(BUILT_OBJS) -o $(NAME) $(LFLAGS)
+	$(CC) $(CFLAGS) $(M_OBJS) $(BUILT_OBJS) -o $(NAME) $(LFLAGS) $(LRFLAG)
 
 $(OBJECTS_DIR)/%.o : src/%.c inc/minishell.h | $(OBJECTS_DIR)
 	$(CC) -c  $< -o $@ -I ~/.brew/opt/readline/include
