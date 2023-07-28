@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:40:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/13 17:41:46 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/28 11:26:58 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ char	*parse_heredoc(char *line)
 	char *c;
 	int i;
 	int j;
-
+	
 	cmd = ft_strdup("");
 	c = NULL;
 	args = ft_split_heredoc(line);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_others.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 17:05:57 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/28 12:33:59 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,16 @@ int	parse_ors(char *line, char **envp)
 
 int	parse_no_pipes_line(t_shell *shell)
 {
-	char	*cmd;
-	char	*tmp;
+	char 	*cmd;
 
-	shell->args = ft_split_marks(shell->pipes[0], ' ');
+	shell->readline = parse_redir(shell->readline, shell);
+	shell->args = ft_split_marks(shell->readline, ' ');
 	if (run_builtin(shell) == 0)
 	{
-		//ft_printarr(shell->envp);
+		if (shell->infd != -1)
+			dup2(shell->saved_stdin, 0);
+		if (shell->outfd != -1)
+			dup2(shell->saved_stdout, 1);
 		return (0);	
 	}
 		
@@ -68,8 +71,6 @@ int	parse_no_pipes_line(t_shell *shell)
 	}
 	else
 	{	
-		tmp = parse_redir(shell->pipes[0]);
-		shell->args = ft_split_marks(tmp, ' ');
 		cmd = file_cmd(shell->args[0], shell->envp); // error handling dentro de file_cmd
 		if (cmd == NULL) // file_cmd ya mide errores
 			exit(1);

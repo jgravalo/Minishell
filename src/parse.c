@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:34:38 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 17:10:09 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/28 12:26:14 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ static void child_routine(t_shell *shell, int i)
 	}
 	if (shell->pipex > 1)
 		close_fd(shell, i);
-	char *tmp = parse_redir(shell->pipes[i]);
+	char *tmp = parse_redir(shell->pipes[i], shell);
 	shell->args = ft_split_marks(tmp, ' ');
 	if (run_builtin(shell) == 0)
 		exit(1);
@@ -157,13 +157,16 @@ int	parse_line(t_shell *shell, int i)
 static void init_shell(t_shell *shell, char *line)
 {
 	shell->pipex = count_ascii(line, '|');
-	shell->pipes = ft_split(line, '|');
+	if (shell->pipex > 1)
+		shell->pipes = ft_split(line, '|');
 	if (shell->pipex == 0)
 		shell->pid = (pid_t *)malloc(sizeof (pid_t) * (2));
 	else
 		shell->pid = (pid_t *)malloc(sizeof (pid_t) * (shell->pipex + 1));
 	shell->children = 0;
 	shell->last_builtin = 0;
+	shell->infd	= -1;
+	shell->outfd = -1;
 }
 
 void parse_pipex(char *line, t_shell *shell)
@@ -184,7 +187,7 @@ void parse_pipex(char *line, t_shell *shell)
 		create_pipes(shell);
 		shell->exit = parse_line(shell, i);
 		free(shell->p);
+		free_m(shell->pipes);
 	}
 	free(shell->pid);
-	free_m(shell->pipes);
 }

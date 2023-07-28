@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/13 17:27:58 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/28 12:37:16 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,56 +154,60 @@ char	**ft_split_redir(char *line)
 	return (m);
 }
 
-int	make_redir(char *line)
+static void	make_redir(char *line, t_shell *shell)
 {
 	char **tmp;
 	int fd;
+	int type;
 
 	tmp = ft_split_marks(line, ' ');
-	printf("tmp[1] = %s\n", tmp[1]);
 	if (ft_strcmp(tmp[0], "<") == 0)
+	{
 		fd = open(tmp[1], O_RDONLY);
-	if (ft_strcmp(tmp[0], ">") == 0)
+		shell->infd = fd;
+		shell->saved_stdin = dup(0);
+		type = 0;
+	}
+	else if (ft_strcmp(tmp[0], ">") == 0)
+	{
 		fd = open(tmp[1], O_RDWR | O_CREAT | O_TRUNC, 00644);
-	if (ft_strcmp(tmp[0], ">>") == 0)
+		shell->outfd = fd;
+		shell->saved_stdout = dup(1);
+		type = 1;
+	}
+	else if (ft_strcmp(tmp[0], ">>") == 0)
+	{
 		fd = open(tmp[1], O_RDWR | O_CREAT | O_APPEND, 00644);
-	if (line[0] == '>')
-		dup2(fd, 1);
-	else if (line[0] == '<')
-		dup2(fd, 0);
-	free(tmp);
-	return (fd);
+		shell->outfd = fd;
+		shell->saved_stdout = dup(1);
+		type = 1;
+	}
+	dup2(fd, type);
+	close(fd);
+	free_m(tmp);
 }
 
-char *parse_redir(char *line)
+char *parse_redir(char *line, t_shell *shell)
 {
 	char **args;
 	char *cmd;
 	char *c;
 	int i;
 
+	if (ft_strchr(line, '<') == NULL && ft_strchr(line, '>') == NULL) // si no hay > o < en la linea, fuera
+		return (line);
 	cmd = ft_strdup("");
 	args = ft_split_redir(line);
-//	printf("aqui\n");
 	i = 0;
 	while (args[i])
-	{
+	{	
 		if (args[i][0] == '<' || args[i][0] == '>')
-		{
-			make_redir(args[i]);
-//			printf("args[%d] = |%s|\n", i, args[i]);
-		}
+			make_redir(args[i], shell);
 		else
-		{
-//			printf("args[%d] = |%s|\n", i, args[i]);
-			c = cmd;
-			cmd = ft_strjoin(cmd, ft_strdup(args[i]));
-			free(c);
-//			printf("cmd = |%s|\n", cmd);
-		}
+			cmd = ft_strjoin(cmd, args[i]);
 		i++;
 	}
-	free_m(args);
+	//free_m(args);
 	return (cmd);
 }
 /*

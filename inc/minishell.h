@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/28 08:55:04 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/28 12:34:09 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,14 @@ typedef struct s_pipe{
 //	struct s_pipe	*next;
 }	t_pipe;
 
+typedef	struct s_cmd
+{
+	char **args;
+	int		infile;
+	int 	outfile;
+
+}				t_cmd;
+
 typedef struct s_shell
 {
 	char	**tokens;
@@ -55,10 +63,15 @@ typedef struct s_shell
 	char 	**envp;
 	char	**args;
 	char	*readline;
-	char	*cmd;
 	char	*prompt;
 	t_pipe	*p;
 	pid_t	*pid;
+	t_cmd	*struct_cmd;
+	char	*cmd;
+	int		infd;
+	int		outfd;
+	int		saved_stdin;
+	int		saved_stdout;
 	int		inpipe;
 	int		outpipe;
 	int		pipex;
@@ -67,6 +80,7 @@ typedef struct s_shell
 	int		last_builtin;
 	int		i;
 }			t_shell;
+
 
 # include "../src/built-ins/builtins.h"
 
@@ -119,7 +133,7 @@ char	*check_vars(char *args, char **envp);
 
 char	*file_cmd(char *cmd, char **envp);
 
-char	*parse_redir(char *line);
+char 	*parse_redir(char *line, t_shell *shell);
 
 int		count_ascii(char *line, int c);
 
