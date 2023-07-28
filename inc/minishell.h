@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 18:51:18 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/28 08:55:04 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,8 @@ void	check_pipe(t_shell *shell, int i);
 char 	*get_prompt(char **envp);
 
 char	*prompt_join(char *s1, char *s2);
+
+char	*parse_quotes(char *s);
 
 /*
 void	make_history(t_hist *hist, char *line);

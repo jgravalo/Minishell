@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/27 15:32:08 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/07/28 11:01:47 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,9 +137,9 @@ int	new_shell(t_shell *shell)
 		}
 		if (shell->readline[0] != 0)
 		{	
-			c = parse_quotes(c);
-			c = expand_meta(c, envp); // implementar parseo single/double quotes (metachars dependen de ellas)
-			//c = parse_heredoc(tmp);
+			shell->readline = parse_quotes(shell->readline);  
+			shell->readline = expand_meta(shell->readline, shell->envp); // implementar parseo single/double quotes (metachars dependen de ellas)
+			shell->readline = parse_heredoc(shell->readline);
 			add_history(shell->readline);
 			parse_pipex(shell->readline, shell);
 			free(shell->readline);
