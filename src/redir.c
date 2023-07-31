@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/31 09:08:22 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:19:34 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,15 @@ int	count_redir(char *line)
 			line += len_redir(line);
 		if (*line && *line != '<' && *line != '>' && ++i)
 			while (*line && *line != '<' && *line != '>')
+			{
+				//parse_quotes
+				/*
+				if (*line == '\'' && ++line && ++i)
+					while (*line && *line != '\'' && ++i)
+						line++;
+				*/
 				line++;
+			}
 	}
 	return (i);
 }
@@ -145,8 +153,17 @@ char	**ft_split_redir(char *line)
 		{
 			i = 0;
 			while (*line && *line != '<' && *line != '>' && ++i)
+			{
+				//parse_quotes
+				/*
+				if (*line == '\'' && ++line && ++i)
+					while (*line && *line != '\'' && ++i)
+						line++;
+				*/
 				line++;
+			}
 			m[++j] = ft_substr(line - i, 0, i);
+			//m[j] = free_quotes(m[j]);
 //			printf("m[%d] = |%s|\n", j, m[j]);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:21:59 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/13 17:48:34 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/31 15:50:28 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	**ft_split(char const *s, char c)
 	res[j] = NULL;
 	return (res);
 }
-
+/*
 char	**ft_split_double(char const *s, char c)
 {
 	int		size;
@@ -102,16 +102,5 @@ char	**ft_split_double(char const *s, char c)
 	res[j] = NULL;
 	return (res);
 }
+*/
 
-char	*c_str(char const *s, char c, int *n)
-{
-	int		i;
-	char	*new;
-
-	i = 0;
-	while (*s && *s != c && ++i)
-		s++;
-	new = ft_substr(s - i, 0, i);
-	*n = i;
-	return (new);
-}
