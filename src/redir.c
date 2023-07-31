@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/31 09:04:48 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/31 09:08:22 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,15 @@ void	make_redir(t_shell *shell)
 		dup2(shell->outfd, shell->redir_type);
 		close(shell->outfd);
 	}
+}
+
+int recover_std(t_shell *shell)
+{
+	if (shell->redir_type == 0)
+		dup2(shell->saved_stdin, 0);
+	if (shell->redir_type == 1)
+		dup2(shell->saved_stdout, 1);
+	return (0);	
 }
 
 char *parse_redir(char *line, t_shell *shell)

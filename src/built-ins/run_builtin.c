@@ -6,13 +6,13 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:07:19 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 19:08:08 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/31 09:11:01 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	check_builtin(char **args, char **envp)
+int	check_builtin(char **args)
 {	
 	if (ft_strcmp(args[0], "cd") == 0)
 		return (1);

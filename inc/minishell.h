@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/31 08:55:15 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/31 09:08:46 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,8 @@ char	*prompt_join(char *s1, char *s2);
 char	*parse_quotes(char *s);
 
 void	make_redir(t_shell *shell);
+
+int 	recover_std(t_shell *shell);
 
 /*
 void	make_history(t_hist *hist, char *line);

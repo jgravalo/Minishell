@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:03:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 19:08:36 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/31 09:11:19 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	export(t_shell *shell);
 
 int export_n(char *var, t_shell *shell);
 
-int	check_builtin(char **args, char **envp);
+int	check_builtin(char **args);
 
 int	run_builtin(t_shell *shell);
 
