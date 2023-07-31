@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/31 19:33:23 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/31 19:38:00 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	get_var(t_shell *shell, t_var *p, char **envp, int n)
 	while (p->tmp[n])
 	{
 		j = 0;
-		if (p->tmp[n][j] == '?' && p->tmp[n][j + 1] == '\0') //exit code
+		if (p->tmp[n][j] == '?' && (p->tmp[n][j + 1] == '\0' || p->tmp[n][j + 1] == ' ')) //exit code
 		{	
 			j++;
 			p->exp = ft_itoa(shell->exit);
