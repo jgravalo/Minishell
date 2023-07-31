@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/31 16:04:41 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/07/31 19:33:23 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,35 @@ static void	get_var(t_shell *shell, t_var *p, char **envp, int n)
 	}
 }
 
+static int is_there_dollar(char *line, char c)
+{
+	int i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '\'')
+		{
+			i++;
+			while (line[i] != '\'')
+				i++;
+			i++;
+		}
+		else if (line[i] == c && line[i + 1] != ' ' && line[i + 1] != '\0')
+			return (1);
+		else
+			i++;
+	}
+	return (0);
+}
+
 char	*expand_meta(t_shell *shell, char *line, char **envp)
 {
 	t_var	p;
 	int		n;
 
+	if (is_there_dollar(line, '$') == 0)
+		return (line);
 	p.tmp = ft_split_meta(line, '$');
 
 	p.new = p.tmp[0];

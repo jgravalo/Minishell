@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/31 15:13:51 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/31 19:33:28 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int	new_shell(t_shell *shell)
 		}
 		if (shell->readline[0] != 0)
 		{	
-			shell->readline = parse_quotes(shell->readline);  
+			shell->readline = parse_quotes(shell->readline);
 			shell->readline = expand_meta(shell, shell->readline, shell->envp); // implementar parseo single/double quotes (metachars dependen de ellas)
 			//printf("%s\n", shell->readline);
 			//shell->readline = parse_heredoc(shell->readline);  seguramente hay que implementarlo donde el redir, para que no se añada a la historia
