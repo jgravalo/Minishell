@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/28 12:37:16 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/31 09:04:48 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ char	**ft_split_redir(char *line)
 	return (m);
 }
 
-static void	make_redir(char *line, t_shell *shell)
+static void	prepare_redir(char *line, t_shell *shell)
 {
 	char **tmp;
 	int fd;
@@ -166,25 +166,38 @@ static void	make_redir(char *line, t_shell *shell)
 		fd = open(tmp[1], O_RDONLY);
 		shell->infd = fd;
 		shell->saved_stdin = dup(0);
-		type = 0;
+		shell->redir_type = 0;
 	}
 	else if (ft_strcmp(tmp[0], ">") == 0)
-	{
+	{	
 		fd = open(tmp[1], O_RDWR | O_CREAT | O_TRUNC, 00644);
 		shell->outfd = fd;
 		shell->saved_stdout = dup(1);
-		type = 1;
+		shell->redir_type = 1;
 	}
 	else if (ft_strcmp(tmp[0], ">>") == 0)
 	{
 		fd = open(tmp[1], O_RDWR | O_CREAT | O_APPEND, 00644);
 		shell->outfd = fd;
 		shell->saved_stdout = dup(1);
-		type = 1;
+		shell->redir_type = 1;
 	}
-	dup2(fd, type);
-	close(fd);
 	free_m(tmp);
+}
+
+void	make_redir(t_shell *shell)
+{	
+	if (shell->redir_type == 0)
+	{	
+		dup2(shell->infd, shell->redir_type);
+		close(shell->infd);
+	}
+	else if (shell->redir_type == 1)
+	{	
+		printf("entra en outredir\n");
+		dup2(shell->outfd, shell->redir_type);
+		close(shell->outfd);
+	}
 }
 
 char *parse_redir(char *line, t_shell *shell)
@@ -199,10 +212,11 @@ char *parse_redir(char *line, t_shell *shell)
 	cmd = ft_strdup("");
 	args = ft_split_redir(line);
 	i = 0;
+	ft_printarr(args);
 	while (args[i])
 	{	
 		if (args[i][0] == '<' || args[i][0] == '>')
-			make_redir(args[i], shell);
+			prepare_redir(args[i], shell);
 		else
 			cmd = ft_strjoin(cmd, args[i]);
 		i++;

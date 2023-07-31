@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:34:38 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/28 12:26:14 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/31 08:57:48 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,7 @@ static void init_shell(t_shell *shell, char *line)
 	shell->last_builtin = 0;
 	shell->infd	= -1;
 	shell->outfd = -1;
+	shell->redir_type = -1;
 }
 
 void parse_pipex(char *line, t_shell *shell)

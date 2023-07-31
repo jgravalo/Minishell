@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_others.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/28 12:33:59 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/31 09:05:25 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,15 @@ int	parse_no_pipes_line(t_shell *shell)
 	char 	*cmd;
 
 	shell->readline = parse_redir(shell->readline, shell);
+	printf("after splitredir: %s\n", shell->readline);
 	shell->args = ft_split_marks(shell->readline, ' ');
+	if (shell->redir_type != -1)
+		make_redir(shell);
 	if (run_builtin(shell) == 0)
 	{
-		if (shell->infd != -1)
+		if (shell->redir_type == 0)
 			dup2(shell->saved_stdin, 0);
-		if (shell->outfd != -1)
+		if (shell->redir_type == 1)
 			dup2(shell->saved_stdout, 1);
 		return (0);	
 	}
