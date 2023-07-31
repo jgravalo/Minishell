@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:34:38 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/31 15:29:24 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/31 19:17:07 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ return (exit);
 
 static void	parent_routine(t_shell *shell, int i)
 {
-	free_m(shell->args);
 	shell->children++;
 	if (i < shell->pipex)
 		parse_line(shell, i + 1); 
@@ -110,6 +109,8 @@ static void	parent_routine(t_shell *shell, int i)
 
 static void child_routine(t_shell *shell, int i)
 {	
+	shell->readline = parse_redir(shell->pipes[i], shell);
+	shell->args = ft_split_marks(shell->pipes[i], ' ');
 	if (shell->inpipe == 1) // hay pipe de entrada
 	{	
 		close(shell->p[i - 1].p[WRITE]);
@@ -124,7 +125,6 @@ static void child_routine(t_shell *shell, int i)
 	}
 	if (shell->pipex > 1)
 		close_fd(shell, i);
-	//char *tmp = parse_redir(shell->pipes[i], shell);
 	//shell->args = ft_split_marks(tmp, ' ');
 	if (run_builtin(shell) == 0)
 		exit(1);
@@ -139,7 +139,6 @@ int	parse_line(t_shell *shell, int i)
 	char	*tmp;
 
 	check_pipe(shell, i);
-	shell->args = ft_split_marks(shell->pipes[i], ' ');
 	/* comentado de momento (en l.89), hay que revisar si efectivamente vale la pena complicarse, 
 	no es tan claro que si el ultimo proceso de una pipeline es un builtin, lo haga la misma shell*/
 	shell->pid[i] = fork();

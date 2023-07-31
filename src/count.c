@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:20:04 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 18:34:27 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/31 19:16:28 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,22 @@ int	count_ascii(char *line, int c)
 {
 	int	i;
 	int	count;
+	char quote;
 
+	quote = 0;
 	i = 0;
 	count = 0;
 	while (line[i])
-	{
-//		if (line[i - 1] == '\'')
-//			while (line[i] != '\'')
-//				i++;
-		if (line[i] == c)
+	{	
+		if (line[i] == '\'' || line[i] == '\"')
+		{
+			quote = line[i];
+			i++;
+			while (line[i] != quote)
+				i++;
+			i++;
+		}
+		else if (line[i] == c)
 			count++;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/31 16:19:34 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/07/31 19:12:54 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,6 @@ void	make_redir(t_shell *shell)
 	}
 	else if (shell->redir_type == 1)
 	{	
-		printf("entra en outredir\n");
 		dup2(shell->outfd, shell->redir_type);
 		close(shell->outfd);
 	}
@@ -226,6 +225,28 @@ int recover_std(t_shell *shell)
 	return (0);	
 }
 
+static int 	is_there_redir(char *line)
+{	
+	char quote;
+
+	while (*line)
+	{
+		if (*line == '\'' || *line == '\"')
+		{
+			quote = *line;
+			line++;
+			while (*line != quote)
+				line++;
+			line++;
+		}
+		else if (*line == '<' || *line == '>')
+			return (1);
+		else	
+			line++;
+	}
+	return (0);
+}
+
 char *parse_redir(char *line, t_shell *shell)
 {
 	char **args;
@@ -233,12 +254,12 @@ char *parse_redir(char *line, t_shell *shell)
 	char *c;
 	int i;
 
-	if (ft_strchr(line, '<') == NULL && ft_strchr(line, '>') == NULL) // si no hay > o < en la linea, fuera
+	if (is_there_redir(line) == 0) // si no hay redir a procesar, fuera
 		return (line);
 	cmd = ft_strdup("");
 	args = ft_split_redir(line);
 	i = 0;
-	ft_printarr(args);
+	//ft_printarr(args);
 	while (args[i])
 	{	
 		if (args[i][0] == '<' || args[i][0] == '>')
