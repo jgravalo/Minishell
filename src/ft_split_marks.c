@@ -6,11 +6,13 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 13:29:05 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/07/31 16:57:06 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/31 18:00:14 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+
 
 char	*mark_str(char const *s, char c, int *n)
 {
@@ -25,39 +27,70 @@ char	*mark_str(char const *s, char c, int *n)
 	return (new);
 }
 
-/* char	*free_quotes(char *s)
+static char	*free_quotes(char *s)
 {
 	char	*new;
-	
-	new = malloc(sizeof(char) * ft_strlen(s) + 1);
+	char	quote;
+	int i;
+	int j;
+
+	quote = 0;
+	i = 0;
+	j = 0;
+	new = malloc(sizeof(char) * ft_strlen(s) - 1);
 	while (s[i])
 	{
-		if ()
-		new[j] = s[i];
-		j++;
-		i++;
+		if (quote == 0 && (s[i] == '\'' || s[i] == '\"'))
+		{
+			quote = s[i];
+			i++;
+		}
+		else if (quote == s[i])
+			i++;
+		else
+		{
+			new[j] = s[i];
+			j++;
+			i++;
+		}
 	}
+	new[j] = '\0';
 	return (new);
-} */
+}
 
 char	*c_str(char const *s, char c, int *n)
 {
 	int		i;
 	char	*new;
+	int 	quote;
 
 	i = 0;
-	while (*s && *s != c && ++i)
-	{
-		//parse_quotes
-		/*
-		 if (*line == '\'' && ++line && ++i)
-                    while (*line && *line != '\'' && ++i)
-                        line++;
-		 */
+	while (*s == ' ')
 		s++;
+	while (*s && *s != c)
+	{	
+		quote = 0;
+		if (*s == '\'' && ++s && ++i)
+		{	
+			quote = 1;
+			while (*s && *s != '\'' && ++i)
+                s++;
+		}        
+		else if (*s == '\"' && ++s && ++i)
+		{	
+			quote = 2;
+			while (*s && *s != '\"' && ++i)
+                s++;
+		}
+		else
+		{
+			s++;
+			i++;
+		}
 	}
 	new = ft_substr(s - i, 0, i);
-	//new = free_quotes(new);
+	if (quote > 0)
+		new = free_quotes(new);
 	*n = i;
 	return (new);
 }
@@ -138,5 +171,6 @@ char	**ft_split_marks(char const *s, char c)
 	if (!res || !s)
 		return (0);
 	res = ft_split_loop(res, s, c);
+	//ft_printarr(res);
 	return (res);
 }

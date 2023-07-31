@@ -43,27 +43,33 @@ char	*parse_quotes(char *s)
 		return (s);
 	while (s[i])
 	{	
-		quote = 0;
+		quote = -1;
 		//entiendo que bash comprueba la primera quotes que encuentra, la primera sin cerrar es la que manda
-		while (quote == 0)  							
-			quote = detect_first_quote(s[i++]);
+		while (s[i])
+		{
+			quote = detect_first_quote(s[i]);
+			if (quote != -1)
+				break ;
+			i++;
+		}
 		/* if ((type == 0 || type == 1) && s[i] &&
 				!(s[i - 1] != '\\' && s[i] == '\'') && ++i) */
 		if (quote == 1) // simplificaría condiciones
 		{	
 			while (s[i] && quote == 1)
 			{	
-				if (s[i++] == '\'')
+				if (s[i] == '\'')
 					quote = 0;
+				i++;
 			}
 			if (quote > 0)
 				return (search_quote(s, '\''));
 		}
 		/* if ((type == 0 || type == 1) && s[i] &&
 				!(s[i - 1] != '\\' && s[i] == '\"') && ++i) */
-		else if (quote == 2)   // simplificaría condiciones
+		else if (quote == 2)   //  simplificaría condiciones
 		{	
-			while (quote == 2 && s[i])
+			while (s[i] && quote == 2)
 			{	
 				if (s[i] == '\"')
 					quote = 0;
@@ -77,6 +83,8 @@ char	*parse_quotes(char *s)
 	}
 	return (s);
 }
+
+
 
 /* int main(int argc, char **argv)
 {
