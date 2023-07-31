@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 18:34:42 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/31 10:07:30 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,33 +74,42 @@ char	**ft_split_meta(char const *s, char c)
 	return (res);
 }
 
-void	get_var(t_var *p, char **envp, int n)
+static void	get_var(t_shell *shell, t_var *p, char **envp, int n)
 {
 	int		j;
 
 	while (p->tmp[n])
 	{
 		j = 0;
-		while (p->tmp[n][j] &&
-			((p->tmp[n][j] >= 'a' && p->tmp[n][j] <= 'z') ||
-			(p->tmp[n][j] >= 'A' && p->tmp[n][j] <= 'Z') ||
-			(p->tmp[n][j] >= '0' && p->tmp[n][j] <= '9')))
+		if (p->tmp[n][j] == '?' && p->tmp[n][j + 1] == '\0') //exit code
+		{	
 			j++;
-		p->var = ft_substr(p->tmp[n], 0, j);
-		p->exp = search_var_line(p->var, envp);
-		p->c = ft_strjoin(p->new, p->exp);
-		p->tmp[n] += j;
-		p->new = ft_strjoin(p->c, p->tmp[n]);
+			p->exp = ft_itoa(shell->exit);
+		}
+		else
+		{
+			while (p->tmp[n][j] &&
+				((p->tmp[n][j] >= 'a' && p->tmp[n][j] <= 'z') ||
+				(p->tmp[n][j] >= 'A' && p->tmp[n][j] <= 'Z') ||
+				(p->tmp[n][j] >= '0' && p->tmp[n][j] <= '9')))
+			j++;
+			p->var = ft_substr(p->tmp[n], 0, j);
+			p->exp = search_var_line(p->var, envp);
+		}
+			p->c = ft_strjoin(p->new, p->exp);
+			p->tmp[n] += j;
+			p->new = ft_strjoin(p->c, p->tmp[n]);
 		n++;
 	}
 }
 
-char	*expand_meta(char *line, char **envp)
+char	*expand_meta(t_shell *shell, char *line, char **envp)
 {
 	t_var	p;
 	int		n;
 
 	p.tmp = ft_split_meta(line, '$');
+
 	p.new = p.tmp[0];
 	n = 1;
 	if (line[0] == '$')
@@ -108,7 +117,7 @@ char	*expand_meta(char *line, char **envp)
 		p.new = NULL;
 		n = 0;
 	}
-	get_var(&p, envp, n);
+	get_var(shell, &p, envp, n);
 	return (p.new);
 }
 /*

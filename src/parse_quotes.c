@@ -51,7 +51,7 @@ char	*parse_quotes(char *s)
 				!(s[i - 1] != '\\' && s[i] == '\'') && ++i) */
 		if (quote == 1) // simplificaría condiciones
 		{	
-			printf("entra en \' loop\n");
+			//printf("entra en \' loop\n");
 			while (s[i] && !(s[i - 1] != '\\' && s[i] == '\''))
 				i++;
 			if (!s[i])
@@ -61,7 +61,7 @@ char	*parse_quotes(char *s)
 				!(s[i - 1] != '\\' && s[i] == '\"') && ++i) */
 		if (quote == 2)   // simplificaría condiciones
 		{	
-			printf("entra en \" loop\n");
+			//printf("entra en \" loop\n");
 			while (s[i] && !(s[i - 1] != '\\' && s[i] == '\"'))
 				i++;
 			if (!s[i])

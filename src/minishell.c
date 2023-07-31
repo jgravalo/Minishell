@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/28 11:52:36 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/31 10:07:23 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,8 @@ int	new_shell(t_shell *shell)
 		if (shell->readline[0] != 0)
 		{	
 			shell->readline = parse_quotes(shell->readline);  
-			shell->readline = expand_meta(shell->readline, shell->envp); // implementar parseo single/double quotes (metachars dependen de ellas)
+			shell->readline = expand_meta(shell, shell->readline, shell->envp); // implementar parseo single/double quotes (metachars dependen de ellas)
+			//printf("%s\n", shell->readline);
 			//shell->readline = parse_heredoc(shell->readline);  seguramente hay que implementarlo donde el redir, para que no se añada a la historia
 			add_history(shell->readline);
 			parse_pipex(shell->readline, shell);
@@ -159,5 +160,5 @@ int	main(int argc, char **argv, char **envp)
 	if (!argc && !argv && !envp)
 		return (0);
 	new_shell(&shell);
-	return (0);
+	return (shell.exit);
 }	

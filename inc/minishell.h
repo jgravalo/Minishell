@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/31 09:08:46 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/31 09:57:34 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ char	*parse_heredoc(char *line);
 
 int		is_meta(char c);
 
-char	*expand_meta(char *line, char **envp);
+char	*expand_meta(t_shell *shell, char *line, char **envp);
 
 char	*c_str(char const *s, char c, int *n);
 
@@ -189,6 +189,8 @@ char	*parse_quotes(char *s);
 void	make_redir(t_shell *shell);
 
 int 	recover_std(t_shell *shell);
+
+char	*ft_itoa(int n);
 
 /*
 void	make_history(t_hist *hist, char *line);
