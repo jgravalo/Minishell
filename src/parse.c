@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:34:38 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/31 10:05:01 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:29:24 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ static void	parent_routine(t_shell *shell, int i)
 }
 
 static void child_routine(t_shell *shell, int i)
-{
+{	
 	if (shell->inpipe == 1) // hay pipe de entrada
 	{	
 		close(shell->p[i - 1].p[WRITE]);
@@ -124,8 +124,8 @@ static void child_routine(t_shell *shell, int i)
 	}
 	if (shell->pipex > 1)
 		close_fd(shell, i);
-	char *tmp = parse_redir(shell->pipes[i], shell);
-	shell->args = ft_split_marks(tmp, ' ');
+	//char *tmp = parse_redir(shell->pipes[i], shell);
+	//shell->args = ft_split_marks(tmp, ' ');
 	if (run_builtin(shell) == 0)
 		exit(1);
 	shell->cmd = file_cmd(shell->args[0], shell->envp); // error handling dentro de file_cmd
@@ -157,7 +157,7 @@ int	parse_line(t_shell *shell, int i)
 static void init_shell(t_shell *shell, char *line)
 {
 	shell->pipex = count_ascii(line, '|');
-	if (shell->pipex > 1)
+	if (shell->pipex > 0)
 		shell->pipes = ft_split(line, '|');
 	if (shell->pipex == 0)
 		shell->pid = (pid_t *)malloc(sizeof (pid_t) * (2));
