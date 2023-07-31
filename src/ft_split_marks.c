@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 13:29:05 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/07/31 16:19:08 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:57:06 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*mark_str(char const *s, char c, int *n)
 	return (new);
 }
 
-char	*free_quotes(char *s)
+/* char	*free_quotes(char *s)
 {
 	char	*new;
 	
@@ -38,7 +38,7 @@ char	*free_quotes(char *s)
 		i++;
 	}
 	return (new);
-}
+} */
 
 char	*c_str(char const *s, char c, int *n)
 {

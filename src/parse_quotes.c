@@ -30,7 +30,7 @@ static int detect_first_quote(char c)
 	else if (c == '\"')
 		return (2);
 	else
-		return (0);
+		return (-1);
 }
 
 char	*parse_quotes(char *s)
@@ -51,23 +51,29 @@ char	*parse_quotes(char *s)
 				!(s[i - 1] != '\\' && s[i] == '\'') && ++i) */
 		if (quote == 1) // simplificaría condiciones
 		{	
-			//printf("entra en \' loop\n");
-			while (s[i] && !(s[i - 1] != '\\' && s[i] == '\''))
-				i++;
-			if (!s[i])
+			while (s[i] && quote == 1)
+			{	
+				if (s[i++] == '\'')
+					quote = 0;
+			}
+			if (quote > 0)
 				return (search_quote(s, '\''));
 		}
 		/* if ((type == 0 || type == 1) && s[i] &&
 				!(s[i - 1] != '\\' && s[i] == '\"') && ++i) */
-		if (quote == 2)   // simplificaría condiciones
+		else if (quote == 2)   // simplificaría condiciones
 		{	
-			//printf("entra en \" loop\n");
-			while (s[i] && !(s[i - 1] != '\\' && s[i] == '\"'))
+			while (quote == 2 && s[i])
+			{	
+				if (s[i] == '\"')
+					quote = 0;
 				i++;
-			if (!s[i])
+			}
+			if (quote == 2)
 				return (search_quote(s, '\"'));
 		}
-		i++;
+		else
+			i++;
 	}
 	return (s);
 }
