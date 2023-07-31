@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:00:23 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/27 09:45:49 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/31 20:07:41 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int unset_n(char *var, t_shell *shell)
 	
 	n = search_var_num(var, shell->envp);
 	if (n < 0)
-		return (1);
+		return (0);
 	new = (char **)malloc(sizeof(char *) * count_arr(shell->envp));
 	i = 0;
 	j = 0;
@@ -45,24 +45,21 @@ static int unset_n(char *var, t_shell *shell)
 int	unset(t_shell *shell)
 {
 	int	i;
-	int exit;
 
 	i = 1;
-	exit = 0;
 	if (shell->args[i] == NULL)
-		return (1);
+		return (0);
 	while (shell->args[i])
 	{	
 		if (ft_strchr(shell->args[i], '=') != NULL)
 		{
-			exit++;
 			write(2, "unset: ", 7);
 			write(2, shell->args[i], ft_strlen(shell->args[i]));
 			write(2, ": invalid parameter name\n", 26);
-			break ;
+			shell->exit++;
 		}
-		exit = unset_n(shell->args[i], shell);
+		shell->exit += unset_n(shell->args[i], shell);
 		i++;
 	}
-	return (exit);
+	return (shell->exit);
 }

@@ -48,21 +48,60 @@ static char *put_home(char *cwd, int home_len)
 	return (home);
 }
 
-static char *get_cwd(char **envp)
+static char *get_pwd(void)
 {
+	int		pipefd[2];
+	char	buf[256];
+	char	*argv[2];
+	char 	*host;
+	pid_t 	pid;
+
+	argv[0] = "pwd";
+	argv[1] = NULL;
+	pipe(pipefd);
+	pid = fork();
+	if (pid < 0)
+	{
+		perror("fork");
+		return (NULL);
+	}
+	if (pid > 0)
+	{
+		close(pipefd[1]);
+		buf[read(pipefd[0], buf, sizeof (buf) - 1)] = '\0';
+		close(pipefd[0]);
+		host = ft_strdup(buf);
+		host[ft_strlen(host) - 1] = '\0';
+		return (host);
+	}
+	if (pid == 0)
+	{
+		close(pipefd[0]);
+		dup2(pipefd[1], 1);
+		close(pipefd[1]);
+		execve("/bin/pwd", argv, NULL);
+		return (NULL);
+	}
+	return (NULL);
+}
+
+static char *get_cwd(char **envp)
+{	
+	static int first;
+	static char *home = NULL;
 	char *cwd;
-	char *home;
 	int home_len;
 
-	cwd = search_var_line("PWD", envp);
-	home = search_var_line("HOME", envp);
-	ft_strchr(home, '=');
+	if (first == 0 || search_var_line("HOME", envp) != NULL)
+	{	
+		home = search_var_line("HOME", envp);
+		ft_strchr(home, '=');
+		first++;
+	}
+	cwd = get_pwd();
 	home_len = ft_strlen(home);
 	if (ft_strncmp(cwd, home, home_len) == 0)
-	{
-		home = put_home(cwd, home_len);
-		return (home);
-	}
+		return (put_home(cwd, home_len));
 	else
 		return (cwd);
 }
@@ -108,6 +147,7 @@ char *get_prompt(char **envp)
 	char 	*prompt;
 	char 	*host;
 	char	*dir;
+
 
 	prompt = search_var_line("PS1", envp);
 	if (prompt != NULL)

@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:59:28 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 18:20:12 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/31 19:48:41 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,10 @@ int	export(t_shell *shell)
 	i = 1;
 	while (shell->args[i])
 	{	
-		export_n(shell->args[i], shell);
+		shell->exit = export_n(shell->args[i], shell);
+		if (shell->exit == 1)
+			return (shell->exit);
 		i++;
 	}
-	return (0);
+	return (shell->exit);
 }
