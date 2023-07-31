@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:03:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/31 10:05:16 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/31 20:32:23 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@ int is_digit(char c);
 int is_alpha(char c);
 
 int is_alpha_num(char c);
+
+void ft_exit(t_shell *shell);
 
 #endif

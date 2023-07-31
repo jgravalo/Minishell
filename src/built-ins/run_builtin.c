@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:07:19 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/31 19:49:05 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/31 20:32:34 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ int	run_builtin(t_shell *shell)
 	else if (ft_strcmp(shell->args[0], "unset") == 0)
 		shell->exit = unset(shell);
 	else if (ft_strcmp(shell->args[0], "exit") == 0)
-		exit(1);
+		ft_exit(shell);
 	return (shell->exit);
 }

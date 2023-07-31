@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 18:35:35 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/07/31 20:22:51 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static int	cd_error(char *rute)
 {
-	write(1, "cd: no such file or directory: ", 31);
-	write(1, rute, ft_strlen(rute));
-	write(1, "\n", 1);
+	write(2, "cd: no such file or directory: ", 31);
+	write(2, rute, ft_strlen(rute));
+	write(2, "\n", 1);
 	return (1);
 }
 
