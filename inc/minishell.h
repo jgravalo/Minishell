@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/01 18:39:29 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/08/01 19:37:11 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_shell
 	char	*prompt;
 	t_pipe	*p;
 	pid_t	*pid;
+	int		*pid_end;
 	t_cmd	*struct_cmd;
 	char	*cmd;
 	int		redir_type;

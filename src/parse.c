@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:34:38 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/01 19:05:40 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/08/01 20:14:34 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	parse_line(t_shell *shell, int i)
 	if (shell->pid[i] == 0)
 		child_routine(shell, i);
 	parent_close(shell);
-	shell->pid[i] = 0;
+	shell->pid[++i] = 0;
+	int j = 0;
 	set_signals(shell, shell->envp);
 }

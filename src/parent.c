@@ -3,6 +3,7 @@
 void	wait_for_children(t_shell *shell)
 {	
 	int status;
+	int i;
 	pid_t	pid;
 
 	if (shell->children == 1)
@@ -12,17 +13,26 @@ void	wait_for_children(t_shell *shell)
 			shell->exit = WEXITSTATUS(status);
 	}
 	else
-	{
-		while (shell->children)
+	{	
+		while (shell->children != 0)
 		{	
-			if (wait(&status) > 0)
+			i = 0;
+			while (shell->pid[i] != 0)
 			{	
-				shell->children--;
-				if (WIFEXITED(status) ) 
+				if (shell->pid_end[i] == 1)
+					i++;
+				else
 				{
-					shell->exit = WEXITSTATUS(status);
-					break ;
+					pid = waitpid(shell->pid[i], &status, WNOHANG);
+					if (pid > 0)
+					{	
+						//printf("proceso %d ha acabado\n", pid);
+						shell->pid_end[i] = 1;
+						shell->children--;
+					}
+					i++;
 				}
+				
 			}
 		}
 	}
@@ -60,5 +70,5 @@ void	parent_routine(t_shell *shell, int i)
 {	
 	shell->children++;
 	if (i < shell->pipex)
-		parse_line(shell, i + 1); 
+		parse_line(shell, i + 1);
 }

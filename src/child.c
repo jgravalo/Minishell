@@ -27,4 +27,5 @@ void child_routine(t_shell *shell, int i)
 	if (shell->cmd == NULL) // file_cmd ya mide errores
 		exit(1);
 	execve(shell->cmd, shell->args, shell->envp);
+	printf("child routine llega aqui\n");
 }
