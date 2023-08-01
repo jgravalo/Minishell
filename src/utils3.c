@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 15:41:10 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/07/13 18:20:55 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/01 09:41:04 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,32 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (new);
 }
 
-int	ft_atoi(char *str)
+int64_t	ft_atoi(char *str)
 {
-	int	n;
+	int64_t	n;
+	int	sign;
+
+	n = 0;
+	sign = 1;
+	while (*str == ' ' || *str == '\t'
+		|| *str == '\v' || *str == '\n'
+		|| *str == '\r' || *str == '\f')
+		str++;
+	if (*str == '-')
+		sign = -1;
+	if (*str == '+' || *str == '-')
+		str++;
+	while ((*str >= '0') && (*str <= '9'))
+	{
+		n = n * 10 + (*str - 48);
+		str++;
+	}
+	return (n * sign);
+}
+
+uint64_t	ft_u_atoi(char *str)
+{
+	uint64_t	n;
 	int	sign;
 
 	n = 0;

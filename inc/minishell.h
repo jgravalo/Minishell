@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/31 20:28:44 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/08/01 09:41:12 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,9 @@ int 	recover_std(t_shell *shell);
 
 char	*ft_itoa(int n);
 
-int		ft_atoi(char *str);
+int64_t	ft_atoi(char *str);
+
+uint64_t	ft_u_atoi(char *str);
 
 /*
 void	make_history(t_hist *hist, char *line);

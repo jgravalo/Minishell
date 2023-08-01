@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:03:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/31 20:32:23 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/08/01 09:12:53 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define BUILTINS_H
 
 #include "../../inc/minishell.h"
+
+void ft_exit(t_shell *shell);
 
 int	env(char **envp);
 
@@ -38,7 +40,5 @@ int is_digit(char c);
 int is_alpha(char c);
 
 int is_alpha_num(char c);
-
-void ft_exit(t_shell *shell);
 
 #endif
