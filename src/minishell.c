@@ -6,111 +6,50 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/31 19:36:27 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/08/01 13:21:42 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include <readline/readline.h>
 
-void	test_pipe(t_pipe *p)
-{
-	char	buffer[17];
-
-	read(p->p[0], buffer, 17);
-	write(1, "<<<", 3);
-	write(1, buffer, 17);
-	write(1, ">>>", 3);
-	write(1, "\n", 1);
-}
-
-/*
-int parse_pipex(char *line, char **envp)
-{
-	char	**pipes;
-	int		i;
-	int		pipex;
-	int		exit;
-	t_pipe	*p;
-
-	pipex = count_ascii(line, '|'); 
-	pipes = ft_split(line, '|');
-	if (pipex == 0)
-		exit = parse_line(pipes[0], envp, NULL, NULL); //sin pipe
-	else 
-	{
-		p = (t_pipe *)malloc(sizeof(t_pipe) * (pipex + 1));
-		pipe(p[0].p);
-		exit = parse_line(pipes[0], envp, NULL, &p[0]); //primer pipe
-		close(p[0].p[1]); // cierras la salida/escritura del pipe
-		i = 1;
-		while (pipex > 1 && pipes[i + 1])
-		{
-			pipe(p[i].p);
-			exit = parse_line(pipes[i], envp, &p[i - 1], &p[i]);// pipe intermedio
-			close(p[i - 1].p[0]);
-			close(p[i].p[1]); // cierras la salida/escritura del pipe
-			i++;
-		}
-		exit = parse_line(pipes[i], envp, &p[i - 1], NULL); //ultimo pipe
-		close(p[i - 1].p[0]); // cierras la entrada/lectura del pipe
-	}
-	return (exit);
-}
-*/
-
-/*
-int main(int argc, char **argv, char **envp)
-{
-	char	*c;
-	int		exit;
-//	t_hist	history;
-
-	if (!argc && !argv && !envp)
-		return (0);
-	while (1)
-	{
-		c = readline("jgravalo> ");
-//		write(1, "jgravalo> ", 10);
-//		c = get_next_line(0);
-//		write(1,  "aqui\n", 5);
-//		rl_on_new_line();
-//		if (ft_strcmp(c, "") == 0)
-		if (ft_strlen(c) == 0)
-		{
-			write(1,  "aqui\n", 5);
-//			rl_on_new_line();
-			continue;
-		}
-//		write(1,  "aqui\n", 5);
-		add_history(c);
-
-//		write(1, "line = <", 8);
-//		write(1, c, ft_strlen(c));
-//		write(1, ">\n", 2);
-		
-		exit = parse_pipex(c, envp);
-		free(c);
-		c = NULL;
-	}
-	return (exit);
-}
-*/
-
-static char **alloc_envp(char **envp)
+static void empty_old_pwd(t_shell *shell)
 {	
-	char **envpcpy;
+	shell->args = malloc(sizeof (char *) * 2);
+	shell->args[0] = malloc (sizeof (char) * 6);
+	shell->args[0] = "unset";
+	shell->args[0] = malloc (sizeof (char) * 7);
+	shell->args[1] = "OLDPWD";
+	shell->args[2] = NULL;
+	unset(shell);
+	//free_m(shell->args);
+	shell->args = malloc(sizeof (char *) * 2);
+	shell->args[0] = malloc (sizeof (char) * 7);
+	shell->args[0] = "export";
+	shell->args[0] = malloc (sizeof (char) * 7);
+	shell->args[1] = "OLDPWD";
+	shell->args[2] = NULL;
+	export(shell);
+	//free_m(shell->args);
+}
+
+static void alloc_envp(t_shell *shell, char **envp)
+{	
 	int i;
 
-	envpcpy = (char **)malloc(sizeof (char *) * (count_arr(envp) + 1));
+	shell->envp = (char **)malloc(sizeof (char *) * (count_arr(envp) + 1));
 	i = 0;
 	while (envp[i])
 	{
-		envpcpy[i] = ft_strdup(envp[i]);
+		shell->envp[i] = ft_strdup(envp[i]);
 		i++;
 	}
-	envpcpy[i] = NULL;
-	return (envpcpy);
+	shell->envp[i] = NULL;
+	empty_old_pwd(shell);
+	/* shell->args[0] = "export";
+	shell->args[1] = "OLDPWD";
+	shell->args[2] = NULL;
+	export(shell); */
 }
 
 static void	handler(int sig)
@@ -142,7 +81,7 @@ int	new_shell(t_shell *shell)
 			//printf("%s\n", shell->readline);
 			//shell->readline = parse_heredoc(shell->readline);  seguramente hay que implementarlo donde el redir, para que no se añada a la historia
 			add_history(shell->readline);
-			parse_pipex(shell->readline, shell);
+			parse_pipex(shell);
 			free(shell->readline);
 		}
 		free(shell->prompt);
@@ -156,7 +95,7 @@ int	main(int argc, char **argv, char **envp)
 {	
 	t_shell				shell;
 
-	shell.envp = alloc_envp(envp);
+	alloc_envp(&shell, envp);
 	if (!argc && !argv && !envp)
 		return (0);
 	new_shell(&shell);

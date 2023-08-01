@@ -6,11 +6,40 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:59:28 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/31 19:48:41 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/08/01 13:00:56 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+static char *put_var(char *var)
+{
+	char *new;
+	int i;
+	int j;
+
+	j = 0;
+	i = 0;
+	if (ft_strchr(var, '=') != NULL)
+	{
+		new = malloc(sizeof (char) * (ft_strlen(var) + 3));
+		while (var[j])
+		{
+			if (var[j] == '=')
+			{
+				new[i++] = var[j++];
+				new[i++] = '\"';
+			}
+			else 
+				new[i++] = var[j++];
+		}
+		new[i++] = '\"';
+		new[i] = '\0';
+		return (new);
+	}
+	else
+		return (var);
+}
 
 static void print_env(char **envp, int *order)
 {
@@ -25,8 +54,8 @@ static void print_env(char **envp, int *order)
 	{	
 		while (order[i] != count)
 			i++;
-		write(1, "declare -x ", 12);
-		write(1, envp[i], ft_strlen(envp[i]));
+		write(1, "declare -x ", 11);
+		write(1, put_var(envp[i]), ft_strlen(put_var(envp[i])));
 		write(1, "\n", 1);
 		i = 0;
 		count++;
