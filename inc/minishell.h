@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/01 18:04:47 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/08/01 18:39:29 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,12 +200,12 @@ void	alloc_envp(t_shell *shell, char **envp);
 
 int		new_shell(t_shell *shell);
 
-int		wait_for_children(t_shell *shell);
+void	wait_for_children(t_shell *shell);
 
 void 	init_shell(t_shell *shell);
 
 
-void		parse_no_pipes_line(t_shell *shell);
+void	parse_no_pipes_line(t_shell *shell);
 
 
 void	set_signals(t_shell *shell, char **envp);

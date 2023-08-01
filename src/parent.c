@@ -1,13 +1,15 @@
 #include  "../inc/minishell.h"
 
-int	wait_for_children(t_shell *shell)
+void	wait_for_children(t_shell *shell)
 {	
 	int status;
-	
+	pid_t	pid;
+
 	if (shell->children == 1)
-	{
-		wait(&status);
-		printf("sale de esperar\n");
+	{	
+		pid = waitpid(shell->pid[0], &status, 0);
+		if (WIFEXITED(status))
+			shell->exit = WEXITSTATUS(status);
 	}
 	else
 	{
@@ -19,22 +21,22 @@ int	wait_for_children(t_shell *shell)
 				if (WIFEXITED(status) ) 
 				{
 					shell->exit = WEXITSTATUS(status);
-					printf("exit status %d\n", shell->exit);
 					break ;
 				}
 			}
 		}
 	}
-	return (shell->exit);
 }
 
 void	handler(int signal)
 {	
 	if (signal == SIGINT)
-		kill(0, SIGINT);
+	{
+		write(1, "\n", 1);
+		return ;
+	}
 	else if (signal == SIGQUIT)
 		kill(0, SIGQUIT);
-	write(1, "\n", 1);
 }
 
 void	set_signals(t_shell *shell, char **envp)
