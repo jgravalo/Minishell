@@ -2,22 +2,18 @@
 
 void empty_old_pwd(t_shell *shell)
 {	
-	shell->args = malloc(sizeof (char *) * 2);
-	shell->args[0] = malloc (sizeof (char) * 6);
-	shell->args[0] = "unset";
-	shell->args[0] = malloc (sizeof (char) * 7);
-	shell->args[1] = "OLDPWD";
+	shell->args = (char **)malloc(sizeof (char *) * 3);
+	shell->args[0] = ft_strdup("unset");
+	shell->args[1] = ft_strdup("OLDPWD");
 	shell->args[2] = NULL;
 	unset(shell);
-	//free_m(shell->args);
-	shell->args = malloc(sizeof (char *) * 2);
-	shell->args[0] = malloc (sizeof (char) * 7);
-	shell->args[0] = "export";
-	shell->args[0] = malloc (sizeof (char) * 7);
-	shell->args[1] = "OLDPWD";
+	free_m(shell->args);
+	shell->args = (char **)malloc(sizeof (char *) * 3);
+	shell->args[0] = ft_strdup("export");
+	shell->args[1] = ft_strdup("OLDPWD");
 	shell->args[2] = NULL;
 	export(shell);
-	//free_m(shell->args);
+	free_m(shell->args);
 }
 
 void alloc_envp(t_shell *shell, char **envp)

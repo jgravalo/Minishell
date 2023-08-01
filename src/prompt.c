@@ -44,7 +44,8 @@ static char *put_home(char *cwd, int home_len)
 
 	str1 = ft_strdup(&cwd[home_len]);
 	home = ft_strjoin("~", str1);
-	free (str1);
+	free(str1);
+	free(cwd);
 	return (home);
 }
 

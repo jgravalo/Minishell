@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/01 17:58:34 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/08/01 18:04:47 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,6 @@ int		count_ascii(char *line, int c);
 
 int		count_arr(char **args);
 
-int		set_signals(t_shell *shell, char **envp);
-
 int		new_shell(t_shell *shell);
 
 void	parse_pipex(t_shell *shell);
@@ -165,8 +163,6 @@ char	*c_str(char const *s, char c, int *n);
 int		words(const char *s, char c);
 
 int		is_local(char *cmd);
-
-int		parse_line(t_shell *shell, int i);
 
 void 	parent_close(t_shell *shell);
 
@@ -210,6 +206,11 @@ void 	init_shell(t_shell *shell);
 
 
 void		parse_no_pipes_line(t_shell *shell);
+
+
+void	set_signals(t_shell *shell, char **envp);
+
+void	parse_line(t_shell *shell, int i);
 
 /*
 void	make_history(t_hist *hist, char *line);

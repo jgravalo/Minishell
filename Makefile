@@ -1,8 +1,8 @@
 M_SRCS		= src/utils.c src/ft_split_marks.c src/minishell.c src/pipes.c src/prompt2.c \
-			  src/access_cmd.c src/errors.c src/utils_env.c src/here_doc.c src/prompt.c \
-			  src/count.c src/signal.c src/history.c src/parse.c src/redir.c src/close_fd.c \
+			  src/access_cmd.c src/errors.c src/utils_env.c src/here_doc.c src/prompt.c src/child.c \
+			  src/count.c src/history.c src/parse.c src/redir.c src/close_fd.c \
 			  src/lexer.c src/lexer_aux.c src/utils2.c src/utils3.c src/utils4.c src/meta.c src/init_shell.c \
-			  src/parse_no_pipes.c src/parse_quotes.c src/ft_itoa.c src/parent_child.c src/main.c src/init_envp.c
+			  src/parse_no_pipes.c src/parse_quotes.c src/ft_itoa.c src/parent.c src/main.c src/init_envp.c
 
 BUILT_SRCS	= src/built-ins/echo.c src/built-ins/cd.c src/built-ins/export.c \
 			  src/built-ins/unset.c src/built-ins/env.c src/built-ins/pwd.c src/built-ins/run_builtin.c \

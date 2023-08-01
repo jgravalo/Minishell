@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/01 17:59:46 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/08/01 18:22:07 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ void	parse_no_pipes_line(t_shell *shell)
 		if (cmd == NULL) // file_cmd ya mide errores
 			exit(1);
 		if (shell->redir_type != -1)
+		{	
+			printf("entra en redir\n");
 			make_redir(shell);
+		}
 		execve(cmd, shell->args, shell->envp);
 	}
 }

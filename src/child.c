@@ -1,31 +1,5 @@
 #include  "../inc/minishell.h"
 
-int	wait_for_children(t_shell *shell)
-{	
-	int status;
-	
-	while (shell->children)
-	{	
-		if (waitpid(-1, &status, 0) > 0)
-		{	
-			shell->children--;
-			if (WIFEXITED(status) ) 
-			{
-       			shell->exit = WEXITSTATUS(status);
-				break ;
-   			 }
-		}
-	}
-	return (shell->exit);
-}
-
-void	parent_routine(t_shell *shell, int i)
-{	
-	shell->children++;
-	if (i < shell->pipex)
-		parse_line(shell, i + 1); 
-}
-
 void child_routine(t_shell *shell, int i)
 {	
 	shell->readline = parse_redir(shell->pipes[i], shell);
