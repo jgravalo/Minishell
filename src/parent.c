@@ -26,9 +26,16 @@ void	wait_for_children(t_shell *shell)
 					pid = waitpid(shell->pid[i], &status, WNOHANG);
 					if (pid > 0)
 					{	
-						//printf("proceso %d ha acabado\n", pid);
 						shell->pid_end[i] = 1;
 						shell->children--;
+						if (WIFEXITED(status))
+						{
+							if (WEXITSTATUS(status) == 1)
+							{
+								shell->exit = 1;
+								return ;
+							}
+						}
 					}
 					i++;
 				}

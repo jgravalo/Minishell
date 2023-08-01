@@ -4,6 +4,7 @@ void child_routine(t_shell *shell, int i)
 {	
 	shell->readline = parse_redir(shell->pipes[i], shell);
 	shell->args = ft_split_marks(shell->pipes[i], ' ');
+	//printf("comando %s, proceso %d\n", shell->args[0], getpid());
 	if (shell->inpipe == 1) // hay pipe de entrada
 	{	
 		close(shell->p[i - 1].p[WRITE]);
