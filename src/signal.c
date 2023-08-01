@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:24:57 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/01 16:06:28 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/08/01 17:56:18 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,6 @@ void	handler(int signal)
 		}
 		write(1, "\n", 1);
 	}
-}
-
-static int	wait_for_children(t_shell *shell)
-{	
-	pid_t	pid;
-	
-
-	while (shell->children)
-	{	
-		pid = waitpid(-1, &shell->exit, WNOHANG);
-		if (pid > 0)
-			shell->children--;
-	}
-	return (shell->exit);
 }
 
 int	set_signals(t_shell *shell, char **envp)
