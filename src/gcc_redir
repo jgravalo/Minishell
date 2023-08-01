@@ -1,1 +1,0 @@
-gcc -Wall -Werror -Wextra redir.c utils.c utils3.c ft_split_marks.c -o redir

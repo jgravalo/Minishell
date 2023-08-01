@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/01 10:51:05 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/08/01 16:08:41 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,12 @@ uint64_t	ft_u_atoi(char *str);
 void	parent_routine(t_shell *shell, int i);
 
 void	child_routine(t_shell *shell, int i);
+
+void	empty_old_pwd(t_shell *shell);
+
+void	alloc_envp(t_shell *shell, char **envp);
+
+int		new_shell(t_shell *shell);
 
 /*
 void	make_history(t_hist *hist, char *line);

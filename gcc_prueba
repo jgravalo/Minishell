@@ -1,1 +1,0 @@
-gcc -Wall -Werror -Wextra prueba.c src/access_cmd.c src/ft_split_marks.c gnl/get_next_line_utils.c
