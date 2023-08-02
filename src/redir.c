@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/01 17:49:54 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/08/02 19:43:56 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,24 +177,27 @@ static void	prepare_redir(char *line, t_shell *shell)
 	int fd;
 	int type;
 
-	tmp = ft_split_marks(line, ' ');
-	if (ft_strcmp(tmp[0], "<") == 0)
-	{
-		fd = open(tmp[1], O_RDONLY);
+	if (line[0] == '<')
+	{	
+		tmp = ft_split_marks(line, '<');
+		fd = open(tmp[0], O_RDONLY);
+		printf("%s\n", strerror(errno));
 		shell->infd = fd;
 		shell->saved_stdin = dup(0);
 		shell->redir_type = 0;
 	}
-	else if (ft_strcmp(tmp[0], ">") == 0)
+	else if (line[0] == '>' && line[1] != '>')
 	{	
-		fd = open(tmp[1], O_RDWR | O_CREAT | O_TRUNC, 00644);
+		tmp = ft_split_marks(line, '>');
+		fd = open(tmp[0], O_RDWR | O_CREAT | O_TRUNC, 00644);
 		shell->outfd = fd;
 		shell->saved_stdout = dup(1);
 		shell->redir_type = 1;
 	}
-	else if (ft_strcmp(tmp[0], ">>") == 0)
-	{
-		fd = open(tmp[1], O_RDWR | O_CREAT | O_APPEND, 00644);
+	else if (line[0] == '>' && line[1] == '>')
+	{	
+		tmp = ft_split_marks(line, '>');
+		fd = open(tmp[0], O_RDWR | O_CREAT | O_APPEND, 00644);
 		shell->outfd = fd;
 		shell->saved_stdout = dup(1);
 		shell->redir_type = 1;
@@ -259,7 +262,6 @@ char *parse_redir(char *line, t_shell *shell)
 	cmd = ft_strdup("");
 	args = ft_split_redir(line);
 	i = 0;
-	//ft_printarr(args);
 	while (args[i])
 	{	
 		if (args[i][0] == '<' || args[i][0] == '>')
