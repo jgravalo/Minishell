@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:34:38 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/01 20:14:34 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/08/02 19:08:21 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ void parse_pipex(t_shell *shell)
 	{	
 		create_pipes(shell);
 		parse_line(shell, i);
+		parent_close(shell);
+		shell->pid[shell->pipex + 1] = 0;
+		set_signals(shell, shell->envp);
 		free(shell->p);
 		free_m(shell->pipes);
 	}
@@ -43,8 +46,4 @@ void	parse_line(t_shell *shell, int i)
 		parent_routine(shell, i);
 	if (shell->pid[i] == 0)
 		child_routine(shell, i);
-	parent_close(shell);
-	shell->pid[++i] = 0;
-	int j = 0;
-	set_signals(shell, shell->envp);
 }
