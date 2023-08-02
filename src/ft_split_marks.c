@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 13:29:05 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/07/31 18:00:14 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/08/02 09:56:38 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ char	**ft_split_loop(char **res, char const *s, char c)
 	while (*s)
 	{
 		if (*s != c)
-		{
+		{	
 			i = 0;
 			if (*s == '\"' && *(s - 1) != '\\' && ++s)
 				res[j++] = mark_str(s, '\"', &i);
@@ -159,7 +159,7 @@ char	**ft_split_loop(char **res, char const *s, char c)
 		else
 			++s;
 	}
-	res[j++] = NULL;
+	res[j] = NULL;
 	return (res);
 }
 
@@ -167,7 +167,7 @@ char	**ft_split_marks(char const *s, char c)
 {
 	char	**res;
 
-	res = (char **) malloc((words(s, c) * (sizeof(char *))) + 8);
+	res = (char **) malloc((words(s, c) * (sizeof (char *) + 8)));
 	if (!res || !s)
 		return (0);
 	res = ft_split_loop(res, s, c);

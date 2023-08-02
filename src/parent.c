@@ -5,7 +5,9 @@ void	wait_for_children(t_shell *shell)
 	int status;
 	int i;
 	pid_t	pid;
+	int fd;
 
+	status = 0;
 	if (shell->children == 1)
 	{	
 		pid = waitpid(shell->pid[0], &status, 0);

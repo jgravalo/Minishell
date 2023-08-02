@@ -2,8 +2,9 @@
 
 void child_routine(t_shell *shell, int i)
 {	
-	shell->readline = parse_redir(shell->pipes[i], shell);
+	shell->pipes[i] = parse_redir(shell->pipes[i], shell);
 	shell->args = ft_split_marks(shell->pipes[i], ' ');
+	//printf("proceso %d, comando %s\n", getpid(), shell->args[0]);
 	//printf("comando %s, proceso %d\n", shell->args[0], getpid());
 	if (shell->inpipe == 1) // hay pipe de entrada
 	{	
@@ -28,5 +29,4 @@ void child_routine(t_shell *shell, int i)
 	if (shell->cmd == NULL) // file_cmd ya mide errores
 		exit(1);
 	execve(shell->cmd, shell->args, shell->envp);
-	printf("child routine llega aqui\n");
 }

@@ -52,6 +52,8 @@ char	*parse_quotes(char *s)
 				break ;
 			i++;
 		}
+		if (!s[i])
+			return (s);
 		/* if ((type == 0 || type == 1) && s[i] &&
 				!(s[i - 1] != '\\' && s[i] == '\'') && ++i) */
 		if (quote == 1) // simplificaría condiciones
