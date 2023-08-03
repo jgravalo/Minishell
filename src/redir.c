@@ -6,87 +6,12 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/02 19:43:56 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/08/03 18:23:37 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-//int	search_redir(char **args)
-/*
-char	*next_word(char *line, int *len)
-{
-	int		i;
-	int		j++;
-	char	*c;
-
-	i = 0;
-	while (*line == ' ' && j++)
-		line++;
-	while (*line && *line != ' ' && ++i && ++j)
-		line++;
-	c = ft_substr(line - i, 0, i);
-	*len = j;
-	return (c);
-}
-
-char	*check_redir(char *line)
-{
-//	int fd;
-	int i;
-	char *file;
-	int len_redir;
-
-	i = 0;
-	len_redir;
-	while (*line)
-	{
-		if (*line == '>' && *(line + 1) >= '>')
-			file = next_word(line + 2);
-		else if (*line == '>' || *line == '<')
-			file = next_word(line + 1);
-		printf("*line = %c\n", *line);
-/
-		if (*line == '>' && *(line + 1) != '>')
-		{
-
-			fd = open(file, O_RDWR | O_CREAT | O_TRUNC, 00644); // > salida
-			dup2(fd, 1);
-			line += len_redir();
-		}
-		else if (*line == '>' && *(line + 1) == '>')
-		{
-			fd = open(file, O_RDWR | O_CREAT | O_APPEND, 00644); // >> salida
-			dup2(fd, 1);
-		}
-		else if (*line == '<' && *(line + 1) != '<')
-		{
-			fd = open(file, O_RDONLY); // < entrada
-			dup2(fd, 0);
-		}
-/
-		else if (*line == '<' && *(line + 1) == '<')
-		{
-			pipe(p);
-			file = ft_substr(); // modificado para here_doc
-			pid = fork();
-			if (pid == 0)
-			{
-				close(p[0]);
-				dup2(p[1], 1);
-				parse_pipex(file);
-			}
-			if ()
-			waitpid(pid, NULL, 0);
-		}
-*		
-		free(file);		
-*
-		line++;
-	}
-	return (line);
-}
-*/
 int	len_redir(char *line)
 {
 	int	i;
@@ -100,8 +25,8 @@ int	len_redir(char *line)
 		line++;
 	while (*line && *line != ' ' && ++i)
 		line++;
-	while (*line && *line == ' ' && ++i)
-		line++;
+//	while (*line && *line == ' ' && ++i)
+//		line++;
 	return (i);
 }
 
@@ -135,6 +60,7 @@ char	**ft_split_redir(char *line)
 	int		i;
 	int		j;
 	int		len;
+	char	quote;
 
 //	printf("count = %d\n", count_redir(line));
 //	printf("aqui\n");
@@ -155,6 +81,14 @@ char	**ft_split_redir(char *line)
 			while (*line && *line != '<' && *line != '>' && ++i)
 			{
 				//parse_quotes
+				if (*line == '\'' || *line == '\"')
+				{
+					quote = *line;
+					line++;
+					while (*line != quote)
+						line++;
+					line++;
+				}
 				/*
 				if (*line == '\'' && ++line && ++i)
 					while (*line && *line != '\'' && ++i)
@@ -171,38 +105,69 @@ char	**ft_split_redir(char *line)
 	return (m);
 }
 
+char	*get_redir(char *line)
+{
+	while (*line == '>' || *line == '<')
+		line++;
+	while (*line == ' ')
+		line++;
+	return (line);
+}
+
 static void	prepare_redir(char *line, t_shell *shell)
 {
-	char **tmp;
+	char *tmp;
 	int fd;
 	int type;
 
+//	printf("line is |%s|\n", line);
+	tmp = get_redir(line);
+//	printf("redir = |%s|\n", tmp);
 	if (line[0] == '<')
 	{	
-		tmp = ft_split_marks(line, '<');
-		fd = open(tmp[0], O_RDONLY);
-		printf("%s\n", strerror(errno));
+		if (access(tmp, F_OK) != 0)
+		{
+			printf("%s: %s\n", tmp, strerror(1));
+			exit(1);
+		}
+		if (access(tmp, R_OK) != 0 || access(tmp, X_OK) != 0)
+		{
+			printf("%s: %s\n", tmp, strerror(13));
+			exit(1);
+		}
+		fd = open(tmp, O_RDONLY);
+//		printf("%s\n", strerror(errno));
 		shell->infd = fd;
 		shell->saved_stdin = dup(0);
 		shell->redir_type = 0;
 	}
 	else if (line[0] == '>' && line[1] != '>')
 	{	
-		tmp = ft_split_marks(line, '>');
-		fd = open(tmp[0], O_RDWR | O_CREAT | O_TRUNC, 00644);
+		if (access(tmp, F_OK) == 0 && access(tmp, W_OK) != 0)
+		{
+			printf("%s: %s\n", tmp, strerror(13));
+			exit(1);
+		}
+//		ft_printarr(tmp);
+		fd = open(tmp, O_RDWR | O_CREAT | O_TRUNC, 00644);
 		shell->outfd = fd;
 		shell->saved_stdout = dup(1);
 		shell->redir_type = 1;
+//	printf("aqui\n");
 	}
 	else if (line[0] == '>' && line[1] == '>')
 	{	
-		tmp = ft_split_marks(line, '>');
-		fd = open(tmp[0], O_RDWR | O_CREAT | O_APPEND, 00644);
+		if (access(tmp, F_OK) == 0 && access(tmp, W_OK) != 0)
+		{
+			printf("%s: %s\n", tmp, strerror(13));
+			exit(1);
+		}
+		fd = open(tmp, O_RDWR | O_CREAT | O_APPEND, 00644);
 		shell->outfd = fd;
 		shell->saved_stdout = dup(1);
 		shell->redir_type = 1;
 	}
-	free_m(tmp);
+//	free_m(tmp);
 }
 
 void	make_redir(t_shell *shell)
@@ -264,12 +229,14 @@ char *parse_redir(char *line, t_shell *shell)
 	i = 0;
 	while (args[i])
 	{	
+//	printf("aqui\n");
 		if (args[i][0] == '<' || args[i][0] == '>')
 			prepare_redir(args[i], shell);
 		else
 			cmd = ft_strjoin(cmd, args[i]);
 		i++;
 	}
+//	printf("aqui\n");
 	//free_m(args);
 	return (cmd);
 }
