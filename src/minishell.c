@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/02 09:58:47 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/08/06 18:57:15 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int	new_shell(t_shell *shell)
 		if (shell->readline[0] != 0)
 		{	
 			shell->readline = parse_quotes(shell->readline);
-			shell->readline = expand_meta(shell, shell->readline, shell->envp);
-			//shell->readline = parse_heredoc(shell->readline);  seguramente hay que implementarlo donde el redir, para que no se añada a la historia
 			add_history(shell->readline);
+			shell->readline = expand_meta(shell, shell->readline, shell->envp);
+			//shell->readline = parse_heredoc(shell->readline);
 			parse_pipex(shell);
 			free(shell->readline);
 		}
