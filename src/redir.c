@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/03 18:23:37 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/08/06 15:26:49 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,17 +124,19 @@ static void	prepare_redir(char *line, t_shell *shell)
 	tmp = get_redir(line);
 //	printf("redir = |%s|\n", tmp);
 	if (line[0] == '<')
-	{	
+	{	/*
 		if (access(tmp, F_OK) != 0)
 		{
-			printf("%s: %s\n", tmp, strerror(1));
+			printf("%s: %s\n", tmp, strerror(2));
 			exit(1);
 		}
-		if (access(tmp, R_OK) != 0 || access(tmp, X_OK) != 0)
+		if (access(tmp, R_OK) != 0 || access(tmp, W_OK) != 0
+			|| access(tmp, X_OK) != 0)
 		{
 			printf("%s: %s\n", tmp, strerror(13));
 			exit(1);
 		}
+		*/
 		fd = open(tmp, O_RDONLY);
 //		printf("%s\n", strerror(errno));
 		shell->infd = fd;
@@ -142,12 +144,13 @@ static void	prepare_redir(char *line, t_shell *shell)
 		shell->redir_type = 0;
 	}
 	else if (line[0] == '>' && line[1] != '>')
-	{	
+	{	/*
 		if (access(tmp, F_OK) == 0 && access(tmp, W_OK) != 0)
 		{
 			printf("%s: %s\n", tmp, strerror(13));
 			exit(1);
 		}
+		*/
 //		ft_printarr(tmp);
 		fd = open(tmp, O_RDWR | O_CREAT | O_TRUNC, 00644);
 		shell->outfd = fd;
@@ -156,12 +159,13 @@ static void	prepare_redir(char *line, t_shell *shell)
 //	printf("aqui\n");
 	}
 	else if (line[0] == '>' && line[1] == '>')
-	{	
+	{	/*
 		if (access(tmp, F_OK) == 0 && access(tmp, W_OK) != 0)
 		{
 			printf("%s: %s\n", tmp, strerror(13));
 			exit(1);
 		}
+		*/
 		fd = open(tmp, O_RDWR | O_CREAT | O_APPEND, 00644);
 		shell->outfd = fd;
 		shell->saved_stdout = dup(1);
