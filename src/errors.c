@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgravalo <jgravalo@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 16:56:43 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/06/19 15:38:47 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/08/15 13:35:08 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,16 @@ int	errors(t_pipex *pipex, int argc, char **argv)
 	return (i);
 }
 */
-int	cmd_error(char *str)
-{
-	write(2, "pipex: ", 7);
+int	cmd_error(char *s, int n, int exit)
+{	
+	char	*str;
+
+	str = ft_strjoin(s, ": ");
+	str = ft_strjoin(str, strerror(n));
+	write(2, "bash: ", 7);
 	write(2, str, ft_strlen(str));
-	write(2, ": command not found\n", 20);
-	return (-1);
+	write(2, "\n", 1);
+	return (exit);
 }
 
 int	file_error(char *s, int n)
@@ -41,7 +45,7 @@ int	file_error(char *s, int n)
 
 	str = ft_strjoin(s, ": ");
 	str = ft_strjoin(str, strerror(n));
-	write(2, "pipex: ", 7);
+	write(2, "bash: ", 7);
 	write(2, str, ft_strlen(str));
 	write(2, "\n", 1);
 	return (0);

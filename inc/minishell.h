@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/02 09:20:48 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/08/15 13:23:46 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <stdint.h>
+# include <dirent.h>
 //# include "../gnl/get_next_line.h"
 //# include "builtins.h"
 
@@ -96,7 +98,7 @@ typedef struct s_var
 	char	*c;
 }	t_var;
 
-int		cmd_error(char *str);
+int		cmd_error(char *s, int n, int exit);
 
 size_t	ft_strlen(const char *str);
 
