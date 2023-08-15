@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/01 20:02:15 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/08/15 14:23:34 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,13 @@ static int	cd_error(char *rute)
 	return (1);
 }
 
-int	cd(char *rute, char **envp)
+static int	args_error(void)
+{
+	write(2, "cd: too many arguments\n", 24);
+	return (1);
+}
+
+int	cd(t_shell *shell, char **envp)
 {
 	char	*tmp;
 	int		pwd;
@@ -31,24 +37,24 @@ int	cd(char *rute, char **envp)
 	join = 0;
 	if (!envp)
 		return (1);
-	if (rute == NULL)
-		rute = search_var_line("HOME", envp);
-	else if (rute[0] != '/' && ft_strcmp(rute, "..") != 0)
+	if (shell->args[2] != NULL)
+		return (args_error());
+	if (shell->args[1] == NULL)
+		shell->args[1] = search_var_line("HOME", envp);
+	else if (shell->args[1][0] != '/' && ft_strcmp(shell->args[1], "..") != 0)
 	{
 		tmp = ft_strjoin(search_var_line("PWD", envp), "/");
-		rute = ft_strjoin(tmp, rute);
+		shell->args[1] = ft_strjoin(tmp, shell->args[1]);
 		join = 1;
 		free(tmp);
 	}
 	oldpwd = search_var_num("OLDPWD", envp);
 	free(envp[oldpwd]);
 	envp[oldpwd] = ft_strjoin("OLDPWD=", getcwd(buffer, 100));
-	if (chdir(rute) < 0)
-		return (cd_error(rute));
+	if (chdir(shell->args[1]) < 0)
+		return (cd_error(shell->args[1]));
 	pwd = search_var_num("PWD", envp);
 	free(envp[pwd]);
 	envp[pwd] = ft_strjoin("PWD=", getcwd(buffer, 100));
-	if (join == 1)
-		free(rute);
 	return (0);
 }

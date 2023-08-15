@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:07:19 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/01 20:02:07 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/08/15 14:20:27 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_builtin(char **args)
 int	run_builtin(t_shell *shell)
 {
 	if (ft_strcmp(shell->args[0], "cd") == 0)
-		shell->exit = cd(shell->args[1], shell->envp);
+		shell->exit = cd(shell, shell->envp);
 	else if (ft_strcmp(shell->args[0], "echo") == 0)
 		shell->exit = echo(shell->args);
 	else if (ft_strcmp(shell->args[0], "env") == 0)
