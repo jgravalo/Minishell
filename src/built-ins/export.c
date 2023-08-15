@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:59:28 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/01 19:55:35 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/08/15 13:57:07 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ static char *put_var(char *var)
 	char *new;
 	int i;
 	int j;
+	int flag;
 
+	flag = 0;
 	j = 0;
 	i = 0;
 	if (ft_strchr(var, '=') != NULL)
@@ -25,10 +27,11 @@ static char *put_var(char *var)
 		new = malloc(sizeof (char) * (ft_strlen(var) + 3));
 		while (var[j])
 		{
-			if (var[j] == '=')
+			if (flag == 0 && var[j] == '=')
 			{
 				new[i++] = var[j++];
 				new[i++] = '\"';
+				flag = 1;
 			}
 			else 
 				new[i++] = var[j++];

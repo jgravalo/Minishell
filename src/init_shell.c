@@ -31,4 +31,5 @@ void init_shell(t_shell *shell)
 	shell->infd	= -1;
 	shell->outfd = -1;
 	shell->redir_type = -1;
+	shell->exit = 0;
 }

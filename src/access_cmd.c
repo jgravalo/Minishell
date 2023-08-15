@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:09:57 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/08/15 13:22:05 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/15 13:48:09 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,24 +109,7 @@ int	check_cmd(char *cmd)
 	}
 	return (0);
 }
-/*
-char	*access_cmd(char *cmd, char**docs, int env)
-{
-	if (cmd[0] != '/') 
-		return (access_loop(docs, cmd));
-	if (env == -1 && access(cmd, F_OK) == 0)
-		return (cmd);
-	if (is_local(cmd) == 0 && !(cmd[0] == '.' && cmd[1] == '/'))
-	{
-		cmd_error(cmd, 2, 127);
-		exit(126);
-	}
-	if (access(cmd, F_OK) != -1 && access(cmd, X_OK) != -1)
-		return (cmd);
-	cmd_error(cmd, 2, 127);
-	exit(126);
-}
-*/
+
 char	*file_cmd(char *cmd, char **envp)
 {
 	int		env;
@@ -147,3 +130,22 @@ char	*file_cmd(char *cmd, char **envp)
 	free(docs);
 	return (file);
 }
+
+/*
+char	*access_cmd(char *cmd, char**docs, int env)
+{
+	if (cmd[0] != '/') 
+		return (access_loop(docs, cmd));
+	if (env == -1 && access(cmd, F_OK) == 0)
+		return (cmd);
+	if (is_local(cmd) == 0 && !(cmd[0] == '.' && cmd[1] == '/'))
+	{
+		cmd_error(cmd, 2, 127);
+		exit(126);
+	}
+	if (access(cmd, F_OK) != -1 && access(cmd, X_OK) != -1)
+		return (cmd);
+	cmd_error(cmd, 2, 127);
+	exit(126);
+}
+*/

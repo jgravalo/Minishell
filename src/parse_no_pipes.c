@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_no_pipes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/02 19:44:28 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/08/15 14:06:20 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
