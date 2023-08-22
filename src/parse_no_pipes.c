@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/15 14:06:20 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/22 09:23:35 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	parse_no_pipes_line(t_shell *shell)
 	else
 	{		
 		signal(SIGINT, handler);
-		cmd = file_cmd(shell->args[0], shell->envp); // error handling dentro de file_cmd
-		if (cmd == NULL) // file_cmd ya mide errores
-			exit(1);
+		cmd = file_cmd(shell, shell->args[0], shell->envp);
+		if (cmd == NULL)
+			exit(shell->exit);
 		if (shell->redir_type != -1)
 			make_redir(shell);
 		execve(cmd, shell->args, shell->envp);

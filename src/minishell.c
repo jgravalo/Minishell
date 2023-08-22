@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/06 18:57:15 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/08/22 09:21:24 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	new_shell(t_shell *shell)
 		shell->readline = readline(shell->prompt);
 		if (shell->readline == NULL)
 		{	
-			write(1, "exit\n", 5);
+			write(1, "exit\n", 6);
 			break ;
 		}
 		if (shell->readline[0] != 0)

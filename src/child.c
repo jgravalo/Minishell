@@ -25,8 +25,8 @@ void child_routine(t_shell *shell, int i)
 		run_builtin(shell);
 		exit(shell->exit);
 	}
-	shell->cmd = file_cmd(shell->args[0], shell->envp); // error handling dentro de file_cmd
+	shell->cmd = file_cmd(shell, shell->args[0], shell->envp); // error handling dentro de file_cmd
 	if (shell->cmd == NULL) // file_cmd ya mide errores
-		exit(1);
+		exit(shell->exit);
 	execve(shell->cmd, shell->args, shell->envp);
 }

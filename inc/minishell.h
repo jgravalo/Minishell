@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/15 13:23:46 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/22 09:16:43 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ int		is_existing(char *line, char **envp);
 
 char	*check_vars(char *args, char **envp);
 
-char	*file_cmd(char *cmd, char **envp);
+char	*file_cmd(t_shell *shell, char *cmd, char **envp);
 
 char 	*parse_redir(char *line, t_shell *shell);
 
@@ -215,6 +215,8 @@ void	parse_no_pipes_line(t_shell *shell);
 void	set_signals(t_shell *shell, char **envp);
 
 void	parse_line(t_shell *shell, int i);
+
+int 	cmd_not_found(char *cmd);
 
 /*
 void	make_history(t_hist *hist, char *line);

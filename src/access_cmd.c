@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:09:57 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/08/15 13:48:09 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/22 09:18:50 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,8 @@ static char	*access_loop(char **docs, char *cmd)
 			return (docs[i]);
 		i++;
 	}
-	//printf("%s: Command not found\n", cmd);
 	free(tmp);
 	return (NULL);
-//	return (cmd);
 }
 
 int isfile(const char* name)
@@ -110,7 +108,7 @@ int	check_cmd(char *cmd)
 	return (0);
 }
 
-char	*file_cmd(char *cmd, char **envp)
+char	*file_cmd(t_shell *shell, char *cmd, char **envp)
 {
 	int		env;
 	int		exit;
@@ -118,13 +116,20 @@ char	*file_cmd(char *cmd, char **envp)
 	char	**docs;
 
 	env = 0;
-	if (!(cmd[0] == '.' && cmd[1] == '/'))
+	if (!(cmd[0] == '.' && cmd[1] == '/')) // si no es file
+	{
 		env = search_path(envp);
-	if (env != -1)
-		docs = split_docs(envp[env]);
-	else
-		docs = split_docs(DEF_PATH);
+		if (env != -1)
+			docs = split_docs(envp[env]); // split todos los paths
+		else
+			docs = split_docs(DEF_PATH);
+	}
 	file = access_loop(docs, cmd);
+	if (file == NULL) // no ha encontrado comando, fuera
+	{
+		shell->exit = cmd_not_found(cmd);
+		return (NULL);
+	}	
 	exit = check_cmd(cmd);
 //	file = access_cmd(cmd, docs, env);
 	free(docs);
