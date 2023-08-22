@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/22 09:48:57 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/22 11:30:43 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,19 @@ static void	handler(int sig)
 
 int	new_shell(t_shell *shell)
 {	
+	//int fd;
+
+	//fd = open("test", O_WRONLY);
+	signal(SIGINT, handler);
+	signal(SIGQUIT, handler);
 	while (1)
 	{	
+		//dup2(fd, 1);
 		shell->prompt = get_prompt(shell->envp);
-		signal(SIGINT, handler);
-		signal(SIGQUIT, handler);
 		shell->readline = readline(shell->prompt);
 		if (shell->readline == NULL)
 		{	
-			write(1, "exit\n", 6);
+			write(1, "exit\n", 5);
 			break ;
 		}
 		if (shell->readline[0] != 0)

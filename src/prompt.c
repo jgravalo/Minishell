@@ -88,21 +88,19 @@ static char *get_pwd(void)
 
 static char *get_cwd(char **envp)
 {	
-	static int first;
 	static char *home = NULL;
 	char *cwd;
 	int home_len;
 
-	if (first == 0 || search_var_line("HOME", envp) != NULL)
+	cwd = get_pwd();
+	if (search_var_line("HOME", envp) != NULL)
 	{	
 		home = search_var_line("HOME", envp);
 		ft_strchr(home, '=');
-		first++;
+		home_len = ft_strlen(home);
+		if (ft_strncmp(cwd, home, home_len) == 0)
+			return (put_home(cwd, home_len));
 	}
-	cwd = get_pwd();
-	home_len = ft_strlen(home);
-	if (ft_strncmp(cwd, home, home_len) == 0)
-		return (put_home(cwd, home_len));
 	else
 		return (cwd);
 }
@@ -150,9 +148,11 @@ char *get_prompt(char **envp)
 	char	*dir;
 
 
-	prompt = search_var_line("PS1", envp);
-	if (prompt != NULL)
+	if (search_var_line("PS1", envp) != NULL)
+	{	
+		prompt = ft_strdup(search_var_line("PS1", envp));
 		return (prompt);
+	}
 	else
 	{
 		prompt = get_user(prompt);

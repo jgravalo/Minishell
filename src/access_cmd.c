@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:09:57 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/08/22 10:05:27 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/22 10:31:26 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int isfile(const char* name)
 
     if (directory != NULL)
 		closedir(directory);
-	printf("errno is %d\n", errno);
 	return (errno);
 }
 
@@ -77,30 +76,16 @@ int isfile(const char* name)
 
 int	check_file_dir(char *file)
 {	
-	int num;
-
 	if (file[0] != '.')
 	{
-		num = isfile(file);
-		if (num != 0)
-			return (cmd_error(file, num, 127));
+		if (isfile(file) != 0)
+			return (cmd_error(file, errno, 127));
 	}
-	printf("file is %s\n", file);
 	if (access(file, F_OK) != 0)
-	{
-		cmd_error(file, 2, 127);
-		exit(127);
-		return (cmd_error(file, 13, 126));
-//		exit(cmd_error(cmd, 13, 126));
-	}
-	printf("pasa de aqui\n");
+		return (cmd_error(file, errno, 126));
 	if (access(file, R_OK) != 0 || access(file, W_OK) != 0
 		|| access(file, X_OK) != 0)
-	{	
-		printf("errno is %d\n", errno);
 		return (cmd_error(file, errno, 126));
-//		exit(cmd_error(file, 13, 126));
-	}
 	return (0);
 }
 
