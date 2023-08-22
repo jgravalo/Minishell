@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:09:57 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/08/22 09:18:50 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/22 10:05:27 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,42 +68,38 @@ int isfile(const char* name)
 	DIR* directory = opendir(name);
 
     if (directory != NULL)
-	{
 		closedir(directory);
-		return (0);
-	}
-    if (errno == ENOTDIR)
-		return (1);
-	return (-1);
+	printf("errno is %d\n", errno);
+	return (errno);
 }
 
 
 
-int	check_cmd(char *cmd)
-{
-	if (isfile(cmd) == 0)
+int	check_file_dir(char *file)
+{	
+	int num;
+
+	if (file[0] != '.')
 	{
-		cmd_error(cmd, 21, 127);
-		/*
-		write(2, cmd, ft_strlen(cmd));
-		write(2, ": is a directory\n", 16);
-		exit(127);
-		*/
+		num = isfile(file);
+		if (num != 0)
+			return (cmd_error(file, num, 127));
 	}
-	if (cmd[0] == '.' && cmd[1] == '/')
-		cmd += 2;
-	if (access(cmd, F_OK) != 0)
+	printf("file is %s\n", file);
+	if (access(file, F_OK) != 0)
 	{
-		cmd_error(cmd, 2, 127);
+		cmd_error(file, 2, 127);
 		exit(127);
-		return (cmd_error(cmd, 13, 126));
+		return (cmd_error(file, 13, 126));
 //		exit(cmd_error(cmd, 13, 126));
 	}
-	if (access(cmd, R_OK) != 0 || access(cmd, W_OK) != 0
-		|| access(cmd, X_OK) != 0)
-	{
-		return (cmd_error(cmd, 13, 126));
-//		exit(cmd_error(cmd, 13, 126));
+	printf("pasa de aqui\n");
+	if (access(file, R_OK) != 0 || access(file, W_OK) != 0
+		|| access(file, X_OK) != 0)
+	{	
+		printf("errno is %d\n", errno);
+		return (cmd_error(file, errno, 126));
+//		exit(cmd_error(file, 13, 126));
 	}
 	return (0);
 }
@@ -116,24 +112,28 @@ char	*file_cmd(t_shell *shell, char *cmd, char **envp)
 	char	**docs;
 
 	env = 0;
-	if (!(cmd[0] == '.' && cmd[1] == '/')) // si no es file
-	{
-		env = search_path(envp);
-		if (env != -1)
-			docs = split_docs(envp[env]); // split todos los paths
-		else
-			docs = split_docs(DEF_PATH);
-	}
+	env = search_path(envp);
+	if (env != -1)
+		docs = split_docs(envp[env]); // split todos los paths
+	else
+		docs = split_docs(DEF_PATH);
 	file = access_loop(docs, cmd);
+	free(docs);
 	if (file == NULL) // no ha encontrado comando, fuera
 	{
 		shell->exit = cmd_not_found(cmd);
 		return (NULL);
-	}	
-	exit = check_cmd(cmd);
-//	file = access_cmd(cmd, docs, env);
-	free(docs);
-	return (file);
+	}
+	else if (ft_strcmp(cmd, file) == 0) //es file/dir
+	{
+		shell->exit = check_file_dir(file);
+		if (shell->exit != 0) // si ha dado error fuera
+			return (NULL);
+		else				// si no, es un ejecutable, y sigue su camino hasta execve
+			return (file);
+	}
+	else // es comando, y ha sido encontrado
+		return (file);
 }
 
 /*

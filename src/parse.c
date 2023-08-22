@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:34:38 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/02 19:19:10 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/08/22 09:49:23 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void parse_pipex(t_shell *shell)
 		shell->pid[shell->pipex + 1] = 0;
 		set_signals(shell, shell->envp);
 		free(shell->p);
+		free(shell->pid_end);
 		free_m(shell->pipes);
 	}
 	free(shell->pid);
