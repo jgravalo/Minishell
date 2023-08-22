@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/22 16:03:25 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:43:54 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,9 +159,9 @@ static char *expand_tilde(t_shell *shell, char *line, char **envp, t_var *p)
 				 || (i == 0 && (line[i + 1] == '\0' || line[i + 1] == ' '))))
 			{	
 				j = ft_strlen(new_line);
-				printf("new line len es %d, i es %d, c es %d\n", j, i, c);
+//				printf("new line len es %d, i es %d, c es %d\n", j, i, c);
 				new_line = ft_strjoin(ft_substr(new_line, 0, j), ft_substr(line, i - c, c));
-				printf("line es:%s-\n", new_line);
+//				printf("line es:%s-\n", new_line);
 				j = ft_strlen(new_line);
 				c = 0;
 				if (search_var_line("HOME", envp) != NULL)
@@ -171,7 +171,7 @@ static char *expand_tilde(t_shell *shell, char *line, char **envp, t_var *p)
 					tmp = ft_strjoin("/home/", shell->user);
 					new_line = (ft_substr(new_line, 0, j), tmp);
 				}
-				printf("new line after merge es:%s\n", new_line);
+//				printf("new line after merge es:%s\n", new_line);
 			}
 			else
 				c++;
@@ -189,12 +189,12 @@ char	*expand_meta(t_shell *shell, char *line, char **envp)
 	int		n;
 
 	p.new = expand_tilde(shell, line, envp, &p);
-	printf("line after expand tilde es %s\n", p.new);
+//	printf("line after expand tilde es %s\n", p.new);
 
 	if (is_there_dollar(line, '$') == 0)
 		return (line);
 	p.tmp = ft_split_meta(p.new, '$');
-	ft_printarr(p.tmp);
+//	ft_printarr(p.tmp);
 	p.new = p.tmp[0];
 	n = 1;
 	if (line[0] == '$')
