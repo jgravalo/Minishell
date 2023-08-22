@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/22 12:01:29 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/22 12:43:20 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	new_shell(t_shell *shell)
 	while (1)
 	{	
 		//dup2(fd, 1);
-		shell->prompt = get_prompt(shell->envp);
+		shell->prompt = get_prompt(shell, shell->envp);
 		shell->readline = readline(shell->prompt);
 		if (shell->readline == NULL)
 		{	
@@ -47,8 +47,9 @@ int	new_shell(t_shell *shell)
 		{	
 			shell->readline = parse_quotes(shell->readline);
 			add_history(shell->readline);
+			printf("line before expand meta es %s\n", shell->readline);
 			shell->readline = expand_meta(shell, shell->readline, shell->envp);
-			printf("line len after shell->readline es %ld\n", ft_strlen(shell->readline));
+			printf("line len after expand meta es %ld\n", ft_strlen(shell->readline));
 			//shell->readline = parse_heredoc(shell->readline);
 			if (ft_strlen(shell->readline) > 0)
 			{

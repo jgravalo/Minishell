@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/22 09:16:43 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/22 12:43:39 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_shell
 	int		*pid_end;
 	t_cmd	*struct_cmd;
 	char	*cmd;
+	char	*user;
 	int		redir_type;
 	int		infd;
 	int		outfd;
@@ -178,7 +179,7 @@ void 	create_pipes(t_shell *shell);
 
 void	check_pipe(t_shell *shell, int i);
 
-char 	*get_prompt(char **envp);
+char 	*get_prompt(t_shell *shell, char **envp);
 
 char	*prompt_join(char *s1, char *s2);
 
