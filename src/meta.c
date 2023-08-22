@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/22 13:09:48 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/22 13:47:01 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ static char *expand_tilde(t_shell *shell, char *line, char **envp, t_var *p)
 {	
 	int i;
 	int j;
+	int c;
 	char *location;
 	char *new_line;
 	char *tmp;
@@ -147,27 +148,35 @@ static char *expand_tilde(t_shell *shell, char *line, char **envp, t_var *p)
 		return (NULL);
 	else
 	{	
-		new_line = ft_strdup(line);
+		new_line = ft_strdup("");
 		i = 0;
 		j = 0;
+		c = 0;
 		while (line [i])
 		{	
-			if (line[i] == '~' && (line[i - 1] == ' ' && line[i + 1] == ' ') || (i == 0 && (line[i + 1] == '\0' || line[i + 1] == ' ')))
+			if (line[i] == '~' && (line[i - 1] == ' ' && (line[i + 1] == ' ' || line[i +1] == '\0')
+				 || (i == 0 && (line[i + 1] == '\0' || line[i + 1] == ' '))))
 			{	
-				printf("entra aqui\n");
+				j = ft_strlen(new_line);
+				printf("new line len es %d, i es %d, c es %d\n", j, i, c);
+				new_line = ft_strjoin(ft_substr(new_line, 0, j), ft_substr(line, i - c, c));
+				printf("line es:%s-\n", new_line);
+				j = ft_strlen(new_line);
+				c = 0;
 				if (search_var_line("HOME", envp) != NULL)
-					new_line = ft_strjoin(ft_substr(new_line, j, i), search_var_line("HOME", envp));
+					new_line = ft_strjoin(ft_substr(new_line, 0, j), search_var_line("HOME", envp));
 				else
 				{
 					tmp = ft_strjoin("/home/", shell->user);
-					new_line = (ft_substr(new_line, i, j), tmp);
+					new_line = (ft_substr(new_line, 0, j), tmp);
 				}
-				j = i;
+				printf("new line after merge es:%s\n", new_line);
 			}
+			else
+				c++;
 			i++;
 		}
 		new_line = ft_strjoin(new_line, ft_substr(line, j + 1, i));
-		printf("new line es %s\n", new_line);
 		return (new_line);
 	}
 	
@@ -179,18 +188,18 @@ char	*expand_meta(t_shell *shell, char *line, char **envp)
 	int		n;
 
 	p.new = expand_tilde(shell, line, envp, &p);
-	printf("readline after tilde es %s\n", p.new);
+	printf("line after expand tilde es %s\n", p.new);
 	if (is_there_dollar(line, '$') == 0)
 		return (line);
-	p.tmp = ft_split_meta(line, '$');
+	p.tmp = ft_split_meta(p.new, '$');
 	ft_printarr(p.tmp);
-	/* p.new = p.tmp[0];
-	n = 1; */
-	/* if (line[0] == '$')
+	p.new = p.tmp[0];
+	n = 1;
+	if (line[0] == '$')
 	{
 		p.new = NULL;
 		n = 0;
-	} */
+	}
 	get_var(shell, &p, envp, n);
 	return (p.new);
 }

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/22 12:43:20 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/22 13:45:46 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	new_shell(t_shell *shell)
 			add_history(shell->readline);
 			printf("line before expand meta es %s\n", shell->readline);
 			shell->readline = expand_meta(shell, shell->readline, shell->envp);
-			printf("line len after expand meta es %ld\n", ft_strlen(shell->readline));
+			printf("line after expand meta es %s\n", shell->readline);
 			//shell->readline = parse_heredoc(shell->readline);
 			if (ft_strlen(shell->readline) > 0)
 			{
