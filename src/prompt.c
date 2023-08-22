@@ -86,7 +86,7 @@ static char *get_pwd(void)
 	return (NULL);
 }
 
-static char *get_cwd(char **envp)
+static char *get_cwd(char **envp, char *user)
 {	
 	static char *home = NULL;
 	char *cwd;
@@ -146,6 +146,7 @@ char *get_prompt(char **envp)
 	char 	*prompt;
 	char 	*host;
 	char	*dir;
+	char	*user;
 
 
 	if (search_var_line("PS1", envp) != NULL)
@@ -156,12 +157,13 @@ char *get_prompt(char **envp)
 	else
 	{
 		prompt = get_user(prompt);
+		user = get_user(prompt);
 		prompt = prompt_join(prompt, "@");
 		host = get_hostname();
 		prompt = prompt_join(prompt, host);
 		free(host);
 		prompt = prompt_join(prompt, ":");
-		dir = get_cwd(envp);
+		dir = get_cwd(envp, user);
 		prompt = prompt_join(prompt, dir);
 		prompt = prompt_join(prompt, "$ ");
 		return (prompt);

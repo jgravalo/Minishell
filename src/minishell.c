@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/22 11:30:43 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/22 12:01:29 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,13 @@ int	new_shell(t_shell *shell)
 			shell->readline = parse_quotes(shell->readline);
 			add_history(shell->readline);
 			shell->readline = expand_meta(shell, shell->readline, shell->envp);
+			printf("line len after shell->readline es %ld\n", ft_strlen(shell->readline));
 			//shell->readline = parse_heredoc(shell->readline);
-			parse_pipex(shell);
-			free(shell->readline);
+			if (ft_strlen(shell->readline) > 0)
+			{
+				parse_pipex(shell);
+				free(shell->readline);
+			}
 		}
 		free(shell->prompt);
 	}

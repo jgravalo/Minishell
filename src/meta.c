@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   meta.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/31 19:44:37 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/08/22 12:09:41 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,23 @@ static void	get_var(t_shell *shell, t_var *p, char **envp, int n)
 			p->exp = ft_itoa(shell->exit);
 		}
 		else
-		{
-			while (p->tmp[n][j] &&
-				((p->tmp[n][j] >= 'a' && p->tmp[n][j] <= 'z') ||
-				(p->tmp[n][j] >= 'A' && p->tmp[n][j] <= 'Z') ||
-				(p->tmp[n][j] >= '0' && p->tmp[n][j] <= '9')))
-			j++;
-			p->var = ft_substr(p->tmp[n], 0, j);
-			p->exp = search_var_line(p->var, envp);
+		{	
+			if (search_var_line(p->tmp[n], envp) == NULL)
+			{	
+				p->var = ft_strdup("");
+				p->exp = ft_strdup("");
+				j += ft_strlen(p->tmp[n]);
+			}
+			else
+			{
+				while (p->tmp[n][j] &&
+					((p->tmp[n][j] >= 'a' && p->tmp[n][j] <= 'z') ||
+					(p->tmp[n][j] >= 'A' && p->tmp[n][j] <= 'Z') ||
+					(p->tmp[n][j] >= '0' && p->tmp[n][j] <= '9')))
+				j++;
+				p->var = ft_substr(p->tmp[n], 0, j);
+				p->exp = search_var_line(p->var, envp);
+			}
 		}
 			p->c = ft_strjoin(p->new, p->exp);
 			p->tmp[n] += j;
@@ -133,7 +142,6 @@ char	*expand_meta(t_shell *shell, char *line, char **envp)
 	if (is_there_dollar(line, '$') == 0)
 		return (line);
 	p.tmp = ft_split_meta(line, '$');
-
 	p.new = p.tmp[0];
 	n = 1;
 	if (line[0] == '$')
