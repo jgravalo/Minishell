@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/22 13:45:46 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/22 16:21:07 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@ int	new_shell(t_shell *shell)
 	//int fd;
 
 	//fd = open("test", O_WRONLY);
-	signal(SIGINT, handler);
-	signal(SIGQUIT, handler);
 	while (1)
 	{	
 		//dup2(fd, 1);
+
+	signal(SIGINT, handler);
+	signal(SIGQUIT, handler);
 		shell->prompt = get_prompt(shell, shell->envp);
 		shell->readline = readline(shell->prompt);
 		if (shell->readline == NULL)

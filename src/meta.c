@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/22 13:47:01 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/22 16:03:25 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,8 @@ static char *expand_tilde(t_shell *shell, char *line, char **envp, t_var *p)
 
 	location = ft_strchr(line, '~');
 	if (location == NULL)
-		return (NULL);
+//		return (NULL);
+		return (shell->readline);
 	else
 	{	
 		new_line = ft_strdup("");
@@ -189,6 +190,7 @@ char	*expand_meta(t_shell *shell, char *line, char **envp)
 
 	p.new = expand_tilde(shell, line, envp, &p);
 	printf("line after expand tilde es %s\n", p.new);
+
 	if (is_there_dollar(line, '$') == 0)
 		return (line);
 	p.tmp = ft_split_meta(p.new, '$');
@@ -201,6 +203,7 @@ char	*expand_meta(t_shell *shell, char *line, char **envp)
 		n = 0;
 	}
 	get_var(shell, &p, envp, n);
+//	printf("line after expand meta es %s\n", p.new);
 	return (p.new);
 }
 /*
