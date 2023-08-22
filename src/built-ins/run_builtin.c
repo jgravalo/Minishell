@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:07:19 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/22 10:33:45 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/22 19:24:49 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_builtin(char **args)
 int	run_builtin(t_shell *shell)
 {
 	if (ft_strcmp(shell->args[0], "cd") == 0)
-		shell->exit = cd(shell, shell->envp);
+		shell->exit = cd(shell);
 	else if (ft_strcmp(shell->args[0], "echo") == 0)
 		shell->exit = echo(shell->args);
 	else if (ft_strcmp(shell->args[0], "env") == 0)

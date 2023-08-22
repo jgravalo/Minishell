@@ -100,6 +100,8 @@ static char *get_cwd(char **envp, char *user)
 		home_len = ft_strlen(home);
 		if (ft_strncmp(cwd, home, home_len) == 0)
 			return (put_home(cwd, home_len));
+		else
+			return (cwd);
 	}
 	else
 		return (cwd);

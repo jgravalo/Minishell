@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:03:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/15 14:23:53 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/22 19:23:50 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	pwd(char **envp);
 
 int	echo(char **argv);
 
-int	cd(t_shell *shell, char **envp);
+int	cd(t_shell *shell);
 
 int	unset(t_shell *shell);
 
