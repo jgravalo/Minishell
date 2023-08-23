@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/23 11:37:43 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/23 12:45:29 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*meta_str(char const *s, char c, int *n)
 	char	*new;
 
 	i = 0;
-	while (*s && *s != ' ' && ++i)
+	while (*s && *s != ' ' && *s != '\"' && ++i)
 	{
 		if (*s == '\'' && ++s && ++i)
 			while (*s && *s != '\'' && ++i)
@@ -121,7 +121,7 @@ static char	*get_var(t_shell *shell, t_var *p, char *new_line, int n)
 					j++;
 				p->var = ft_substr(p->tmp[n], 0, j);
 				p->exp = search_var_line(p->var, shell->envp);
-				printf("p->exp es %s\n", p->exp);
+				//printf("p->exp es %s\n", p->exp);
 			}
 		}
 		//printf("start is %d, and i is %d, before substr\n", start, i);
@@ -148,18 +148,56 @@ static int is_there_dollar(char *line, char c)
 
 	i = 0;
 	while (line[i])
-	{
-		if (line[i] == '\'')
+	{	
+		if (line[i] == '\"')
+		{
+			i++;
+			if (line[i] == '$' && line[i + 1] != ' ' && line[i + 1] != '\"')
+				return (1);
+			while (line[i] != '\"')
+			{
+				i++;
+				if (line[i] == '$' && line[i + 1] != ' ' && line[i + 1] != '\"')
+					return (1);
+			}
+		}
+		else if (line[i] == '\'')
 		{
 			i++;
 			while (line[i] != '\'')
 				i++;
-			i++;
 		}
 		else if (line[i] == c && line[i + 1] != ' ' && line[i + 1] != '\0' && line[i + 1] != '\"')
 			return (1);
-		else
+		i++;
+	}
+	return (0);
+}
+
+static int check_for_tilde(char *line)
+{
+	int i;
+
+	i = 0;
+	while (line[i] != '\0')
+	{	
+		if (line[i] == '\'')
+		{	
 			i++;
+			while (line[i] != '\'')
+				i++;
+		}
+		else if (line[i] == '\"')
+		{	
+			i++;
+			while (line[i] != '\"')
+				i++;
+				
+		}
+		else if (line[i] == '~' && ((i == 0 && (line[i + 1] == '\0' || line[i + 1] == ' '))
+				 || (line[i - 1] == ' ' && (line[i + 1] == ' ' || line[i +1] == '\0'))))
+			return (1);
+		i++;
 	}
 	return (0);
 }
@@ -172,8 +210,9 @@ static char  *expand_tilde(t_shell *shell, char *new_line, char **envp, t_var *p
 	char *tmp1;
 	char *tmp2;
 
-	if (ft_strchr(shell->readline, '~') == NULL)
+	if (check_for_tilde(shell->readline) == 0)
 	{	
+		//printf("sale de check tilde\n");
 		new_line = ft_strdup(shell->readline);
 		return (new_line);
 	}
@@ -188,27 +227,29 @@ static char  *expand_tilde(t_shell *shell, char *new_line, char **envp, t_var *p
 			if (shell->readline[i] == '~' && (i == 0 && (shell->readline[i + 1] == '\0' || shell->readline[i + 1] == ' '))
 				 || (shell->readline[i - 1] == ' ' && (shell->readline[i + 1] == ' ' || shell->readline[i +1] == '\0')))
 			{	
-				//printf("new line len es %d, i es %d, c es %d\n", j, i, c);
+				//printf("entra en tilde correcta\n");
 				tmp1 = ft_substr(new_line, 0, j);
 				tmp2 = ft_substr(shell->readline, i - c, c);
-				free(new_line);
+				//free(new_line);
 				new_line = ft_strjoin(tmp1, tmp2);
 //				printf("line es:%s-\n", new_line);
-				free(tmp1);
-				free(tmp2);
+				//free(tmp1);
+				//free(tmp2);
 				j = ft_strlen(new_line);
 				c = 0;
 				if (search_var_line("HOME", envp) != NULL)
 				{
 					tmp1 = ft_substr(new_line, 0, j);
 					new_line = ft_strjoin(tmp1, search_var_line("HOME", envp));
-					free(tmp1);
+					//free(tmp1);
 				}
 				else
 				{
 					tmp1 = ft_strjoin("/home/", shell->user);
-					new_line = (ft_substr(new_line, 0, j), tmp1);
-					free(tmp1);
+					tmp2 = ft_substr(new_line, 0, j);
+					new_line = (tmp2, tmp1);
+					//free(tmp1);
+					//free(tmp2);
 				}
 			}
 			else
@@ -232,11 +273,15 @@ char	*expand_meta(t_shell *shell, char **envp)
 //	int		n;
 	char *new_line;
 
+	//printf("line before expand tilde es %s\n", shell->readline);
 	new_line = expand_tilde(shell, new_line, envp, &p);
 	free(shell->readline);
 	//printf("line after expand tilde es %s\n", new_line);
 	if (is_there_dollar(new_line, '$') == 0)
+	{	
+		//printf("no hay expansion de variable\n");
 		return (new_line);
+	}
 	p.tmp = ft_split_meta(new_line, '$');
 	//printf("split meta array is: \n");
 	//ft_printarr(p.tmp);
