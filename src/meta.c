@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/23 11:27:44 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/23 11:37:43 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,15 +89,15 @@ static char	*get_var(t_shell *shell, t_var *p, char *new_line, int n)
 	int 	i;
 	int start;
 
-	printf("ptmp0 es %s y len es %ld\n, new line es %s, y len de new line es %ld\n", p->tmp[n], ft_strlen(p->tmp[n]), new_line, ft_strlen(new_line));
+	//printf("ptmp0 es %s y len es %ld\n, new line es %s, y len de new line es %ld\n", p->tmp[n], ft_strlen(p->tmp[n]), new_line, ft_strlen(new_line));
 	i = 0;
 	start = 0;
 	while (new_line[i] && p->tmp[n])
 	{	
-		printf("start is %c and i es %d\n", new_line[start], i);
+		//printf("start is %c and i es %d\n", new_line[start], i);
 		while (new_line[i] != '$')
 			i++;
-		printf("entra aqui, n es %d\n", n);
+		//printf("entra aqui, n es %d\n", n);
 		j = 0;
 		if (p->tmp[n][j] == '?') //exit code
 		{	
@@ -124,21 +124,21 @@ static char	*get_var(t_shell *shell, t_var *p, char *new_line, int n)
 				printf("p->exp es %s\n", p->exp);
 			}
 		}
-		printf("start is %d, and i is %d, before substr\n", start, i);
-		printf("newline substr is %s\n", ft_substr(new_line, start, i));
+		//printf("start is %d, and i is %d, before substr\n", start, i);
+		//printf("newline substr is %s\n", ft_substr(new_line, start, i));
 		p->c = ft_strjoin(ft_substr(new_line, start, i - start), p->exp);
-		printf("p->c es %s\n", p->c);
+		//printf("p->c es %s\n", p->c);
 		p->new = ft_strjoin(p->new, p->c);
 		/* printf("p->c es %s\n", p->c);
 		p->tmp[n] += j;
 		p->new = ft_strjoin(p->c, p->tmp[n]); */
-		printf("new line after getvar loop is %s\n", p->new);
+		//printf("new line after getvar loop is %s\n", p->new);
 		i += ft_strlen(p->tmp[n]) + 1;
 		start = i;
 		n++;
 	}
 	p->new = ft_strjoin(p->new, ft_substr(new_line, i, ft_strlen(new_line) - i));
-	printf("new line after everything is %s\n", p->new);
+	//printf("new line after everything is %s\n", p->new);
 	return (p->new);
 }
 
@@ -173,10 +173,12 @@ static char  *expand_tilde(t_shell *shell, char *new_line, char **envp, t_var *p
 	char *tmp2;
 
 	if (ft_strchr(shell->readline, '~') == NULL)
-		return (shell->readline);
+	{	
+		new_line = ft_strdup(shell->readline);
+		return (new_line);
+	}
 	else
 	{	
-		//
 		new_line = ft_strdup("");
 		i = 0;
 		j = 0;
@@ -186,7 +188,7 @@ static char  *expand_tilde(t_shell *shell, char *new_line, char **envp, t_var *p
 			if (shell->readline[i] == '~' && (i == 0 && (shell->readline[i + 1] == '\0' || shell->readline[i + 1] == ' '))
 				 || (shell->readline[i - 1] == ' ' && (shell->readline[i + 1] == ' ' || shell->readline[i +1] == '\0')))
 			{	
-				/* printf("new line len es %d, i es %d, c es %d\n", j, i, c); */
+				//printf("new line len es %d, i es %d, c es %d\n", j, i, c);
 				tmp1 = ft_substr(new_line, 0, j);
 				tmp2 = ft_substr(shell->readline, i - c, c);
 				free(new_line);
@@ -224,7 +226,7 @@ static char  *expand_tilde(t_shell *shell, char *new_line, char **envp, t_var *p
 	}
 }
 
-char	*expand_meta(t_shell *shell, char *line, char **envp)
+char	*expand_meta(t_shell *shell, char **envp)
 {
 	t_var	p;
 //	int		n;
@@ -233,11 +235,11 @@ char	*expand_meta(t_shell *shell, char *line, char **envp)
 	new_line = expand_tilde(shell, new_line, envp, &p);
 	free(shell->readline);
 	//printf("line after expand tilde es %s\n", new_line);
-	if (is_there_dollar(line, '$') == 0)
+	if (is_there_dollar(new_line, '$') == 0)
 		return (new_line);
 	p.tmp = ft_split_meta(new_line, '$');
 	//printf("split meta array is: \n");
-	ft_printarr(p.tmp);
+	//ft_printarr(p.tmp);
 	p.new = NULL;
 	/* n = 1;
 	if (line[0] == '$')
