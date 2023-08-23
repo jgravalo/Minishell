@@ -149,7 +149,7 @@ char *get_prompt(t_shell *shell, char **envp)
 	char 	*host;
 	char	*dir;
 
-
+	shell->user = NULL;
 	if (search_var_line("PS1", envp) != NULL)
 	{	
 		prompt = ft_strdup(search_var_line("PS1", envp));

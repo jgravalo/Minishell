@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:09:57 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/08/23 11:02:09 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/23 13:02:20 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char	*file_cmd(t_shell *shell, char *cmd, char **envp)
 	else
 		docs = split_docs(DEF_PATH);
 	file = access_loop(docs, cmd);
-	free_m(docs);
+	//free(docs);
 	if (file == NULL) // no ha encontrado comando, fuera
 	{
 		shell->exit = cmd_not_found(cmd);
