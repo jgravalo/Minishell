@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:09:57 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/08/22 10:31:26 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/23 11:02:09 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	check_file_dir(char *file)
 	{
 		if (isfile(file) != 0)
 			return (cmd_error(file, errno, 127));
+		return (cmd_error(file, 21, 126));
 	}
 	if (access(file, F_OK) != 0)
 		return (cmd_error(file, errno, 126));
@@ -103,14 +104,15 @@ char	*file_cmd(t_shell *shell, char *cmd, char **envp)
 	else
 		docs = split_docs(DEF_PATH);
 	file = access_loop(docs, cmd);
-	free(docs);
+	free_m(docs);
 	if (file == NULL) // no ha encontrado comando, fuera
 	{
 		shell->exit = cmd_not_found(cmd);
 		return (NULL);
 	}
 	else if (ft_strcmp(cmd, file) == 0) //es file/dir
-	{
+	{	
+		printf("entra en file/dir\n");
 		shell->exit = check_file_dir(file);
 		if (shell->exit != 0) // si ha dado error fuera
 			return (NULL);

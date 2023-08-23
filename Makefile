@@ -29,7 +29,7 @@ NAME		= minishell
 all:		$(NAME)
 
 $(NAME): $(M_OBJS) $(BUILT_OBJS) $(GNL_OBJS) inc/minishell.h
-	$(CC) $(CFLAGS) $(M_OBJS) $(BUILT_OBJS) -o $(NAME) $(LFLAGS) $(LRFLAG)
+	$(CC) -g $(CFLAGS) $(M_OBJS) $(BUILT_OBJS) -o $(NAME) $(LFLAGS) $(LRFLAG)
 
 $(OBJECTS_DIR)/%.o : src/%.c inc/minishell.h | $(OBJECTS_DIR)
 	$(CC) -c  $< -o $@ -I ~/.brew/opt/readline/include

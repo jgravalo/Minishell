@@ -37,53 +37,56 @@ char	*parse_quotes(char *s)
 {
 	int		i;
 	int		quote;
+	char *new;
 
+	new = ft_strdup(s);
+	free(s); // liberamos readline 
 	i = 0;
-	if (ft_strchr(s, '\"') == 0 && ft_strchr(s, '\'') == 0)  // si no hay comillas en readline, fuera
-		return (s);
-	while (s[i])
+	if (ft_strchr(new, '\"') == 0 && ft_strchr(new, '\'') == 0)  // si no hay comillas en readline, fuera
+		return (new);
+	while (new[i])
 	{	
 		quote = -1;
 		//entiendo que bash comprueba la primera quotes que encuentra, la primera sin cerrar es la que manda
-		while (s[i])
+		while (new[i])
 		{
-			quote = detect_first_quote(s[i]);
+			quote = detect_first_quote(new[i]);
 			if (quote != -1)
 				break ;
 			i++;
 		}
-		if (!s[i])
-			return (s);
+		if (!new[i])
+			return (new);
 		/* if ((type == 0 || type == 1) && s[i] &&
 				!(s[i - 1] != '\\' && s[i] == '\'') && ++i) */
 		if (quote == 1) // simplificaría condiciones
 		{	
-			while (s[i] && quote == 1)
+			while (new[i] && quote == 1)
 			{	
-				if (s[i] == '\'')
+				if (new[i] == '\'')
 					quote = 0;
 				i++;
 			}
 			if (quote > 0)
-				return (search_quote(s, '\''));
+				return (search_quote(new, '\''));
 		}
 		/* if ((type == 0 || type == 1) && s[i] &&
 				!(s[i - 1] != '\\' && s[i] == '\"') && ++i) */
 		else if (quote == 2)   //  simplificaría condiciones
 		{	
-			while (s[i] && quote == 2)
+			while (new[i] && quote == 2)
 			{	
-				if (s[i] == '\"')
+				if (new[i] == '\"')
 					quote = 0;
 				i++;
 			}
 			if (quote == 2)
-				return (search_quote(s, '\"'));
+				return (search_quote(new, '\"'));
 		}
 		else
 			i++;
 	}
-	return (s);
+	return (new);
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/23 10:04:08 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/23 11:27:44 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,33 +169,44 @@ static char  *expand_tilde(t_shell *shell, char *new_line, char **envp, t_var *p
 	int i;
 	int j;
 	int c;
-	char *location;
-	char *tmp;
+	char *tmp1;
+	char *tmp2;
 
 	if (ft_strchr(shell->readline, '~') == NULL)
 		return (shell->readline);
 	else
 	{	
+		//
 		new_line = ft_strdup("");
 		i = 0;
 		j = 0;
 		c = 0;
 		while (shell->readline [i])
 		{	
-			if (shell->readline[i] == '~' && (shell->readline[i - 1] == ' ' && (shell->readline[i + 1] == ' ' || shell->readline[i +1] == '\0')
-				 || (i == 0 && (shell->readline[i + 1] == '\0' || shell->readline[i + 1] == ' '))))
+			if (shell->readline[i] == '~' && (i == 0 && (shell->readline[i + 1] == '\0' || shell->readline[i + 1] == ' '))
+				 || (shell->readline[i - 1] == ' ' && (shell->readline[i + 1] == ' ' || shell->readline[i +1] == '\0')))
 			{	
 				/* printf("new line len es %d, i es %d, c es %d\n", j, i, c); */
-				new_line = ft_strjoin(ft_substr(new_line, 0, j), ft_substr(shell->readline, i - c, c));
+				tmp1 = ft_substr(new_line, 0, j);
+				tmp2 = ft_substr(shell->readline, i - c, c);
+				free(new_line);
+				new_line = ft_strjoin(tmp1, tmp2);
 //				printf("line es:%s-\n", new_line);
+				free(tmp1);
+				free(tmp2);
 				j = ft_strlen(new_line);
 				c = 0;
 				if (search_var_line("HOME", envp) != NULL)
-					new_line = ft_strjoin(ft_substr(new_line, 0, j), search_var_line("HOME", envp));
+				{
+					tmp1 = ft_substr(new_line, 0, j);
+					new_line = ft_strjoin(tmp1, search_var_line("HOME", envp));
+					free(tmp1);
+				}
 				else
 				{
-					tmp = ft_strjoin("/home/", shell->user);
-					new_line = (ft_substr(new_line, 0, j), tmp);
+					tmp1 = ft_strjoin("/home/", shell->user);
+					new_line = (ft_substr(new_line, 0, j), tmp1);
+					free(tmp1);
 				}
 			}
 			else
@@ -204,7 +215,11 @@ static char  *expand_tilde(t_shell *shell, char *new_line, char **envp, t_var *p
 			j = ft_strlen(new_line);
 		}
 		if (c > 1)
-			new_line = ft_strjoin(new_line, ft_substr(shell->readline, i - c, i));
+		{
+			tmp1 = ft_substr(shell->readline, i - c, i);
+			new_line = ft_strjoin(new_line, tmp1);
+			free(tmp1);
+		}	
 		return (new_line);
 	}
 }
@@ -216,6 +231,7 @@ char	*expand_meta(t_shell *shell, char *line, char **envp)
 	char *new_line;
 
 	new_line = expand_tilde(shell, new_line, envp, &p);
+	free(shell->readline);
 	//printf("line after expand tilde es %s\n", new_line);
 	if (is_there_dollar(line, '$') == 0)
 		return (new_line);
