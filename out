@@ -1,0 +1,19 @@
+Makefile
+a.out
+inc
+minishell
+obj
+out
+src
+test
+test1
+total 208
+-rw-r--r--   1 jgravalo  2021_barcelona   1570 Aug 23 16:30 Makefile
+-rw-r--r--   1 jgravalo  2021_barcelona      0 Aug 22 15:26 a.out
+drwxr-xr-x   3 jgravalo  2021_barcelona    102 Aug 23 16:30 inc
+-rwxr-xr-x   1 jgravalo  2021_barcelona  89528 Aug 23 16:30 minishell
+drwxr-xr-x  41 jgravalo  2021_barcelona   1394 Aug 23 16:30 obj
+-rwxrwxrwx   1 jgravalo  2021_barcelona     52 Aug 23 16:31 out
+drwxr-xr-x  32 jgravalo  2021_barcelona   1088 Aug 23 16:30 src
+-rw-r--r--   1 jgravalo  2021_barcelona   1083 Aug 22 15:26 test
+-rw-r--r--   1 jgravalo  2021_barcelona      5 Aug 22 15:26 test1

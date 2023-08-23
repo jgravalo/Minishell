@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 13:29:05 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/07/18 20:49:33 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/23 18:47:48 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	ft_printarr(char **arr)
 	i = 0;
 	while (arr[i])
 	{
-		printf("%s\n", arr[i]);
+		printf("<<%s>>\n", arr[i]);
 		i++;
 	}
 }

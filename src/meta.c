@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/23 13:03:30 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/23 19:19:08 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,12 @@ int	words_meta(const char *s, char c)
 		if (*s != c)
 		{
 			while (*s && *s != c)
+			{
+				if (*s == '\'' && ++s)
+					while (*s && *s != '\'')
+						s++;
 				s++;
+			}
 			j++;
 		}
 		else
@@ -55,24 +60,31 @@ char	**ft_split_meta(char const *s, char c)
 	int		i;
 	char	**res;
 
+	///printf("count meta = %d\n", words_meta(s, c));
 	res = (char **) malloc((words_meta(s, c) * (sizeof(char *))) + 8);
 	if (!res || !s)
 		return (0);
 	j = 0;
 	while (*s)
 	{	
-		//printf("enter loop, *s es %c\n", *s);
+		//printf("*s es %c\n", *s);
 		while (*s != c && *s != '\0')
+		{
 			++s;
+			if (*s == '\'' && ++s)
+				while (*s && *s != '\'')
+					s++;
+		}
 		if (*s == '\0')
 			break;
 		++s;
-		//printf("*s es %c\n", *s);
+//		printf("*s es %c\n", *s);
+		//printf("*s es %s\n", s);
 		if (*s != c)
 		{
 			i = 0;
 			res[j++] = meta_str(s, c, &i);
-			//printf("substr is %s, i es %d\n", res[0], i);
+			//printf("substr is %s, i es %d\n", res[j], i);
 			s += i;
 			//printf("*s es %s\n", s);
 		}
@@ -95,8 +107,15 @@ static char	*get_var(t_shell *shell, t_var *p, char *new_line, int n)
 	while (new_line[i] && p->tmp[n])
 	{	
 		//printf("start is %c and i es %d\n", new_line[start], i);
+		//printf("newline before = <<%s>>\n", new_line + i);
 		while (new_line[i] != '$')
+		{
+			if (new_line[i] == '\'' && ++i)
+				while (new_line[i] && new_line[i] != '\'')
+					i++;
 			i++;
+		}
+		//printf("newline after = <<%s>>\n", new_line + i);
 		//printf("entra aqui, n es %d\n", n);
 		j = 0;
 		if (p->tmp[n][j] == '?') //exit code
@@ -275,6 +294,7 @@ char	*expand_meta(t_shell *shell, char **envp)
 
 	//printf("line before expand tilde es %s\n", shell->readline);
 	new_line = expand_tilde(shell, new_line, envp, &p);
+//	printf("aqui\n");
 	free(shell->readline);
 	//printf("line after expand tilde es %s\n", new_line);
 	if (is_there_dollar(new_line, '$') == 0)
@@ -283,7 +303,8 @@ char	*expand_meta(t_shell *shell, char **envp)
 		return (new_line);
 	}
 	p.tmp = ft_split_meta(new_line, '$');
-	//printf("split meta array is: \n");
+	printf("aqui\n");
+	//printf("\nsplit meta array is: \n");
 	//ft_printarr(p.tmp);
 	p.new = NULL;
 	/* n = 1;
@@ -293,7 +314,7 @@ char	*expand_meta(t_shell *shell, char **envp)
 		n = 0;
 	} */ 
 	new_line = get_var(shell, &p, new_line, 0);
-	//printf("line after expand meta es %s\n", new_line);
+	//printf("line after expand meta es <<<%s>>>\n", new_line);
 	return (new_line);
 }
 /*
