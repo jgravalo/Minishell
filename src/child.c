@@ -3,10 +3,7 @@
 void child_routine(t_shell *shell, int i)
 {	
 	shell->pipes[i] = parse_redir(shell->pipes[i], shell);
-	printf("line after redir es %s\n", shell->pipes[i]);
 	shell->args = ft_split_marks(shell->pipes[i], ' ');
-	//printf("proceso %d, comando %s\n", getpid(), shell->args[0]);
-	//printf("comando %s, proceso %d\n", shell->args[0], getpid());
 	if (shell->inpipe == 1) // hay pipe de entrada
 	{	
 		close(shell->p[i - 1].p[WRITE]);

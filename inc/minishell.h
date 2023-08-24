@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/24 11:08:05 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/24 13:00:01 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,23 @@ void	parse_line(t_shell *shell, int i);
 
 int 	cmd_not_found(char *cmd);
 
+int 	is_there_redir(char *line);
+
+void 	write_heredoc_eof(t_shell *shell, int start_line);
+
+int		make_stdin_stdout(t_shell *shell);
+
+void	prepare_redir(char *line, t_shell *shell);
+
+char	*get_redir(char *line);
+
+char	*remove_quotes(char *str);
+
+int 	count_len_quotes(char *str);
+
+int		count_redir(char *line);
+
+int		len_redir(char *line);
 /*
 void	make_history(t_hist *hist, char *line);
 
