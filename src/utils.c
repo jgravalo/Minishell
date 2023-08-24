@@ -6,14 +6,16 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 13:29:05 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/08/24 09:12:28 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/24 10:19:09 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 int	ft_strcmp(char *s1, char *s2)
-{
+{	
+	if (!s1 || !s2)
+		return (1);
 	while (*s1 || *s2)
 	{
 		if (*s1 != *s2)

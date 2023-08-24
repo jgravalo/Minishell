@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_marks.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 13:29:05 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/08/02 09:56:38 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/08/24 10:22:32 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,8 @@ char	**ft_split_marks(char const *s, char c)
 {
 	char	**res;
 
+	if (ft_strlen(s) == 0)
+		return (NULL);
 	res = (char **) malloc((words(s, c) * (sizeof (char *) + 8)));
 	if (!res || !s)
 		return (0);

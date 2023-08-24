@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:09:57 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/08/24 08:59:07 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/24 10:31:46 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,27 +91,29 @@ static int	check_file_dir(t_shell *shell, char *file)
 	return (0);
 }
 
-char	*file_cmd(t_shell *shell, char *cmd, char **envp)
+char	*file_cmd(t_shell *shell)
 {
 	int		env;
 	int		exit;
 	char	*file;
 	char	**docs;
 
+	if (!shell->args)
+		return ("empty");
 	env = 0;
-	env = search_path(envp);
+	env = search_path(shell->envp);
 	if (env != -1)
-		docs = split_docs(envp[env]); // split todos los paths
+		docs = split_docs(shell->envp[env]); // split todos los paths
 	else
 		docs = split_docs(DEF_PATH);
-	file = access_loop(docs, cmd);
+	file = access_loop(docs, shell->args[0]);
 	//free(docs);
 	if (file == NULL) // no ha encontrado comando, fuera
 	{
-		shell->exit = cmd_not_found(cmd);
+		shell->exit = cmd_not_found(shell->args[0]);
 		return (NULL);
 	}
-	else if (ft_strcmp(cmd, file) == 0) //es file/dir
+	else if (ft_strcmp(shell->args[0], file) == 0) //es file/dir
 	{	
 		//printf("entra en file/dir\n");
 		shell->exit = check_file_dir(shell, file);

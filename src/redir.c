@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/24 09:45:10 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/24 10:21:07 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,9 @@ static void	prepare_redir(char *line, t_shell *shell)
 
 void	make_redir(t_shell *shell)
 {	
+	char *str;
+
+	str = NULL;
 	if (shell->redir_type == 0)
 	{	
 		dup2(shell->infd, shell->redir_type);
@@ -240,6 +243,13 @@ void	make_redir(t_shell *shell)
 	{	
 		dup2(shell->outfd, shell->redir_type);
 		close(shell->outfd);
+	}
+	else 
+	{
+		/*here doc*/
+	//	printf("entra en heredoc, delimiter es %s\n", shell->delimiter);
+		while (ft_strcmp(str, shell->delimiter))
+			str = readline("> ");
 	}
 }
 
@@ -302,10 +312,10 @@ char *parse_redir(char *line, t_shell *shell)
 		}
 		i++;
 	}
-	printf("redir es %d\n", shell->redir_type);
+/* 	printf("redir es %d\n", shell->redir_type);
 	if (shell->delimiter != NULL)
 		printf("delimiter is %s\n", shell->delimiter);
-	printf("frase al salir de parseredir es %s\n", cmd);
+	printf("frase al salir de parseredir es %s\n", cmd); */
 //	printf("aqui\n");
 	//free_m(args);
 	return (cmd);

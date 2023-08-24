@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:07:19 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/22 19:24:49 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/24 10:25:03 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	check_builtin(char **args)
 {	
+	if (!args)
+		return (0);
 	if (ft_strcmp(args[0], "cd") == 0)
 		return (1);
 	else if (ft_strcmp(args[0], "echo") == 0)

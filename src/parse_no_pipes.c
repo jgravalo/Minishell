@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/24 09:00:28 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/24 10:29:42 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ void	parse_no_pipes_line(t_shell *shell)
 	char 	*cmd;
 
 	shell->readline = parse_redir(shell->readline, shell);
+	//printf("line after parse redir es %s\n", shell->readline);
 	shell->args = ft_split_marks(shell->readline, ' ');
+	//printf("sale de aqui sin problema\n");
 	if (check_builtin(shell->args) == 1)
 	{	
 		if (shell->redir_type != -1)
@@ -41,11 +43,15 @@ void	parse_no_pipes_line(t_shell *shell)
 		set_signals(shell, shell->envp);
 	}
 	else
-	{		
+	{	
 		signal(SIGINT, handler);
-		cmd = file_cmd(shell, shell->args[0], shell->envp);
-		if (cmd == NULL)
-			exit(shell->exit);
+		cmd = file_cmd(shell);
+		if (ft_strcmp(cmd, "empty") == 0)
+		{	
+			if (shell->redir_type != -1)
+				make_redir(shell);
+			exit(0);
+		}
 		if (shell->redir_type != -1)
 			make_redir(shell);
 		execve(cmd, shell->args, shell->envp);

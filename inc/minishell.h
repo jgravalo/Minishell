@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/24 09:29:55 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/24 10:14:42 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ int		is_existing(char *line, char **envp);
 
 char	*check_vars(char *args, char **envp);
 
-char	*file_cmd(t_shell *shell, char *cmd, char **envp);
+char	*file_cmd(t_shell *shell);
 
 char 	*parse_redir(char *line, t_shell *shell);
 
