@@ -30,7 +30,7 @@ static int prepare_infile(t_shell *shell, char *tmp)
 }
 
 static void prepare_heredoc(t_shell *shell, char *tmp)
-{
+{	
 	shell->delimiter = tmp;
 	if(ft_strchr(tmp, '\"') || ft_strchr(tmp, '\''))
 	{
@@ -65,7 +65,8 @@ static int prepare_outfile(t_shell *shell, char *tmp, int append)
 }
 
 void	prepare_redir(char *line, t_shell *shell)
-{
+{	
+	//printf("entra en prepare redir\n");
 	char *tmp;
 	int type;
 
@@ -76,7 +77,11 @@ void	prepare_redir(char *line, t_shell *shell)
 			return ;
 	}
 	else if (line[0] == '<' && line[1] == '<')
+	{	
+		//printf("entra en heredoc\n");
 		prepare_heredoc(shell, tmp);
+		return ;
+	}
 	else if (line[0] == '>' && line[1] != '>')
 	{	
 		if (prepare_outfile(shell, tmp, 0) == -1)

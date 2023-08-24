@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:34:38 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/24 10:20:16 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/24 18:00:33 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void parse_pipex(t_shell *shell)
 	init_shell(shell);
 	if (shell->pipex == 0)
 	{	
+		//printf("entra en no pipes\n");
 		parse_no_pipes_line(shell);
 		if (shell->args)
 			free_m(shell->args);

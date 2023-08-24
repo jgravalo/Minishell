@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/24 13:00:01 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/24 18:17:11 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_shell
 	char	**pipes;
 	char 	**envp;
 	char	**args;
+	char	*here_tmp;
 	char	*readline;
 	char	*prompt;
 	t_pipe	*p;

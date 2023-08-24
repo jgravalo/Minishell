@@ -27,6 +27,7 @@ void init_shell(t_shell *shell)
 		fill_pid_end(shell);
 	}
 	shell->args = NULL;
+	shell->here_tmp = "/tmp/heretmp";
 	shell->children = 0;
 	shell->last_builtin = 0;
 	shell->infd	= -1;

@@ -1,5 +1,30 @@
 #include "../inc/minishell.h"
 
+int	len_redir(char *line)
+{
+	int	i;
+	char quote;
+
+	i = 0;
+	if ((*line == '>' || *line == '<') && ++i)
+		line++;
+	if ((*line == '>' || *line == '<') && ++i)
+		line++;
+	while (*line && *line == ' ' && ++i)
+		line++;
+	if ((*line == '\"' || *line == '\'') && ++i)
+	{	
+		quote = *line;
+		line++;
+		while(*line != quote && ++i)
+			line++;
+	}
+	while (*line && *line != ' ' && ++i)
+		line++;
+
+	return (i);
+}
+
 int	count_redir(char *line)
 {
 	int	i;
@@ -16,23 +41,6 @@ int	count_redir(char *line)
 			}
 	}
 	return (i);
-}
-
-int make_stdin_stdout(t_shell *shell)
-{	
-	if (shell->redir_type == 0)
-	{	
-		dup2(shell->infd, shell->redir_type);
-		close(shell->infd);
-		return (1);
-	}
-	else if (shell->redir_type == 1)
-	{	
-		dup2(shell->outfd, shell->redir_type);
-		close(shell->outfd);
-		return (1);
-	}
-	return (0);
 }
 
 void write_heredoc_eof(t_shell *shell, int start_line)

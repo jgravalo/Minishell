@@ -6,56 +6,35 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/24 13:00:50 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/24 19:09:14 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	len_redir(char *line)
-{
-	int	i;
-	char quote;
-
-	i = 0;
-	if ((*line == '>' || *line == '<') && ++i)
-		line++;
-	if ((*line == '>' || *line == '<') && ++i)
-		line++;
-	while (*line && *line == ' ' && ++i)
-		line++;
-	if ((*line == '\"' || *line == '\'') && ++i)
-	{	
-		quote = *line;
-		line++;
-		while(*line != quote && ++i)
-			line++;
-	}
-	while (*line && *line != ' ' && ++i)
-		line++;
-
-	return (i);
-}
-
-static char* no_redir(char **m, char *line)
+static char* no_redir(char **m, char *line, int *i)
 {	
 	char quote;
-	int i;
 	
-	i = 0;
-	while (*line && *line != '<' && *line != '>' && ++i)
+	*i = 0;
+	while (*line && *line != '<' && *line != '>' && ++(*i))
 	{
 		if (*line == '\'' || *line == '\"')
 		{
 			quote = *line;
 			line++;
 			while (*line != quote)
+			{
+				(*i)++;
 				line++;
+			}	
 			line++;
+			(*i)++;
 		}
-		line++;
+		else
+			line++;
 	}
-	return (ft_substr(line - i, 0, i));
+	return (ft_substr(line - *i, 0, *i));
 }
 
 char	**ft_split_redir(char *line)
@@ -63,7 +42,9 @@ char	**ft_split_redir(char *line)
 	char	**m;
 	int		j;
 	int		len;
+	int 	i;
 
+	i = 0;
 	m = (char **)malloc(sizeof(char *) * (count_redir(line) + 1));
 	j = -1;
 	while (*line)
@@ -75,31 +56,75 @@ char	**ft_split_redir(char *line)
 			line += len;
 		}
 		else
-			m[++j] = no_redir(m, line);
+		{
+			m[++j] = no_redir(m, line, &i);
+			//printf("arg is %s, i es %d\n", m[j], i);
+			line += i;
+		}
 	}
 	m[++j] = NULL;
 	return (m);
 }
 
-void	make_redir(t_shell *shell)
+int make_stdin_stdout(t_shell *shell)
 {	
-	char *str;
-	int		start_line;
+	if (shell->redir_type == 0)
+	{	
+		dup2(shell->infd, shell->redir_type);
+		close(shell->infd);
+		return (1);
+	}
+	else if (shell->redir_type == 1)
+	{	
+		dup2(shell->outfd, shell->redir_type);
+		close(shell->outfd);
+		return (1);
+	}
+	return (0);
+}
 
+static void make_heredoc(t_shell *shell)
+{	
+	int start_line;
+	int fd;
+	char *str;
+	char *heredoc;
+	int delimiter;
+
+	delimiter = 0;
 	str = NULL;
-	if (make_stdin_stdout(shell)) // si devuelve 1 era redir in (0) o out (1)
-		return ;
-	start_line = shell->line_number; // sino es heredoc
-	while (ft_strcmp(str, shell->delimiter))
+	heredoc = ft_strdup("");
+	start_line = shell->line_number;
+	fd = open(shell->here_tmp, O_WRONLY|O_CREAT|O_EXCL|O_TRUNC, 0600);
+	while (1)
 	{	
 		str = readline("> ");
-		if (str == NULL)
+		if (ft_strcmp(str, shell->delimiter) == 0)
+			break;
+		else if (str == NULL)
 		{
 			write_heredoc_eof(shell, start_line);
 			break;
 		}
-			shell->line_number++;
+		str = ft_strjoin(str, "\n");
+		heredoc = ft_strcat(heredoc, str);
+		shell->line_number++;
+		free (str);
 	}
+	write(fd, heredoc, ft_strlen(heredoc));
+	close(fd);
+	fd = open(shell->here_tmp, O_RDONLY);
+	dup2(fd, STDIN_FILENO);
+	close(fd);
+	unlink(shell->here_tmp);
+}
+
+void	make_redir(t_shell *shell)
+{	
+	if (make_stdin_stdout(shell)) // si devuelve 1 era redir in (0) o out (1)
+		return ;
+	else
+		make_heredoc(shell);
 }
 
 char *parse_redir(char *line, t_shell *shell)
