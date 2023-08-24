@@ -3,6 +3,7 @@
 void child_routine(t_shell *shell, int i)
 {	
 	shell->pipes[i] = parse_redir(shell->pipes[i], shell);
+	printf("line after redir es %s\n", shell->pipes[i]);
 	shell->args = ft_split_marks(shell->pipes[i], ' ');
 	//printf("proceso %d, comando %s\n", getpid(), shell->args[0]);
 	//printf("comando %s, proceso %d\n", shell->args[0], getpid());
@@ -26,7 +27,15 @@ void child_routine(t_shell *shell, int i)
 		exit(shell->exit);
 	}
 	shell->cmd = file_cmd(shell); // error handling dentro de file_cmd
-	if (shell->cmd == NULL) // file_cmd ya mide errores
+	if (ft_strcmp(shell->cmd, "empty") == 0)
+	{	
+		if (shell->redir_type != -1)
+			make_redir(shell);
+		exit(0);
+	}
+	else if (shell->cmd == NULL)
 		exit(shell->exit);
+	if (shell->redir_type != -1)
+			make_redir(shell);
 	execve(shell->cmd, shell->args, shell->envp);
 }

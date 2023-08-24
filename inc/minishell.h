@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/24 10:14:42 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/24 11:08:05 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_shell
 	char	*cmd;
 	char	*user;
 	char 	*delimiter;
+	int		line_number;
 	int		heredoc_quoted;
 	int		redir_type;
 	int		infd;

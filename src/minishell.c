@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/24 08:52:06 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/24 11:08:41 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	new_shell(t_shell *shell)
 {	
 	//int fd;
 
-	//fd = open("test", O_WRONLY);
+	shell->line_number = 1;
 	while (1)
 	{	
 		//dup2(fd, 1);
@@ -57,6 +57,7 @@ int	new_shell(t_shell *shell)
 		}
 		free(shell->prompt);
 		free(shell->user);
+		shell->line_number++;
 	}
 	free(shell->prompt);
 	free(shell->user);

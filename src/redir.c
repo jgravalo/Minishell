@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/24 10:21:07 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/24 11:15:17 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,6 +232,7 @@ static void	prepare_redir(char *line, t_shell *shell)
 void	make_redir(t_shell *shell)
 {	
 	char *str;
+	int		start_line;
 
 	str = NULL;
 	if (shell->redir_type == 0)
@@ -245,11 +246,23 @@ void	make_redir(t_shell *shell)
 		close(shell->outfd);
 	}
 	else 
-	{
-		/*here doc*/
-	//	printf("entra en heredoc, delimiter es %s\n", shell->delimiter);
+	{	
+		start_line = shell->line_number;
 		while (ft_strcmp(str, shell->delimiter))
+		{	
+
 			str = readline("> ");
+			if (str == NULL)
+			{
+				write(2, "bash: warning: here-document at line ", 37);
+				write(2, ft_itoa(start_line), ft_strlen(ft_itoa(shell->line_number)));
+				write(2, " delimited by end-of-file (wanted `", 35);
+				write(2, shell->delimiter, ft_strlen(shell->delimiter));
+				write(2, "')\n", 3);
+				break;
+			}
+				shell->line_number++;
+		}
 	}
 }
 
