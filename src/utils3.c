@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 15:41:10 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/08/15 13:59:57 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/24 13:51:20 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ char	*ft_strchr(char *str, int c)
 	if (c == '\0')
 		return ((char *)&str[ft_strlen(str)]);
 	while (str[i] != '\0')
-	{
+	{	
+		//printf("i es %d\n", i);
 		if (str[i] == (char) c)
 			return ((char *)&str[i]);
 		i++;

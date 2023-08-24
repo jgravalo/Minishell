@@ -96,8 +96,11 @@ static char *get_cwd(char **envp, char *user)
 	if (search_var_line("HOME", envp) != NULL)
 	{	
 		home = search_var_line("HOME", envp);
-		ft_strchr(home, '=');
+		if (home == NULL)
+			return (cwd);
 		home_len = ft_strlen(home);
+		if (!home_len)
+			return (cwd);
 		if (ft_strncmp(cwd, home, home_len) == 0)
 			return (put_home(cwd, home_len));
 		else
