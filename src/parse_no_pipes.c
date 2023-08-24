@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/24 11:35:59 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/24 11:45:21 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ void	parse_no_pipes_line(t_shell *shell)
 	if (ft_strcmp(shell->cmd, "empty") == 0)
 	{	
 		if (shell->redir_type != -1)
+		{	
 			make_redir(shell);
+			recover_std(shell);
+		}
 		return ;
 	}
 	else if (shell->cmd == NULL)

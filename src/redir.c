@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/24 11:39:51 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/24 11:46:46 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,14 +172,19 @@ static void	prepare_redir(char *line, t_shell *shell)
 		{	
 			shell->exit = 1;
 			cmd_error(tmp, errno, 1);
-			return ;
+			if (shell->pipex == 0)
+				return ;
+			else
+				exit(shell->exit);
 		}
-		else if (access(tmp, R_OK) != 0 || access(tmp, W_OK) != 0
-			|| access(tmp, X_OK) != 0)
+		else if (access(tmp, R_OK) != 0)
 		{	
 			shell->exit = 1;
 			cmd_error(tmp, errno, 1);
-			return ;
+			if (shell->pipex == 0)
+				return ;
+			else
+				exit(shell->exit);
 		}
 		fd = open(tmp, O_RDONLY);
 		shell->infd = fd;
@@ -199,34 +204,36 @@ static void	prepare_redir(char *line, t_shell *shell)
 		shell->redir_type = 2;
 	}
 	else if (line[0] == '>' && line[1] != '>')
-	{	/*
+	{	
 		if (access(tmp, F_OK) == 0 && access(tmp, W_OK) != 0)
-		{
-			printf("%s: %s\n", tmp, strerror(13));
-			exit(1);
+		{	
+			cmd_error(tmp, 13, 1);
+			shell->exit = 1;
+			if (shell->pipex == 0)
+				return ;
+			else
+				exit(shell->exit);
 		}
-		*/
-//		ft_printarr(tmp);
 		fd = open(tmp, O_RDWR | O_CREAT | O_TRUNC, 00644);
 		shell->outfd = fd;
 		shell->saved_stdout = dup(1);
 		shell->redir_type = 1;
-//	printf("aqui\n");
 	}
 	else if (line[0] == '>' && line[1] == '>')
-	{	/*
-		if (access(tmp, F_OK) == 0 && access(tmp, W_OK) != 0)
-		{
-			printf("%s: %s\n", tmp, strerror(13));
-			exit(1);
+	{	if (access(tmp, F_OK) == 0 && access(tmp, W_OK) != 0)
+		{	
+			cmd_error(tmp, 13, 1);
+			shell->exit = 1;
+			if (shell->pipex == 0)
+				return ;
+			else
+				exit(shell->exit);
 		}
-		*/
 		fd = open(tmp, O_RDWR | O_CREAT | O_APPEND, 00644);
 		shell->outfd = fd;
 		shell->saved_stdout = dup(1);
 		shell->redir_type = 1;
 	}
-//	free_m(tmp);
 }
 
 void	make_redir(t_shell *shell)
