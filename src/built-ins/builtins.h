@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:03:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/22 19:23:50 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/24 12:03:51 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,7 @@ int is_digit(char c);
 int is_alpha(char c);
 
 int is_alpha_num(char c);
+
+int built_in(t_shell *shell);
 
 #endif

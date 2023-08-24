@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:07:19 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/24 10:25:03 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/24 12:03:36 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,18 @@ int	run_builtin(t_shell *shell)
 	else if (ft_strcmp(shell->args[0], "exit") == 0)
 		ft_exit(shell);
 	return (shell->exit);
+}
+
+int built_in(t_shell *shell)
+{
+	if (check_builtin(shell->args) == 1)
+	{	
+		if (shell->redir_type != -1)
+			make_redir(shell);
+		run_builtin(shell);
+		recover_std(shell);
+		return (1);
+	}
+	else
+		return (0);
 }
