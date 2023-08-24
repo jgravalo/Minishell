@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/06 15:26:49 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/08/24 09:45:10 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	len_redir(char *line)
 {
 	int	i;
+	char quote;
 
 	i = 0;
 	if ((*line == '>' || *line == '<') && ++i)
@@ -23,6 +24,13 @@ int	len_redir(char *line)
 		line++;
 	while (*line && *line == ' ' && ++i)
 		line++;
+	if ((*line == '\"' || *line == '\'') && ++i)
+	{	
+		quote = *line;
+		line++;
+		while(*line != quote && ++i)
+			line++;
+	}
 	while (*line && *line != ' ' && ++i)
 		line++;
 //	while (*line && *line == ' ' && ++i)
@@ -114,6 +122,41 @@ char	*get_redir(char *line)
 	return (line);
 }
 
+static char* remove_quotes(char *str)
+{
+	int i;
+	int j;
+	char *new_str;
+
+	j = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\"' || str[i] == '\"')
+			i++;
+		else
+		{
+			i++;
+			j++;
+		}
+	}
+	new_str = (char *)malloc(sizeof (char) * (j + 1));
+	i = 0;
+	j = 0;
+	while (str[i])
+	{	
+		if (str[i] == '\"' || str[i] == '\"')
+			i++;
+		else
+		{
+			new_str[j] = str[i];
+			j++;
+			i++;
+		}
+	}
+	return (new_str);
+}
+
 static void	prepare_redir(char *line, t_shell *shell)
 {
 	char *tmp;
@@ -123,7 +166,7 @@ static void	prepare_redir(char *line, t_shell *shell)
 //	printf("line is |%s|\n", line);
 	tmp = get_redir(line);
 //	printf("redir = |%s|\n", tmp);
-	if (line[0] == '<')
+	if (line[0] == '<' && line[1] != '<')
 	{	/*
 		if (access(tmp, F_OK) != 0)
 		{
@@ -142,6 +185,18 @@ static void	prepare_redir(char *line, t_shell *shell)
 		shell->infd = fd;
 		shell->saved_stdin = dup(0);
 		shell->redir_type = 0;
+	}
+	else if (line[0] == '<' && line[1] == '<')
+	{
+		/*heredoc*/
+		shell->delimiter = tmp;
+		if(ft_strchr(tmp, '\"') || ft_strchr(tmp, '\''))
+		{
+			shell->heredoc_quoted = 1;
+			shell->delimiter = remove_quotes(shell->delimiter);
+		}
+		shell->saved_stdin = dup(0);
+		shell->redir_type = 2;
 	}
 	else if (line[0] == '>' && line[1] != '>')
 	{	/*
@@ -225,21 +280,32 @@ char *parse_redir(char *line, t_shell *shell)
 	char *cmd;
 	char *c;
 	int i;
+	int j;
 
 	if (is_there_redir(line) == 0) // si no hay redir a procesar, fuera
 		return (line);
 	cmd = ft_strdup("");
 	args = ft_split_redir(line);
+	//printf("split redir is:\n");
+	ft_printarr(args);
 	i = 0;
 	while (args[i])
 	{	
-//	printf("aqui\n");
+		j = 0;
 		if (args[i][0] == '<' || args[i][0] == '>')
 			prepare_redir(args[i], shell);
 		else
-			cmd = ft_strjoin(cmd, args[i]);
+		{	
+			while (args[i][j] == ' ')
+				j++;
+			cmd = ft_strjoin(cmd, &args[i][j]);
+		}
 		i++;
 	}
+	printf("redir es %d\n", shell->redir_type);
+	if (shell->delimiter != NULL)
+		printf("delimiter is %s\n", shell->delimiter);
+	printf("frase al salir de parseredir es %s\n", cmd);
 //	printf("aqui\n");
 	//free_m(args);
 	return (cmd);

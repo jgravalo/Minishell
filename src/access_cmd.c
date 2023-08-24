@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:09:57 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/08/23 13:02:20 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/24 08:59:07 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,14 @@ int isfile(const char* name)
 
 
 
-int	check_file_dir(char *file)
+static int	check_file_dir(t_shell *shell, char *file)
 {	
 	if (file[0] != '.')
 	{
 		if (isfile(file) != 0)
 			return (cmd_error(file, errno, 127));
-		return (cmd_error(file, 21, 126));
+		else if (shell->args[1] == NULL) //solo hay un directorio y no hay comando, operacion ilegal "Is a directory"
+			return (cmd_error(file, 21, 126));
 	}
 	if (access(file, F_OK) != 0)
 		return (cmd_error(file, errno, 126));
@@ -112,8 +113,8 @@ char	*file_cmd(t_shell *shell, char *cmd, char **envp)
 	}
 	else if (ft_strcmp(cmd, file) == 0) //es file/dir
 	{	
-		printf("entra en file/dir\n");
-		shell->exit = check_file_dir(file);
+		//printf("entra en file/dir\n");
+		shell->exit = check_file_dir(shell, file);
 		if (shell->exit != 0) // si ha dado error fuera
 			return (NULL);
 		else				// si no, es un ejecutable, y sigue su camino hasta execve

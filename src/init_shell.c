@@ -32,4 +32,6 @@ void init_shell(t_shell *shell)
 	shell->outfd = -1;
 	shell->redir_type = -1;
 	shell->exit = 0;
+	shell->delimiter = NULL;
+	shell->heredoc_quoted = -1;
 }
