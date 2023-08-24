@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 13:29:05 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/08/24 10:19:09 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/24 11:58:02 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ char	*ft_strdup(char *str)
 	char	*new;
 	int		i;
 
+	if (!str)
+		return (NULL);
 	i = 0;
 	new = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
 	while (str[i])

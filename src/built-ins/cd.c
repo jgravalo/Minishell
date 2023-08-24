@@ -6,19 +6,11 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/22 19:40:43 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/24 11:59:56 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-static int	cd_error(char *rute)
-{
-	write(2, "cd: no such file or directory: ", 31);
-	write(2, rute, ft_strlen(rute));
-	write(2, "\n", 1);
-	return (1);
-}
 
 static int	args_error(void)
 {
@@ -33,10 +25,12 @@ int	cd(t_shell *shell)
 	int		oldpwd;
 	char	buffer[100];
 	int		join;
+	char 	*dir;
 
 	join = 0;
 	if (!shell->envp)
 		return (1);
+	dir = ft_strdup(shell->args[1]);
 	if (shell->args[1] == NULL)
 	{
 		if (search_var_line("HOME", shell->envp) == NULL)
@@ -63,7 +57,7 @@ int	cd(t_shell *shell)
 	free(shell->envp[oldpwd]);
 	shell->envp[oldpwd] = ft_strjoin("OLDPWD=", getcwd(buffer, 100));
 	if (chdir(shell->args[1]) < 0)
-		return (cd_error(shell->args[1]));
+		return (cmd_error(dir, errno, 1));
 	pwd = search_var_num("PWD", shell->envp);
 	free(shell->envp[pwd]);
 	shell->envp[pwd] = ft_strjoin("PWD=", getcwd(buffer, 100));

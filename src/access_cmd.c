@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:09:57 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/08/24 10:31:46 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/24 11:50:27 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ char	*file_cmd(t_shell *shell)
 
 	if (!shell->args)
 		return ("empty");
+	if (check_builtin(shell->args) == 1)
+		
 	env = 0;
 	env = search_path(shell->envp);
 	if (env != -1)
