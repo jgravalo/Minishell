@@ -26,6 +26,7 @@ void init_shell(t_shell *shell)
 		shell->pid_end = (int *)malloc(sizeof (int) * (shell->pipex + 2));
 		fill_pid_end(shell);
 	}
+	shell->args = NULL;
 	shell->children = 0;
 	shell->last_builtin = 0;
 	shell->infd	= -1;

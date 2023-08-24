@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/24 11:04:22 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/24 11:35:59 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,20 @@ static void handler(int sig)
 void	parse_no_pipes_line(t_shell *shell)
 {
 	shell->readline = parse_redir(shell->readline, shell);
+	if (shell->exit != 0)
+		return ;
 	//printf("line after parse redir es %s\n", shell->readline);
 	shell->args = ft_split_marks(shell->readline, ' ');
 	//printf("sale de aqui sin problema\n");
+	shell->cmd = file_cmd(shell);
+	if (ft_strcmp(shell->cmd, "empty") == 0)
+	{	
+		if (shell->redir_type != -1)
+			make_redir(shell);
+		return ;
+	}
+	else if (shell->cmd == NULL)
+		return ;
 	if (check_builtin(shell->args) == 1)
 	{	
 		if (shell->redir_type != -1)
@@ -44,15 +55,6 @@ void	parse_no_pipes_line(t_shell *shell)
 	{	
 		signal(SIGINT, handler);
 		signal(SIGQUIT, handler);
-		shell->cmd = file_cmd(shell);
-		if (ft_strcmp(shell->cmd, "empty") == 0)
-		{	
-			if (shell->redir_type != -1)
-				make_redir(shell);
-			exit(0);
-		}
-		else if (shell->cmd == NULL)
-			exit(shell->exit);
 		if (shell->redir_type != -1)
 			make_redir(shell);
 		execve(shell->cmd, shell->args, shell->envp);

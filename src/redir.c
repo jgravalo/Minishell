@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/24 11:15:17 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/24 11:39:51 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,21 +167,21 @@ static void	prepare_redir(char *line, t_shell *shell)
 	tmp = get_redir(line);
 //	printf("redir = |%s|\n", tmp);
 	if (line[0] == '<' && line[1] != '<')
-	{	/*
+	{	
 		if (access(tmp, F_OK) != 0)
-		{
-			printf("%s: %s\n", tmp, strerror(2));
-			exit(1);
+		{	
+			shell->exit = 1;
+			cmd_error(tmp, errno, 1);
+			return ;
 		}
-		if (access(tmp, R_OK) != 0 || access(tmp, W_OK) != 0
+		else if (access(tmp, R_OK) != 0 || access(tmp, W_OK) != 0
 			|| access(tmp, X_OK) != 0)
-		{
-			printf("%s: %s\n", tmp, strerror(13));
-			exit(1);
+		{	
+			shell->exit = 1;
+			cmd_error(tmp, errno, 1);
+			return ;
 		}
-		*/
 		fd = open(tmp, O_RDONLY);
-//		printf("%s\n", strerror(errno));
 		shell->infd = fd;
 		shell->saved_stdin = dup(0);
 		shell->redir_type = 0;
@@ -310,7 +310,7 @@ char *parse_redir(char *line, t_shell *shell)
 	cmd = ft_strdup("");
 	args = ft_split_redir(line);
 	//printf("split redir is:\n");
-	ft_printarr(args);
+	//ft_printarr(args);
 	i = 0;
 	while (args[i])
 	{	
