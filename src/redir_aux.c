@@ -21,7 +21,6 @@ int	len_redir(char *line)
 	}
 	while (*line && *line != ' ' && ++i)
 		line++;
-
 	return (i);
 }
 

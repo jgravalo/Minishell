@@ -2,19 +2,25 @@
 
 void child_routine(t_shell *shell, int i)
 {	
+	//printf("proceso hijo %d, line es %s\n", getpid(), shell->pipes[i]);
 	shell->pipes[i] = parse_redir(shell->pipes[i], shell);
+	//printf("linea tras parse redir es %s\n", shell->pipes[i]);
 	shell->args = ft_split_marks(shell->pipes[i], ' ');
 	if (shell->inpipe == 1) // hay pipe de entrada
 	{	
+		//printf("pipe de entrada\n");
 		close(shell->p[i - 1].p[WRITE]);
 		dup2(shell->p[i - 1].p[READ], STDIN_FILENO);
 		close(shell->p[i - 1].p[READ]);
+		//printf("sale de pipe de entrada\n");
 	}
 	if (shell->outpipe == 1) // hay pipe de salida
 	{	
+		//printf("pipe de salida\n");
 		close(shell->p[i].p[READ]);
 		dup2(shell->p[i].p[WRITE], STDOUT_FILENO);
 		close(shell->p[i].p[WRITE]);
+		//printf("sale de pipe de salida\n");
 	}
 	if (shell->pipex > 1)
 		close_fd(shell, i);
@@ -27,12 +33,12 @@ void child_routine(t_shell *shell, int i)
 	if (ft_strcmp(shell->cmd, "empty") == 0)
 	{	
 		if (shell->redir_type != -1)
-			make_redir(shell);
+			make_redir(shell, "empty");
 		exit(0);
 	}
 	else if (shell->cmd == NULL)
 		exit(shell->exit);
 	if (shell->redir_type != -1)
-			make_redir(shell);
+			make_redir(shell, NULL);
 	execve(shell->cmd, shell->args, shell->envp);
 }

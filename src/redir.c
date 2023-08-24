@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/24 19:09:14 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/24 19:51:41 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,18 @@ char	**ft_split_redir(char *line)
 	m = (char **)malloc(sizeof(char *) * (count_redir(line) + 1));
 	j = -1;
 	while (*line)
-	{
-		if (*line == '<' || *line == '>')
+	{	
+		if (*line == ' ')
+			line++;
+		else if (*line == '<' || *line == '>')
 		{
 			len = len_redir(line);
 			m[++j] = ft_substr(line, 0, len);
 			line += len;
 		}
 		else
-		{
+		{	
 			m[++j] = no_redir(m, line, &i);
-			//printf("arg is %s, i es %d\n", m[j], i);
 			line += i;
 		}
 	}
@@ -83,7 +84,7 @@ int make_stdin_stdout(t_shell *shell)
 	return (0);
 }
 
-static void make_heredoc(t_shell *shell)
+static void make_heredoc(t_shell *shell, char *empty)
 {	
 	int start_line;
 	int fd;
@@ -111,20 +112,25 @@ static void make_heredoc(t_shell *shell)
 		shell->line_number++;
 		free (str);
 	}
-	write(fd, heredoc, ft_strlen(heredoc));
-	close(fd);
-	fd = open(shell->here_tmp, O_RDONLY);
-	dup2(fd, STDIN_FILENO);
-	close(fd);
-	unlink(shell->here_tmp);
+	if (empty == NULL)
+	{
+		write(fd, heredoc, ft_strlen(heredoc));
+		close(fd);
+		fd = open(shell->here_tmp, O_RDONLY);
+		dup2(fd, STDIN_FILENO);
+		close(fd);
+		unlink(shell->here_tmp);
+	}
+	else
+		return ;
 }
 
-void	make_redir(t_shell *shell)
+void	make_redir(t_shell *shell, char *empty)
 {	
 	if (make_stdin_stdout(shell)) // si devuelve 1 era redir in (0) o out (1)
 		return ;
 	else
-		make_heredoc(shell);
+		make_heredoc(shell, empty);
 }
 
 char *parse_redir(char *line, t_shell *shell)
@@ -138,6 +144,8 @@ char *parse_redir(char *line, t_shell *shell)
 		return (line);
 	cmd = ft_strdup("");
 	args = ft_split_redir(line);
+/* 	printf("redir args son:\n");
+	ft_printarr(args); */
 	i = 0;
 	while (args[i])
 	{	

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/24 18:17:11 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/24 19:18:35 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ char	*prompt_join(char *s1, char *s2);
 
 char	*parse_quotes(char *s);
 
-void	make_redir(t_shell *shell);
+void	make_redir(t_shell *shell, char *empty);
 
 int 	recover_std(t_shell *shell);
 
