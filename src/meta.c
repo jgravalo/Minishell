@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/23 19:19:08 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/08/24 08:46:55 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char	*meta_str(char const *s, char c, int *n)
 		if (*s == '\'' && ++s && ++i)
 			while (*s && *s != '\'' && ++i)
 				s++;
+		else if (*s == '?' && ++s)
+			break;
 		s++;
 	}
 	new = ft_substr(s - i, 0, i);
@@ -140,9 +142,9 @@ static char	*get_var(t_shell *shell, t_var *p, char *new_line, int n)
 					j++;
 				p->var = ft_substr(p->tmp[n], 0, j);
 				p->exp = search_var_line(p->var, shell->envp);
-				//printf("p->exp es %s\n", p->exp);
 			}
 		}
+		//printf("p->exp es %s\n", p->exp);
 		//printf("start is %d, and i is %d, before substr\n", start, i);
 		//printf("newline substr is %s\n", ft_substr(new_line, start, i));
 		p->c = ft_strjoin(ft_substr(new_line, start, i - start), p->exp);
@@ -303,7 +305,7 @@ char	*expand_meta(t_shell *shell, char **envp)
 		return (new_line);
 	}
 	p.tmp = ft_split_meta(new_line, '$');
-	printf("aqui\n");
+	//printf("aqui\n");
 	//printf("\nsplit meta array is: \n");
 	//ft_printarr(p.tmp);
 	p.new = NULL;
