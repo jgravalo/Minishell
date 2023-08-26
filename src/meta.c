@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/24 08:46:55 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/26 18:41:01 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,21 @@ char	*meta_str(char const *s, char c, int *n)
 	char	*new;
 
 	i = 0;
-	while (*s && *s != ' ' && *s != '\"' && ++i)
-	{
-		if (*s == '\'' && ++s && ++i)
-			while (*s && *s != '\'' && ++i)
-				s++;
-		else if (*s == '?' && ++s)
-			break;
-		s++;
-	}
+	if (*s == '?' && ++s)
+		i++;
+	else
+		while (*s && /**s != ' '*/
+			((*s >= 'A' && *s <= 'Z') ||
+			(*s >= 'a' && *s <= 'z') ||
+			(*s >= '0' && *s <= '9'))/* ||
+			*s == '\'')*/ && ++i)
+			/**s != '\"' && */ 
+		{
+//			if (*s == '\'' && ++s && ++i)
+//				while (*s && *s != '\'' && ++i)
+//					s++;
+			s++;
+		}
 	new = ft_substr(s - i, 0, i);
 	*n = i;
 	return (new);
@@ -44,8 +50,12 @@ int	words_meta(const char *s, char c)
 			while (*s && *s != c)
 			{
 				if (*s == '\'' && ++s)
+				{
+					if (*(s - 1) == '$')
+						j--;
 					while (*s && *s != '\'')
 						s++;
+				}
 				s++;
 			}
 			j++;
@@ -72,10 +82,11 @@ char	**ft_split_meta(char const *s, char c)
 		//printf("*s es %c\n", *s);
 		while (*s != c && *s != '\0')
 		{
-			++s;
+//			++s;
 			if (*s == '\'' && ++s)
 				while (*s && *s != '\'')
 					s++;
+			++s;
 		}
 		if (*s == '\0')
 			break;
@@ -298,7 +309,7 @@ char	*expand_meta(t_shell *shell, char **envp)
 	new_line = expand_tilde(shell, new_line, envp, &p);
 //	printf("aqui\n");
 	free(shell->readline);
-	//printf("line after expand tilde es %s\n", new_line);
+//	printf("line after expand tilde es %s\n", new_line);
 	if (is_there_dollar(new_line, '$') == 0)
 	{	
 		//printf("no hay expansion de variable\n");
@@ -306,8 +317,8 @@ char	*expand_meta(t_shell *shell, char **envp)
 	}
 	p.tmp = ft_split_meta(new_line, '$');
 	//printf("aqui\n");
-	//printf("\nsplit meta array is: \n");
-	//ft_printarr(p.tmp);
+//	printf("\nsplit meta array is: \n");
+//	ft_printarr(p.tmp);
 	p.new = NULL;
 	/* n = 1;
 	if (line[0] == '$')
@@ -316,7 +327,7 @@ char	*expand_meta(t_shell *shell, char **envp)
 		n = 0;
 	} */ 
 	new_line = get_var(shell, &p, new_line, 0);
-	//printf("line after expand meta es <<<%s>>>\n", new_line);
+//	printf("line after expand meta es <<<%s>>>\n", new_line);
 	return (new_line);
 }
 /*
