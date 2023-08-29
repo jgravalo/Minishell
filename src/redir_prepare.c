@@ -3,7 +3,7 @@
 static int prepare_infile(t_shell *shell, char *tmp)
 {	
 	shell->infd = open(tmp, O_RDONLY);
-	if (shell->infd = -1)
+	if (shell->infd == -1)
 	{
 		shell->exit = 1;
 		cmd_error(tmp, errno, 1);
