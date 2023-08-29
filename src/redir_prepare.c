@@ -78,7 +78,7 @@ void	prepare_redir(char *line, t_shell *shell)
 	}
 	else if (line[0] == '<' && line[1] == '<')
 	{	
-		//printf("entra en heredoc\n");
+		printf("entra en en prepare heredoc\n");
 		prepare_heredoc(shell, tmp);
 		return ;
 	}
