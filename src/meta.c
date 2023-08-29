@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/29 15:13:28 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/08/29 19:14:39 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,10 @@ static char	*get_var(t_shell *shell, t_var *p, char *new_line, int n)
 	int		j;
 	int 	i;
 	int start;
+	char	*tmp;
 
 //	printf("ptmp0 es %s y len es %ld\n, new line es %s, y len de new line es %ld\n", p->tmp[n], ft_strlen(p->tmp[n]), new_line, ft_strlen(new_line));
+		
 	i = 0;
 	start = 0;
 	while (new_line[i] && p->tmp[n])
@@ -156,24 +158,23 @@ static char	*get_var(t_shell *shell, t_var *p, char *new_line, int n)
 			i++;
 		}
 //		printf("newline after = <<%s>>\n", new_line + i);
-//		printf("entra aqui, n es %d\n", n);
 		make_p(shell, p, new_line, n);
-//		printf("p->exp es %s\n", p->exp);
-//		printf("start is %d, and i is %d, before substr\n", start, i);
+		free(p->var);
 //		printf("newline substr is %s\n", ft_substr(new_line, start, i));
-		p->c = ft_strjoin(ft_substr(new_line, start, i - start), p->exp);
-//		printf("p->c es %s\n", p->c);
-		p->new = ft_strjoin(p->new, p->c);
-		/* printf("p->c es %s\n", p->c);
-		p->tmp[n] += j;
-		p->new = ft_strjoin(p->c, p->tmp[n]); */
-//		printf("new line after getvar loop is %s\n", p->new);
+		tmp = ft_substr(new_line, start, i - start);
+		p->c = ft_strjoin(tmp, p->exp);
+		free(tmp);
+		tmp = p->new;
+		p->new = ft_strjoin(tmp, p->c);
+		free(tmp);
 		i += ft_strlen(p->tmp[n]) + 1;
 		start = i;
 		n++;
 	}
-	p->new = ft_strjoin(p->new,
-		ft_substr(new_line, i, ft_strlen(new_line) - i));
+	tmp = ft_substr(new_line, i, ft_strlen(new_line) - i);
+	p->new = ft_strjoin(p->new, tmp);
+	free(tmp);
+	free(new_line);
 //	printf("new line after everything is %s\n", p->new);
 	return (p->new);
 }
@@ -324,6 +325,8 @@ char	*expand_meta(t_shell *shell, char **envp)
 		n = 0;
 	} */ 
 	new_line = get_var(shell, &p, new_line, 0);
+	free_m(p.tmp);
+	free(shell->readline);
 //	printf("line after expand meta es <<<%s>>>\n", new_line);
 	return (new_line);
 }

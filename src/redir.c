@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/29 11:57:19 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/29 17:17:13 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,8 @@ char *parse_redir(char *line, t_shell *shell)
 
 	if (is_there_redir(line) == 0) // si no hay redir a procesar, fuera
 		return (line);
-	cmd = ft_strdup("");
+//	cmd = ft_strdup("");
+	cmd = NULL;
 	args = ft_split_redir(line);
 /* 	printf("redir args son:\n");
 	ft_printarr(args); */
@@ -144,7 +145,10 @@ char *parse_redir(char *line, t_shell *shell)
 	{	
 		j = 0;
 		if (args[i][0] == '<' || args[i][0] == '>')
+		{
 			prepare_redir(args[i], shell);
+			free(args[i]);
+		}
 		else
 		{	
 			while (args[i][j] == ' ')
@@ -153,5 +157,7 @@ char *parse_redir(char *line, t_shell *shell)
 		}
 		i++;
 	}
+	free(line);
+	free(args);
 	return (cmd);
 }

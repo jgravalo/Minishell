@@ -54,9 +54,10 @@ void	prepare_redir(char *line, t_shell *shell)
 {	
 	//printf("entra en prepare redir\n");
 	char *tmp;
-	int type;
 
+//	printf("line = <%s>\n", line);
 	tmp = get_redir(line);
+//	printf("tmp = <%s>\n", tmp);
 	if (line[0] == '<' && line[1] != '<')
 	{
 		if (prepare_infile(shell, tmp) == -1)
