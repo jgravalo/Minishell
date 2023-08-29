@@ -18,7 +18,8 @@ void empty_old_pwd(t_shell *shell)
 
 void alloc_envp(t_shell *shell, char **envp)
 {	
-	int i;
+	int		i;
+	char	buffer[100];
 
 	shell->envp = (char **)malloc(sizeof (char *) * (count_arr(envp) + 1));
 	i = 0;
@@ -29,4 +30,19 @@ void alloc_envp(t_shell *shell, char **envp)
 	}
 	shell->envp[i] = NULL;
 	empty_old_pwd(shell);
+	change_var(shell, "SHELL", getcwd(buffer, 100));
+}
+
+void	change_var(t_shell *shell, char *var, char *content)
+{
+	int		var_num;
+	char	*tmp;
+
+	var_num = search_var_num(var, shell->envp);
+	if (var_num < 0)
+		return ;
+	tmp = ft_strjoin(var, "=");
+	free(shell->envp[var_num]);
+	shell->envp[var_num] = ft_strjoin(tmp, content);
+	free(tmp);
 }

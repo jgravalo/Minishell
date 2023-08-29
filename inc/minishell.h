@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/29 11:38:15 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/29 14:30:01 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,9 +213,9 @@ void	wait_for_children(t_shell *shell);
 
 void 	init_shell(t_shell *shell);
 
+void	change_var(t_shell *shell, char *var, char *content);
 
 void	parse_no_pipes_line(t_shell *shell);
-
 
 void	set_signals(t_shell *shell, char **envp);
 
