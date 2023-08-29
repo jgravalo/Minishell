@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 13:29:05 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/08/29 10:40:57 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/29 11:39:17 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,10 +168,7 @@ char	**ft_split_marks(char const *s, char c)
 	char	**res;
 
 	if (ft_strlen(s) == 0)
-	{	
-		printf("linea vacía\n");
 		return (NULL);
-	}	
 	res = (char **) malloc((words(s, c) * (sizeof (char *) + 8)));
 	if (!res || !s)
 		return (0);

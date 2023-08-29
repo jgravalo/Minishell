@@ -4,11 +4,13 @@ void	check_pipe(t_shell *shell, int i)
 {
 	if (i == 0)
 	{	
+		printf("i es %d, pipe de salida\n", i);
 		shell->inpipe = 0;
 		shell->outpipe = 1;
 	}
 	else if (i == shell->pipex)
 	{	
+		printf("i es %d, pipe de entrada\n", i);
 		shell->inpipe = 1;
 		shell->outpipe = 0;
 	}

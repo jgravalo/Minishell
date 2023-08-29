@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:07:19 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/29 11:03:56 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/29 11:40:09 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int built_in(t_shell *shell)
 	if (check_builtin(shell->args) == 1)
 	{	
 		if (shell->redir_type != -1)
-			make_redir(shell, NULL);
+			make_redir(shell);
 		run_builtin(shell);
 		recover_std(shell);
 		return (1);

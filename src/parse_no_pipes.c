@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/29 11:14:09 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/29 11:59:13 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,12 @@ static void fork_process(t_shell *shell)
 		signal(SIGINT, handler);
 		signal(SIGQUIT, handler);
 		if (shell->redir_type != -1)
-			make_redir(shell, NULL);
+			make_redir(shell);
 		shell->cmd = file_cmd(shell);
-	/* 	if (ft_strcmp(shell->cmd, "empty") == 0) // si file_cmd ha recibido linea vacia, es que solo había redir en la linea.
-		{	
-			make_redir(shell, "empty");
-			recover_std(shell); // recuperamos stdin o stdout, ya que es proceso padre.
-			return ;
-		} */
 		if (ft_strcmp(shell->cmd, "empty") == 0)
 			exit(0);
 		else if (shell->cmd == NULL)  
 			exit(shell->exit);
-/* 		if (shell->redir_type != -1)
-			make_redir(shell, NULL);     // no recuperamos stdin o stdout porque es hijo y se va al execve */
 		execve(shell->cmd, shell->args, shell->envp);
 	}
 }

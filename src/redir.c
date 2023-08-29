@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/29 10:58:13 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/29 11:57:19 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,9 @@ int make_stdin_stdout(t_shell *shell)
 	return (0);
 }
 
-static void make_heredoc(t_shell *shell, char *empty)
+static void make_heredoc(t_shell *shell)
 {	
 	int start_line;
-	int fd;
 	char *str;
 	char *heredoc;
 	int delimiter;
@@ -96,7 +95,6 @@ static void make_heredoc(t_shell *shell, char *empty)
 	str = NULL;
 	heredoc = ft_strdup("");
 	start_line = shell->line_number;
-	fd = open(shell->here_tmp, O_WRONLY|O_CREAT|O_EXCL|O_TRUNC, 0600);
 	while (1)
 	{	
 		str = readline("> ");
@@ -108,29 +106,24 @@ static void make_heredoc(t_shell *shell, char *empty)
 			break;
 		}
 		str = ft_strjoin(str, "\n");
-		heredoc = ft_strcat(heredoc, str);
+		heredoc = ft_strjoin(heredoc, str);
 		shell->line_number++;
-		free (str);
+		//free (str);
 	}
-	if (empty == NULL)
-	{
-		write(fd, heredoc, ft_strlen(heredoc));
-		close(fd);
-		fd = open(shell->here_tmp, O_RDONLY);
-		dup2(fd, STDIN_FILENO);
-		close(fd);
-		unlink(shell->here_tmp);
-	}
-	else
-		return ;
+	write(shell->infd, heredoc, ft_strlen(heredoc));
+	close(shell->infd);
+	shell->infd = open(shell->here_tmp, O_RDONLY);
+	dup2(shell->infd, STDIN_FILENO);
+	close(shell->infd);
+	unlink(shell->here_tmp);
 }
 
-void	make_redir(t_shell *shell, char *empty)
+void	make_redir(t_shell *shell)
 {	
 	if (make_stdin_stdout(shell)) // si devuelve 1 era redir in (0) o out (1)
 		return ;
 	else
-		make_heredoc(shell, empty);
+		make_heredoc(shell);
 }
 
 char *parse_redir(char *line, t_shell *shell)
@@ -144,8 +137,8 @@ char *parse_redir(char *line, t_shell *shell)
 		return (line);
 	cmd = ft_strdup("");
 	args = ft_split_redir(line);
-	printf("redir args son:\n");
-	ft_printarr(args);
+/* 	printf("redir args son:\n");
+	ft_printarr(args); */
 	i = 0;
 	while (args[i])
 	{	
