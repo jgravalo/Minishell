@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/24 11:59:56 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/29 14:41:38 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,9 @@ int	cd(t_shell *shell)
 		join = 1;
 		free(tmp);
 	}
-	oldpwd = search_var_num("OLDPWD", shell->envp);
-	free(shell->envp[oldpwd]);
-	shell->envp[oldpwd] = ft_strjoin("OLDPWD=", getcwd(buffer, 100));
+	change_var(shell, "OLDPWD", getcwd(buffer, 100));
 	if (chdir(shell->args[1]) < 0)
 		return (cmd_error(dir, errno, 1));
-	pwd = search_var_num("PWD", shell->envp);
-	free(shell->envp[pwd]);
-	shell->envp[pwd] = ft_strjoin("PWD=", getcwd(buffer, 100));
+	change_var(shell, "PWD", getcwd(buffer, 100));
 	return (0);
 }

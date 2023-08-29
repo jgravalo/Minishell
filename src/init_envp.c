@@ -23,14 +23,18 @@ void alloc_envp(t_shell *shell, char **envp)
 
 	shell->envp = (char **)malloc(sizeof (char *) * (count_arr(envp) + 1));
 	i = 0;
+//	env(envp);
 	while (envp[i])
 	{
 		shell->envp[i] = ft_strdup(envp[i]);
 		i++;
 	}
 	shell->envp[i] = NULL;
+	printf("%s\n", shell->envp[i - 1]);
+//	env(shell->envp);
 	empty_old_pwd(shell);
 	change_var(shell, "SHELL", getcwd(buffer, 100));
+//	env(shell->envp);
 }
 
 void	change_var(t_shell *shell, char *var, char *content)

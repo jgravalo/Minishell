@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/26 20:03:54 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/08/29 15:13:28 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ char	*meta_str(char const *s, char c, int *n)
 	else
 		while (*s && ((*s >= 'A' && *s <= 'Z')
 			|| (*s >= 'a' && *s <= 'z')
-			|| (*s >= '0' && *s <= '9'))
+			|| (*s >= '0' && *s <= '9')
+			|| (*s >= '_'))
 			&& ++i)
 			s++;
 	new = ft_substr(s - i, 0, i);
@@ -125,7 +126,8 @@ void	make_p(t_shell *shell, t_var *p, char *new_line, int n)
 		{
 			while (p->tmp[n][j] && ((p->tmp[n][j] >= 'a' && p->tmp[n][j] <= 'z')
 				|| (p->tmp[n][j] >= 'A' && p->tmp[n][j] <= 'Z')
-				|| (p->tmp[n][j] >= '0' && p->tmp[n][j] <= '9')))
+				|| (p->tmp[n][j] >= '0' && p->tmp[n][j] <= '9')
+				|| (p->tmp[n][j] == '_')))
 				j++;
 			p->var = ft_substr(p->tmp[n], 0, j);
 			p->exp = search_var_line(p->var, shell->envp);
