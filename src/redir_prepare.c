@@ -19,7 +19,7 @@ static int prepare_infile(t_shell *shell, char *tmp)
 
 static void prepare_heredoc(t_shell *shell, char *tmp)
 {	
-	shell->delimiter = tmp;
+	shell->delimiter = ft_strdup(tmp);
 	shell->infd = open(shell->here_tmp, O_WRONLY|O_CREAT|O_EXCL|O_TRUNC, 0600);
 	if(ft_strchr(tmp, '\"') || ft_strchr(tmp, '\''))
 	{

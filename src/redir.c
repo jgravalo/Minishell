@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/29 17:17:13 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/08/29 21:50:05 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,7 @@ static void make_heredoc(t_shell *shell)
 	int start_line;
 	char *str;
 	char *heredoc;
-	int delimiter;
 
-	delimiter = 0;
 	str = NULL;
 	heredoc = ft_strdup("");
 	start_line = shell->line_number;

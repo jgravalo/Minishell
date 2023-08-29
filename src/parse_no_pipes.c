@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/29 19:04:16 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/08/29 21:54:52 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,19 @@ void	parse_no_pipes_line(t_shell *shell)
 {
 	int i;
 
-	shell->readline = parse_redir(shell->readline, shell); 
+	shell->readline = parse_redir(shell->readline, shell);
 	if (shell->exit != 0) // algo ha ido mal y retornamos, mensaje de error ya se ha mostrado con cmd_error.
 		return ;
-	shell->args = ft_split_marks(shell->readline, ' ');
-	i = 0;
-	while (shell->args[i])
-		i++;
-	change_var(shell, "_", shell->args[i - 1]);
-	if (built_in(shell) == 1)   // agrupamos gestión de built in en una función
-		return ;
+	if (shell->readline)
+	{	
+		shell->args = ft_split_marks(shell->readline, ' ');
+		i = 0;
+		while (shell->args[i])
+			i++;
+		change_var(shell, "_", shell->args[i - 1]);
+		if (built_in(shell) == 1)   // agrupamos gestión de built in en una función
+			return ;
+	}
 	shell->pid[0] = fork();
 	fork_process(shell); // aligeramos lineas en función.
 }
