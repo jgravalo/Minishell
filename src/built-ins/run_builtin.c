@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:07:19 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/30 12:40:52 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/30 13:04:20 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,12 @@ int	run_builtin(t_shell *shell, int n)
 }
 
 int built_in(t_shell *shell, int n)
-{
+{	
 	if (check_builtin(shell->struct_cmd[n]->args) == 1)
 	{	
-		if (shell->redir_type != -1)
+		if (shell->struct_cmd[n]->infile > -1 || shell->struct_cmd[n]->outfile > -1)
 			make_redir(shell, n);
 		run_builtin(shell, n);
-		recover_std(shell);
 		return (1);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/30 11:28:11 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/30 12:50:56 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ char	*parse_quotes(char *s);
 
 void	make_redir(t_shell *shell, int n);
 
-int 	recover_std(t_shell *shell);
+int 	recover_std(t_shell *shell, int n);
 
 char	*ft_itoa(int n);
 

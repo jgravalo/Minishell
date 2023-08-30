@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/30 11:32:45 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/30 13:01:39 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ void	parse_no_pipes_line(t_shell *shell)
 {
 	int i;
 	
-	shell->struct_cmd = (t_cmd **)malloc(sizeof (t_cmd *));
-	shell->struct_cmd[0] = (t_cmd *)malloc(sizeof (t_cmd));
 	i = 0;
 	shell->readline = parse_redir(shell->readline, shell, 0);
 	if (shell->exit != 0) // algo ha ido mal y retornamos, mensaje de error ya se ha mostrado con cmd_error.

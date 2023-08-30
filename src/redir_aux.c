@@ -51,11 +51,11 @@ void write_heredoc_eof(t_shell *shell, int start_line)
 	write(2, "')\n", 3);
 }
 
-int recover_std(t_shell *shell)
+int recover_std(t_shell *shell, int n)
 {
-	if (shell->redir_type == 0 || shell->redir_type == 2)
+	if (shell->struct_cmd[n]->infile > -1)
 		dup2(shell->saved_stdin, 0);
-	if (shell->redir_type == 1)
+	if (shell->struct_cmd[n]->outfile > -1)
 		dup2(shell->saved_stdout, 1);
 	return (shell->exit);
 }
