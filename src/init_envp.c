@@ -2,18 +2,22 @@
 
 void empty_old_pwd(t_shell *shell)
 {	
-	shell->args = (char **)malloc(sizeof (char *) * 3);
-	shell->args[0] = ft_strdup("unset");
-	shell->args[1] = ft_strdup("OLDPWD");
-	shell->args[2] = NULL;
-	unset(shell);
-	free_m(shell->args);
-	shell->args = (char **)malloc(sizeof (char *) * 3);
-	shell->args[0] = ft_strdup("export");
-	shell->args[1] = ft_strdup("OLDPWD");
-	shell->args[2] = NULL;
-	export(shell);
-	free_m(shell->args);
+	shell->struct_cmd = (t_cmd **)malloc(sizeof (t_cmd *));
+	shell->struct_cmd[0] = (t_cmd *)malloc(sizeof (t_cmd));
+	shell->struct_cmd[0]->args = (char **)malloc(sizeof (char *) * 3);
+	shell->struct_cmd[0]->args[0] = ft_strdup("unset");
+	shell->struct_cmd[0]->args[1] = ft_strdup("OLDPWD");
+	shell->struct_cmd[0]->args[2] = NULL;
+	unset(shell, 0);
+	free_m(shell->struct_cmd[0]->args);
+	shell->struct_cmd[0]->args = (char **)malloc(sizeof (char *) * 3);
+	shell->struct_cmd[0]->args[0] = ft_strdup("export");
+	shell->struct_cmd[0]->args[1] = ft_strdup("OLDPWD");
+	shell->struct_cmd[0]->args[2] = NULL;
+	export(shell, 0);
+	free_m(shell->struct_cmd[0]->args);
+	free(shell->struct_cmd[0] = (t_cmd *)malloc(sizeof (t_cmd)));
+	free(shell->struct_cmd);
 }
 
 void alloc_envp(t_shell *shell, char **envp)

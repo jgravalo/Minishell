@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/29 19:14:39 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/08/30 12:06:04 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ static char	*get_var(t_shell *shell, t_var *p, char *new_line, int n)
 		}
 //		printf("newline after = <<%s>>\n", new_line + i);
 		make_p(shell, p, new_line, n);
-		free(p->var);
+		//free(p->var);
 //		printf("newline substr is %s\n", ft_substr(new_line, start, i));
 		tmp = ft_substr(new_line, start, i - start);
 		p->c = ft_strjoin(tmp, p->exp);
@@ -326,7 +326,7 @@ char	*expand_meta(t_shell *shell, char **envp)
 	} */ 
 	new_line = get_var(shell, &p, new_line, 0);
 	free_m(p.tmp);
-	free(shell->readline);
+	//free(shell->readline);
 //	printf("line after expand meta es <<<%s>>>\n", new_line);
 	return (new_line);
 }

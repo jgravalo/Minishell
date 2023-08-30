@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/29 14:41:38 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/08/30 12:15:47 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	args_error(void)
 	return (1);
 }
 
-int	cd(t_shell *shell)
+int	cd(t_shell *shell, int n)
 {
 	char	*tmp;
 	int		pwd;
@@ -30,7 +30,7 @@ int	cd(t_shell *shell)
 	join = 0;
 	if (!shell->envp)
 		return (1);
-	dir = ft_strdup(shell->args[1]);
+	dir = ft_strdup(shell->struct_cmd[n]->args[1]);
 	if (shell->args[1] == NULL)
 	{
 		if (search_var_line("HOME", shell->envp) == NULL)
@@ -38,23 +38,23 @@ int	cd(t_shell *shell)
 			write(2, "bash: cd: HOME not set\n", 23);
 			return (1);
 		}
-		free_m(shell->args);
-		shell->args = (char **)malloc(3 * sizeof(char *));
-		shell->args[0] = ft_strdup("cd");
-		shell->args[1] = ft_strdup(search_var_line("HOME", shell->envp));
-		shell->args[2] = NULL;
+		free_m(shell->struct_cmd[n]->args);
+		shell->struct_cmd[n]->args = (char **)malloc(3 * sizeof(char *));
+		shell->struct_cmd[n]->args[0] = ft_strdup("cd");
+		shell->struct_cmd[n]->args[1] = ft_strdup(search_var_line("HOME", shell->envp));
+		shell->struct_cmd[n]->args[2] = NULL;
 	}
-	else if (shell->args[2] != NULL)
+	else if (shell->struct_cmd[n]->args[2] != NULL)
 		return (args_error());
-	else if (shell->args[1][0] != '/' && ft_strcmp(shell->args[1], "..") != 0)
+	else if (shell->struct_cmd[n]->args[1][0] != '/' && ft_strcmp(shell->struct_cmd[n]->args[1], "..") != 0)
 	{
 		tmp = ft_strjoin(search_var_line("PWD", shell->envp), "/");
-		shell->args[1] = ft_strjoin(tmp, shell->args[1]);
+		shell->struct_cmd[n]->args[1] = ft_strjoin(tmp, shell->struct_cmd[n]->args[1]);
 		join = 1;
 		free(tmp);
 	}
 	change_var(shell, "OLDPWD", getcwd(buffer, 100));
-	if (chdir(shell->args[1]) < 0)
+	if (chdir(shell->struct_cmd[n]->args[1]) < 0)
 		return (cmd_error(dir, errno, 1));
 	change_var(shell, "PWD", getcwd(buffer, 100));
 	return (0);

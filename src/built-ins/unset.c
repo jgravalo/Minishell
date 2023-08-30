@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:00:23 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/31 20:07:41 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/08/30 12:13:32 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,23 @@ static int unset_n(char *var, t_shell *shell)
 	return (0);
 }
 
-int	unset(t_shell *shell)
+int	unset(t_shell *shell, int n)
 {
 	int	i;
 
 	i = 1;
-	if (shell->args[i] == NULL)
+	if (shell->struct_cmd[n]->args[i] == NULL)
 		return (0);
-	while (shell->args[i])
+	while (shell->struct_cmd[n]->args[i])
 	{	
-		if (ft_strchr(shell->args[i], '=') != NULL)
+		if (ft_strchr(shell->struct_cmd[n]->args[i], '=') != NULL)
 		{
 			write(2, "unset: ", 7);
-			write(2, shell->args[i], ft_strlen(shell->args[i]));
+			write(2, shell->struct_cmd[n]->args[i], ft_strlen(shell->struct_cmd[n]->args[i]));
 			write(2, ": invalid parameter name\n", 26);
 			shell->exit++;
 		}
-		shell->exit += unset_n(shell->args[i], shell);
+		shell->exit += unset_n(shell->struct_cmd[n]->args[i], shell);
 		i++;
 	}
 	return (shell->exit);
