@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/* /* /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
@@ -73,7 +73,7 @@ char	**ft_split_heredoc(char *line)
 	return (m);
 }
 
-char	*make_heredoc(char *line)
+/* char	*make_heredoc(char *line)
 {
 	char	**tmp;
 
@@ -82,7 +82,7 @@ char	*make_heredoc(char *line)
 	free(tmp[0]);
 	free(tmp);
 	return (tmp[1]);
-}
+} */
 
 char	last_sign(char *line)
 {
@@ -121,7 +121,7 @@ char	*find_heredoc(char *cmd, char **here_doc)
 	return (cmd);
 }
 
-char	*parse_heredoc(char *line)
+/* char	*parse_heredoc(char *line)
 {
 	char **args;
 	char **here_doc;
@@ -157,7 +157,7 @@ char	*parse_heredoc(char *line)
 	free_m(args);
 	cmd = find_heredoc(cmd, here_doc);
 	return (cmd);
-}
+} */
 /*
 int main(int argc, char **argv)
 {
@@ -175,3 +175,4 @@ int main(int argc, char **argv)
 	printf("cmd = |%s|\n", cmd);
 	return (0);
 }*/
+ 

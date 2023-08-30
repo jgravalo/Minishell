@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:03:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/24 12:03:51 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/30 11:12:52 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int export_n(char *var, t_shell *shell);
 
 int	check_builtin(char **args);
 
-int	run_builtin(t_shell *shell);
+int	run_builtin(t_shell *shell, int n);
 
 int is_digit(char c);
 
@@ -41,6 +41,6 @@ int is_alpha(char c);
 
 int is_alpha_num(char c);
 
-int built_in(t_shell *shell);
+int built_in(t_shell *shell, int n);
 
 #endif

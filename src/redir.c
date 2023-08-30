@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/29 21:50:05 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/30 11:58:10 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,24 +67,7 @@ char	**ft_split_redir(char *line)
 	return (m);
 }
 
-int make_stdin_stdout(t_shell *shell)
-{	
-	if (shell->redir_type == 0)
-	{	
-		dup2(shell->infd, shell->redir_type);
-		close(shell->infd);
-		return (1);
-	}
-	else if (shell->redir_type == 1)
-	{	
-		dup2(shell->outfd, shell->redir_type);
-		close(shell->outfd);
-		return (1);
-	}
-	return (0);
-}
-
-static void make_heredoc(t_shell *shell)
+void make_heredoc(t_shell *shell, int n)
 {	
 	int start_line;
 	char *str;
@@ -99,32 +82,36 @@ static void make_heredoc(t_shell *shell)
 		if (ft_strcmp(str, shell->delimiter) == 0)
 			break;
 		else if (str == NULL)
-		{
+		{	
 			write_heredoc_eof(shell, start_line);
 			break;
 		}
 		str = ft_strjoin(str, "\n");
 		heredoc = ft_strjoin(heredoc, str);
 		shell->line_number++;
-		//free (str);
 	}
-	write(shell->infd, heredoc, ft_strlen(heredoc));
-	close(shell->infd);
-	shell->infd = open(shell->here_tmp, O_RDONLY);
-	dup2(shell->infd, STDIN_FILENO);
-	close(shell->infd);
+	write(shell->struct_cmd[n]->infile, heredoc, ft_strlen(heredoc));
+	close(shell->struct_cmd[n]->infile);
+	shell->struct_cmd[n]->infile = open(shell->here_tmp, O_RDONLY);
 	unlink(shell->here_tmp);
+	free (heredoc);
 }
 
-void	make_redir(t_shell *shell)
+void	make_redir(t_shell *shell, int n)
 {	
-	if (make_stdin_stdout(shell)) // si devuelve 1 era redir in (0) o out (1)
-		return ;
-	else
-		make_heredoc(shell);
+	if (shell->struct_cmd[n]->infile > -1)
+	{	
+		dup2(shell->struct_cmd[n]->infile, STDIN_FILENO);
+		close(shell->struct_cmd[n]->infile);
+	}
+	if (shell->struct_cmd[n]->outfile > -1)
+	{	
+		dup2(shell->struct_cmd[n]->outfile, STDOUT_FILENO);
+		close(shell->struct_cmd[n]->outfile);
+	}
 }
 
-char *parse_redir(char *line, t_shell *shell)
+char *parse_redir(char *line, t_shell *shell, int n)
 {
 	char **args;
 	char *cmd;
@@ -144,7 +131,7 @@ char *parse_redir(char *line, t_shell *shell)
 		j = 0;
 		if (args[i][0] == '<' || args[i][0] == '>')
 		{
-			prepare_redir(args[i], shell);
+			prepare_redir(args[i], shell, n);
 			free(args[i]);
 		}
 		else

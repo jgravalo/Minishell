@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/29 14:43:02 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/08/30 11:28:11 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct s_shell
 	t_pipe	*p_err;
 	pid_t	*pid;
 	int		*pid_end;
-	t_cmd	*struct_cmd;
+	t_cmd	**struct_cmd;
 	char	*cmd;
 	char	*user;
 	char 	*delimiter;
@@ -141,9 +141,9 @@ int		is_existing(char *line, char **envp);
 
 char	*check_vars(char *args, char **envp);
 
-char	*file_cmd(t_shell *shell);
+char	*file_cmd(t_shell *shell, int n);
 
-char 	*parse_redir(char *line, t_shell *shell);
+char 	*parse_redir(char *line, t_shell *shell, int n);
 
 int		count_ascii(char *line, int c);
 
@@ -189,7 +189,7 @@ char	*prompt_join(char *s1, char *s2);
 
 char	*parse_quotes(char *s);
 
-void	make_redir(t_shell *shell);
+void	make_redir(t_shell *shell, int n);
 
 int 	recover_std(t_shell *shell);
 
@@ -227,9 +227,9 @@ int 	is_there_redir(char *line);
 
 void 	write_heredoc_eof(t_shell *shell, int start_line);
 
-int		make_stdin_stdout(t_shell *shell);
+int		make_stdin_stdout(t_shell *shell, int n);
 
-void	prepare_redir(char *line, t_shell *shell);
+void	prepare_redir(char *line, t_shell *shell, int n);
 
 char	*get_redir(char *line);
 
@@ -240,6 +240,8 @@ int 	count_len_quotes(char *str);
 int		count_redir(char *line);
 
 int		len_redir(char *line);
+
+void	make_heredoc(t_shell *shell, int n);
 /*
 void	make_history(t_hist *hist, char *line);
 

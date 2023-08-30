@@ -53,7 +53,7 @@ void write_heredoc_eof(t_shell *shell, int start_line)
 
 int recover_std(t_shell *shell)
 {
-	if (shell->redir_type == 0)
+	if (shell->redir_type == 0 || shell->redir_type == 2)
 		dup2(shell->saved_stdin, 0);
 	if (shell->redir_type == 1)
 		dup2(shell->saved_stdout, 1);

@@ -1,9 +1,9 @@
 #include "../inc/minishell.h"
 
-static int prepare_infile(t_shell *shell, char *tmp)
+static int prepare_infile(t_shell *shell, char *tmp, int n)
 {	
-	shell->infd = open(tmp, O_RDONLY);
-	if (shell->infd == -1)
+	shell->struct_cmd[n]->infile = open(tmp, O_RDONLY);
+	if (shell->struct_cmd[n]->infile == -1)
 	{
 		shell->exit = 1;
 		cmd_error(tmp, errno, 1);
@@ -17,10 +17,10 @@ static int prepare_infile(t_shell *shell, char *tmp)
 	return (0);
 }
 
-static void prepare_heredoc(t_shell *shell, char *tmp)
+static void prepare_heredoc(t_shell *shell, char *tmp, int n)
 {	
 	shell->delimiter = ft_strdup(tmp);
-	shell->infd = open(shell->here_tmp, O_WRONLY|O_CREAT|O_EXCL|O_TRUNC, 0600);
+	shell->struct_cmd[n]->infile = open(shell->here_tmp, O_WRONLY|O_CREAT|O_EXCL|O_TRUNC, 0600);
 	if(ft_strchr(tmp, '\"') || ft_strchr(tmp, '\''))
 	{
 		shell->heredoc_quoted = 1;
@@ -28,15 +28,16 @@ static void prepare_heredoc(t_shell *shell, char *tmp)
 	}
 	shell->saved_stdin = dup(0);
 	shell->redir_type = 2;
+	make_heredoc(shell, n);
 }
 
-static int prepare_outfile(t_shell *shell, char *tmp, int append)
+static int prepare_outfile(t_shell *shell, char *tmp, int n, int append)
 {	
 	if (append == 0)
-		shell->outfd = open(tmp, O_RDWR | O_CREAT | O_TRUNC, 00644);
+		shell->struct_cmd[n]->outfile = open(tmp, O_RDWR | O_CREAT | O_TRUNC, 00644);
 	else
-		shell->outfd = open(tmp, O_RDWR | O_CREAT | O_APPEND, 00644);
-	if (shell->outfd == -1)
+		shell->struct_cmd[n]->outfile = open(tmp, O_RDWR | O_CREAT | O_APPEND, 00644);
+	if (shell->struct_cmd[n]->outfile == -1)
 	{
 		cmd_error(tmp, errno, 1);
 		shell->exit = 1;
@@ -50,7 +51,7 @@ static int prepare_outfile(t_shell *shell, char *tmp, int append)
 	return (0);
 }
 
-void	prepare_redir(char *line, t_shell *shell)
+void	prepare_redir(char *line, t_shell *shell, int n)
 {	
 	//printf("entra en prepare redir\n");
 	char *tmp;
@@ -60,22 +61,22 @@ void	prepare_redir(char *line, t_shell *shell)
 //	printf("tmp = <%s>\n", tmp);
 	if (line[0] == '<' && line[1] != '<')
 	{
-		if (prepare_infile(shell, tmp) == -1)
+		if (prepare_infile(shell, tmp, n) == -1)
 			return ;
 	}
 	else if (line[0] == '<' && line[1] == '<')
 	{	
-		prepare_heredoc(shell, tmp);
+		prepare_heredoc(shell, tmp, n);
 		return ;
 	}
 	else if (line[0] == '>' && line[1] != '>')
 	{	
-		if (prepare_outfile(shell, tmp, 0) == -1)
+		if (prepare_outfile(shell, tmp, n, 0) == -1)
 			return ;
 	}
 	else if (line[0] == '>' && line[1] == '>')
 	{	
-		if (prepare_outfile(shell, tmp, 1) == -1)
+		if (prepare_outfile(shell, tmp, n, 1) == -1)
 			return ;
 	}
 }

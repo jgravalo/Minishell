@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:09:57 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/08/24 11:50:27 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/30 11:29:14 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,31 +91,31 @@ static int	check_file_dir(t_shell *shell, char *file)
 	return (0);
 }
 
-char	*file_cmd(t_shell *shell)
+char	*file_cmd(t_shell *shell, int n)
 {
 	int		env;
 	int		exit;
 	char	*file;
 	char	**docs;
 
-	if (!shell->args)
+	if (!shell->struct_cmd[n]->args)
 		return ("empty");
-	if (check_builtin(shell->args) == 1)
-		
+/* 	if (check_builtin(shell->args) == 1)
+		 */
 	env = 0;
 	env = search_path(shell->envp);
 	if (env != -1)
 		docs = split_docs(shell->envp[env]); // split todos los paths
 	else
 		docs = split_docs(DEF_PATH);
-	file = access_loop(docs, shell->args[0]);
+	file = access_loop(docs, shell->struct_cmd[n]->args[0]);
 	//free(docs);
 	if (file == NULL) // no ha encontrado comando, fuera
 	{
-		shell->exit = cmd_not_found(shell->args[0]);
+		shell->exit = cmd_not_found(shell->struct_cmd[n]->args[0]);
 		return (NULL);
 	}
-	else if (ft_strcmp(shell->args[0], file) == 0) //es file/dir
+	else if (ft_strcmp(shell->struct_cmd[n]->args[0], file) == 0) //es file/dir
 	{	
 		//printf("entra en file/dir\n");
 		shell->exit = check_file_dir(shell, file);

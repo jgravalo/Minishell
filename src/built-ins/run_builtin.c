@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:07:19 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/29 14:47:58 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/08/30 11:12:27 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,32 +34,32 @@ int	check_builtin(char **args)
 		return (0);
 }
 
-int	run_builtin(t_shell *shell)
+int	run_builtin(t_shell *shell, int n)
 {
-	if (ft_strcmp(shell->args[0], "cd") == 0)
+	if (ft_strcmp(shell->struct_cmd[n]->args[0], "cd") == 0)
 		shell->exit = cd(shell);
-	else if (ft_strcmp(shell->args[0], "echo") == 0)
+	else if (ft_strcmp(shell->struct_cmd[n]->args[0], "echo") == 0)
 		shell->exit = echo(shell->args);
-	else if (ft_strcmp(shell->args[0], "env") == 0)
+	else if (ft_strcmp(shell->struct_cmd[n]->args[0], "env") == 0)
 		shell->exit = env(shell->envp);
-	else if (ft_strcmp(shell->args[0], "export") == 0)
+	else if (ft_strcmp(shell->struct_cmd[n]->args[0], "export") == 0)
 		shell->exit = export(shell);
-	else if (ft_strcmp(shell->args[0], "pwd") == 0)
+	else if (ft_strcmp(shell->struct_cmd[n]->args[0], "pwd") == 0)
 		shell->exit = pwd(shell->envp);
-	else if (ft_strcmp(shell->args[0], "unset") == 0)
+	else if (ft_strcmp(shell->struct_cmd[n]->args[0], "unset") == 0)
 		shell->exit = unset(shell);
-	else if (ft_strcmp(shell->args[0], "exit") == 0)
+	else if (ft_strcmp(shell->struct_cmd[n]->args[0], "exit") == 0)
 		ft_exit(shell);
 	return (shell->exit);
 }
 
-int built_in(t_shell *shell)
+int built_in(t_shell *shell, int n)
 {
-	if (check_builtin(shell->args) == 1)
+	if (check_builtin(shell->struct_cmd[n]->args) == 1)
 	{	
 		if (shell->redir_type != -1)
-			make_redir(shell);
-		run_builtin(shell);
+			make_redir(shell, n);
+		run_builtin(shell, n);
 		recover_std(shell);
 		return (1);
 	}

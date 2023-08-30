@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/29 21:54:52 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/30 11:32:45 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,32 +31,34 @@ static void fork_process(t_shell *shell)
 	{	
 		signal(SIGINT, handler);
 		signal(SIGQUIT, handler);
-		if (shell->redir_type != -1)
-			make_redir(shell);
-		shell->cmd = file_cmd(shell);
-		if (ft_strcmp(shell->cmd, "empty") == 0)
+		if (shell->struct_cmd[0]->infile > -1 || shell->struct_cmd[0]->outfile > -1)
+			make_redir(shell, 0);
+		shell->struct_cmd[0]->args[0] = file_cmd(shell, 0);
+		if (ft_strcmp(shell->struct_cmd[0]->args[0], "empty") == 0)
 			exit(0);
-		else if (shell->cmd == NULL)  
+		else if (shell->struct_cmd[0]->args[0] == NULL)  
 			exit(shell->exit);
-		execve(shell->cmd, shell->args, shell->envp);
+		execve(shell->struct_cmd[0]->args[0], shell->struct_cmd[0]->args, shell->envp);
 	}
 }
 
 void	parse_no_pipes_line(t_shell *shell)
 {
 	int i;
-
-	shell->readline = parse_redir(shell->readline, shell);
+	
+	shell->struct_cmd = (t_cmd **)malloc(sizeof (t_cmd *));
+	shell->struct_cmd[0] = (t_cmd *)malloc(sizeof (t_cmd));
+	i = 0;
+	shell->readline = parse_redir(shell->readline, shell, 0);
 	if (shell->exit != 0) // algo ha ido mal y retornamos, mensaje de error ya se ha mostrado con cmd_error.
 		return ;
 	if (shell->readline)
 	{	
-		shell->args = ft_split_marks(shell->readline, ' ');
-		i = 0;
-		while (shell->args[i])
+		shell->struct_cmd[0]->args = ft_split_marks(shell->readline, ' ');
+		while (shell->struct_cmd[0]->args[i])
 			i++;
-		change_var(shell, "_", shell->args[i - 1]);
-		if (built_in(shell) == 1)   // agrupamos gestión de built in en una función
+		change_var(shell, "_", shell->struct_cmd[0]->args[i - 1]);
+		if (built_in(shell, 0) == 1)   // agrupamos gestión de built in en una función
 			return ;
 	}
 	shell->pid[0] = fork();
