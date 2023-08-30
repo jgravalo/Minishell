@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:20:04 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/23 12:19:40 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/30 12:30:46 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,11 @@ int	count_ascii(char *line, int c)
 	while (line[i])
 	{	
 		if (line[i] == '\'' || line[i] == '\"')
-		{
+		{	
 			quote = line[i];
 			i++;
 			while (line[i] != quote)
 				i++;
-			i++;
 		}
 		else if (line[i] == c)
 			count++;

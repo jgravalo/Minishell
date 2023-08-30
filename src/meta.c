@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/30 12:06:04 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/30 12:30:03 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,7 +238,6 @@ static char  *expand_tilde(t_shell *shell, char *new_line, char **envp, t_var *p
 
 	if (check_for_tilde(shell->readline) == 0)
 	{	
-		//printf("sale de check tilde\n");
 		new_line = ft_strdup(shell->readline);
 		return (new_line);
 	}

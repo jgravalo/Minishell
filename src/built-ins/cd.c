@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/30 12:15:47 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/30 12:38:59 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	cd(t_shell *shell, int n)
 	if (!shell->envp)
 		return (1);
 	dir = ft_strdup(shell->struct_cmd[n]->args[1]);
-	if (shell->args[1] == NULL)
+	if (shell->struct_cmd[n]->args[1] == NULL)
 	{
 		if (search_var_line("HOME", shell->envp) == NULL)
 		{

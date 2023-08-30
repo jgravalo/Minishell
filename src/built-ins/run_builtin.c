@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:07:19 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/30 12:16:00 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/30 12:40:52 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	run_builtin(t_shell *shell, int n)
 	else if (ft_strcmp(shell->struct_cmd[n]->args[0], "unset") == 0)
 		shell->exit = unset(shell, n);
 	else if (ft_strcmp(shell->struct_cmd[n]->args[0], "exit") == 0)
-		ft_exit(shell);
+		ft_exit(shell, n);
 	return (shell->exit);
 }
 

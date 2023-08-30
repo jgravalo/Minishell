@@ -48,5 +48,5 @@ void	change_var(t_shell *shell, char *var, char *content)
 	tmp = ft_strjoin(var, "=");
 	free(shell->envp[var_num]);
 	shell->envp[var_num] = ft_strjoin(tmp, content);
-	free(tmp);
+	//free(tmp);
 }
