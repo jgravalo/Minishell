@@ -24,6 +24,7 @@ static char *get_hostname(void)
 		close(pipefd[0]);
 		host = ft_strdup(buf);
 		host[ft_strlen(host) - 1] = '\0';
+		waitpid(pid, NULL, 0);
 		return (host);
 	}
 	if (pid == 0)
@@ -73,6 +74,7 @@ static char *get_pwd(void)
 		close(pipefd[0]);
 		host = ft_strdup(buf);
 		host[ft_strlen(host) - 1] = '\0';
+		waitpid(pid, NULL, 0);
 		return (host);
 	}
 	if (pid == 0)
@@ -133,6 +135,7 @@ static char *get_user(char *prompt)
 		close(pipefd[0]);
 		prompt = ft_strdup(buf);
 		prompt[ft_strlen(prompt) - 1] = '\0';
+		waitpid(pid, NULL, 0);
 		return (prompt);
 	}
 	if (pid == 0)
@@ -141,7 +144,6 @@ static char *get_user(char *prompt)
 		dup2(pipefd[1], 1);
 		close(pipefd[1]);
 		execve("/usr/bin/whoami", argv, NULL);
-		return (NULL);
 	}
 	return (NULL);
 }
