@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/30 12:38:59 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/31 12:34:06 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	args_error(void)
 {
-	write(2, "cd: too many arguments\n", 24);
+	write(2, "bash: cd: too many arguments\n", 29);
 	return (1);
 }
 
