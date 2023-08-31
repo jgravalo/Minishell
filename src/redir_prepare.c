@@ -19,6 +19,7 @@ static int prepare_infile(t_shell *shell, char *tmp, int n)
 
 static void prepare_heredoc(t_shell *shell, char *tmp, int n)
 {	
+	shell->heredoc_quoted = 0;
 	shell->delimiter = ft_strdup(tmp);
 	shell->struct_cmd[n]->infile = open(shell->here_tmp, O_WRONLY|O_CREAT|O_EXCL|O_TRUNC, 0600);
 	if(ft_strchr(tmp, '\"') || ft_strchr(tmp, '\''))

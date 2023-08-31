@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/30 11:58:10 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/31 08:56:06 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ void make_heredoc(t_shell *shell, int n)
 			write_heredoc_eof(shell, start_line);
 			break;
 		}
+		if (shell->heredoc_quoted == 0)
+			str = expand_meta(shell, str, 1);
 		str = ft_strjoin(str, "\n");
 		heredoc = ft_strjoin(heredoc, str);
 		shell->line_number++;

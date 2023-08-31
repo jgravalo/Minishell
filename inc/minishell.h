@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/30 12:50:56 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/31 08:55:50 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ char	*parse_heredoc(char *line);
 
 int		is_meta(char c);
 
-char	*expand_meta(t_shell *shell, char **envp);
+char	*expand_meta(t_shell *shell, char *line, int heredoc);
 
 char	*c_str(char const *s, char c, int *n);
 

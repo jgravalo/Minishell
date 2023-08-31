@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/30 12:30:03 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/31 09:12:16 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ static char	*get_var(t_shell *shell, t_var *p, char *new_line, int n)
 		
 	i = 0;
 	start = 0;
+	p->new = ft_strdup("");
 	while (new_line[i] && p->tmp[n])
 	{	
 //		printf("start is %c and i es %d\n", new_line[start], i);
@@ -160,21 +161,25 @@ static char	*get_var(t_shell *shell, t_var *p, char *new_line, int n)
 //		printf("newline after = <<%s>>\n", new_line + i);
 		make_p(shell, p, new_line, n);
 		//free(p->var);
-//		printf("newline substr is %s\n", ft_substr(new_line, start, i));
+	//	printf("newline substr is %s\n", ft_substr(new_line, start, i));
 		tmp = ft_substr(new_line, start, i - start);
 		p->c = ft_strjoin(tmp, p->exp);
-		free(tmp);
+//		printf("p->c es %s\n", p->c);
+		//free(tmp);
 		tmp = p->new;
+		//printf("tmp es %s\n", tmp);
 		p->new = ft_strjoin(tmp, p->c);
-		free(tmp);
+//		printf("p->new es %s\n", p->new);
+		//free(tmp);
 		i += ft_strlen(p->tmp[n]) + 1;
 		start = i;
 		n++;
 	}
 	tmp = ft_substr(new_line, i, ft_strlen(new_line) - i);
 	p->new = ft_strjoin(p->new, tmp);
-	free(tmp);
+	//free(tmp);
 	free(new_line);
+//	printf("p->new tras el loop es %s\n", p->new);
 //	printf("new line after everything is %s\n", p->new);
 	return (p->new);
 }
@@ -228,7 +233,7 @@ static int check_for_tilde(char *line)
 	return (0);
 }
 
-static char  *expand_tilde(t_shell *shell, char *new_line, char **envp, t_var *p)
+static char  *expand_tilde(char *line, char *new_line, t_shell *shell, t_var *p)
 {	
 	int i;
 	int j;
@@ -236,9 +241,9 @@ static char  *expand_tilde(t_shell *shell, char *new_line, char **envp, t_var *p
 	char *tmp1;
 	char *tmp2;
 
-	if (check_for_tilde(shell->readline) == 0)
+	if (check_for_tilde(line) == 0)
 	{	
-		new_line = ft_strdup(shell->readline);
+		new_line = ft_strdup(line);
 		return (new_line);
 	}
 	else
@@ -247,18 +252,18 @@ static char  *expand_tilde(t_shell *shell, char *new_line, char **envp, t_var *p
 		i = 0;
 		j = 0;
 		c = 0;
-		while (shell->readline [i])
+		while (line [i])
 		{	
-			if (shell->readline[i] == '~' && (i == 0
-				&& (shell->readline[i + 1] == '\0'
-				|| shell->readline[i + 1] == ' '))
-				|| (shell->readline[i - 1] == ' '
-				&& (shell->readline[i + 1] == ' '
-				|| shell->readline[i +1] == '\0')))
+			if (line[i] == '~' && (i == 0
+				&& (line[i + 1] == '\0'
+				|| line[i + 1] == ' '))
+				|| (line[i - 1] == ' '
+				&& (line[i + 1] == ' '
+				|| line[i +1] == '\0')))
 			{	
 				//printf("entra en tilde correcta\n");
 				tmp1 = ft_substr(new_line, 0, j);
-				tmp2 = ft_substr(shell->readline, i - c, c);
+				tmp2 = ft_substr(line, i - c, c);
 				//free(new_line);
 				new_line = ft_strjoin(tmp1, tmp2);
 //				printf("line es:%s-\n", new_line);
@@ -266,10 +271,10 @@ static char  *expand_tilde(t_shell *shell, char *new_line, char **envp, t_var *p
 				//free(tmp2);
 				j = ft_strlen(new_line);
 				c = 0;
-				if (search_var_line("HOME", envp) != NULL)
+				if (search_var_line("HOME", shell->envp) != NULL)
 				{
 					tmp1 = ft_substr(new_line, 0, j);
-					new_line = ft_strjoin(tmp1, search_var_line("HOME", envp));
+					new_line = ft_strjoin(tmp1, search_var_line("HOME", shell->envp));
 					//free(tmp1);
 				}
 				else
@@ -288,7 +293,7 @@ static char  *expand_tilde(t_shell *shell, char *new_line, char **envp, t_var *p
 		}
 		if (c > 1)
 		{
-			tmp1 = ft_substr(shell->readline, i - c, i);
+			tmp1 = ft_substr(line, i - c, i);
 			new_line = ft_strjoin(new_line, tmp1);
 			free(tmp1);
 		}	
@@ -296,26 +301,23 @@ static char  *expand_tilde(t_shell *shell, char *new_line, char **envp, t_var *p
 	}
 }
 
-char	*expand_meta(t_shell *shell, char **envp)
+char	*expand_meta(t_shell *shell, char *line, int heredoc)
 {
 	t_var	p;
 //	int		n;
 	char *new_line;
 
-	//printf("line before expand tilde es %s\n", shell->readline);
-	new_line = expand_tilde(shell, new_line, envp, &p);
-//	printf("aqui\n");
-	free(shell->readline);
-//	printf("line after expand tilde es %s\n", new_line);
+	if (!heredoc)
+		new_line = expand_tilde(line, new_line, shell, &p);
+	else
+		new_line = ft_strdup(line);
+	free(line);
 	if (is_there_dollar(new_line, '$') == 0)
-	{	
-		//printf("no hay expansion de variable\n");
 		return (new_line);
-	}
 	p.tmp = ft_split_meta(new_line, '$');
 	//printf("aqui\n");
-//	printf("\nsplit meta array is: \n");
-//	ft_printarr(p.tmp);
+/* 	printf("\nsplit meta array is: \n");
+	ft_printarr(p.tmp); */
 	p.new = NULL;
 	/* n = 1;
 	if (line[0] == '$')
