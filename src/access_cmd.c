@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:09:57 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/08/31 12:25:25 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/31 12:32:02 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ char	*file_cmd(t_shell *shell, int n)
 		 */
 	env = 0;
 	env = search_path(shell->envp);
-	printf("env es %d\n", env);
 	if (env != -1)
 	{
 		docs = split_docs(shell->envp[env]); // split todos los paths
@@ -112,8 +111,9 @@ char	*file_cmd(t_shell *shell, int n)
 	}
 	else // si no hay variable PATH, o se introduce el path completo del binario, o bash no lo encuentra
 		file = access_loop(NULL, shell->struct_cmd[n]->args[0]);
-	//free(docs);
-	if (file == NULL) // no ha encontrado comando, fuera
+	if (access(file, F_OK) != -1) // comando, y existe
+		return (file);
+	else if (file == NULL) // no ha encontrado comando, fuera
 	{
 		shell->exit = cmd_not_found(shell->struct_cmd[n]->args[0]);
 		return (NULL);
@@ -127,7 +127,7 @@ char	*file_cmd(t_shell *shell, int n)
 		else				// si no, es un ejecutable, y sigue su camino hasta execve
 			return (file);
 	}
-	else // es comando, y ha sido encontrado
+	else 
 		return (file);
 }
 
