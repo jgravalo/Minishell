@@ -6,14 +6,14 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:07:19 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/30 13:04:20 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/31 13:56:02 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 int	check_builtin(char **args)
-{	
+{
 	if (!args)
 		return (0);
 	if (ft_strcmp(args[0], "cd") == 0)
@@ -29,7 +29,7 @@ int	check_builtin(char **args)
 	else if (ft_strcmp(args[0], "unset") == 0)
 		return (1);
 	else if (ft_strcmp(args[0], "exit") == 0)
-		return(1);
+		return (1);
 	else
 		return (0);
 }
@@ -53,11 +53,12 @@ int	run_builtin(t_shell *shell, int n)
 	return (shell->exit);
 }
 
-int built_in(t_shell *shell, int n)
-{	
+int	built_in(t_shell *shell, int n)
+{
 	if (check_builtin(shell->struct_cmd[n]->args) == 1)
-	{	
-		if (shell->struct_cmd[n]->infile > -1 || shell->struct_cmd[n]->outfile > -1)
+	{
+		if (shell->struct_cmd[n]->infile > -1
+			|| shell->struct_cmd[n]->outfile > -1)
 			make_redir(shell, n);
 		run_builtin(shell, n);
 		return (1);

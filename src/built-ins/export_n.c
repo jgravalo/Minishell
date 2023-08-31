@@ -1,15 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export_n.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jgravalo <jgravalo@student.42barcelona.co  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/31 14:13:28 by jgravalo          #+#    #+#             */
+/*   Updated: 2023/08/31 14:14:51 by jgravalo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 static int	parse_var(char *var)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (is_digit(var[i]) == 1 || is_alpha(var[i]) == 0)
 		return (1);
 	i++;
-	while(var[i])
-	{	
+	while (var[i])
+	{
 		if (var[i] == '=')
 			return (0);
 		if (is_alpha_num(var[i]) == 0)
@@ -19,7 +31,7 @@ static int	parse_var(char *var)
 	return (0);
 }
 
-static int write_not_valid(char *var)
+static int	write_not_valid(char *var)
 {
 	write(2, "bash: export: `", 15);
 	write(2, var, ft_strlen(var));
@@ -27,11 +39,11 @@ static int write_not_valid(char *var)
 	return (1);
 }
 
-static int replace_existing(char *line, char *existing, t_shell *shell)
-{	
-	char **new;
-	int i;
-	char *var;
+static int	replace_existing(char *line, char *existing, t_shell *shell)
+{
+	char	**new;
+	int		i;
+	char	*var;
 
 	i = 0;
 	while (line[i] != '=' && line[i] != '\0')
@@ -42,11 +54,9 @@ static int replace_existing(char *line, char *existing, t_shell *shell)
 	if (!new)
 		return (1);
 	while (shell->envp[i] != NULL)
-	{	
+	{
 		if (ft_varcmp(var, shell->envp[i], ft_strlen(var)) == 0)
-		{	
 			new[i] = ft_strdup(line);
-		}
 		else
 			new[i] = ft_strdup(shell->envp[i]);
 		i++;
@@ -57,7 +67,7 @@ static int replace_existing(char *line, char *existing, t_shell *shell)
 	return (0);
 }
 
-static int add_envp(char *var, t_shell *shell)
+static int	add_envp(char *var, t_shell *shell)
 {
 	char	**new;
 	int		i;
@@ -67,7 +77,7 @@ static int add_envp(char *var, t_shell *shell)
 		return (1);
 	i = 0;
 	while (shell->envp[i] != NULL)
-	{	
+	{
 		new[i] = ft_strdup(shell->envp[i]);
 		i++;
 	}
@@ -79,10 +89,10 @@ static int add_envp(char *var, t_shell *shell)
 	return (0);
 }
 
-int export_n(char *var, t_shell *shell)
+int	export_n(char *var, t_shell *shell)
 {
 	char	**new;
-	char *existing;
+	char	*existing;
 	int		i;
 
 	if (parse_var(var) == 1)
@@ -93,4 +103,5 @@ int export_n(char *var, t_shell *shell)
 		return (replace_existing(var, existing, shell));
 	else
 		return (add_envp(var, shell));
+	return (0);
 }

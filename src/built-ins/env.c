@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:59:19 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 18:00:55 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/08/31 14:56:18 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	env(char **envp)
 
 	i = 0;
 	while (envp[i])
-	{	
-		if (ft_strchr(envp[i], '=') != 0)	// env no escribe variables vacías
+	{
+		if (ft_strchr(envp[i], '=') != 0)
 		{
 			write(1, envp[i], ft_strlen(envp[i]));
 			write(1, "\n", 1);
