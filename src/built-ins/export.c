@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:59:28 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/30 12:18:40 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/31 08:11:42 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,12 @@ static void print_env(char **envp, int *order)
 	{	
 		while (order[i] != count)
 			i++;
-		write(1, "declare -x ", 11);
-		write(1, put_var(envp[i]), ft_strlen(put_var(envp[i])));
-		write(1, "\n", 1);
+		if (ft_strncmp(put_var(envp[i]), "_=", 2) != 0)
+		{
+			write(1, "declare -x ", 11);
+			write(1, put_var(envp[i]), ft_strlen(put_var(envp[i])));
+			write(1, "\n", 1);	
+		}
 		i = 0;
 		count++;
 		n--;
