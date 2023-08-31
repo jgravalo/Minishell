@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:09:57 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/08/30 11:29:14 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/31 12:25:25 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ static char	*access_loop(char **docs, char *cmd)
 	char	*tmp;
 
 	i = 0;
-	if ((cmd[0] == '.' && cmd[1] == '/') || cmd[0] == '/')
-		return (cmd);
+	if ((cmd[0] == '.' && cmd[1] == '/') || cmd[0] == '/' || !docs)
+		return (cmd);	
 	while (docs[i])
 	{
 		tmp = ft_strjoin(docs[i], "/");
@@ -104,11 +104,14 @@ char	*file_cmd(t_shell *shell, int n)
 		 */
 	env = 0;
 	env = search_path(shell->envp);
+	printf("env es %d\n", env);
 	if (env != -1)
+	{
 		docs = split_docs(shell->envp[env]); // split todos los paths
-	else
-		docs = split_docs(DEF_PATH);
-	file = access_loop(docs, shell->struct_cmd[n]->args[0]);
+		file = access_loop(docs, shell->struct_cmd[n]->args[0]);
+	}
+	else // si no hay variable PATH, o se introduce el path completo del binario, o bash no lo encuentra
+		file = access_loop(NULL, shell->struct_cmd[n]->args[0]);
 	//free(docs);
 	if (file == NULL) // no ha encontrado comando, fuera
 	{
