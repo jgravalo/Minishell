@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:22:59 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/24 14:00:08 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/31 10:11:21 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*search_var_line(char *name, char **envp)
 
 	env = search_var_num(name, envp);
 	if (env < 0)
-		return (NULL);
+		return (NULL);	
 	if (ft_strchr(envp[env], '=') == NULL)
 		return (NULL);
 	var = ft_strchr(envp[env], '=') + 1;

@@ -16,7 +16,7 @@ void empty_old_pwd(t_shell *shell)
 	shell->struct_cmd[0]->args[2] = NULL;
 	export(shell, 0);
 	free_m(shell->struct_cmd[0]->args);
-	free(shell->struct_cmd[0] = (t_cmd *)malloc(sizeof (t_cmd)));
+	free(shell->struct_cmd[0]);
 	free(shell->struct_cmd);
 }
 
@@ -48,5 +48,5 @@ void	change_var(t_shell *shell, char *var, char *content)
 	tmp = ft_strjoin(var, "=");
 	free(shell->envp[var_num]);
 	shell->envp[var_num] = ft_strjoin(tmp, content);
-	//free(tmp);
+	free(tmp);
 }

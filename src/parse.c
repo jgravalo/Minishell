@@ -6,11 +6,24 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:34:38 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/30 13:03:33 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/31 10:15:25 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void free_cmd_table(t_shell *shell)
+{
+	int i;
+
+	i = 0;
+	while (i < shell->pipex + 1)
+	{
+		free(shell->struct_cmd[i]);
+		i++;
+	}
+	free(shell->struct_cmd);
+}
 
 void create_cmd_table(t_shell *shell)
 {	
@@ -50,8 +63,8 @@ void parse_pipex(t_shell *shell)
 	{	
 		parse_no_pipes_line(shell);
 		recover_std(shell, 0);
-		if (shell->args)
-			free_m(shell->args);
+		if (shell->struct_cmd[0]->args)
+			free_m(shell->struct_cmd[0]->args);
 	}
 	else
 	{	
@@ -65,6 +78,7 @@ void parse_pipex(t_shell *shell)
 		free_m(shell->pipes);
 	}
 	free(shell->pid);
+	free_cmd_table(shell);
 }
 
 void	parse_line(t_shell *shell, int i)

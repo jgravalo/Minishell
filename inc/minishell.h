@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/31 08:55:50 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/31 09:37:36 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,6 +242,16 @@ int		count_redir(char *line);
 int		len_redir(char *line);
 
 void	make_heredoc(t_shell *shell, int n);
+
+int 	is_there_dollar(char *line, char c);
+
+int 	check_for_tilde(char *line);
+
+int		words_meta(const char *s, char c);
+
+int 	search_dollar(char const *s, char c);
+
+char	*meta_str(char const *s, char c, int *n);
 /*
 void	make_history(t_hist *hist, char *line);
 

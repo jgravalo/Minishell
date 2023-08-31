@@ -6,71 +6,11 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/31 09:12:16 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/08/31 10:11:51 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-char	*meta_str(char const *s, char c, int *n)
-{
-	int		i;
-	char	*new;
-
-	i = 0;
-	if (*s == '?' && ++s)
-		i++;
-	else
-		while (*s && ((*s >= 'A' && *s <= 'Z')
-			|| (*s >= 'a' && *s <= 'z')
-			|| (*s >= '0' && *s <= '9')
-			|| (*s >= '_'))
-			&& ++i)
-			s++;
-	new = ft_substr(s - i, 0, i);
-	*n = i;
-	return (new);
-}
-
-int	words_meta(const char *s, char c)
-{
-	int	j;
-
-	j = 0;
-	while (*s)
-	{
-		if (*s != c)
-			while (*s && *s != c && ++j)
-			{
-				if (*s == '\'' && ++s)
-				{
-					if (*(s - 1) == '$')
-						j--;
-					while (*s && *s != '\'')
-						s++;
-				}
-				s++;
-			}
-		else
-			++s;
-	}
-	return (j);
-}
-
-int search_dollar(char const *s, char c)
-{
-	int i;
-
-	i = 0;
-	while (s[i] != c && s[i] != '\0')
-	{
-		if (s[i] == '\'' && ++i)
-			while (s[i] && s[i] != '\'')
-				i++;
-		i++;
-	}
-	return (i);
-}
 
 char	**ft_split_meta(char const *s, char c)
 {
@@ -118,7 +58,6 @@ void	make_p(t_shell *shell, t_var *p, char *new_line, int n)
 	{	
 		if (search_var_line(p->tmp[n], shell->envp) == NULL)
 		{	
-			p->var = ft_strdup("");
 			p->exp = ft_strdup("");
 			j += ft_strlen(p->tmp[n]);
 		}
@@ -130,27 +69,25 @@ void	make_p(t_shell *shell, t_var *p, char *new_line, int n)
 				|| (p->tmp[n][j] == '_')))
 				j++;
 			p->var = ft_substr(p->tmp[n], 0, j);
-			p->exp = search_var_line(p->var, shell->envp);
+			p->exp = ft_strdup(search_var_line(p->var, shell->envp));
+			if (p->var)
+				free(p->var);
 		}
 	}
 }
 
 static char	*get_var(t_shell *shell, t_var *p, char *new_line, int n)
 {
-	int		j;
 	int 	i;
 	int start;
 	char	*tmp;
+	char 	*ptr;
 
-//	printf("ptmp0 es %s y len es %ld\n, new line es %s, y len de new line es %ld\n", p->tmp[n], ft_strlen(p->tmp[n]), new_line, ft_strlen(new_line));
-		
 	i = 0;
 	start = 0;
 	p->new = ft_strdup("");
 	while (new_line[i] && p->tmp[n])
 	{	
-//		printf("start is %c and i es %d\n", new_line[start], i);
-//		printf("newline before = <<%s>>\n", new_line + i);
 		while (new_line[i] != '$')
 		{
 			if (new_line[i] == '\'' && ++i)
@@ -158,79 +95,33 @@ static char	*get_var(t_shell *shell, t_var *p, char *new_line, int n)
 					i++;
 			i++;
 		}
-//		printf("newline after = <<%s>>\n", new_line + i);
 		make_p(shell, p, new_line, n);
-		//free(p->var);
-	//	printf("newline substr is %s\n", ft_substr(new_line, start, i));
 		tmp = ft_substr(new_line, start, i - start);
 		p->c = ft_strjoin(tmp, p->exp);
-//		printf("p->c es %s\n", p->c);
-		//free(tmp);
+		if (ft_strcmp("", tmp) == 0 || ft_strcmp("", p->exp) == 0)
+			p->c = ft_strdup(p->c);
+		free(p->exp);
+		free(tmp);
 		tmp = p->new;
-		//printf("tmp es %s\n", tmp);
+		ptr = p->new;
 		p->new = ft_strjoin(tmp, p->c);
-//		printf("p->new es %s\n", p->new);
-		//free(tmp);
+		if (ft_strcmp("", tmp) == 0 || ft_strcmp("", p->c) == 0)
+			p->new = ft_strdup(p->new);
+		free(ptr);
+		free(p->c);
 		i += ft_strlen(p->tmp[n]) + 1;
 		start = i;
 		n++;
 	}
 	tmp = ft_substr(new_line, i, ft_strlen(new_line) - i);
+	ptr = p->new;
 	p->new = ft_strjoin(p->new, tmp);
-	//free(tmp);
+	if (ft_strcmp("", p->new) == 0 || ft_strcmp("", tmp) == 0)
+			p->new = ft_strdup(p->new);
+	free(ptr);
+	free(tmp);
 	free(new_line);
-//	printf("p->new tras el loop es %s\n", p->new);
-//	printf("new line after everything is %s\n", p->new);
 	return (p->new);
-}
-
-static int is_there_dollar(char *line, char c)
-{
-	int i;
-
-	i = 0;
-	while (line[i])
-	{	
-		if (line[i] == '\"' && ++i)
-		{
-			if (line[i] == '$' && line[i + 1] != ' ' && line[i + 1] != '\"')
-				return (1);
-			while (line[i] != '\"' && ++i)
-				if (line[i] == '$' && line[i + 1] != ' ' && line[i + 1] != '\"')
-					return (1);
-		}
-		else if (line[i] == '\'' && ++i)
-			while (line[i] != '\'')
-				i++;
-		else if (line[i] == c && line[i + 1] != ' '
-			&& line[i + 1] != '\0' && line[i + 1] != '\"')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-static int check_for_tilde(char *line)
-{
-	int i;
-
-	i = 0;
-	while (line[i] != '\0')
-	{	
-		if (line[i] == '\'' && ++i)
-		{	
-			while (line[i] != '\'')
-				i++;
-		}
-		else if (line[i] == '\"' && ++i)
-			while (line[i] != '\"')
-				i++;
-		else if (line[i] == '~' && ((i == 0 && (line[i + 1] == '\0'
-			|| line[i + 1] == ' ')) || (line[i - 1] == ' '
-			&& (line[i + 1] == ' ' || line[i + 1] == '\0'))))
-			return (1);
-		i++;
-	}
-	return (0);
 }
 
 static char  *expand_tilde(char *line, char *new_line, t_shell *shell, t_var *p)
@@ -304,7 +195,6 @@ static char  *expand_tilde(char *line, char *new_line, t_shell *shell, t_var *p)
 char	*expand_meta(t_shell *shell, char *line, int heredoc)
 {
 	t_var	p;
-//	int		n;
 	char *new_line;
 
 	if (!heredoc)
@@ -315,32 +205,9 @@ char	*expand_meta(t_shell *shell, char *line, int heredoc)
 	if (is_there_dollar(new_line, '$') == 0)
 		return (new_line);
 	p.tmp = ft_split_meta(new_line, '$');
-	//printf("aqui\n");
-/* 	printf("\nsplit meta array is: \n");
-	ft_printarr(p.tmp); */
 	p.new = NULL;
-	/* n = 1;
-	if (line[0] == '$')
-	{
-		p.new = NULL;
-		n = 0;
-	} */ 
 	new_line = get_var(shell, &p, new_line, 0);
 	free_m(p.tmp);
-	//free(shell->readline);
-//	printf("line after expand meta es <<<%s>>>\n", new_line);
 	return (new_line);
 }
-/*
-int main(int argc, char **argv, char **envp)
-{
-	if (argc > 1 && argv)
-		return (0);
-	while (1)
-	{
-		char *c = readline("> ");
-		c = expand_meta(ft_strdup(c), envp);
-		printf("|%s|\n", c);
-	}
-	return (0);
-}*/
+
