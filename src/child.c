@@ -1,32 +1,38 @@
 #include  "../inc/minishell.h"
 
-void child_routine(t_shell *shell, int i)
-{	
-/* 	shell->pipes[i] = parse_redir(shell->pipes[i], shell);
-	shell->args = ft_split_marks(shell->pipes[i], ' '); */
-	if (shell->inpipe == 1) // hay pipe de entrada
+static void check_inpipe(t_shell *shell, int i)
+{
+	if (shell->inpipe[i] == 1) // hay pipe de entrada
 	{	
-		//printf("pipe de entrada, proceso %d\n", getpid());
 		close(shell->p[i - 1].p[WRITE]);
 		dup2(shell->p[i - 1].p[READ], STDIN_FILENO);
 		close(shell->p[i - 1].p[READ]);
-		//printf("sale de pipe de entrada, proceso %d\n", getpid());
 	}
-	if (shell->outpipe == 1) // hay pipe de salida
+}
+
+static void check_outpipe(t_shell *shell, int i)
+{
+	if (shell->outpipe[i] == 1) // hay pipe de salida
 	{	
-		//printf("pipe de salida, proceso %d\n", getpid());
 		close(shell->p[i].p[READ]);
 		dup2(shell->p[i].p[WRITE], STDOUT_FILENO);
 		close(shell->p[i].p[WRITE]);
-		//printf("sale de pipe de salida, proceso %d\n", getpid());
 	}
+}
+
+void child_routine(t_shell *shell, int i)
+{	
+	if (shell->redir_error[i]) // algo ha ido mal y escribimos errno y salimos
+	{	
+		cmd_error(shell->error_tmp, errno, 1);
+		exit(1);
+	}
+	check_inpipe(shell, i);
+	check_outpipe(shell, i);
 	if (shell->pipex > 1)
 		close_fd(shell, i);
 	if (shell->struct_cmd[i]->infile > -1 || shell->struct_cmd[i]->outfile > -1)
-	{	
-		//printf("entra en make redir\n");
 		make_redir(shell, i);
-	}
 	if (check_builtin(shell->struct_cmd[i]->args) == 1)
 	{	
 		run_builtin(shell, i);

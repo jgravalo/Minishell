@@ -13,6 +13,31 @@ static void fill_pid_end(t_shell *shell)
 	shell->pid_end[i] = -10;
 }
 
+static void fill_redir_error(t_shell *shell)
+{
+	int i;
+
+	i = 0;
+	while (i < shell->pipex + 1)
+	{
+		shell->redir_error[i] = 0;
+		i++;
+	}
+}
+
+static void fill_pipe_check(t_shell *shell)
+{
+	int i;
+
+	i = 0;
+	while (i < shell->pipex + 1)
+	{
+		shell->inpipe[i] = 0;
+		shell->outpipe[i] = 0;
+		i++;
+	}
+}
+
 void init_shell(t_shell *shell)
 {	
 	shell->pipex = count_ascii(shell->readline, '|');
@@ -36,4 +61,9 @@ void init_shell(t_shell *shell)
 	shell->exit = 0;
 	shell->delimiter = NULL;
 	shell->heredoc_quoted = -1;
+	shell->inpipe = (int *)malloc(sizeof (int) * (shell->pipex + 1));
+	shell->outpipe = (int *)malloc(sizeof (int) * (shell->pipex + 1));
+	fill_pipe_check(shell);
+	shell->redir_error = (int *)malloc(sizeof (int) *(shell->pipex + 1));
+	fill_redir_error(shell);
 }

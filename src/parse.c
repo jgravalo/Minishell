@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:34:38 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/31 10:15:25 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/01 02:30:18 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,11 @@ void create_cmd_table(t_shell *shell)
 		}
 		i++;
 	}
-
+	if (shell->pipex == 0)
+	{
+		shell->readline = parse_redir(shell->readline, shell, 0);
+		shell->struct_cmd[0]->args = ft_split_marks(shell->readline, ' ');
+	}
 }
 
 void parse_pipex(t_shell *shell)

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/31 09:37:36 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/01 02:13:46 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ typedef struct s_shell
 	char	*cmd;
 	char	*user;
 	char 	*delimiter;
+	char 	*error_tmp;
+	int		*redir_error;
 	int		line_number;
 	int		heredoc_quoted;
 	int		redir_type;
@@ -82,8 +84,8 @@ typedef struct s_shell
 	int		outfd;
 	int		saved_stdin;
 	int		saved_stdout;
-	int		inpipe;
-	int		outpipe;
+	int		*inpipe;
+	int		*outpipe;
 	int		pipex;
 	int		exit;
 	int		children;

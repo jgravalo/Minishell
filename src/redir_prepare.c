@@ -6,11 +6,8 @@ static int prepare_infile(t_shell *shell, char *tmp, int n)
 	if (shell->struct_cmd[n]->infile == -1)
 	{
 		shell->exit = 1;
-		cmd_error(tmp, errno, 1);
-		if (shell->pipex == 0)
-			return (-1);
-		else
-			exit(shell->exit);
+		shell->error_tmp = ft_strdup(tmp);
+		shell->redir_error[n] = 1;
 	}
 	shell->saved_stdin = dup(0);
 	shell->redir_type = 0;
@@ -40,12 +37,9 @@ static int prepare_outfile(t_shell *shell, char *tmp, int n, int append)
 		shell->struct_cmd[n]->outfile = open(tmp, O_RDWR | O_CREAT | O_APPEND, 00644);
 	if (shell->struct_cmd[n]->outfile == -1)
 	{
-		cmd_error(tmp, errno, 1);
+		shell->error_tmp = ft_strdup(tmp);
 		shell->exit = 1;
-		if (shell->pipex == 0)
-			return (-1);
-		else
-			exit(shell->exit);
+		shell->redir_error[n] = 1;
 	}
 	shell->saved_stdout = dup(1);
 	shell->redir_type = 1;	
@@ -60,7 +54,7 @@ void	prepare_redir(char *line, t_shell *shell, int n)
 //	printf("line = <%s>\n", line);
 	tmp = get_redir(line);
 //	printf("tmp = <%s>\n", tmp);
-	if (line[0] == '<' && line[1] != '<')
+	if (line[0] == '<' && line[1] != '<' && shell->struct_cmd[n]->infile != -1)
 	{
 		if (prepare_infile(shell, tmp, n) == -1)
 			return ;

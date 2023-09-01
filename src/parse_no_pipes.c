@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/31 12:01:05 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/01 02:31:57 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,13 @@ void	parse_no_pipes_line(t_shell *shell)
 	int i;
 	
 	i = 0;
-	shell->readline = parse_redir(shell->readline, shell, 0);
-	if (shell->exit != 0) // algo ha ido mal y retornamos, mensaje de error ya se ha mostrado con cmd_error.
+	if (shell->redir_error[0]) // algo ha ido mal y escribimos errno y retornamos
+	{	
+		cmd_error(shell->error_tmp, errno, 1);
 		return ;
+	}
 	if (shell->readline)
 	{	
-		shell->struct_cmd[0]->args = ft_split_marks(shell->readline, ' ');
 		while (shell->struct_cmd[0]->args[i])
 			i++;
 		change_var(shell, "_", shell->struct_cmd[0]->args[i - 1]);
