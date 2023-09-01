@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/01 02:13:46 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/01 11:00:10 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_shell
 	char	*user;
 	char 	*delimiter;
 	char 	*error_tmp;
+	char 	*old_pwd;
 	int		*redir_error;
 	int		line_number;
 	int		heredoc_quoted;
@@ -215,7 +216,7 @@ void	wait_for_children(t_shell *shell);
 
 void 	init_shell(t_shell *shell);
 
-void	change_var(t_shell *shell, char *var, char *content);
+int		change_var(t_shell *shell, char *var, char *content);
 
 void	parse_no_pipes_line(t_shell *shell);
 

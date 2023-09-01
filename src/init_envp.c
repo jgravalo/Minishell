@@ -18,6 +18,7 @@ void empty_old_pwd(t_shell *shell)
 	free_m(shell->struct_cmd[0]->args);
 	free(shell->struct_cmd[0]);
 	free(shell->struct_cmd);
+	shell->old_pwd = NULL;
 }
 
 void alloc_envp(t_shell *shell, char **envp)
@@ -37,18 +38,19 @@ void alloc_envp(t_shell *shell, char **envp)
 	change_var(shell, "SHELL", getcwd(buffer, 100));
 }
 
-void	change_var(t_shell *shell, char *var, char *content)
+int	change_var(t_shell *shell, char *var, char *content)
 {
 	int		var_num;
 	char	*tmp;
 
 	var_num = search_var_num(var, shell->envp);
 	if (var_num < 0)
-		return ;
+		return (1);
 	tmp = ft_strjoin(var, "=");
 	free(shell->envp[var_num]);
 	shell->envp[var_num] = ft_strjoin(tmp, content);
 	if (ft_strlen(content) == 0)
 		shell->envp[var_num] = ft_strdup(shell->envp[var_num]);
 	free(tmp);
+	return (0);
 }

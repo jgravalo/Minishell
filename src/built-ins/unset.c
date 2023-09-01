@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:00:23 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/01 02:47:10 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/01 11:07:31 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static int	unset_n(char *var, t_shell *shell)
 		j++;
 	}
 	new[j] = NULL;
+	if (ft_strcmp(var, "OLDPWD") == 0)
+		shell->old_pwd = NULL;
 	free_m(shell->envp);
 	shell->envp = new;
 	return (0);
