@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/01 02:31:57 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/01 02:48:43 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	parse_no_pipes_line(t_shell *shell)
 		while (shell->struct_cmd[0]->args[i])
 			i++;
 		change_var(shell, "_", shell->struct_cmd[0]->args[i - 1]);
-		if (built_in(shell, 0) == 1)   // agrupamos gestión de built in en una función
+		if (built_in(shell, 0) == 1) 
 			return ;
 	}
 	shell->pid[0] = fork();
