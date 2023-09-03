@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/01 11:14:10 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/03 10:14:45 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ char	*cd_last(t_shell *shell, int n)
 		shell->exit = 1;
 		return (NULL);
 	}
-	tmp = ft_strjoin(search_var_line("OLDPWD", shell->envp), "/");
-	if (ft_strcmp(tmp, "/") == 0) // si no hay variable OLDPWD, copia el oldpwd interno de la shell
+	tmp = ft_strdup(search_var_line("OLDPWD", shell->envp));
+	if (!tmp) // si no hay variable OLDPWD, copia el oldpwd interno de la shell
 		tmp = ft_strdup(shell->old_pwd);
 	printf("%s\n", tmp); // se imprime directorio como en bash
 	shell->struct_cmd[n]->args[1] = ft_strdup(tmp);
