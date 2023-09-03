@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/01 01:50:15 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/03 10:36:26 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ char *parse_redir(char *line, t_shell *shell, int n)
 	cmd = NULL;
 	args = ft_split_redir(line);
 /* 	printf("redir args son:\n");
-	ft_printarr(args); */
+	ft_printarr(args); */ 
 	i = 0;
 	while (args[i])
 	{	

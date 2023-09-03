@@ -2,6 +2,7 @@
 
 static int prepare_infile(t_shell *shell, char *tmp, int n)
 {	
+	tmp = remove_quotes(tmp);
 	shell->struct_cmd[n]->infile = open(tmp, O_RDONLY);
 	if (shell->struct_cmd[n]->infile == -1)
 	{
@@ -31,6 +32,7 @@ static void prepare_heredoc(t_shell *shell, char *tmp, int n)
 
 static int prepare_outfile(t_shell *shell, char *tmp, int n, int append)
 {	
+	tmp = remove_quotes(tmp);
 	if (append == 0)
 		shell->struct_cmd[n]->outfile = open(tmp, O_RDWR | O_CREAT | O_TRUNC, 00644);
 	else
