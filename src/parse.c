@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:34:38 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/01 02:30:18 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/03 11:26:23 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,6 @@ void create_cmd_table(t_shell *shell)
 	{	
 		shell->struct_cmd[i]->infile = -10;
 		shell->struct_cmd[i]->outfile = -10;
-		if (shell->pipex > 0)
-		{
-			shell->pipes[i] = parse_redir(shell->pipes[i], shell, i);
-			shell->struct_cmd[i]->args = ft_split_marks(shell->pipes[i], ' ');
-		}
 		i++;
 	}
 	if (shell->pipex == 0)

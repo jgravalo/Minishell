@@ -22,11 +22,13 @@ static void check_outpipe(t_shell *shell, int i)
 
 void child_routine(t_shell *shell, int i)
 {	
+	shell->pipes[i] = parse_redir(shell->pipes[i], shell, i);
 	if (shell->redir_error[i]) // algo ha ido mal y escribimos errno y salimos
 	{	
 		cmd_error(shell->error_tmp, errno, 1);
 		exit(1);
 	}
+	shell->struct_cmd[i]->args = ft_split_marks(shell->pipes[i], ' ');
 	check_inpipe(shell, i);
 	check_outpipe(shell, i);
 	if (shell->pipex > 1)
