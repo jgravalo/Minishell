@@ -3,7 +3,6 @@
 static int prepare_infile(t_shell *shell, char *tmp, int n)
 {	
 	tmp = remove_quotes(tmp);
-	printf("tmp es %s\n", tmp);
 	shell->struct_cmd[n]->infile = open(tmp, O_RDONLY);
 	if (shell->struct_cmd[n]->infile == -1)
 	{
@@ -13,6 +12,7 @@ static int prepare_infile(t_shell *shell, char *tmp, int n)
 	}
 	shell->saved_stdin = dup(0);
 	shell->redir_type = 0;
+	free(tmp);
 	return (0);
 }
 
@@ -34,7 +34,6 @@ static void prepare_heredoc(t_shell *shell, char *tmp, int n)
 static int prepare_outfile(t_shell *shell, char *tmp, int n, int append)
 {	
 	tmp = remove_quotes(tmp);
-	printf("tmp es %s\n", tmp);
 	if (append == 0)
 		shell->struct_cmd[n]->outfile = open(tmp, O_RDWR | O_CREAT | O_TRUNC, 00644);
 	else
@@ -46,7 +45,8 @@ static int prepare_outfile(t_shell *shell, char *tmp, int n, int append)
 		shell->redir_error[n] = 1;
 	}
 	shell->saved_stdout = dup(1);
-	shell->redir_type = 1;	
+	shell->redir_type = 1;
+	free(tmp);
 	return (0);
 }
 
@@ -58,9 +58,9 @@ void	prepare_redir(char *line, t_shell *shell, int n)
 //	printf("line = <%s>\n", line);
 	tmp = get_redir(line);
 //	printf("tmp = <%s>\n", tmp);
-	if (line[0] == '<' && line[1] != '<' && shell->struct_cmd[n]->infile != -1)
+	if (line[0] == '<' && line[1] != '<' && shell->redir_error[n] != 1)
 	{
-		if (prepare_infile(shell, tmp, n) == -1)
+		if (prepare_infile(shell, ft_strdup(tmp), n) == -1)
 			return ;
 	}
 	else if (line[0] == '<' && line[1] == '<')
@@ -68,14 +68,14 @@ void	prepare_redir(char *line, t_shell *shell, int n)
 		prepare_heredoc(shell, tmp, n);
 		return ;
 	}
-	else if (line[0] == '>' && line[1] != '>')
+	else if (line[0] == '>' && line[1] != '>' && shell->redir_error[n] != 1)
 	{	
-		if (prepare_outfile(shell, tmp, n, 0) == -1)
+		if (prepare_outfile(shell, ft_strdup(tmp), n, 0) == -1)
 			return ;
 	}
-	else if (line[0] == '>' && line[1] == '>')
+	else if (line[0] == '>' && line[1] == '>' && shell->redir_error[n] != 1)
 	{	
-		if (prepare_outfile(shell, tmp, n, 1) == -1)
+		if (prepare_outfile(shell, ft_strdup(tmp), n, 1) == -1)
 			return ;
 	}
 }
