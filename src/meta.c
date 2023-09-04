@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/31 10:11:51 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/04 10:15:44 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char	**ft_split_meta(char const *s, char c)
 	char	**res;
 
 //	printf("count meta = %d\n", words_meta(s, c));
+	
 	res = (char **) malloc((words_meta(s, c) * (sizeof(char *))) + 8);
 	if (!res || !s)
 		return (0);
@@ -36,7 +37,6 @@ char	**ft_split_meta(char const *s, char c)
 		{
 			i = 0;
 			res[j++] = meta_str(s, c, &i);
-//			printf("substr is %s, i es %d\n", res[j], i);
 			s += i;
 //			printf("*s es %s\n", s);
 		}
@@ -119,7 +119,7 @@ static char	*get_var(t_shell *shell, t_var *p, char *new_line, int n)
 	if (ft_strcmp("", p->new) == 0 || ft_strcmp("", tmp) == 0)
 			p->new = ft_strdup(p->new);
 	free(ptr);
-	free(tmp);
+	//free(tmp);
 	free(new_line);
 	return (p->new);
 }

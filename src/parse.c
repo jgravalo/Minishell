@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:34:38 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/03 11:26:23 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/04 10:17:55 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,9 @@ void parse_pipex(t_shell *shell)
 		free(shell->pid_end);
 		free_m(shell->pipes);
 	}
+	free(shell->redir_error);
+	free(shell->inpipe);
+	free(shell->outpipe);
 	free(shell->pid);
 	free_cmd_table(shell);
 }

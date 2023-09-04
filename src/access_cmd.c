@@ -6,11 +6,12 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:09:57 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/08/31 12:32:02 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/04 10:00:15 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+#include <sys/stat.h>
 
 int	search_path(char **envp)
 {
@@ -97,6 +98,7 @@ char	*file_cmd(t_shell *shell, int n)
 	int		exit;
 	char	*file;
 	char	**docs;
+	struct	stat buf;
 
 	if (!shell->struct_cmd[n]->args)
 		return ("empty");
@@ -111,8 +113,20 @@ char	*file_cmd(t_shell *shell, int n)
 	}
 	else // si no hay variable PATH, o se introduce el path completo del binario, o bash no lo encuentra
 		file = access_loop(NULL, shell->struct_cmd[n]->args[0]);
-	if (access(file, F_OK) != -1) // comando, y existe
+	if (access(file, F_OK) != -1) // existe, pero no eje
+	{	
+		if (stat(file, &buf) == -1)
+		{
+			shell->exit = cmd_error(file, errno, 1);
+			return (NULL);
+		}
+		if (S_ISDIR(buf.st_mode))
+		{
+			shell->exit = cmd_error(file, 21, 126);
+			return (NULL);
+		}
 		return (file);
+	}
 	else if (file == NULL) // no ha encontrado comando, fuera
 	{
 		shell->exit = cmd_not_found(shell->struct_cmd[n]->args[0]);
