@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:09:57 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/04 10:00:15 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/04 11:03:53 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,21 +75,18 @@ int isfile(const char* name)
 
 
 
-static int	check_file_dir(t_shell *shell, char *file)
+static int	check_file_dir(t_shell *shell, char *file, int n)
 {	
-	if (file[0] != '.')
-	{
-		if (isfile(file) != 0)
-			return (cmd_error(file, errno, 127));
-		else if (shell->args[1] == NULL) //solo hay un directorio y no hay comando, operacion ilegal "Is a directory"
-			return (cmd_error(file, 21, 126));
-	}
+	if (isfile(file) != 0)
+		shell->exit = cmd_error(file, errno, 127);
+	else if (shell->struct_cmd[n]->args[1] == NULL) //solo hay un directorio y no hay comando, operacion ilegal "Is a directory"
+		shell->exit = cmd_error(file, 21, 126);
 	if (access(file, F_OK) != 0)
-		return (cmd_error(file, errno, 126));
+		shell->exit = cmd_error(file, errno, 127);
 	if (access(file, R_OK) != 0 || access(file, W_OK) != 0
 		|| access(file, X_OK) != 0)
-		return (cmd_error(file, errno, 126));
-	return (0);
+		shell->exit = cmd_error(file, errno, 126);
+	return (shell->exit);
 }
 
 char	*file_cmd(t_shell *shell, int n)
@@ -104,6 +101,15 @@ char	*file_cmd(t_shell *shell, int n)
 		return ("empty");
 /* 	if (check_builtin(shell->args) == 1)
 		 */
+	if (shell->struct_cmd[n]->args[0][0] == '/' || (shell->struct_cmd[n]->args[0][0] == '.'  //primero, si es file chequeamos existencia
+			&& shell->struct_cmd[n]->args[0][1] == '/'))
+	{	
+		if (access(shell->struct_cmd[n]->args[0], F_OK) == -1)
+		{	
+			shell->exit = cmd_error(shell->struct_cmd[n]->args[0], errno, 127);
+			return (NULL);
+		}
+	}
 	env = 0;
 	env = search_path(shell->envp);
 	if (env != -1)
@@ -113,33 +119,31 @@ char	*file_cmd(t_shell *shell, int n)
 	}
 	else // si no hay variable PATH, o se introduce el path completo del binario, o bash no lo encuentra
 		file = access_loop(NULL, shell->struct_cmd[n]->args[0]);
-	if (access(file, F_OK) != -1) // existe, pero no eje
+	if (access(file, F_OK) != -1) // existe
 	{	
-		if (stat(file, &buf) == -1)
-		{
+		if (stat(file, &buf) == -1) // gestion de error de stat
+		{	
 			shell->exit = cmd_error(file, errno, 1);
 			return (NULL);
 		}
-		if (S_ISDIR(buf.st_mode))
-		{
-			shell->exit = cmd_error(file, 21, 126);
-			return (NULL);
+		if (S_ISDIR(buf.st_mode)) // es dir
+		{	
+			shell->exit = check_file_dir(shell, file, n);
+			if (shell->exit != 0) // si ha dado error fuera
+				return (NULL);
+			else				// si no, sigue su camino hasta execve
+				return (file);
 		}
-		return (file);
+		if (S_ISREG(buf.st_mode)) // es file
+		{	
+			if (access(file, X_OK) != 0)
+				shell->exit = cmd_error(file, errno, 126);
+		}
 	}
-	else if (file == NULL) // no ha encontrado comando, fuera
-	{
+	if (file == NULL) // no ha encontrado comando, fuera
+	{	
 		shell->exit = cmd_not_found(shell->struct_cmd[n]->args[0]);
 		return (NULL);
-	}
-	else if (ft_strcmp(shell->struct_cmd[n]->args[0], file) == 0) //es file/dir
-	{	
-		//printf("entra en file/dir\n");
-		shell->exit = check_file_dir(shell, file);
-		if (shell->exit != 0) // si ha dado error fuera
-			return (NULL);
-		else				// si no, es un ejecutable, y sigue su camino hasta execve
-			return (file);
 	}
 	else 
 		return (file);
