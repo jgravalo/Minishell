@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/04 10:15:44 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/06 19:29:57 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,12 @@ static char	*get_var(t_shell *shell, t_var *p, char *new_line, int n)
 		p->c = ft_strjoin(tmp, p->exp);
 		if (ft_strcmp("", tmp) == 0 || ft_strcmp("", p->exp) == 0)
 			p->c = ft_strdup(p->c);
+//		shell->vars_exp[n] = p->exp; // guardamos la variable expandida
 		free(p->exp);
 		free(tmp);
 		tmp = p->new;
 		ptr = p->new;
+///		shell->vars_loc[n][j] = get_loc_var(tmp);// guardamos la posicion de la variable expandida (ft_strlen - pipe)
 		p->new = ft_strjoin(tmp, p->c);
 		if (ft_strcmp("", tmp) == 0 || ft_strcmp("", p->c) == 0)
 			p->new = ft_strdup(p->new);
@@ -192,6 +194,29 @@ static char  *expand_tilde(char *line, char *new_line, t_shell *shell, t_var *p)
 	}
 }
 
+void	init_vars(t_shell *shell, int len, char *line)
+{
+	int	n[len][2];
+	int	i;
+	int	j;
+
+	shell->vars_exp = (char **)malloc(sizeof(char *) * (len + 1));
+	i = 0;
+	j = 0;
+	while (*line)
+	{
+		if (*line == '|')
+		{
+			n[i][1] = j;
+			i++;
+		}
+		if (*line == '|')
+			j++;
+		line++;
+	}
+	shell->vars_loc = n;	
+}
+
 char	*expand_meta(t_shell *shell, char *line, int heredoc)
 {
 	t_var	p;
@@ -205,6 +230,7 @@ char	*expand_meta(t_shell *shell, char *line, int heredoc)
 	if (is_there_dollar(new_line, '$') == 0)
 		return (new_line);
 	p.tmp = ft_split_meta(new_line, '$');
+//	init_vars(count_arr(p.tmp), new_line); //iniciamos guardado de posiciones de variables
 	p.new = NULL;
 	new_line = get_var(shell, &p, new_line, 0);
 	free_m(p.tmp);

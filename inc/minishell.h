@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/06 16:20:54 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/06 19:27:10 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,9 @@ typedef struct s_shell
 	int		children;
 	int		last_builtin;
 	int		i;
+	//
+	int		*vars_loc;
+	char	**vars_exp;
 }			t_shell;
 
 
