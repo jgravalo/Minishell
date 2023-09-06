@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/01 11:00:10 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/06 16:20:54 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct s_pipe{
 	int	fdout;
 //	struct s_pipe	*next;
 }	t_pipe;
+
+int	g_exit;
 
 typedef	struct s_cmd
 {

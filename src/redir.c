@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/03 11:54:16 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/06 16:35:07 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,28 @@ char	**ft_split_redir(char *line)
 	return (m);
 }
 
+static	void handle_signal(int sig)
+{
+	if (sig == SIGINT)
+	{
+		g_exit = 1;
+		exit(1);
+	}
+	else if (sig == SIGQUIT)
+	{
+		g_exit = 1;
+		exit(1);
+	}
+}
+
 void make_heredoc(t_shell *shell, int n)
 {	
 	int start_line;
 	char *str;
 	char *heredoc;
 
+	signal(SIGINT, handle_signal);
+	signal(SIGQUIT, handle_signal);
 	str = NULL;
 	heredoc = ft_strdup("");
 	start_line = shell->line_number;
@@ -142,6 +158,8 @@ char *parse_redir(char *line, t_shell *shell, int n)
 				j++;
 			cmd = ft_strjoin(cmd, &args[i][j]);
 		}
+		if (g_exit == 1)
+			return ("here error");
 		i++;
 	}
 	free(line);

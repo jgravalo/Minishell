@@ -18,6 +18,9 @@ static int prepare_infile(t_shell *shell, char *tmp, int n)
 
 static void prepare_heredoc(t_shell *shell, char *tmp, int n)
 {	
+	pid_t	pid;
+	int		status;
+
 	shell->heredoc_quoted = 0;
 	shell->delimiter = ft_strdup(tmp);
 	shell->struct_cmd[n]->infile = open(shell->here_tmp, O_WRONLY|O_CREAT|O_EXCL|O_TRUNC, 0600);
@@ -28,7 +31,11 @@ static void prepare_heredoc(t_shell *shell, char *tmp, int n)
 	}
 	shell->saved_stdin = dup(0);
 	shell->redir_type = 2;
-	make_heredoc(shell, n);
+	pid = fork();
+	if (pid > 0)
+		waitpid(pid, &status, NULL);
+	else if (pid == 0)
+		make_heredoc(shell, n);
 }
 
 static int prepare_outfile(t_shell *shell, char *tmp, int n, int append)

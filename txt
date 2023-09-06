@@ -1,0 +1,13 @@
+total 208
+-rw-r--r--   1 dtome-pe  2023_barcelona     25 Sep  6 08:57 "hola"
+-rw-r--r--   1 dtome-pe  2023_barcelona   1647 Sep  6 08:57 Makefile
+-rw-r--r--   1 dtome-pe  2023_barcelona     68 Sep  6 08:57 file123
+drwxr-xr-x   3 dtome-pe  2023_barcelona    102 Sep  6 08:57 inc
+-rwxr-xr-x   1 dtome-pe  2023_barcelona  90592 Sep  6 16:01 minishell
+drwxr-xr-x  12 dtome-pe  2023_barcelona    408 Aug  2 18:43 minishell-tester
+drwxr-xr-x  26 dtome-pe  2023_barcelona    884 Jul 31 12:08 minishell_tester
+drwxr-xr-x  45 dtome-pe  2023_barcelona   1530 Sep  6 16:01 obj
+drwxr-xr-x  36 dtome-pe  2023_barcelona   1224 Sep  6 08:57 src
+drwxr-xr-x   2 dtome-pe  2023_barcelona     68 Aug  2 18:38 test_dir
+drwxr-xr-x   9 dtome-pe  2023_barcelona    306 Sep  6 08:57 test_files
+-rw-r--r--   1 dtome-pe  2023_barcelona      0 Sep  6 16:02 txt
