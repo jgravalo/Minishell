@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgravalo <jgravalo@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:37:09 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/08/31 15:08:21 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:32:11 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,18 @@ static int	check_long_min(int64_t number)
 		return (0);
 }
 
-void	exit_message(int type)
+static void	exit_message(t_shell *shell, int type)
 {
 	write(2, "exit", 5);
 	if (type == 2)
 	{
 		write(2, "\nbash: exit: numeric argument required\n", 39);
-		exit(2);
+		exit(255);
 	}
 	else
 	{
 		write(2, "bash: exit: too many arguments\n", 32);
-		exit(1);
+		shell->exit = 1;
 	}
 }
 
@@ -67,38 +67,16 @@ void	ft_exit(t_shell *shell, int n)
 			u_argument = ft_u_atoi(shell->struct_cmd[n]->args[1]);
 			if (u_argument > LONG_MAX
 				|| is_it_numeric(shell->struct_cmd[n]->args[1]) == 0)
-				exit_message(2);
-			/*
-				*probar todos los casos
-			{
-				write(2, "exit\n", 6);
-				write(2, "bash: exit: numeric argument required\n", 39);
-				exit(2);
-			}
-			*/
+				exit_message(shell, 2);
 		}
 		else
 		{
 			if (check_long_min(argument)
 				|| is_it_numeric(shell->struct_cmd[n]->args[1]) == 0)
-				exit_message(2);
-			/*
-			{
-				write(2, "exit\n", 6);
-				write(2, "bash: exit: numeric argument required\n", 39);
-				exit(2);
-			}
-			*/
+				exit_message(shell, 2);
 		}
 		if (shell->struct_cmd[n]->args[2] != NULL)
-			exit_message(1);
-		/*
-		{
-			write(2, "exit", 5);
-			write(2, "bash: exit: too many arguments\n", 32);
-			exit(1);
-		}
-		*/
+			exit_message(shell, 1);
 		exit(argument);
 	}
 	else
