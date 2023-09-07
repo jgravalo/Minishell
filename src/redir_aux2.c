@@ -28,6 +28,7 @@ char *remove_quotes(char *str)
 	char quote;
 
 	j = count_len_quotes(str);
+	printf("j es %d\n", j);
 	new_str = (char *)malloc(sizeof (char) * (j + 1));
 	i = 0;
 	j = 0;
@@ -52,6 +53,7 @@ char *remove_quotes(char *str)
 			i++;
 		}
 	}
+	new_str[j] = '\0';
 	return (new_str);
 }
 
@@ -63,3 +65,20 @@ char	*get_redir(char *line)
 		line++;
 	return (line);
 }
+
+int	count_redir_arr(char **args)
+{
+	int	i;
+	int	c;
+	
+	i = 0;
+	c = 0;
+	while (args[i])
+	{
+		if (args[i][0] == '<' || args[i][0] == '>')
+			c++;
+		i++;
+	}
+	return (c);
+}
+

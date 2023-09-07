@@ -23,7 +23,7 @@ static void check_outpipe(t_shell *shell, int i)
 void child_routine(t_shell *shell, int i)
 {	
 	shell->pipes[i] = parse_redir(shell->pipes[i], shell, i);
-	if (ft_strcmp(shell->pipes[i], "here error") == 0)
+	if (g_exit == 1)
 		exit(1);
 	if (shell->redir_error[i]) // algo ha ido mal y escribimos errno y salimos
 	{	

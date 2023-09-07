@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/06 16:35:07 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/07 13:36:40 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,18 @@ char	**ft_split_redir(char *line)
 static	void handle_signal(int sig)
 {
 	if (sig == SIGINT)
-	{
-		g_exit = 1;
+	{	
+		printf("sigint hijo recibido\n");
 		exit(1);
 	}
 	else if (sig == SIGQUIT)
 	{
-		g_exit = 1;
+		printf("sigquit hijo recibido\n");
 		exit(1);
 	}
 }
 
-void make_heredoc(t_shell *shell, int n)
+void make_heredoc(t_shell *shell, int n, int redir_num)
 {	
 	int start_line;
 	char *str;
@@ -108,11 +108,12 @@ void make_heredoc(t_shell *shell, int n)
 		heredoc = ft_strjoin(heredoc, str);
 		shell->line_number++;
 	}
-	write(shell->struct_cmd[n]->infile, heredoc, ft_strlen(heredoc));
-	close(shell->struct_cmd[n]->infile);
-	shell->struct_cmd[n]->infile = open(shell->here_tmp, O_RDONLY);
+	write(shell->struct_cmd[n]->redir[redir_num]->heredoc_fd, heredoc, ft_strlen(heredoc));
+	close(shell->struct_cmd[n]->redir[redir_num]->heredoc_fd);
+	shell->struct_cmd[n]->redir[redir_num]->heredoc_fd = open(shell->here_tmp, O_RDONLY);
 	unlink(shell->here_tmp);
-	free (heredoc);
+	free(heredoc);
+	exit(0);
 }
 
 void	make_redir(t_shell *shell, int n)
@@ -135,12 +136,15 @@ char *parse_redir(char *line, t_shell *shell, int n)
 	char *cmd;
 	int i;
 	int j;
+	int redir_num;
 
+	redir_num = 0;
 	if (is_there_redir(line) == 0) // si no hay redir a procesar, fuera
 		return (line);
-//	cmd = ft_strdup("");
 	cmd = NULL;
 	args = ft_split_redir(line);
+	shell->struct_cmd[n]->redir = (t_redir **)malloc(sizeof (t_redir *) * (count_redir_arr(args) + 1));
+	shell->struct_cmd[n]->redir[count_redir_arr(args)] = NULL;
 /* 	printf("redir args son:\n");
 	ft_printarr(args); */
 	i = 0;
@@ -149,8 +153,11 @@ char *parse_redir(char *line, t_shell *shell, int n)
 		j = 0;
 		if (args[i][0] == '<' || args[i][0] == '>')
 		{
-			prepare_redir(args[i], shell, n);
+			prepare_redir(args[i], shell, n, redir_num);
 			free(args[i]);
+			redir_num++;
+			if (g_exit == 1)
+				return (NULL);
 		}
 		else
 		{	
@@ -158,10 +165,9 @@ char *parse_redir(char *line, t_shell *shell, int n)
 				j++;
 			cmd = ft_strjoin(cmd, &args[i][j]);
 		}
-		if (g_exit == 1)
-			return ("here error");
 		i++;
 	}
+	set_redir(shell, n);
 	free(line);
 	free(args);
 	return (cmd);

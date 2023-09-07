@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/06 19:27:10 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/09/07 13:27:08 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@
 //# include "builtins.h"
 
 # define DEF_PATH "/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:"
+# define INFILE shell->struct_cmd[n]->redir[i]->type == 0
+# define HEREDOC shell->struct_cmd[n]->redir[i]->type == 1
+# define OUTFILE shell->struct_cmd[n]->redir[i]->type == 2
+# define OUTFILE_APPEND shell->struct_cmd[n]->redir[i]->type == 3
 # define READ 0
 # define WRITE 1
 
@@ -50,11 +54,21 @@ typedef struct s_pipe{
 //	struct s_pipe	*next;
 }	t_pipe;
 
-int	g_exit;
+typedef struct s_redir
+{
+	char 	*path;
+	int		heredoc_fd;
+	int		type;
+}			t_redir;
+
+extern int	g_exit;
 
 typedef	struct s_cmd
 {
 	char **args;
+	t_redir	**redir;
+	char	*infile_path;
+	char	*outfile_path;
 	int		infile;
 	int 	outfile;
 
@@ -169,7 +183,9 @@ int		is_pipe_or_dollar(char c);
 
 int		is_redir(char *str);
 
-char	*parse_heredoc(char *line);
+char 	*parse_heredoc(char *line, t_shell *shell, int n);
+
+char	**ft_split_heredoc(char *line);
 
 int		is_meta(char c);
 
@@ -237,7 +253,7 @@ void 	write_heredoc_eof(t_shell *shell, int start_line);
 
 int		make_stdin_stdout(t_shell *shell, int n);
 
-void	prepare_redir(char *line, t_shell *shell, int n);
+void	prepare_redir(char *line, t_shell *shell, int n, int redir_num);
 
 char	*get_redir(char *line);
 
@@ -249,7 +265,7 @@ int		count_redir(char *line);
 
 int		len_redir(char *line);
 
-void	make_heredoc(t_shell *shell, int n);
+void	make_heredoc(t_shell *shell, int n, int redir_num);
 
 int 	is_there_dollar(char *line, char c);
 
@@ -260,6 +276,11 @@ int		words_meta(const char *s, char c);
 int 	search_dollar(char const *s, char c);
 
 char	*meta_str(char const *s, char c, int *n);
+
+void 	set_redir(t_shell *shell, int n);
+
+int		count_redir_arr(char **args);
+
 /*
 void	make_history(t_hist *hist, char *line);
 

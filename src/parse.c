@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:34:38 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/04 10:17:55 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/07 13:34:58 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ void create_cmd_table(t_shell *shell)
 		i++;
 	}
 	if (shell->pipex == 0)
-	{
+	{	
+		shell->struct_cmd[0]->infile = -10;
+		shell->struct_cmd[0]->outfile = -10;
 		shell->readline = parse_redir(shell->readline, shell, 0);
 		shell->struct_cmd[0]->args = ft_split_marks(shell->readline, ' ');
 	}
@@ -58,6 +60,14 @@ void parse_pipex(t_shell *shell)
 	i = 0;
 	init_shell(shell);
 	create_cmd_table(shell);
+	if (!shell->struct_cmd[0]->args)
+		return ;
+	if (g_exit == 1)
+	{	
+		printf("entra aqui y sale\n");
+		shell->exit = 1;
+		return ;
+	}
 	if (shell->pipex == 0)
 	{	
 		parse_no_pipes_line(shell);

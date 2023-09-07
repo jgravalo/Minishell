@@ -44,7 +44,7 @@ int	count_heredoc(char *line)
 	return (i);
 }
 
-char	**ft_split_heredoc(char *line)
+/* char	**ft_split_heredoc(char *line)
 {
 	char	**m;
 	int		i;
@@ -71,7 +71,7 @@ char	**ft_split_heredoc(char *line)
 	}
 	m[++j] = NULL;
 	return (m);
-}
+} */
 
 /* char	*make_heredoc(char *line)
 {

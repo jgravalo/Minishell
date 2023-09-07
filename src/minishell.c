@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/06 16:36:38 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/07 12:06:25 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include <readline/readline.h>
+
+int g_exit = 0;
 
 static void	handler(int sig)
 {	
@@ -28,12 +30,9 @@ static void	handler(int sig)
 
 int	new_shell(t_shell *shell)
 {	
-	//int fd;
-
 	shell->line_number = 1;
 	while (1)
 	{	
-		printf("entra en minishell\n");
 		g_exit = 0;
 		signal(SIGINT, handler);
 		signal(SIGQUIT, handler);
