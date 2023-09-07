@@ -28,7 +28,6 @@ char *remove_quotes(char *str)
 	char quote;
 
 	j = count_len_quotes(str);
-	printf("j es %d\n", j);
 	new_str = (char *)malloc(sizeof (char) * (j + 1));
 	i = 0;
 	j = 0;
