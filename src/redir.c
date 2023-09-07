@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/07 18:47:02 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/07 19:06:21 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,6 @@ char *parse_redir(char *line, t_shell *shell, int n)
 		}
 		i++;
 	}
-	set_redir(shell, n);
 	free(line);
 	free(args);
 	return (cmd);

@@ -22,9 +22,9 @@ static void check_outpipe(t_shell *shell, int i)
 
 void child_routine(t_shell *shell, int i)
 {	
-	shell->pipes[i] = parse_redir(shell->pipes[i], shell, i);
-	if (g_exit == 1)
-		exit(1);
+	//shell->pipes[i] = parse_redir(shell->pipes[i], shell, i);
+	if (shell->struct_cmd[i]->redir)
+		set_redir(shell, i);
 	if (shell->redir_error[i]) // algo ha ido mal y escribimos errno y salimos
 	{	
 		cmd_error(shell->error_tmp, errno, 1);
