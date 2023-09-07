@@ -3,9 +3,12 @@
 static	void handle_signal(int sig)
 {
 	if (sig == SIGINT)
+	{
 		g_exit = 1;
-	else if (sig == SIGQUIT)
-		g_exit = 1;
+		write(1, "\n", 1);
+	}
+	if (sig == SIGQUIT)
+		return  ;
 }
 
 static void prepare_infile(t_shell *shell, char *tmp, int n, int redir_num)

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/07 13:36:40 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/07 18:44:49 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,7 @@ char	**ft_split_redir(char *line)
 static	void handle_signal(int sig)
 {
 	if (sig == SIGINT)
-	{	
-		printf("sigint hijo recibido\n");
 		exit(1);
-	}
-	else if (sig == SIGQUIT)
-	{
-		printf("sigquit hijo recibido\n");
-		exit(1);
-	}
 }
 
 void make_heredoc(t_shell *shell, int n, int redir_num)
@@ -157,7 +149,10 @@ char *parse_redir(char *line, t_shell *shell, int n)
 			free(args[i]);
 			redir_num++;
 			if (g_exit == 1)
+			{
+				shell->exit = 130;
 				return (NULL);
+			}
 		}
 		else
 		{	
