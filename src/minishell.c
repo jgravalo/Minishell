@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/07 12:06:25 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/07 18:39:51 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int g_exit = 0;
 static void	handler(int sig)
 {	
 	if (sig == SIGINT)
-	{
+	{	
 		write(1, "\n", 1);
     	rl_on_new_line();
     	rl_replace_line("", 0);
@@ -28,14 +28,28 @@ static void	handler(int sig)
 		return ;
 }
 
+static void set_interactive_sig(struct sigaction *sigint, struct sigaction *sigquit)
+{
+	sigint->sa_flags = SA_RESTART;
+	sigquit->sa_flags = SA_RESTART;
+	sigint->sa_handler = handler;
+	sigquit->sa_handler = handler;
+	sigaction(SIGINT, sigint, NULL);
+	sigaction(SIGQUIT, sigquit, NULL);
+}
+
 int	new_shell(t_shell *shell)
 {	
+	struct sigaction sigint;
+	struct sigaction sigquit;
+	
+	memset(&sigint, 0, sizeof(struct sigaction));
+	memset(&sigquit, 0, sizeof(struct sigaction));
 	shell->line_number = 1;
 	while (1)
 	{	
 		g_exit = 0;
-		signal(SIGINT, handler);
-		signal(SIGQUIT, handler);
+		set_interactive_sig(&sigint, &sigquit);
 		shell->prompt = get_prompt(shell, shell->envp);
 		shell->readline = readline(shell->prompt);
 		if (shell->readline == NULL)

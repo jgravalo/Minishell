@@ -6,13 +6,13 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/07 13:27:08 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/07 18:10:35 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
+#define _POSIX_C_SOURCE 200809L
 # include <fcntl.h>
 //# include <defines.h>
 # include <errno.h>
