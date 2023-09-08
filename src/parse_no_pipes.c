@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/07 19:02:01 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/08 10:27:46 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,12 @@ static void fork_process(t_shell *shell)
 		if (shell->struct_cmd[0]->infile > -1 || shell->struct_cmd[0]->outfile > -1)
 			make_redir(shell, 0);
 		shell->struct_cmd[0]->args[0] = file_cmd(shell, 0);
+		//printf("sale de filecmd como: %s\n", shell->struct_cmd[0]->args[0]);
 		if (shell->struct_cmd[0]->args[0] == NULL)  
 			exit(shell->exit);
 		if (ft_strcmp(shell->struct_cmd[0]->args[0], "empty") == 0)
 			exit(0);
+		//printf("pasa a execve\n");
 		execve(shell->struct_cmd[0]->args[0], shell->struct_cmd[0]->args, shell->envp);
 	}
 }

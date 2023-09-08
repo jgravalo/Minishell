@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:09:57 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/04 11:03:53 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/08 10:30:01 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,6 @@ char	*file_cmd(t_shell *shell, int n)
 
 	if (!shell->struct_cmd[n]->args)
 		return ("empty");
-/* 	if (check_builtin(shell->args) == 1)
-		 */
 	if (shell->struct_cmd[n]->args[0][0] == '/' || (shell->struct_cmd[n]->args[0][0] == '.'  //primero, si es file chequeamos existencia
 			&& shell->struct_cmd[n]->args[0][1] == '/'))
 	{	
@@ -109,17 +107,29 @@ char	*file_cmd(t_shell *shell, int n)
 			shell->exit = cmd_error(shell->struct_cmd[n]->args[0], errno, 127);
 			return (NULL);
 		}
+		else
+			return (shell->struct_cmd[n]->args[0]);
 	}
 	env = 0;
 	env = search_path(shell->envp);
 	if (env != -1)
-	{
+	{	
 		docs = split_docs(shell->envp[env]); // split todos los paths
-		file = access_loop(docs, shell->struct_cmd[n]->args[0]);
+		file = access_loop(docs, shell->struct_cmd[n]->args[0]); // lo intenta buscar
+		if (!file)
+			shell->exit = cmd_not_found(shell->struct_cmd[n]->args[0]);
+		return (file);
 	}
-	else // si no hay variable PATH, o se introduce el path completo del binario, o bash no lo encuentra
-		file = access_loop(NULL, shell->struct_cmd[n]->args[0]);
-	if (access(file, F_OK) != -1) // existe
+	else // si no hay variable PATH 
+	{
+		if (access(shell->struct_cmd[n]->args[0], F_OK) == -1)
+		{	
+			shell->exit = cmd_error(shell->struct_cmd[n]->args[0], errno, 127);
+			return (NULL);
+		}
+		return (shell->struct_cmd[n]->args[0]);
+	}
+	/* if (access(file, F_OK) != -1) // existe
 	{	
 		if (stat(file, &buf) == -1) // gestion de error de stat
 		{	
@@ -140,13 +150,18 @@ char	*file_cmd(t_shell *shell, int n)
 				shell->exit = cmd_error(file, errno, 126);
 		}
 	}
-	if (file == NULL) // no ha encontrado comando, fuera
+	else
+	{
+		shell->exit = cmd_not_found(shell->struct_cmd[n]->args[0]);
+		return (NULL);
+	} */
+/* 	if (file == NULL) // no ha encontrado comando, fuera
 	{	
 		shell->exit = cmd_not_found(shell->struct_cmd[n]->args[0]);
 		return (NULL);
 	}
 	else 
-		return (file);
+		return (file); */
 }
 
 /*

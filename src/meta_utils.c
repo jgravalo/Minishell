@@ -41,8 +41,8 @@ int check_for_tilde(char *line)
 			while (line[i] != '\"')
 				i++;
 		else if (line[i] == '~' && ((i == 0 && (line[i + 1] == '\0'
-			|| line[i + 1] == ' ')) || (line[i - 1] == ' '
-			&& (line[i + 1] == ' ' || line[i + 1] == '\0'))))
+			|| line[i + 1] == ' ' || line[i + 1] == '/')) || (line[i - 1] == ' '
+			&& (line[i + 1] == ' ' || line[i + 1] == '\0' || line[i + 1] == '/'))))
 			return (1);
 		i++;
 	}

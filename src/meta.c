@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/06 19:29:57 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/09/08 10:15:23 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,12 +149,11 @@ static char  *expand_tilde(char *line, char *new_line, t_shell *shell, t_var *p)
 		{	
 			if (line[i] == '~' && (i == 0
 				&& (line[i + 1] == '\0'
-				|| line[i + 1] == ' '))
+				|| line[i + 1] == ' ' || line[i + 1] == '/'))
 				|| (line[i - 1] == ' '
 				&& (line[i + 1] == ' '
-				|| line[i +1] == '\0')))
+				|| line[i +1] == '\0' || line[i + 1] == '/')))
 			{	
-				//printf("entra en tilde correcta\n");
 				tmp1 = ft_substr(new_line, 0, j);
 				tmp2 = ft_substr(line, i - c, c);
 				//free(new_line);
@@ -222,10 +221,7 @@ char	*expand_meta(t_shell *shell, char *line, int heredoc)
 	t_var	p;
 	char *new_line;
 
-	if (!heredoc)
-		new_line = expand_tilde(line, new_line, shell, &p);
-	else
-		new_line = ft_strdup(line);
+	new_line = expand_tilde(line, new_line, shell, &p);
 	free(line);
 	if (is_there_dollar(new_line, '$') == 0)
 		return (new_line);
