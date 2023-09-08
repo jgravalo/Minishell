@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/08 10:27:46 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/08 11:40:47 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	parse_no_pipes_line(t_shell *shell)
 	{	
 		while (shell->struct_cmd[0]->args[i])
 			i++;
-		change_var(shell, "_", shell->struct_cmd[0]->args[i - 1]);
+		shell->last_arg = ft_strdup(shell->struct_cmd[0]->args[i]);
+		//change_var(shell, "_", shell->struct_cmd[0]->args[i - 1]);
 		if (built_in(shell, 0) == 1) 
 			return ;
 	}

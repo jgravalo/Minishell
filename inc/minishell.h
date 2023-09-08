@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/07 18:10:35 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/08 11:40:00 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ typedef struct s_shell
 	//
 	int		*vars_loc;
 	char	**vars_exp;
+	char 	*last_arg;
 }			t_shell;
 
 
