@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_aux.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgravalo <jgravalo@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:17:20 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/08/31 14:17:28 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/09/08 12:12:45 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
