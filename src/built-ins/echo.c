@@ -3,14 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:58:59 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/31 14:56:33 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/09/08 09:44:41 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+static int	is_n_option(char *argv)
+{
+	int i;
+
+	i = 2;
+	if (!argv)
+		return (1);
+	if (ft_strncmp(argv, "-n", 2) == 0)
+	{	
+		while (argv[i])
+		{	
+			if (argv[i] == 'n')
+				i++;
+			else
+				return (1);
+		}
+		return (0);
+	}
+	return (1);
+}
 
 int	echo(char **argv)
 {
@@ -22,17 +43,16 @@ int	echo(char **argv)
 		write(1, "\n", 1);
 		return (0);
 	}
+	while (is_n_option(argv[i]) == 0)
+		i++;
 	while (argv && argv[i])
 	{
-		if (!(i == 1 && ft_strcmp(argv[i], "-n") == 0))
-		{
-			write(1, argv[i], ft_strlen(argv[i]));
+		write(1, argv[i], ft_strlen(argv[i]));
 			if (argv[i + 1])
 				write(1, " ", 1);
-		}
 		i++;
 	}
-	if (!argv[1] || (argv[1] && ft_strcmp(argv[1], "-n") != 0))
+	if (!argv[1] || (argv[1] && is_n_option(argv[1]) != 0))
 		write(1, "\n", 1);
 	return (0);
 }
