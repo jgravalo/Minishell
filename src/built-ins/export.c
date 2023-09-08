@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:59:28 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/31 14:32:25 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/09/08 11:12:40 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,6 @@ int	export(t_shell *shell, int n)
 	while (shell->struct_cmd[n]->args[i])
 	{
 		shell->exit = export_n(shell->struct_cmd[n]->args[i], shell);
-		if (shell->exit == 1)
-			return (shell->exit);
 		i++;
 	}
 	return (shell->exit);
