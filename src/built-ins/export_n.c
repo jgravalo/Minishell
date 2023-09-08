@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_n.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgravalo <jgravalo@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:13:28 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/08/31 14:14:51 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/09/08 11:06:40 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ static int	parse_var(char *var)
 		return (1);
 	i++;
 	while (var[i])
-	{
+	{	
+		if (var[i] == '+' && var[i + 1] == '=')
+			return (2);
 		if (var[i] == '=')
 			return (0);
 		if (is_alpha_num(var[i]) == 0)
@@ -67,6 +69,32 @@ static int	replace_existing(char *line, char *existing, t_shell *shell)
 	return (0);
 }
 
+static int	cat_existing(char *line, char *existing, t_shell *shell)
+{
+	char	*tmp;
+	int		i;
+	char	*var;
+
+	i = 0;
+	while (line[i] != '+' && line[i] != '=' && line[i] != '\0')
+		i++;
+	var = ft_substr(line, 0, i);
+	i = 0;
+	while (shell->envp[i] != NULL)
+	{
+		if (ft_varcmp(var, shell->envp[i], ft_strlen(var)) == 0)
+		{	
+			//printf("var is %s and envp is %s\n", var, shell->envp[i]);
+			tmp = ft_strjoin(ft_strchr(shell->envp[i], '='), ft_strchr(line, '=') + 1);
+			//printf("tmp es %s\n", tmp);
+			shell->envp[i] = ft_strjoin(var, tmp);
+			break ;
+		}
+		i++;
+	}
+	return (0);
+}
+
 static int	add_envp(char *var, t_shell *shell)
 {
 	char	**new;
@@ -94,14 +122,17 @@ int	export_n(char *var, t_shell *shell)
 	char	**new;
 	char	*existing;
 	int		i;
+	int		type;
 
-	if (parse_var(var) == 1)
+	type = parse_var(var);
+	if (type == 1)
 		return (write_not_valid(var));
 	if (is_existing(var, shell->envp) == 1)
 		return (0);
-	else if (is_existing(var, shell->envp) == 2)
+	else if (is_existing(var, shell->envp) == 2 && type == 0)
 		return (replace_existing(var, existing, shell));
+	else if (is_existing(var, shell->envp) == 2 && type == 2)
+		return (cat_existing(var, existing, shell));
 	else
 		return (add_envp(var, shell));
-	return (0);
 }

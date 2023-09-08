@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:22:59 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/31 10:11:21 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/08 10:46:53 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	is_existing(char *line, char **envp)
 	char *var;
 
 	i = 0;
-	while (line[i] != '=' && line[i] != '\0')
+	while (line[i] != '+' && line[i] != '=' && line[i] != '\0')
 		i++;
 	var = ft_substr(line, 0, i);
 	i = 0;
