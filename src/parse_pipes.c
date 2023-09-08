@@ -6,7 +6,7 @@
 /*   By: jgravalo <jgravalo@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:23:10 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/08 16:51:38 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/09/08 17:16:48 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,20 @@ static char *search_pipe(t_shell *shell)
 {
 	char	*line;
 	char	*tmp;
+	char	*tmp2;
 	int		pipe;
 //	char	c = 
 
 //	printf("readline before = <%s>\n", shell->readline);
-//	pipe = 0;
-//	while (pipe == 0)
-//	{
-	line = readline("> ");
-//	}
-	tmp = ft_strjoin(shell->readline, line);
+	line = "";
+	while (ft_strcmp(line, "") == 0)
+		line = readline("> ");
+	tmp = ft_strjoin(" ", line);
+	tmp2 = ft_strjoin(shell->readline, tmp);
 	free(line);
 	free(shell->readline);
-	shell->readline = tmp;
+	shell->readline = tmp2;
+	free(tmp);
 //	printf("readline after = <%s>\n", shell->readline);
 	if (parse_pipes(shell) != 0)
 		return (258);
@@ -62,7 +63,7 @@ int		*parse_pipes(t_shell *shell)
 		{
 			if (pipe == 1)
 			{
-				write(2, "bash: syntax error near unexpected token `|'", 50);
+				write(2, "bash: syntax error near unexpected token `|'\n", 50);
 				return (258);
 			}
 			else
@@ -75,7 +76,6 @@ int		*parse_pipes(t_shell *shell)
 		if (search_pipe(shell) != 0)
 		{
 			shell->exit = 258;
-			printf("aqui\n");
 			return (258);
 		}
 	return (0);
