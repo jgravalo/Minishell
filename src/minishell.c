@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/08 10:19:14 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/08 16:23:51 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int	new_shell(t_shell *shell)
 	struct sigaction sigint;
 	struct sigaction sigquit;
 	
-	memset(&sigint, 0, sizeof(struct sigaction));
-	memset(&sigquit, 0, sizeof(struct sigaction));
+	memset(&sigint, 0, sizeof(struct sigaction));//funcion prohibida. hacer las nuestra
+	memset(&sigquit, 0, sizeof(struct sigaction));//funcion prohibida. hacer las nuestra
 	shell->line_number = 1;
 	while (1)
 	{	
@@ -60,6 +60,10 @@ int	new_shell(t_shell *shell)
 		if (shell->readline[0] != 0)
 		{	
 			shell->readline = parse_quotes(shell->readline);
+//			printf("readline = <%s>\n", shell->readline);
+			if (parse_pipes(shell) != 0)
+				continue ;
+//			printf("readline = <%s>\n", shell->readline);
 			add_history(shell->readline);
 			shell->readline = expand_meta(shell, shell->readline, 0);
 			//printf("line after meta es %s\n", shell->readline);
