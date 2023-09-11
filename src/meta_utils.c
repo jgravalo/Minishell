@@ -12,13 +12,13 @@ int is_there_dollar(char *line, char c)
 			if (line[i] == '$' && line[i + 1] != ' ' && line[i + 1] != '\"')
 				return (1);
 			while (line[i] != '\"' && ++i)
-				if (line[i] == '$' && line[i + 1] != ' ' && line[i + 1] != '\"')
+				if (line[i] == '$' && line[i + 1] != ' ' && is_alpha_num(line[i + 1]) && line[i + 1] != '\"')
 					return (1);
 		}
 		else if (line[i] == '\'' && ++i)
 			while (line[i] != '\'')
 				i++;
-		else if (line[i] == c && line[i + 1] != ' '
+		else if (line[i] == c && line[i + 1] != ' ' && is_alpha_num(line[i + 1])
 			&& line[i + 1] != '\0' && line[i + 1] != '\"')
 			return (1);
 		i++;
