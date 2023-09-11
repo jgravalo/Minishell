@@ -61,7 +61,7 @@ char	*meta_str(char const *s, char c, int *n)
 		while (*s && ((*s >= 'A' && *s <= 'Z')
 			|| (*s >= 'a' && *s <= 'z')
 			|| (*s >= '0' && *s <= '9')
-			|| (*s >= '_'))
+			|| (*s == '_'))
 			&& ++i)
 			s++;
 	new = ft_substr(s - i, 0, i);

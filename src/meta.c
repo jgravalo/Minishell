@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/08 10:15:23 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/12 01:21:29 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,22 @@ char	**ft_split_meta(char const *s, char c)
 	int		i;
 	char	**res;
 
-//	printf("count meta = %d\n", words_meta(s, c));
-	
 	res = (char **) malloc((words_meta(s, c) * (sizeof(char *))) + 8);
 	if (!res || !s)
 		return (0);
 	j = 0;
 	while (*s)
 	{	
-//		printf("*s es %c\n", *s);
 		s += search_dollar(s, c);
 		if (*s == '\0')
 			break;
 		++s;
-//		printf("*s es %c\n", *s);
-//		printf("*s es %s\n", s);
 		if (*s != c)
 		{
 			i = 0;
 			res[j++] = meta_str(s, c, &i);
+			//printf("res es %s\n", res[j - 1]);
 			s += i;
-//			printf("*s es %s\n", s);
 		}
 		else
 			++s;
@@ -225,7 +220,9 @@ char	*expand_meta(t_shell *shell, char *line, int heredoc)
 	free(line);
 	if (is_there_dollar(new_line, '$') == 0)
 		return (new_line);
+	//printf("detecta variable a expandir\n");
 	p.tmp = ft_split_meta(new_line, '$');
+	//ft_printarr(p.tmp);
 //	init_vars(count_arr(p.tmp), new_line); //iniciamos guardado de posiciones de variables
 	p.new = NULL;
 	new_line = get_var(shell, &p, new_line, 0);
