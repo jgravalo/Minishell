@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 13:29:05 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/12 00:48:33 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/12 01:10:00 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ char	*mark_str(char const *s, char c, int *n)
 	while (*s && !(*s == c && *(s - 1) != '\\') && ++i)
 		s++;
 	new = ft_substr(s - i, 0, i);
+	i++;
 	*n = i;
 	return (new);
 }
@@ -182,6 +183,5 @@ char	**ft_split_marks(char const *s, char c)
 	if (!res || !s)
 		return (0);
 	res = ft_split_loop(res, s, c);
-	//ft_printarr(res);
 	return (res);
 }

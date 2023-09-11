@@ -21,7 +21,7 @@ void	wait_for_children(t_shell *shell)
 			i = 0;
 			while (i < shell->pipex + 1)
 			{
-				pid = waitpid(shell->pid[i], &status, WNOHANG);
+				pid = waitpid(shell->pid[i], &status, 0);
 				if (pid > 0)
 				{	
 					shell->children--;
