@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgravalo <jgravalo@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:23:10 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/08 17:16:48 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/09/12 00:52:06 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int		*parse_pipes(t_shell *shell)
 		{
 			if (pipe == 1)
 			{
-				write(2, "bash: syntax error near unexpected token `|'\n", 50);
+				write(2, "bash: syntax error near unexpected token `|'\n", 46);
 				return (258);
 			}
 			else

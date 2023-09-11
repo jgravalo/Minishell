@@ -66,14 +66,14 @@ int	check_redir_errors(char	*redir)
 {
 	if (access(redir, F_OK) != 0)
 	{
-		write(2, ": No such file or directory\n", 30);
+		write(2, ": No such file or directory\n", 29);
 		return (1);
 	}
 	if (access(redir, R_OK) != 0
 		|| access(redir, W_OK) != 0
 		|| access(redir, X_OK) != 0)
 	{
-		write(2, ": Permission denied\n", 30);
+		write(2, ": Permission denied\n", 21);
 		return (1);
 	}
 	return (0);
