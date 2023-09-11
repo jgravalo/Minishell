@@ -6,26 +6,11 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 13:29:05 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/08/29 11:39:17 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/12 00:19:52 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-
-
-char	*mark_str(char const *s, char c, int *n)
-{
-	char	*new;
-	int		i;
-
-	i = 0;
-	while (*s && !(*s == c && *(s - 1) != '\\') && ++i)
-		s++;
-	new = ft_substr(s - i, 0, i);
-	*n = i + 1;
-	return (new);
-}
 
 static char	*free_quotes(char *s)
 {
@@ -55,43 +40,6 @@ static char	*free_quotes(char *s)
 		}
 	}
 	new[j] = '\0';
-	return (new);
-}
-
-char	*c_str(char const *s, char c, int *n)
-{
-	int		i;
-	char	*new;
-	int 	quote;
-
-	i = 0;
-	while (*s == ' ')
-		s++;
-	while (*s && *s != c)
-	{	
-		quote = 0;
-		if (*s == '\'' && ++s && ++i)
-		{	
-			quote = 1;
-			while (*s && *s != '\'' && ++i)
-                s++;
-		}        
-		else if (*s == '\"' && ++s && ++i)
-		{	
-			quote = 2;
-			while (*s && *s != '\"' && ++i)
-                s++;
-		}
-		else
-		{
-			s++;
-			i++;
-		}
-	}
-	new = ft_substr(s - i, 0, i);
-	if (quote > 0)
-		new = free_quotes(new);
-	*n = i;
 	return (new);
 }
 
@@ -137,27 +85,84 @@ int	words_double(const char *s, char c)
 	return (j);
 }
 */
+
+char	*c_str(char const *s, char c, int *n)
+{
+	int		i;
+	char	*new;
+	int 	quote;
+
+	i = 0;
+	while (*s == ' ')
+		s++;
+	while (*s && *s != c)
+	{	
+		quote = 0;
+		if (*s == '\'' && ++s && ++i)
+		{	
+			quote = 1;
+			while (*s && *s != '\'' && ++i)
+                s++;
+		}        
+		else if (*s == '\"' && ++s && ++i)
+		{	
+			quote = 2;
+			while (*s && *s != '\"' && ++i)
+                s++;
+		}
+		else
+		{
+			s++;
+			i++;
+		}
+	}
+	new = ft_substr(s - i, 0, i);
+	if (quote > 0)
+		new = free_quotes(new);
+	*n = i;
+	return (new);
+}
+
+char	*mark_str(char const *s, char c, int *n)
+{
+	char	*new;
+	int		i;
+
+	i = 0;
+	while (*s && !(*s == c && *(s - 1) != '\\') && ++i)
+		s++;
+	new = ft_substr(s - i, 0, i);
+	*n = i;
+	return (new);
+}
+
 char	**ft_split_loop(char **res, char const *s, char c)
 {
 	int		j;
 	int		i;
+	char 	*new;
 
+
+	new = ft_strdup("");
 	j = 0;
 	while (*s)
-	{
-		if (*s != c)
+	{	
+		res[j] = ft_strdup("");
+		while (*s != c && *s != '\0')
 		{	
 			i = 0;
 			if (*s == '\"' && *(s - 1) != '\\' && ++s)
-				res[j++] = mark_str(s, '\"', &i);
+				new = mark_str(s, '\"', &i);
 			else if (*s == '\'' && *(s - 1) != '\\' && ++s)
-				res[j++] = mark_str(s, '\'', &i);
+				new = mark_str(s, '\'', &i);
 			else
-				res[j++] = c_str(s, c, &i);
+				new = c_str(s, c, &i);
 			s += i;
+			res[j] = ft_strjoin(res[j], new);
 		}
-		else
-			++s;
+		j++;
+		if (*s != '\0')
+			s++;
 	}
 	res[j] = NULL;
 	return (res);
@@ -166,9 +171,11 @@ char	**ft_split_loop(char **res, char const *s, char c)
 char	**ft_split_marks(char const *s, char c)
 {
 	char	**res;
+	char	*freed;
 
 	if (ft_strlen(s) == 0)
 		return (NULL);
+	//freed = free_quotes(s);
 	res = (char **) malloc((words(s, c) * (sizeof (char *) + 8)));
 	if (!res || !s)
 		return (0);

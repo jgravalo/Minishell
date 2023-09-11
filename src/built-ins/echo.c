@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:58:59 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/08 09:44:41 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/12 00:19:46 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	echo(char **argv)
 	int		i;
 
 	i = 1;
+	//ft_printarr(argv);
 	if (argv[1] == NULL)
 	{
 		write(1, "\n", 1);
@@ -48,7 +49,7 @@ int	echo(char **argv)
 	while (argv && argv[i])
 	{
 		write(1, argv[i], ft_strlen(argv[i]));
-			if (argv[i + 1])
+			if (ft_strlen(argv[i]) > 0 && ft_strlen(argv[i + 1]) > 0 && argv[i + 1])
 				write(1, " ", 1);
 		i++;
 	}

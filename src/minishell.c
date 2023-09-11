@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/11 12:03:35 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/11 23:16:47 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,8 @@ int	new_shell(t_shell *shell)
 		if (shell->readline[0] != 0)
 		{	
 			shell->readline = parse_quotes(shell->readline);
-//			printf("readline = <%s>\n", shell->readline);
 			if (parse_pipes(shell) != 0)
 				continue ;
-//			printf("readline = <%s>\n", shell->readline);
 			add_history(shell->readline);
 			shell->readline = expand_meta(shell, shell->readline, 0);
 			//printf("line after meta es %s\n", shell->readline);
