@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 13:29:05 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/12 01:10:00 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/12 01:41:25 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,23 +92,30 @@ char	*c_str(char const *s, char c, int *n)
 	char	*new;
 	int 	quote;
 
+	//printf("entra en cstr\n");
 	i = 0;
 	while (*s == ' ')
 		s++;
 	while (*s && *s != c)
 	{	
+		//printf("s esta en %s\n", s);
 		quote = 0;
 		if (*s == '\'' && ++s && ++i)
 		{	
 			quote = 1;
 			while (*s && *s != '\'' && ++i)
                 s++;
+			s++;
+			i++;
 		}        
 		else if (*s == '\"' && ++s && ++i)
 		{	
+			//printf("entra en quote, s esta en %s\n", s);
 			quote = 2;
 			while (*s && *s != '\"' && ++i)
-                s++;
+				s++;
+			s++;
+			i++;
 		}
 		else
 		{
@@ -162,7 +169,9 @@ char	**ft_split_loop(char **res, char const *s, char c)
 				new = c_str(s, c, &i);
 			s += i;
 			res[j] = ft_strjoin(res[j], new);
+		//	printf("res es %s\n", res[j]);
 		}
+		//printf("sale de loop\n");
 		j++;
 		if (*s != '\0')
 			s++;
@@ -183,5 +192,6 @@ char	**ft_split_marks(char const *s, char c)
 	if (!res || !s)
 		return (0);
 	res = ft_split_loop(res, s, c);
+	//ft_printarr(res);
 	return (res);
 }

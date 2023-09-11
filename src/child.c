@@ -39,7 +39,6 @@ void child_routine(t_shell *shell, int i)
 	if (check_builtin(shell->struct_cmd[i]->args) == 1)
 	{	
 		run_builtin(shell, i);
-		printf("proceso hijo %d, entra en builtin y sale\n", getpid());
 		exit(shell->exit);
 	}
 	shell->struct_cmd[i]->args[0] = file_cmd(shell, i); // error handling dentro de file_cmd
