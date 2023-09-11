@@ -1,6 +1,6 @@
 M_SRCS		= src/utils.c src/ft_split_marks.c src/minishell.c src/pipes.c src/prompt2.c \
 			  src/access_cmd.c src/errors.c src/utils_env.c src/here_doc.c src/prompt.c src/child.c \
-			  src/count.c src/history.c src/parse.c src/redir.c src/close_fd.c \
+			  src/count.c src/history.c src/parse.c src/redir.c src/close_fd.c src/parse_pipes.c \
 			  src/lexer.c src/lexer_aux.c src/utils2.c src/utils3.c src/utils4.c src/meta.c src/init_shell.c \
 			  src/parse_no_pipes.c src/parse_quotes.c src/ft_itoa.c src/parent.c src/main.c src/init_envp.c src/redir_aux.c \
 			  src/redir_aux2.c src/redir_prepare.c src/meta_utils.c src/set_redir.c

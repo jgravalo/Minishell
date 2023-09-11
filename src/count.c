@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:20:04 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/08/30 12:30:46 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/08 16:23:56 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ int	count_ascii(char *line, int c)
 	quote = 0;
 	i = 0;
 	count = 0;
+//	printf("line = <%s>\n", line);
 	while (line[i])
 	{	
+//	printf("aqui\n");
 		if (line[i] == '\'' || line[i] == '\"')
 		{	
 			quote = line[i];
