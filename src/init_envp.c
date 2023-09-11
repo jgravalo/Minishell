@@ -35,7 +35,10 @@ void alloc_envp(t_shell *shell, char **envp)
 	}
 	shell->envp[i] = NULL;
 	empty_old_pwd(shell);
-	change_var(shell, "SHELL", getcwd(buffer, 100));
+	if (getenv("SHELL") != NULL)
+		change_var(shell, "SHELL", getcwd(buffer, 100));
+	if (getenv("SHLVL") != NULL)
+		change_var(shell, "SHLVL", ft_itoa(ft_atoi(getenv("SHLVL")) + 1));
 }
 
 int	change_var(t_shell *shell, char *var, char *content)
