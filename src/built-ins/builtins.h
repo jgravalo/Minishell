@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:03:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/08 12:12:45 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/11 10:34:32 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "../../inc/minishell.h"
 
 void	ft_exit(t_shell *shell, int n);
+
+int 	compare_exit(char *argument);
 
 int		env(char **envp);
 

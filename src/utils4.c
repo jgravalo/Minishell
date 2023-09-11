@@ -30,3 +30,17 @@ int	ft_varcmp(const char *s1, const char *s2, size_t n)
 	else
 		return (-1);
 }
+
+void	ft_print_intarr(int *arr, int n)
+{
+	int i;
+
+	i = 0;
+	while (n)
+	{
+		printf("%d", arr[i]);
+		i++;
+		n--;
+	}
+	printf("\n");
+}

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:37:09 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/08 12:40:58 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/11 10:37:28 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,29 +73,13 @@ static void	exit_message(t_shell *shell, int type, char *argument)
 
 void	ft_exit(t_shell *shell, int n)
 {
-	int64_t		argument;
-	uint64_t	u_argument;
-	
 	if (shell->struct_cmd[n]->args[1] != NULL)
 	{
-		argument = ft_atoi(shell->struct_cmd[n]->args[1]);
-		if (shell->struct_cmd[n]->args[1][0] != '-')
-		{
-			u_argument = ft_u_atoi(shell->struct_cmd[n]->args[1]);
-			printf("argument is %llu\n", ULLONG_MAX);
-			if (u_argument > ULLONG_MAX
-				|| is_it_numeric(shell->struct_cmd[n]->args[1]) == 1)
-				exit_message(shell, 2, shell->struct_cmd[n]->args[1]);
-		}
-		else
-		{
-			if (check_long_min(argument)
-				|| is_it_numeric(shell->struct_cmd[n]->args[1]) == 1)
-				exit_message(shell, 2, shell->struct_cmd[n]->args[1]);
-		}
+		if (compare_exit(shell->struct_cmd[n]->args[1]) || is_it_numeric(shell->struct_cmd[n]->args[1]))
+			exit_message(shell, 2, shell->struct_cmd[n]->args[1]);
 		if (shell->struct_cmd[n]->args[2] != NULL)
 			exit_message(shell, 1, shell->struct_cmd[n]->args[1]);
-		exit(argument);
+		exit(ft_atoi(shell->struct_cmd[n]->args[1]));
 	}
 	else
 		exit(shell->exit);
