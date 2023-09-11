@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/11 11:09:23 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/11 11:48:06 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,15 @@ int	cd(t_shell *shell, int n)
 	char	buffer[100];
 	char	*dir;
 
+	if (shell->struct_cmd[n]->args[2] != NULL)
+		return (args_error());
 	if (!shell->envp)
 		return (1);
 	dir = ft_strdup(shell->struct_cmd[n]->args[1]);
 	if (dir == NULL)
 		dir = cd_home(shell, n);
-	else if (shell->struct_cmd[n]->args[2] != NULL)
-		return (args_error());
+	else if (ft_strlen(dir) == 0)
+		return (0);
 	else if (dir[0] != '/' && ft_strcmp(dir, "..") == 0)
 		dir = cd_back(shell, n);
 	else if (ft_strcmp(dir, "-") == 0) // implementamos cd -, ir a OLDPWD
@@ -86,7 +88,7 @@ int	cd(t_shell *shell, int n)
 			return (1);
 	tmp = ft_strdup(getcwd(buffer, 100));
 	if (chdir(dir) < 0)
-		return (cmd_error(dir, errno, 1));
+		return (dir_error(dir, errno, 1));
 	change_var(shell, "PWD", getcwd(buffer, 100)); // solo actualizamos oldpwd si el cambio de directorios es correcto
 	change_var(shell, "OLDPWD", tmp);
 	free(shell->old_pwd);

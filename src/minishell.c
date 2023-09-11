@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/11 11:08:53 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/11 11:51:46 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	new_shell(t_shell *shell)
 	struct sigaction sigint;
 	struct sigaction sigquit;
 	
-	memset(&sigint, 0, sizeof(struct sigaction));//funcion prohibida. hacer las nuestra
+	memset(&sigint, 0, sizeof(struct sigaction));//funcion prohibida. hacer las nuestra (cierto!)
 	memset(&sigquit, 0, sizeof(struct sigaction));//funcion prohibida. hacer las nuestra
 	while (1)
 	{	

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/11 10:48:05 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/11 11:41:26 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,6 +285,8 @@ void 	set_redir(t_shell *shell, int n);
 int		count_redir_arr(char **args);
 
 void	ft_print_intarr(int *arr, int n);
+
+int		dir_error(char *s, int n, int exit);
 
 /*
 void	make_history(t_hist *hist, char *line);

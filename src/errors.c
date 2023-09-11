@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 16:56:43 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/08/23 11:01:20 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/11 11:47:11 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,21 @@ int	cmd_error(char *s, int n, int exit)
 	tmp = ft_strjoin(s, ": ");
 	str = ft_strjoin(tmp, strerror(n));
 	write(2, "bash: ", 7);
+	write(2, str, ft_strlen(str));
+	write(2, "\n", 1);
+	free(tmp);
+	free(str);
+	return (exit);
+}
+
+int	dir_error(char *s, int n, int exit)
+{	
+	char	*str;
+	char 	*tmp;
+
+	tmp = ft_strjoin(s, ": ");
+	str = ft_strjoin(tmp, strerror(n));
+	write(2, "bash: cd: ", 10);
 	write(2, str, ft_strlen(str));
 	write(2, "\n", 1);
 	free(tmp);
