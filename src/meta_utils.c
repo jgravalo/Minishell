@@ -19,7 +19,7 @@ int is_there_dollar(char *line, char c)
 			while (line[i] != '\'')
 				i++;
 		else if (line[i] == c && line[i + 1] != ' ' && is_alpha_num(line[i + 1])
-			&& line[i + 1] != '\0' && line[i + 1] != '\"')
+			&& line[i + 1] != '\0')
 			return (1);
 		i++;
 	}
