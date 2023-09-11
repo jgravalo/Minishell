@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/03 10:17:04 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/11 11:09:23 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ int	cd(t_shell *shell, int n)
 		return (cmd_error(dir, errno, 1));
 	change_var(shell, "PWD", getcwd(buffer, 100)); // solo actualizamos oldpwd si el cambio de directorios es correcto
 	change_var(shell, "OLDPWD", tmp);
+	free(shell->old_pwd);
 	shell->old_pwd = ft_strdup(tmp);
+	free(tmp);
 	return (0);
 }

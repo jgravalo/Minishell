@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:37:09 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/11 10:53:44 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/11 10:56:06 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ static int	check_long_min(int64_t number)
 
 static void	exit_message(t_shell *shell, int type, char *argument)
 {
-	//write(2, "exit\n", 6);
 	if (type == 2)
 	{
 		write(2, "bash: exit: ", 12);
@@ -83,7 +82,5 @@ void	ft_exit(t_shell *shell, int n)
 			exit(ft_atoi(shell->struct_cmd[n]->args[1]));
 	}
 	else
-	{
 		exit(shell->exit);
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/11 10:54:18 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/11 11:08:53 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,6 @@ int	new_shell(t_shell *shell)
 	free(shell->prompt);
 	free(shell->user);
 	free_m(shell->envp);
+	free(shell->old_pwd);
 	return (shell->exit);
 }

@@ -18,7 +18,7 @@ void empty_old_pwd(t_shell *shell)
 	free_m(shell->struct_cmd[0]->args);
 	free(shell->struct_cmd[0]);
 	free(shell->struct_cmd);
-	shell->old_pwd = NULL;
+	shell->old_pwd = ft_strdup("");
 }
 
 void alloc_envp(t_shell *shell, char **envp)
