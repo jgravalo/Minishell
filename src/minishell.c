@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/08 16:23:51 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/09/11 10:54:18 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	new_shell(t_shell *shell)
 	
 	memset(&sigint, 0, sizeof(struct sigaction));//funcion prohibida. hacer las nuestra
 	memset(&sigquit, 0, sizeof(struct sigaction));//funcion prohibida. hacer las nuestra
-	shell->line_number = 1;
 	while (1)
 	{	
 		g_exit = 0;

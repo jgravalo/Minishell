@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:37:09 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/11 10:37:28 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/11 10:53:44 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,11 @@ void	ft_exit(t_shell *shell, int n)
 			exit_message(shell, 2, shell->struct_cmd[n]->args[1]);
 		if (shell->struct_cmd[n]->args[2] != NULL)
 			exit_message(shell, 1, shell->struct_cmd[n]->args[1]);
-		exit(ft_atoi(shell->struct_cmd[n]->args[1]));
+		else
+			exit(ft_atoi(shell->struct_cmd[n]->args[1]));
 	}
 	else
+	{
 		exit(shell->exit);
+	}
 }

@@ -58,7 +58,6 @@ void init_shell(t_shell *shell)
 	shell->infd	= -1;
 	shell->outfd = -1;
 	shell->redir_type = -1;
-	shell->exit = 0;
 	shell->delimiter = NULL;
 	shell->heredoc_quoted = -1;
 	shell->inpipe = (int *)malloc(sizeof (int) * (shell->pipex + 1));
