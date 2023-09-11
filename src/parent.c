@@ -16,17 +16,21 @@ void	wait_for_children(t_shell *shell)
 	}
 	else
 	{	
-		i = 0;
 		while (shell->children != 0)
 		{	
-			pid = waitpid(shell->pid[i], &status, 0);
-			if (pid > 0)
-			{	
-				shell->children--;
-				if (WIFEXITED(status))
-					shell->exit = WEXITSTATUS(status);
+			i = 0;
+			while (i < shell->pipex + 1)
+			{
+				pid = waitpid(shell->pid[i], &status, WNOHANG);
+				if (pid > 0)
+				{	
+					shell->children--;
+					if (WIFEXITED(status))
+						shell->exit = WEXITSTATUS(status);
+				}
+				i++;
 			}
-			i++;
+			
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 13:29:05 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/12 00:19:52 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/12 00:48:33 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,8 @@ char	**ft_split_loop(char **res, char const *s, char c)
 	while (*s)
 	{	
 		res[j] = ft_strdup("");
+		while(*s == ' ')
+			s++;
 		while (*s != c && *s != '\0')
 		{	
 			i = 0;
