@@ -6,13 +6,13 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 13:29:05 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/12 01:41:25 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/12 01:55:04 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static char	*free_quotes(char *s)
+static char	*free_quotes(char *s, int n_quotes)
 {
 	char	*new;
 	char	quote;
@@ -22,7 +22,7 @@ static char	*free_quotes(char *s)
 	quote = 0;
 	i = 0;
 	j = 0;
-	new = malloc(sizeof(char) * ft_strlen(s) - 1);
+	new = malloc(sizeof(char) * ft_strlen(s) - (n_quotes * 2 + 1));
 	while (s[i])
 	{
 		if (quote == 0 && (s[i] == '\'' || s[i] == '\"'))
@@ -31,7 +31,10 @@ static char	*free_quotes(char *s)
 			i++;
 		}
 		else if (quote == s[i])
+		{
 			i++;
+			quote = 0;
+		}
 		else
 		{
 			new[j] = s[i];
@@ -90,19 +93,18 @@ char	*c_str(char const *s, char c, int *n)
 {
 	int		i;
 	char	*new;
-	int 	quote;
+	int 	n_quotes;
 
-	//printf("entra en cstr\n");
 	i = 0;
+	n_quotes = 0;
 	while (*s == ' ')
 		s++;
 	while (*s && *s != c)
 	{	
 		//printf("s esta en %s\n", s);
-		quote = 0;
 		if (*s == '\'' && ++s && ++i)
 		{	
-			quote = 1;
+			n_quotes++;
 			while (*s && *s != '\'' && ++i)
                 s++;
 			s++;
@@ -111,7 +113,7 @@ char	*c_str(char const *s, char c, int *n)
 		else if (*s == '\"' && ++s && ++i)
 		{	
 			//printf("entra en quote, s esta en %s\n", s);
-			quote = 2;
+			n_quotes++;
 			while (*s && *s != '\"' && ++i)
 				s++;
 			s++;
@@ -124,8 +126,8 @@ char	*c_str(char const *s, char c, int *n)
 		}
 	}
 	new = ft_substr(s - i, 0, i);
-	if (quote > 0)
-		new = free_quotes(new);
+	if (n_quotes > 0)
+		new = free_quotes(new, n_quotes);
 	*n = i;
 	return (new);
 }
