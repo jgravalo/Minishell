@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/07 19:06:21 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/11 18:46:41 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,8 @@ char *parse_redir(char *line, t_shell *shell, int n)
 		j = 0;
 		if (args[i][0] == '<' || args[i][0] == '>')
 		{
-			prepare_redir(args[i], shell, n, redir_num);
+			if (prepare_redir(args[i], shell, n, redir_num) != 0)
+				return (NULL);
 			free(args[i]);
 			redir_num++;
 			if (g_exit == 1)

@@ -62,11 +62,37 @@ static void prepare_append(t_shell *shell, char *tmp, int n, int redir_num)
 	free(tmp);
 }
 
-void	prepare_redir(char *line, t_shell *shell, int n, int redir_num)
+int	check_redir_errors(char	*redir)
+{
+	if (access(redir, F_OK) != 0)
+	{
+		write(2, ": No such file or directory\n", 30);
+		return (1);
+	}
+	if (access(redir, R_OK) != 0
+		|| access(redir, W_OK) != 0
+		|| access(redir, X_OK) != 0)
+	{
+		write(2, ": Permission denied\n", 30);
+		return (1);
+	}
+	return (0);
+}
+
+int		prepare_redir(char *line, t_shell *shell, int n, int redir_num)
 {	
 	char *tmp;
 
 	tmp = get_redir(line);
+	/* 
+	 //no esta finalizado. hay que obtener el fallo correspondiente para el tipo de error
+	if (check_redir_errors(tmp) != 0)
+	{
+		shell->exit = 1;
+		g_exit = 2;// para no interferir en el funcionamiento de g_exit == 1
+		return (1);
+	}
+	*/
 	shell->struct_cmd[n]->redir[redir_num] = malloc(sizeof (t_redir));
 	if (line[0] == '<' && line[1] != '<' && shell->redir_error[n] != 1)
 		prepare_infile(shell, ft_strdup(tmp), n, redir_num);
@@ -76,4 +102,5 @@ void	prepare_redir(char *line, t_shell *shell, int n, int redir_num)
 		prepare_outfile(shell, ft_strdup(tmp), n, redir_num);
 	else if (line[0] == '>' && line[1] == '>' && shell->redir_error[n] != 1)
  		prepare_append(shell, ft_strdup(tmp), n, redir_num);
+	return (0);
 }

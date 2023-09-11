@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/11 11:41:26 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/11 18:30:05 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,7 +256,7 @@ void 	write_heredoc_eof(t_shell *shell, int start_line);
 
 int		make_stdin_stdout(t_shell *shell, int n);
 
-void	prepare_redir(char *line, t_shell *shell, int n, int redir_num);
+int		prepare_redir(char *line, t_shell *shell, int n, int redir_num);
 
 char	*get_redir(char *line);
 
