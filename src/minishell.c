@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/12 01:16:56 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/12 12:30:13 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	new_shell(t_shell *shell)
 		set_interactive_sig(&sigint, &sigquit);
 		shell->prompt = get_prompt(shell, shell->envp);
 		shell->readline = readline("minishell> ");
+		lexer(shell, shell->readline);
 		if (shell->readline == NULL)
 		{	
 			write(1, "exit\n", 5);

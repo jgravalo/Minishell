@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:39:35 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/13 18:17:52 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/12 13:19:16 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,18 @@ static int	count_meta(char *line, int *i, int *tokens, int word)
 }
 
 static void	loop(char *line, int *i, int *tokens, int *word)
-{
+{	
+	char quote;
+
+/* 	if (line[*i] == '\'' || line[*i] == '\"')
+	{	
+		quote = line[*i];
+		(*tokens)++;
+		(*i)++;
+		while (line[*i] != quote)
+			(*i)++;
+		(*i)++;
+	} */
 	if (count_meta(line, i, tokens, *word) > 0)
 		*word = 0;
 	else if (line[*i] != ' ' && *word == 0)

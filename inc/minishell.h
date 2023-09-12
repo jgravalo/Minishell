@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/11 23:25:33 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/12 12:29:14 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ int		new_shell(t_shell *shell);
 
 void	parse_pipex(t_shell *shell);
 
-char	**lexer(char *line);
+void 	lexer(t_shell *shell, char *line);
 
 int		count_tokens(char *line);
 

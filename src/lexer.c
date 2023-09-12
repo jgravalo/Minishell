@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:20:58 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/13 18:22:30 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/12 13:19:40 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,43 +32,74 @@ static int	meta_len(char *line, int *len)
 	return (0);
 }
 
-static int	get_len(char *line, int *len)
+static int	get_len_quotes(char *line, int *len, int *cpy)
 {
-	int	count;
-	int	word;
+	int count;
+	int quote;
 
 	count = 0;
-	word = 0;
+	quote = line[*len];
+	(*len)++;
+	while (line[*len] != quote)
+	{
+		count++;
+		(*len)++;
+	}
+	(*len)++;
+	return (count);
+}
+
+static int	get_len(char *line, int *len, int *cpy)
+{
+	int	count;
+
+	count = 0;
 	count = meta_len(line, len);
 	if (count > 0)
 		return (count);
-	else
-	{
-		while (line[*len] != ' ' && 
-			is_meta(line[*len]) != 1 && line[*len] != '\0')
+	while (line[*len] != ' ' && is_meta(line[*len]) != 1 && line[*len] != '\0')
+	{	
+		if (line[*len] == '\'' || line[*len] == '\"')
+			count += get_len_quotes(line, len, cpy);
+		else
 		{
 			count++;
 			(*len)++;
 		}
-		return (count);
 	}
+	return (count);
 }
 
 static void	copy_token(char *dst, const char *src, int *cpy, size_t dstsize)
 {
-	int	i;
+	int		i;
+	int 	quote;
 
 	i = 0;
 	while (i < (dstsize - 1))
-	{
-		dst[i] = src[*cpy];
-		++i;
-		(*cpy)++;
+	{	
+		if (src[*cpy] == '\'' || src[*cpy] == '\"')
+		{
+			quote = src[*cpy];
+			while (src[*cpy] != quote)
+			{	
+				dst[i] = src[*cpy];
+				i++;
+				(*cpy)++;
+			}
+			(*cpy)++;
+		}
+		else
+		{
+			dst[i] = src[*cpy];
+			++i;
+			(*cpy)++;
+		}
 	}
 	dst[i] = '\0';
 }
 
-void static	lexer_loop(char *line, char **tokens, int n)
+void static	lexer_loop(char *line, t_shell *shell, int n)
 {
 	int	i;
 	int	len;
@@ -80,27 +111,26 @@ void static	lexer_loop(char *line, char **tokens, int n)
 	cpy = 0;
 	size = 0;
 	while (i < n)
-	{
+	{	
 		while (line[len] == ' ')
 		{
 			len++;
 			cpy++;
 		}
-		size = get_len(line, &len) + 1;
-		tokens[i] = (char *)malloc(sizeof (char) * size);
-		copy_token(tokens[i], line, &cpy, size);
+		size = get_len(line, &len, &cpy) + 1;
+		shell->tokens[i] = (char *)malloc(sizeof (char) * size);
+		copy_token(shell->tokens[i], line, &cpy, size);
 		i++;
 	}
-	tokens[i] = NULL;
+	shell->tokens[i] = NULL;
 }
 
-char	**lexer(char *line)
+void lexer(t_shell *shell, char *line)
 {
 	int		n;
-	char	**tokens;
 
 	n = count_tokens(line);
-	tokens = (char **)malloc(sizeof (char *) * (n + 1));
-	lexer_loop(line, tokens, n);
-	return (tokens);
+	shell->tokens = (char **)malloc(sizeof (char *) * (n + 1));
+	lexer_loop(line, shell, n);
+	//ft_printarr(shell->tokens);
 }
