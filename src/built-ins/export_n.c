@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:13:28 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/08 11:06:40 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/12 10:34:39 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ int	export_n(char *var, t_shell *shell)
 	int		i;
 	int		type;
 
+	//var = protect_quotes(var);
 	type = parse_var(var);
 	if (type == 1)
 		return (write_not_valid(var));

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/12 02:28:06 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/12 10:55:17 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,23 @@ char	**ft_split_meta(char const *s, char c)
 	return (res);
 }
 
+static char *add_quotes(char *s)
+{
+	int i;
+	int j;
+	char *new;
+
+	i = 0;
+	j = 0;
+	new = malloc(sizeof (char) * ft_strlen(s) + 3);
+	new[j++] = '\"';
+	while(s[i])
+		new[j++] = s[i++];
+	new[j++] = '\"';
+	new[j] = '\0';
+	return (new);
+}
+
 void	make_p(t_shell *shell, t_var *p, char *new_line, int n)
 {
 	int j;
@@ -65,6 +82,8 @@ void	make_p(t_shell *shell, t_var *p, char *new_line, int n)
 				j++;
 			p->var = ft_substr(p->tmp[n], 0, j);
 			p->exp = ft_strdup(search_var_line(p->var, shell->envp));
+			p->exp = add_quotes(p->exp);
+			//printf("expansion es %s\n", p->exp);
 			if (p->var)
 				free(p->var);
 		}
@@ -95,7 +114,8 @@ static char	*get_var(t_shell *shell, t_var *p, char *new_line, int n)
 		p->c = ft_strjoin(tmp, p->exp);
 		if (ft_strcmp("", tmp) == 0 || ft_strcmp("", p->exp) == 0)
 			p->c = ft_strdup(p->c);
-//		shell->vars_exp[n] = p->exp; // guardamos la variable expandida
+		//shell->vars_exp[n] = p->exp; // guardamos la variable expandida
+		//printf("vars exps es %s\n", shell->vars_exp[n]);
 		free(p->exp);
 		free(tmp);
 		tmp = p->new;

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:03:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/11 10:34:32 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/12 09:41:10 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,7 @@ int		is_alpha(char c);
 int		is_alpha_num(char c);
 
 int		built_in(t_shell *shell, int n);
+
+char 	*protect_quotes(char *var);
 
 #endif
