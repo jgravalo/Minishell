@@ -1,13 +1,19 @@
 #include  "../inc/minishell.h"
 
-static char *get_var(char *str)
+static char *get_var(char *str, int *i)
 {
-	int i;
+	int j;
+	int start;
 
-	i = 0;
-	while (str[i] && str[i] != ' ')
-		i++;
-	return (ft_substr(str, 0, i));
+	j = 0;
+	(*i)++;
+	start = *i;
+	while (str[*i] && str[*i] != ' ' && str[*i] != '$' && str[*i] != '\"')
+	{	
+		(*i)++;
+		j++;
+	}
+	return (ft_substr(str, start, j));
 }
 
 static void check_single(char *str, int *count, int *i)
@@ -38,11 +44,11 @@ static void check_double(char *str, int *count, int *i, char **envp)
 		{
 			if (str[*i] == '$' && is_alpha_num_exp(str[*i + 1]) == 1)
 			{	
-				var	=	get_var(&str[*i]);
+				var	=	get_var(str, i);
 				(*count) +=	ft_strlen(search_var_line(var, envp));
 			}
 			else
-			{
+			{	
 				(*i)++;
 				(*count)++;
 			}
@@ -52,16 +58,26 @@ static void check_double(char *str, int *count, int *i, char **envp)
 	}
 }
 
-static void check_normal(char *str, int *count, int *i)
-{
+static void check_normal(char *str, int *count, int *i, char **envp)
+{	
+	char *var;
+
 	while (str[*i] && str[*i] != '\'' && str[*i] != '\"')
-	{
-		(*i)++;
-		(*count)++;
+	{	
+		if (str[*i] == '$' && is_alpha_num_exp(str[*i + 1]) == 1)
+		{	
+			var	=	get_var(str, i);
+			(*count) +=	ft_strlen(search_var_line(var, envp));
+		}
+		else
+		{	
+			(*i)++;
+			(*count)++;
+		}
 	}
 }
 
-static int count_expstr(t_shell *shell, char *str)
+int count_expstr(t_shell *shell, char *str)
 {
 	int i;
 	int count;
@@ -70,25 +86,9 @@ static int count_expstr(t_shell *shell, char *str)
 	count = 0;
 	while (str[i])
 	{	
-		check_single(&str[i], &count, &i);
-		check_double(&str[i], &count, &i, shell->envp);
-		check_normal(&str[i], &count, &i);
+		check_single(str, &count, &i);
+		check_double(str, &count, &i, shell->envp);
+		check_normal(str, &count, &i, shell->envp);
 	}
 	return (count);
-}
-
-char *expand_str(t_shell *shell, t_tok *node)
-{
-	int len;
-	char *exp;
-	int i;
-
-	i = 0;
-	len = count_expstr(shell, node->token);
-	printf("len is %d\n", len);
-	exp = malloc(sizeof (char) * len + 1);
-	while (node->token[i])
-	{
-		if ()
-	}
 }
