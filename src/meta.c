@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:38:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/12 01:21:29 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/12 02:28:06 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ static char  *expand_tilde(char *line, char *new_line, t_shell *shell, t_var *p)
 				if (search_var_line("HOME", shell->envp) != NULL)
 				{
 					tmp1 = ft_substr(new_line, 0, j);
-					new_line = ft_strjoin(tmp1, search_var_line("HOME", shell->envp));
+					new_line = ft_strjoin(tmp1, ft_strdup(search_var_line("HOME", shell->envp)));
 					//free(tmp1);
 				}
 				else
