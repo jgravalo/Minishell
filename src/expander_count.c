@@ -8,7 +8,7 @@ static char *get_var(char *str, int *i)
 	j = 0;
 	(*i)++;
 	start = *i;
-	while (str[*i] && str[*i] != ' ' && str[*i] != '$' && str[*i] != '\"')
+	while (str[*i] && str[*i] != ' ' && str[*i] != '$' && str[*i] != '\"' && str[*i] != '\'')
 	{	
 		(*i)++;
 		j++;

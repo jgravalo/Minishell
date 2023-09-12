@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/13 01:29:58 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/13 01:34:29 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int	new_shell(t_shell *shell)
 		shell->prompt = get_prompt(shell, shell->envp);
 		shell->readline = readline("minishell> ");
 		lexer(shell, shell->readline);
-		printf("tokens: \n");
-		ft_printlst(shell->tokens);
+/* 		printf("tokens: \n");
+		ft_printlst(shell->tokens); */
 		expander(shell);
 		printf("expansions: \n");
 		ft_printlst(shell->expanded);

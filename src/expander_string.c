@@ -8,7 +8,7 @@ static char *get_var(char *str, int *i)
 	j = 0;
 	(*i)++;
 	start = *i;
-	while (str[*i] && str[*i] != ' ' && str[*i] != '$' && str[*i] != '\"')
+	while (str[*i] && str[*i] != ' ' && str[*i] != '$' && str[*i] != '\"' && str[*i] != '\'')
 	{	
 		(*i)++;
 		j++;
@@ -33,12 +33,12 @@ static void check_double(char *str, int *i, int *j, t_shell *shell)
 	char *exp;
 	int	m;
 
-	m = 0;
 	if (str[*i] == '\"')
 	{	
 		shell->tmp_tok[(*j)++] = str[(*i)++];
 		while (str[*i] != '\"')
-		{
+		{	
+			m = 0;
 			if (str[*i] == '$' && is_alpha_num_exp(str[(*i) + 1]) == 1)
 			{	
 				var	=	get_var(str, i);
@@ -95,9 +95,9 @@ char *expand_str(t_shell *shell, t_tok *node)
 	int len;
 
 	len = count_expstr(shell, node->token);
-	printf("len es %d\n", len);
 	shell->tmp_tok = malloc(sizeof (char) * len + 1);
-	expand(shell, node->token);
-	printf("linea expandida es %s\n", shell->tmp_tok);
+	if (len > 1)
+		expand(shell, node->token);
+//	printf("linea expandida es %s\n", shell->tmp_tok);
 	return (shell->tmp_tok);
 }

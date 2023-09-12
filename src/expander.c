@@ -96,7 +96,8 @@ void expander(t_shell *shell)
 	{	
 		expstr = ft_strdup(expand_str(shell, shell->tokens));
 		free(shell->tmp_tok);
-		expand_loop(shell, expstr);
+		if (expstr)
+			expand_loop(shell, expstr);
 		shell->tokens = shell->tokens->next;
 	}	
 }
