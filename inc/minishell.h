@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/12 19:40:54 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/12 23:11:57 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,18 @@ typedef	struct s_cmd
 
 }				t_cmd;
 
-typedef struct s_shell
+typedef struct s_token
 {
-	char	**tokens;
+	char	*token;
+	char	*type;
+	struct s_token	*next;
+}				t_tok;
+
+typedef struct s_shell
+{	
+	t_tok	*tokens;
+	t_tok	*expanded;
+	char 	*tmp_tok;
 	char	**pipes;
 	char 	**envp;
 	char	**args;
@@ -290,6 +299,19 @@ int		dir_error(char *s, int n, int exit);
 
 char 	*remove_backslash(char *s);
 
+void	expander(t_shell *shell);
+
+t_tok	*ft_lstnew(void *content);
+
+void	ft_lstadd_back(t_tok **lst, t_tok *new);
+
+t_tok	*ft_lstlast(t_tok *lst);
+
+void	ft_printlst(t_tok *lst);
+
+char 	*expand_str(t_shell *shell, t_tok *node);
+
+int		is_alpha_num_exp(char c);
 /*
 void	make_history(t_hist *hist, char *line);
 

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:00:23 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/01 11:07:31 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/12 23:13:53 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int	unset(t_shell *shell, int n)
 	if (shell->struct_cmd[n]->args[i] == NULL)
 		return (0);
 	while (shell->struct_cmd[n]->args[i])
-	{
+	{	
+		//printf("entra aqui %s\n", shell->struct_cmd[n]->args[i]);
 		if (ft_strchr(shell->struct_cmd[n]->args[i], '=') != NULL)
 		{
 			write(2, "bash: unset: `", 14);

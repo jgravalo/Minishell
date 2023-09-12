@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:20:58 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/12 20:06:50 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/12 22:17:18 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,19 +106,20 @@ void static	lexer_loop(char *line, t_shell *shell, int n)
 			cpy++;
 		}
 		size = get_len(line, &len, &cpy) + 1;
-		shell->tokens[i] = (char *)malloc(sizeof (char) * size);
-		copy_token(shell->tokens[i], line, &cpy, size);
+		shell->tmp_tok = (char *)malloc(sizeof (char) * size);
+		copy_token(shell->tmp_tok, line, &cpy, size);
+		ft_lstadd_back(&(shell->tokens), ft_lstnew(ft_strdup(shell->tmp_tok)));
+		free(shell->tmp_tok);
 		i++;
 	}
-	shell->tokens[i] = NULL;
 }
 
 void lexer(t_shell *shell, char *line)
 {
 	int		n;
 
+	shell->tokens = NULL;
 	n = count_tokens(line);
-	shell->tokens = (char **)malloc(sizeof (char *) * (n + 1));
 	lexer_loop(line, shell, n);
 	//ft_printarr(shell->tokens);
 }

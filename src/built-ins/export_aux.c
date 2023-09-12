@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:17:20 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/11 12:52:23 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/12 22:51:24 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@ int	is_alpha_num(char c)
 {
 	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
 		|| (c >= '0' && c <= '9') || c == '_' || c == '?' || c == '\'' || c == '\"')
+		return (1);
+	return (0);
+}
+
+int	is_alpha_num_exp(char c)
+{
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
+		|| (c >= '0' && c <= '9') || c == '_' || c == '?')
 		return (1);
 	return (0);
 }
