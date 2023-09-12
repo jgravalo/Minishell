@@ -6,26 +6,26 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:20:58 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/12 13:19:40 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/12 20:06:50 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 static int	meta_len(char *line, int *len)
-{
-	if (is_pipe_or_dollar(line[*len]) == 1)
-	{
+{	
+	if (is_pipe(line[*len]) == 1)
+	{	
 		(*len)++;
 		return (1);
 	}
-	else if (is_redir(line) == 2)
-	{
+	else if (is_redir(&line[*len]) == 2)
+	{	
 		(*len) += 2;
 		return (2);
 	}
 	else if (is_redir(&line[*len]) == 1)
-	{
+	{	
 		(*len)++;
 		return (1);
 	}
@@ -39,6 +39,7 @@ static int	get_len_quotes(char *line, int *len, int *cpy)
 
 	count = 0;
 	quote = line[*len];
+	count++;
 	(*len)++;
 	while (line[*len] != quote)
 	{
@@ -46,6 +47,7 @@ static int	get_len_quotes(char *line, int *len, int *cpy)
 		(*len)++;
 	}
 	(*len)++;
+	count++;
 	return (count);
 }
 
@@ -62,7 +64,7 @@ static int	get_len(char *line, int *len, int *cpy)
 		if (line[*len] == '\'' || line[*len] == '\"')
 			count += get_len_quotes(line, len, cpy);
 		else
-		{
+		{	
 			count++;
 			(*len)++;
 		}
@@ -78,23 +80,9 @@ static void	copy_token(char *dst, const char *src, int *cpy, size_t dstsize)
 	i = 0;
 	while (i < (dstsize - 1))
 	{	
-		if (src[*cpy] == '\'' || src[*cpy] == '\"')
-		{
-			quote = src[*cpy];
-			while (src[*cpy] != quote)
-			{	
-				dst[i] = src[*cpy];
-				i++;
-				(*cpy)++;
-			}
-			(*cpy)++;
-		}
-		else
-		{
-			dst[i] = src[*cpy];
-			++i;
-			(*cpy)++;
-		}
+		dst[i] = src[*cpy];
+		++i;
+		(*cpy)++;
 	}
 	dst[i] = '\0';
 }

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/12 13:23:03 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/12 19:40:54 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ void 	lexer(t_shell *shell, char *line);
 
 int		count_tokens(char *line);
 
-int		is_pipe_or_dollar(char c);
+int		is_pipe(char c);
 
 int		is_redir(char *str);
 

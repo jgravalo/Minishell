@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:21:59 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/31 15:50:28 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/09/12 20:05:50 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_meta(char c)
 {
-	if (c == '<' || c == '>' || c == '|' || c == '$')
+	if (c == '<' || c == '>' || c == '|')
 		return (1);
 	else
 		return (0);
