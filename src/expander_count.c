@@ -45,7 +45,10 @@ static void check_double(char *str, int *count, int *i, char **envp)
 			if (str[*i] == '$' && is_alpha_num_exp(str[*i + 1]) == 1)
 			{	
 				var	=	get_var(str, i);
-				(*count) +=	ft_strlen(search_var_line(var, envp));
+				if (ft_strcmp(var, "?") == 0)
+					(*count)++;
+				else
+					(*count) +=	ft_strlen(search_var_line(var, envp));
 			}
 			else
 			{	
@@ -67,7 +70,10 @@ static void check_normal(char *str, int *count, int *i, char **envp)
 		if (str[*i] == '$' && is_alpha_num_exp(str[*i + 1]) == 1)
 		{	
 			var	=	get_var(str, i);
-			(*count) +=	ft_strlen(search_var_line(var, envp));
+			if (ft_strcmp(var, "?") == 0)
+				(*count)++;
+			else
+				(*count) +=	ft_strlen(search_var_line(var, envp));
 		}
 		else
 		{	

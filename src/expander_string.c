@@ -42,7 +42,10 @@ static void check_double(char *str, int *i, int *j, t_shell *shell)
 			if (str[*i] == '$' && is_alpha_num_exp(str[(*i) + 1]) == 1)
 			{	
 				var	=	get_var(str, i);
-				exp = search_var_line(var, shell->envp);
+				if (ft_strcmp(var, "?") == 0)
+					exp = ft_itoa(shell->exit);
+				else
+					exp = ft_strdup(search_var_line(var, shell->envp));
 				while (exp && exp[m])
 					shell->tmp_tok[(*j)++] = exp[m++];
 			}
@@ -65,7 +68,10 @@ static void check_normal(char *str, int *i, int *j, t_shell *shell)
 		if (str[*i] == '$' && is_alpha_num_exp(str[*i + 1]) == 1)
 		{
 			var	=	get_var(str, i);
-			exp = ft_strdup(search_var_line(var, shell->envp));
+			if (ft_strcmp(var, "?") == 0)
+				exp = ft_itoa(shell->exit);
+			else
+				exp = ft_strdup(search_var_line(var, shell->envp));
 			while (exp[m])
 				shell->tmp_tok[(*j)++] = exp[m++];
 		}
@@ -95,9 +101,14 @@ char *expand_str(t_shell *shell, t_tok *node)
 	int len;
 
 	len = count_expstr(shell, node->token);
-	shell->tmp_tok = malloc(sizeof (char) * len + 1);
-	if (len > 1)
+	//printf("len es %d\n", len);
+	if (len > 0)
+	{
+		shell->tmp_tok = malloc(sizeof (char) * len + 1);
 		expand(shell, node->token);
-//	printf("linea expandida es %s\n", shell->tmp_tok);
+	}
+	else
+		shell->tmp_tok = NULL;
+	//printf("linea expandida es %s\n", shell->tmp_tok);
 	return (shell->tmp_tok);
 }
