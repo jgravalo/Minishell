@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:58:59 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/12 01:33:00 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/12 10:54:54 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static int	is_n_option(char *argv)
 int	echo(char **argv)
 {
 	int		i;
+	char	*new;
 
 	i = 1;
 	//ft_printarr(argv);
@@ -47,8 +48,9 @@ int	echo(char **argv)
 	while (is_n_option(argv[i]) == 0)
 		i++;
 	while (argv && argv[i])
-	{
-		write(1, argv[i], ft_strlen(argv[i]));
+	{	
+		new = remove_backslash(argv[i]);
+		write(1, new, ft_strlen(new));
 			if (argv[i + 1])
 				write(1, " ", 1);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/11 23:25:33 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/12 10:38:57 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,6 +287,8 @@ int		count_redir_arr(char **args);
 void	ft_print_intarr(int *arr, int n);
 
 int		dir_error(char *s, int n, int exit);
+
+char 	*remove_backslash(char *s);
 
 /*
 void	make_history(t_hist *hist, char *line);
