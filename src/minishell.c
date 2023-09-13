@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/13 02:39:05 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/13 13:29:48 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,13 @@ int	new_shell(t_shell *shell)
 		shell->readline = readline("minishell> ");
 		add_history(shell->readline);
 		lexer(shell, shell->readline);
-		printf("tras lexer:\n");
-		ft_printlst(shell->tokens);
+		categorizer(shell->tokens);
+		ft_printbothlst(shell->tokens);
+		parser(shell);
+		ft_printcmd(shell->s_cmd);
+/* 		
 		expander(shell);
-		printf("tras expander:\n");
-		ft_printlst(shell->expanded);
-		categorizer(shell->expanded);
-		printf("tras categorizer:\n");
-		ft_printbothlst(shell->expanded);
-		quote_remove(shell->expanded);
-		printf("tras quote remove:\n");
-		ft_printbothlst(shell->expanded);	
+		quote_remove(shell->expanded);	 */
 		if (shell->readline == NULL)
 		{	
 			write(1, "exit\n", 5);

@@ -44,3 +44,26 @@ void	ft_print_intarr(int *arr, int n)
 	}
 	printf("\n");
 }
+
+void	ft_printcmd(t_cmd **cmd)
+{
+	int i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		printf("args son:\n");
+		ft_printarr(cmd[i]->args);
+		ft_printredirlist(cmd[i]->redir_list);
+		i++;
+	}
+}
+
+void	ft_printredirlist(t_redir *redir)
+{
+	while (redir)
+	{
+		printf("type %d, path %s\n", redir->type, redir->path);
+		redir = redir->next;
+	}
+}

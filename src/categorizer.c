@@ -1,18 +1,18 @@
 #include  "../inc/minishell.h"
 
-void categorizer(t_tok *expanded)
+void categorizer(t_tok *tokens)
 {
-	while (expanded)
+	while (tokens)
 	{
-		if (ft_strcmp(expanded->token, "|") == 0)
-			expanded->type = "PIPE";
-		else if (ft_strcmp(expanded->token, ">") == 0
-			|| ft_strcmp(expanded->token, "<") == 0
-			|| ft_strcmp(expanded->token, ">>") == 0
-			|| ft_strcmp(expanded->token, "<<") == 0)
-			expanded->type = "REDIR";
+		if (ft_strcmp(tokens->token, "|") == 0)
+			tokens->type = "PIPE";
+		else if (ft_strcmp(tokens->token, ">") == 0
+			|| ft_strcmp(tokens->token, "<") == 0
+			|| ft_strcmp(tokens->token, ">>") == 0
+			|| ft_strcmp(tokens->token, "<<") == 0)
+			tokens->type = "REDIR";
 		else
-			expanded->type = "WORD";
-		expanded = expanded->next;
+			tokens->type = "WORD";
+		tokens = tokens->next;
 	}
 }

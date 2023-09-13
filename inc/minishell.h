@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/13 02:37:12 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/13 12:38:48 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@
 # include <dirent.h>
 //# include "../gnl/get_next_line.h"
 //# include "builtins.h"
+
+# define IN 1
+# define OUT 2
+# define APPEND 3
+# define HERE 4
 
 # define DEF_PATH "/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:"
 # define INFILE shell->struct_cmd[n]->redir[i]->type == 0
@@ -59,6 +64,7 @@ typedef struct s_redir
 	char 	*path;
 	int		heredoc_fd;
 	int		type;
+	struct s__redir	*next;
 }			t_redir;
 
 extern int	g_exit;
@@ -67,11 +73,12 @@ typedef	struct s_cmd
 {
 	char **args;
 	t_redir	**redir;
+	t_redir *redir_list;
 	char	*infile_path;
 	char	*outfile_path;
+	int		here_doc;
 	int		infile;
 	int 	outfile;
-
 }				t_cmd;
 
 typedef struct s_token
@@ -97,6 +104,7 @@ typedef struct s_shell
 	pid_t	*pid;
 	int		*pid_end;
 	t_cmd	**struct_cmd;
+	t_cmd	**s_cmd;
 	char	*cmd;
 	char	*user;
 	char 	*delimiter;
@@ -320,6 +328,16 @@ void 	parser(t_shell *shell);
 void 	categorizer(t_tok *expanded);
 
 void	ft_printbothlst(t_tok *lst);
+
+t_redir	*ft_redirlstnew(void *content, int type);
+
+void	ft_redirlstadd_back(t_redir **lst, t_redir *new);
+
+t_redir	*ft_redirlstlast(t_redir *lst);
+
+void	ft_printcmd(t_cmd **cmd);
+
+void	ft_printredirlist(t_redir *redir);
 /*
 void	make_history(t_hist *hist, char *line);
 
