@@ -76,7 +76,6 @@ static void expand_loop(t_shell *shell, char *str)
 			cpy++;
 		}
 		size = count_expand(str, &len, &cpy) + 1;
-		printf("siz ees %d\n", size);
 		shell->tmp_tok = (char *)malloc(sizeof (char) * size);
 		copy_token(shell->tmp_tok, str, &cpy, size);
 		ft_lstadd_back(&(shell->expanded), ft_lstnew(ft_strdup(shell->tmp_tok)));

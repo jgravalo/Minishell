@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/13 02:20:36 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/13 02:39:05 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,12 @@ int	new_shell(t_shell *shell)
 		expander(shell);
 		printf("tras expander:\n");
 		ft_printlst(shell->expanded);
+		categorizer(shell->expanded);
+		printf("tras categorizer:\n");
+		ft_printbothlst(shell->expanded);
 		quote_remove(shell->expanded);
 		printf("tras quote remove:\n");
-		ft_printlst(shell->expanded);	
+		ft_printbothlst(shell->expanded);	
 		if (shell->readline == NULL)
 		{	
 			write(1, "exit\n", 5);

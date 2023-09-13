@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/13 01:59:24 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/13 02:37:12 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -316,6 +316,10 @@ int		is_alpha_num_exp(char c);
 int 	count_expstr(t_shell *shell, char *str);
 
 void 	parser(t_shell *shell);
+
+void 	categorizer(t_tok *expanded);
+
+void	ft_printbothlst(t_tok *lst);
 /*
 void	make_history(t_hist *hist, char *line);
 

@@ -101,7 +101,6 @@ char *expand_str(t_shell *shell, t_tok *node)
 	int len;
 
 	len = count_expstr(shell, node->token);
-	printf("len es %d\n", len);
 	if (len > 0)
 	{
 		shell->tmp_tok = malloc(sizeof (char) * len + 1);
@@ -109,6 +108,5 @@ char *expand_str(t_shell *shell, t_tok *node)
 	}
 	else
 		shell->tmp_tok = NULL;
-	printf("linea expandida es %s\n", shell->tmp_tok);
 	return (shell->tmp_tok);
 }

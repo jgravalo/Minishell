@@ -48,3 +48,13 @@ void	ft_printlst(t_tok *lst)
 		lst = lst->next;
 	}
 }
+
+void	ft_printbothlst(t_tok *lst)
+{
+	while (lst)
+	{
+		printf("%s\n", lst->token);
+		printf("%s\n", lst->type);
+		lst = lst->next;
+	}
+}
