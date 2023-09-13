@@ -59,6 +59,20 @@ void	ft_printcmd(t_cmd **cmd)
 	}
 }
 
+void	ft_printcmdargx(t_cmd **cmd)
+{
+	int i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		printf("argxs son:\n");
+		ft_printarglist(cmd[i]->argx);
+		ft_printredirlist(cmd[i]->redir_list);
+		i++;
+	}
+}
+
 void	ft_printredirlist(t_redir *redir)
 {
 	while (redir)

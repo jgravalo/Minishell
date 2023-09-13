@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/14 00:01:56 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 00:37:50 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef	struct s_cmd
 	char **args;
 	t_redir	**redir;
 	t_arg 	*arg;
+	t_arg	*argx;
 	t_redir *redir_list;
 	char	*infile_path;
 	char	*outfile_path;
@@ -326,11 +327,11 @@ t_tok	*ft_lstlast(t_tok *lst);
 
 void	ft_printlst(t_tok *lst);
 
-char 	*expand_str(t_shell *shell, t_arg *arg);
+char 	*expand_str(t_shell *shell, t_arg *arg, int *quotes);
 
 int		is_alpha_num_exp(char c);
 
-int 	count_expstr(t_shell *shell, char *str);
+int 	count_expstr(t_shell *shell, char *str, int *quotes);
 
 void 	parser(t_shell *shell);
 
@@ -358,7 +359,9 @@ void	ft_printarglist(t_arg *arg);
 
 void	ft_printredirarglist(t_arg *arg);
 
-t_redir *dup_redir_node(t_redir *node, int type, t_arg *arg);
+void	ft_arglstadd_front(t_arg **lst, t_arg *new);
+
+void	ft_printcmdargx(t_cmd **cmd);
 
 /*
 void	make_history(t_hist *hist, char *line);

@@ -16,7 +16,7 @@ static char *get_var(char *str, int *i)
 	return (ft_substr(str, start, j));
 }
 
-static void check_single(char *str, int *count, int *i)
+static int check_single(char *str, int *count, int *i)
 {
 	if (str[*i] == '\'')
 	{	
@@ -29,10 +29,12 @@ static void check_single(char *str, int *count, int *i)
 		}
 		(*i)++;
 		(*count)++;
+		return (1);
 	}
+	return (0);
 }
 
-static void check_double(char *str, int *count, int *i, char **envp)
+static int check_double(char *str, int *count, int *i, char **envp)
 {	
 	char *var;
 
@@ -58,7 +60,9 @@ static void check_double(char *str, int *count, int *i, char **envp)
 		}
 		(*i)++;
 		(*count)++;
+		return (1);
 	}
+	return (0);
 }
 
 static void check_normal(char *str, int *count, int *i, char **envp)
@@ -83,7 +87,7 @@ static void check_normal(char *str, int *count, int *i, char **envp)
 	}
 }
 
-int count_expstr(t_shell *shell, char *str)
+int count_expstr(t_shell *shell, char *str, int *quotes)
 {
 	int i;
 	int count;
@@ -92,8 +96,10 @@ int count_expstr(t_shell *shell, char *str)
 	count = 0;
 	while (str[i])
 	{	
-		check_single(str, &count, &i);
-		check_double(str, &count, &i, shell->envp);
+		if (check_single(str, &count, &i))
+			*quotes = 1;
+		if (check_double(str, &count, &i, shell->envp))
+			*quotes = 1;
 		check_normal(str, &count, &i, shell->envp);
 	}
 	return (count);

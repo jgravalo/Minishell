@@ -96,11 +96,11 @@ static void	expand(t_shell *shell, char *str)
 	shell->tmp_tok[j] = '\0';
 }
 
-char *expand_str(t_shell *shell, t_arg *arg)
+char *expand_str(t_shell *shell, t_arg *arg, int *quotes)
 {
 	int len;
 
-	len = count_expstr(shell, arg->arg);
+	len = count_expstr(shell, arg->arg, quotes);
 	if (len > 0)
 	{
 		shell->tmp_tok = malloc(sizeof (char) * len + 1);

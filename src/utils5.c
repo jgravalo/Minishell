@@ -140,15 +140,21 @@ void	ft_printbothlst(t_tok *lst)
 	}
 }
 
-t_redir *dup_redir_node(t_redir *node, int type, t_arg *arg)
-{
-	t_redir	*new;
-
-	new = (t_redir *)malloc(sizeof (*node));
-	if (!new)
-		return (NULL);
-	new->path_arg = arg;
-	new->type = type;
-	new->next = NULL;
-	return (node);
+void	ft_arglstadd_front(t_arg **lst, t_arg *new)
+{	
+	if (lst)
+	{
+		if (!lst || !new)
+			return ;
+		if (*lst == NULL)
+		{
+			*lst = new;
+			new->next = NULL;
+		}
+		else
+		{
+			new->next = *lst;
+			*lst = new;
+		}
+	}
 }
