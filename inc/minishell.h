@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/13 14:52:11 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 00:01:56 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -357,6 +357,8 @@ t_arg	*ft_arglstnew(void *content);
 void	ft_printarglist(t_arg *arg);
 
 void	ft_printredirarglist(t_arg *arg);
+
+t_redir *dup_redir_node(t_redir *node, int type, t_arg *arg);
 
 /*
 void	make_history(t_hist *hist, char *line);

@@ -139,3 +139,16 @@ void	ft_printbothlst(t_tok *lst)
 		lst = lst->next;
 	}
 }
+
+t_redir *dup_redir_node(t_redir *node, int type, t_arg *arg)
+{
+	t_redir	*new;
+
+	new = (t_redir *)malloc(sizeof (*node));
+	if (!new)
+		return (NULL);
+	new->path_arg = arg;
+	new->type = type;
+	new->next = NULL;
+	return (node);
+}
