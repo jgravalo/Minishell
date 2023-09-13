@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/13 01:34:29 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/13 02:20:36 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,16 @@ int	new_shell(t_shell *shell)
 		set_interactive_sig(&sigint, &sigquit);
 		shell->prompt = get_prompt(shell, shell->envp);
 		shell->readline = readline("minishell> ");
+		add_history(shell->readline);
 		lexer(shell, shell->readline);
-/* 		printf("tokens: \n");
-		ft_printlst(shell->tokens); */
+		printf("tras lexer:\n");
+		ft_printlst(shell->tokens);
 		expander(shell);
-		printf("expansions: \n");
+		printf("tras expander:\n");
 		ft_printlst(shell->expanded);
+		quote_remove(shell->expanded);
+		printf("tras quote remove:\n");
+		ft_printlst(shell->expanded);	
 		if (shell->readline == NULL)
 		{	
 			write(1, "exit\n", 5);
@@ -64,10 +68,9 @@ int	new_shell(t_shell *shell)
 		}
 		if (shell->readline[0] != 0)
 		{	
-			shell->readline = parse_quotes(shell->readline);
+			//shell->readline = parse_quotes(shell->readline);
 			if (parse_pipes(shell) != 0)
 				continue ;
-			add_history(shell->readline);
 			shell->readline = expand_meta(shell, shell->readline, 0);
 			if (ft_strlen(shell->readline) > 0)
 				parse_pipex(shell);

@@ -4,19 +4,16 @@ static void (count_quote(char *token, int *len, int *cpy, int *count))
 {	
 	char	quote;
 
-	if (token[*len] == '\'' || token[*len] == '\"')
-	{	
-		quote = token[*len];
-		(*count)++;
-		(*len)++;
-		while (token[*len] != quote)
-		{
-			(*count)++;
-			(*len)++;
-		}
+	quote = token[*len];
+	(*count)++;
+	(*len)++;
+	while (token[*len] != quote)
+	{
 		(*count)++;
 		(*len)++;
 	}
+	(*count)++;
+	(*len)++;
 }
 
 static int count_expand(char *token, int *len, int *cpy)
@@ -28,8 +25,9 @@ static int count_expand(char *token, int *len, int *cpy)
 	count = 0;
 	while(token[*len])
 	{	
-		count_quote(token, len, cpy, &count);
-		if (token[*len] == ' ')
+		if (token[*len] == '\'' || token[*len] == '\"')
+			count_quote(token, len, cpy, &count);
+		else if (token[*len] == ' ')
 		{	
 			(*len)++;
 			return (count);
@@ -78,6 +76,7 @@ static void expand_loop(t_shell *shell, char *str)
 			cpy++;
 		}
 		size = count_expand(str, &len, &cpy) + 1;
+		printf("siz ees %d\n", size);
 		shell->tmp_tok = (char *)malloc(sizeof (char) * size);
 		copy_token(shell->tmp_tok, str, &cpy, size);
 		ft_lstadd_back(&(shell->expanded), ft_lstnew(ft_strdup(shell->tmp_tok)));
