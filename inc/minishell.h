@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/13 12:38:48 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/13 14:52:11 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,21 @@ typedef struct s_pipe{
 //	struct s_pipe	*next;
 }	t_pipe;
 
+typedef struct s_arg
+{
+	char *arg;
+	struct s_arg 	*next;
+}				t_arg;
+
 typedef struct s_redir
 {
-	char 	*path;
+	t_arg 	*path_arg;
+	char	*path;
 	int		heredoc_fd;
 	int		type;
-	struct s__redir	*next;
+	struct s_redir	*next;
 }			t_redir;
+
 
 extern int	g_exit;
 
@@ -73,6 +81,7 @@ typedef	struct s_cmd
 {
 	char **args;
 	t_redir	**redir;
+	t_arg 	*arg;
 	t_redir *redir_list;
 	char	*infile_path;
 	char	*outfile_path;
@@ -307,7 +316,7 @@ int		dir_error(char *s, int n, int exit);
 
 char 	*remove_backslash(char *s);
 
-void	expander(t_shell *shell);
+void 	expander(t_shell *shell, t_cmd **cmd);
 
 t_tok	*ft_lstnew(void *content);
 
@@ -317,7 +326,7 @@ t_tok	*ft_lstlast(t_tok *lst);
 
 void	ft_printlst(t_tok *lst);
 
-char 	*expand_str(t_shell *shell, t_tok *node);
+char 	*expand_str(t_shell *shell, t_arg *arg);
 
 int		is_alpha_num_exp(char c);
 
@@ -329,7 +338,7 @@ void 	categorizer(t_tok *expanded);
 
 void	ft_printbothlst(t_tok *lst);
 
-t_redir	*ft_redirlstnew(void *content, int type);
+t_redir	*ft_redirlstnew(int type);
 
 void	ft_redirlstadd_back(t_redir **lst, t_redir *new);
 
@@ -338,6 +347,17 @@ t_redir	*ft_redirlstlast(t_redir *lst);
 void	ft_printcmd(t_cmd **cmd);
 
 void	ft_printredirlist(t_redir *redir);
+
+t_arg	*ft_arglstlast(t_arg *lst);
+
+void	ft_arglstadd_back(t_arg **lst, t_arg *new);
+
+t_arg	*ft_arglstnew(void *content);
+
+void	ft_printarglist(t_arg *arg);
+
+void	ft_printredirarglist(t_arg *arg);
+
 /*
 void	make_history(t_hist *hist, char *line);
 

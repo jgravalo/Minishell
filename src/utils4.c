@@ -53,7 +53,7 @@ void	ft_printcmd(t_cmd **cmd)
 	while (cmd[i])
 	{
 		printf("args son:\n");
-		ft_printarr(cmd[i]->args);
+		ft_printarglist(cmd[i]->arg);
 		ft_printredirlist(cmd[i]->redir_list);
 		i++;
 	}
@@ -63,7 +63,26 @@ void	ft_printredirlist(t_redir *redir)
 {
 	while (redir)
 	{
-		printf("type %d, path %s\n", redir->type, redir->path);
+		printf("redir type %d\n", redir->type);
+		ft_printredirarglist(redir->path_arg);
 		redir = redir->next;
+	}
+}
+
+void	ft_printredirarglist(t_arg *arg)
+{
+	while (arg)
+	{
+		printf("redir path %s\n", arg->arg);
+		arg = arg->next;
+	}
+}
+
+void	ft_printarglist(t_arg *arg)
+{
+	while (arg)
+	{
+		printf("arg %s\n", arg->arg);
+		arg = arg->next;
 	}
 }

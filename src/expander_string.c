@@ -96,15 +96,15 @@ static void	expand(t_shell *shell, char *str)
 	shell->tmp_tok[j] = '\0';
 }
 
-char *expand_str(t_shell *shell, t_tok *node)
+char *expand_str(t_shell *shell, t_arg *arg)
 {
 	int len;
 
-	len = count_expstr(shell, node->token);
+	len = count_expstr(shell, arg->arg);
 	if (len > 0)
 	{
 		shell->tmp_tok = malloc(sizeof (char) * len + 1);
-		expand(shell, node->token);
+		expand(shell, arg->arg);
 	}
 	else
 		shell->tmp_tok = NULL;

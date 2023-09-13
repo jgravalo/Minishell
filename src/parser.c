@@ -35,6 +35,7 @@ static void init(t_cmd **cmd, int n)
 	{	
 		cmd[i] = malloc(sizeof (t_cmd));
 		cmd[i]->redir_list = NULL;
+		cmd[i]->arg = NULL;
 		i++;
 	}
 }
@@ -69,22 +70,21 @@ static void parse(t_tok *tokens, t_cmd **cmd)
 	while (tokens)
 	{
 		if (ft_strcmp(tokens->type, "WORD") == 0)
-			cmd[j]->args[i++] = ft_strdup(tokens->token);
+			ft_arglstadd_back(&(cmd[j]->arg), ft_arglstnew(ft_strdup(tokens->token)));
 		else if (ft_strcmp(tokens->type, "REDIR") == 0)
 		{	
 			redir = redir_type(tokens);
 			tokens = tokens->next;
-			ft_redirlstadd_back(&(cmd[j]->redir_list), ft_redirlstnew(ft_strdup(tokens->token), redir));
+			ft_redirlstadd_back(&(cmd[j]->redir_list), ft_redirlstnew(redir));
+			ft_arglstadd_back(&cmd[j]->redir_list->path_arg, ft_arglstnew(tokens->token));
 		}
 		else // pipe, nuevo command struct
-		{	
-			cmd[j]->args[i] = NULL;
+		{
 			j++;
 			i = 0;
 		}
 		tokens = tokens->next;
 	}
-	cmd[j]->args[i] = NULL;
 	j++;
 	cmd[j] = NULL;
 }
@@ -98,6 +98,5 @@ void parser(t_shell *shell)
 	printf("n es %d\n", n);
 	shell->s_cmd = malloc(sizeof (t_cmd *) * (n + 2));
 	init(shell->s_cmd, n + 2);
-	alloc_args(shell->s_cmd, shell->tokens);
 	parse(shell->tokens, shell->s_cmd);
 }
