@@ -45,15 +45,12 @@ static int check_double(char *str, int *count, int *i, char **envp)
 		while (str[*i] != '\"')
 		{
 			if (str[*i] == '$' && is_alpha_num_exp(str[*i + 1]) == 1)
-			{	
+			{
 				var	=	get_var(str, i);
 				if (ft_strcmp(var, "?") == 0)
 					(*count)++;
 				else
 					(*count) +=	ft_strlen(search_var_line(var, envp));
-				(*i)++;
-				(*count)++;
-				return (1);
 			}
 			else
 			{	
@@ -91,7 +88,7 @@ static int check_normal(char *str, int *count, int *i, char **envp)
 			(*count)++;
 		}
 	}
-	return (0);
+	return (1);
 }
 
 int count_expstr(t_shell *shell, char *str, int *i)
@@ -101,26 +98,23 @@ int count_expstr(t_shell *shell, char *str, int *i)
 	shell->var_quoted = 0;
 
 	count = 0;
+	if (*i && str[*i] && str[*i - 1] && str[*i - 1] != ' ')
+		shell->var_cat = 1;
+	//printf("str %s, cat es %d\n", &str[*i], shell->var_cat);
 	while (str[*i])
 	{	
 		if (check_single(str, &count, i))
 		{
 			shell->var_quoted = 1;
-			if (str[*i] && str[*i + 1] && str[*i + 1] != ' ')
-				shell->var_cat = 1;
 			return (count);
 		}
 		if (check_double(str, &count, i, shell->envp))
 		{	
 			shell->var_quoted = 1;
-			if (str[*i] && str[*i + 1] && str[*i + 1] != ' ')
-				shell->var_cat = 1;
 			return (count);
 		}
 		if (check_normal(str, &count, i, shell->envp))
 		{	
-			if (str[*i] && str[*i + 1] && str[*i + 1] == ' ')
-				shell->var_cat = 1;
 			return (count);
 		}
 	}

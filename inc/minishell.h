@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/14 21:21:58 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 22:12:47 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_pipe{
 typedef struct s_arg
 {
 	char *arg;
+	char *quoted_str;
 	int	 quoted;
 	struct s_arg 	*next;
 }				t_arg;
@@ -395,6 +396,10 @@ void 	execute_pipes(t_shell *shell, t_cmd **cmd, int i);
 void	parent_wait(t_shell *shell, t_cmd **cmd);
 
 int 	check_builtin(char **args);
+
+int 	count_quotes(char *str);
+
+void 	copy_new(char *new, char *str);
 
 /*
 void	make_history(t_hist *hist, char *line);

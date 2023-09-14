@@ -126,6 +126,18 @@ static void redir_loop(t_shell *shell, char *str, t_cmd *cmd)
 	}
 }
 
+char *remove_quotes(char *str)
+{
+	char *tmp;
+	int	len;
+
+	len = count_quotes(str);
+	tmp = malloc(sizeof (char) * ft_strlen(str) - len + 1);
+	copy_new(tmp, str);
+	free(str);
+	return (tmp);
+}
+
 static void arg_loop(t_shell *shell, char *str, t_cmd *cmd)
 {
 	int	i;
@@ -149,14 +161,12 @@ static void arg_loop(t_shell *shell, char *str, t_cmd *cmd)
 		{
 			shell->tmp_tok = (char *)malloc(sizeof (char) * size);
 			copy_token(shell->tmp_tok, str, &cpy, size);
+			if (shell->var_quoted)
+				shell->tmp_tok = remove_quotes(shell->tmp_tok);
 			if (shell->var_cat)
 				ft_arglstlast(cmd->argx)->arg = ft_strjoin(ft_arglstlast(cmd->argx)->arg, shell->tmp_tok);
 			else
-			{
-				ft_arglstadd_back(&(cmd->argx), ft_arglstnew(ft_strdup(shell->tmp_tok)));
-				if (shell->var_quoted)
-					ft_arglstlast(cmd->argx)->quoted = 1;
-			}
+				ft_arglstadd_back(&(cmd->argx), ft_arglstnew(ft_strdup(shell->tmp_tok)));	
 			free(shell->tmp_tok);
 		}
 	}
@@ -180,6 +190,7 @@ static  void expand_args(t_shell *shell, t_cmd **cmd)
 			while (cmd[n]->arg->arg[i])
 			{
 				expstr = ft_strdup(expand_str(shell, cmd[n]->arg, &i, &j));
+				//printf("exp str es %s\n", expstr);
 				free(shell->tmp_tok);
 				if (expstr)
 					arg_loop(shell, expstr, cmd[n]);

@@ -48,13 +48,12 @@ static int check_double(char *str, int *i, int *j, t_shell *shell)
 					exp = ft_strdup(search_var_line(var, shell->envp));
 				while (exp && exp[m])
 					shell->tmp_tok[(*i)++] = exp[m++];
-				shell->tmp_tok[(*i)++] = str[(*j)++];
-				return (1);
 			}
 			else
 				shell->tmp_tok[(*i)++] = str[(*j)++];
 		}
 		shell->tmp_tok[(*i)++] = str[(*j)++];
+		return (1);
 	}
 	return (0);
 }
@@ -106,6 +105,7 @@ char *expand_str(t_shell *shell, t_arg *arg, int *i, int *j)
 	int len;
 
 	len = count_expstr(shell, arg->arg, i);
+	//printf("len es %d\n", len);
 	if (len > 0)
 	{
 		shell->tmp_tok = malloc(sizeof (char) * len + 1);

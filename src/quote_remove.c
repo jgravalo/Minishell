@@ -1,6 +1,6 @@
 #include "../inc/minishell.h"
 
-static int count_quotes(char *str)
+int count_quotes(char *str)
 {	
 	int count;
 	char quote;
@@ -23,7 +23,7 @@ static int count_quotes(char *str)
 	return (count);
 }
 
-static void copy_new(char *new, char *str)
+void copy_new(char *new, char *str)
 {
 	int i;
 	int j;
@@ -102,6 +102,7 @@ static void arg_remove(t_cmd **cmd)
 			if (ptr->quoted)
 			{
 				len = count_quotes(ptr->arg);
+				printf("quotes son %d\n", len);
 				if (len > 0)
 				{
 					tmp = malloc(sizeof (char) * ft_strlen(ptr->arg) - len + 1);
