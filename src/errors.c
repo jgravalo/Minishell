@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 16:56:43 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/14 19:56:08 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 20:32:28 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,13 @@ int	dir_error(char *s, int n, int exit)
 	return (exit);
 }
 
-int	file_error(char *s, int n)
+void	filedir_not_found(char *cmd)
 {
-	char	*str;
-
-	str = ft_strjoin(s, ": ");
-	str = ft_strjoin(str, strerror(n));
 	write(2, "bash: ", 7);
-	write(2, str, ft_strlen(str));
+	write(2, cmd, ft_strlen(cmd));
+	write(2, ": No such file or directory", 28);
 	write(2, "\n", 1);
-	return (0);
+	exit (127);
 }
 
 void cmd_not_found(char *cmd)

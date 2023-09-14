@@ -69,7 +69,7 @@ static void locate_path(t_shell *shell, t_cmd **cmd, int *i)
 		free(shell->tmp_tok);
 	}
 	else
-		cmd[*i]->path = ft_strdup(cmd[*i]->args[0]); //si no esta PATH, se contara con que el primer argumento era el path completo
+		filedir_not_found(cmd[*i]->args[0]); //si no esta PATH, damos error tambien
 }
 
 void	search(t_shell *shell, t_cmd **cmd, int *i)

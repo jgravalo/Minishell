@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/14 20:06:53 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 20:32:43 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -387,6 +387,8 @@ void 	ft_printdeflist(t_cmd **cmd);
 void	set_argv(t_cmd **cmd);
 
 void	search(t_shell *shell, t_cmd **cmd, int *i);
+
+void	filedir_not_found(char *cmd);
 
 /*
 void	make_history(t_hist *hist, char *line);
