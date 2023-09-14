@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 16:56:43 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/11 11:47:11 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 19:56:08 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,11 @@ int	file_error(char *s, int n)
 	return (0);
 }
 
-int cmd_not_found(char *cmd)
+void cmd_not_found(char *cmd)
 {
 	write(2, cmd, ft_strlen(cmd));
 	write(2, ": command not found\n", 20);
-	return (127);
+	exit(127);
 }
 /*
 void	free_child(t_pipex *pipex)

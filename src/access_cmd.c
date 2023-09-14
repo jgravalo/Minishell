@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:09:57 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/08 10:30:01 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 19:56:31 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ char	*file_cmd(t_shell *shell, int n)
 		docs = split_docs(shell->envp[env]); // split todos los paths
 		file = access_loop(docs, shell->struct_cmd[n]->args[0]); // lo intenta buscar
 		if (!file)
-			shell->exit = cmd_not_found(shell->struct_cmd[n]->args[0]);
+			cmd_not_found(shell->struct_cmd[n]->args[0]);
 		return (file);
 	}
 	else // si no hay variable PATH 

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/14 15:20:34 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 20:06:53 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef	struct s_cmd
 	t_arg	*argx;
 	t_redir *redir_list;
 	t_redir	*redir_x;
+	char	*path;
 	char	*infile_path;
 	char	*outfile_path;
 	int		here_doc;
@@ -283,7 +284,7 @@ void	set_signals(t_shell *shell, char **envp);
 
 void	parse_line(t_shell *shell, int i);
 
-int 	cmd_not_found(char *cmd);
+void 	cmd_not_found(char *cmd);
 
 int 	is_there_redir(char *line);
 
@@ -384,6 +385,9 @@ int		ft_arglstsize(t_arg *lst);
 void 	ft_printdeflist(t_cmd **cmd);
 
 void	set_argv(t_cmd **cmd);
+
+void	search(t_shell *shell, t_cmd **cmd, int *i);
+
 /*
 void	make_history(t_hist *hist, char *line);
 

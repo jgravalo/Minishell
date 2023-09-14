@@ -70,6 +70,8 @@ void execute(t_shell *shell, t_cmd **cmd)
 	{
 		execute_redir(shell, cmd, &i);
 		builtin(shell, cmd, &i);
+		search(shell, cmd, &i);
+		execve(cmd[i]->path, cmd[i]->args, shell->envp);
 	}
 	else
 		parent_wait(shell, cmd);
