@@ -105,7 +105,7 @@ char *expand_str(t_shell *shell, t_arg *arg, int *i, int *j)
 	int len;
 
 	len = count_expstr(shell, arg->arg, i);
-	//printf("len es %d\n", len);
+	printf("len es %d\n", len);
 	if (len > 0)
 	{
 		shell->tmp_tok = malloc(sizeof (char) * len + 1);

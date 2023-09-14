@@ -72,7 +72,6 @@ void	ft_printcmdargx(t_cmd **cmd)
 			ft_printredirlist(cmd[i]->redir_x);
 		i++;
 	}
-	printf("sale de printcmdx\n");
 }
 
 void	ft_printredirlist(t_redir *redir)

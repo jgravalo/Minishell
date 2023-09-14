@@ -23,6 +23,8 @@ static int count_expand(t_shell *shell, char *token, int *len, int *cpy)
 
 	i = 0;
 	count = 0;
+	if (*len && token[*len] && token[*len - 1] && token[*len - 1] != ' ')
+		shell->var_cat = 1;
 	while(token[*len])
 	{	
 		if (shell->var_quoted == 1 && (token[*len] == '\'' || token[*len] == '\"'))
@@ -157,6 +159,7 @@ static void arg_loop(t_shell *shell, char *str, t_cmd *cmd)
 			cpy++;
 		}
 		size = count_expand(shell, str, &len, &cpy) + 1;
+		printf("size es %d, var cat es %d\n", size, shell->var_cat);
 		if (size > 1)
 		{
 			shell->tmp_tok = (char *)malloc(sizeof (char) * size);
@@ -190,7 +193,7 @@ static  void expand_args(t_shell *shell, t_cmd **cmd)
 			while (cmd[n]->arg->arg[i])
 			{
 				expstr = ft_strdup(expand_str(shell, cmd[n]->arg, &i, &j));
-				//printf("exp str es %s\n", expstr);
+				printf("exp str es %s\n", expstr);
 				free(shell->tmp_tok);
 				if (expstr)
 					arg_loop(shell, expstr, cmd[n]);

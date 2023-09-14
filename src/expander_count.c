@@ -77,10 +77,7 @@ static int check_normal(char *str, int *count, int *i, char **envp)
 			if (ft_strcmp(var, "?") == 0)
 				(*count)++;
 			else
-			{	
 				(*count) +=	ft_strlen(search_var_line(var, envp));
-			}
-			return (1);
 		}
 		else
 		{	
@@ -98,8 +95,6 @@ int count_expstr(t_shell *shell, char *str, int *i)
 	shell->var_quoted = 0;
 
 	count = 0;
-	if (*i && str[*i] && str[*i - 1] && str[*i - 1] != ' ')
-		shell->var_cat = 1;
 	//printf("str %s, cat es %d\n", &str[*i], shell->var_cat);
 	while (str[*i])
 	{	
