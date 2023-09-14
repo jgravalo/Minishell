@@ -31,7 +31,7 @@ static void check_single(char *str, int *i, int *j, t_shell *shell)
 		shell->tmp_tok[(*i)++] = str[(*j)++];
 		end = *i;
 		ft_quotelstadd_back(&shell->quote, ft_quotelstnew(start, end));
-		printf("quote struct added, start %d. end %d\n", start, end);
+		//printf("quote struct added, start %d. end %d\n", start, end);
 	}
 }
 
