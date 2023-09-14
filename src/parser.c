@@ -32,10 +32,12 @@ static void init(t_cmd **cmd, int n)
 
 	i = 0;
 	while (i < n)
-	{
+	{	
 		cmd[i] = malloc(sizeof (t_cmd));
 		cmd[i]->redir_list = NULL;
+		cmd[i]->redir_x = NULL;
 		cmd[i]->arg = NULL;
+		cmd[i]->argx = NULL;
 		i++;
 	}
 	cmd[i] = NULL;
@@ -55,6 +57,7 @@ static void parse(t_tok *tokens, t_cmd **cmd)
 			ft_arglstadd_back(&(cmd[j]->arg), ft_arglstnew(ft_strdup(tokens->token)));
 		else if (ft_strcmp(tokens->type, "REDIR") == 0)
 		{	
+			printf("se crea nodo redir\n");
 			redir = redir_type(tokens);						//si es redir, guardamos el tipo
 			tokens = tokens->next;
 			ft_redirlstadd_back(&(cmd[j]->redir_list), ft_redirlstnew(redir)); // y creamos nodo con el tipo, como en funcion
