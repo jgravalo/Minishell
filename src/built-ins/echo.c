@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:58:59 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/12 10:54:54 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 16:23:33 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int	echo(char **argv)
 		i++;
 	while (argv && argv[i])
 	{	
-		new = remove_backslash(argv[i]);
-		write(1, new, ft_strlen(new));
+		//new = remove_backslash(argv[i]);
+		write(1, argv[i], ft_strlen(argv[i]));
 			if (argv[i + 1])
 				write(1, " ", 1);
 		i++;
