@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:34:38 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/14 11:25:41 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 20:15:32 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void parse_pipex(t_shell *shell)
 	else
 	{	
 		//create_pipes(shell);
-		//parse_line(shell, i);
+		parse_line(shell, i);
 		parent_close(shell);
 		shell->pid[shell->pipes + 1] = 0;
 		set_signals(shell, shell->envp);

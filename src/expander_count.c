@@ -63,7 +63,7 @@ static int check_double(char *str, int *count, int *i, char **envp)
 		}
 		(*i)++;
 		(*count)++;
-		return (0);
+		return (1);
 	}
 	return (0);
 }
@@ -105,7 +105,7 @@ int count_expstr(t_shell *shell, char *str, int *i)
 	{	
 		check_single(str, &count, i);
 		if (check_double(str, &count, i, shell->envp))
-		{
+		{	
 			shell->var_quoted = 1;
 			if (str[*i] && str[*i + 1] && str[*i + 1] != ' ')
 				shell->var_cat = 1;
