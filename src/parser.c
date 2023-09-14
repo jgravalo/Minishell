@@ -39,6 +39,7 @@ static void init(t_cmd **cmd, int n)
 		cmd[i]->redir_x = NULL;
 		cmd[i]->arg = NULL;
 		cmd[i]->argx = NULL;
+		cmd[i]->args = NULL;
 		cmd[i]->builtin = 0;
 		i++;
 	}

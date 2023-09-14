@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:03:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/12 09:41:10 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 15:44:34 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "../../inc/minishell.h"
 
-void	ft_exit(t_shell *shell, int n);
+void	ft_exit(t_shell *shell, t_cmd **cmd, int i);
 
 int 	compare_exit(char *argument);
 
@@ -25,11 +25,11 @@ int		pwd(char **envp);
 
 int		echo(char **argv);
 
-int		cd(t_shell *shell, int n);
+int		cd(t_shell *shell, t_cmd **cmd, int i);
 
-int		unset(t_shell *shell, int n);
+int		unset(t_shell *shell, t_cmd **cmd, int i);
 
-int		export(t_shell *shell, int n);
+int		export(t_shell *shell, t_cmd **cmd, int i);
 
 int		export_n(char *var, t_shell *shell);
 

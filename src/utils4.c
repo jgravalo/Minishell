@@ -102,3 +102,17 @@ void	ft_printarglist(t_arg *arg)
 		arg = arg->next;
 	}
 }
+
+void ft_printdeflist(t_cmd **cmd)
+{
+	int i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		ft_printarr(cmd[i]->args);
+		if (cmd[i]->redir_x)
+			ft_printredirlist(cmd[i]->redir_x);
+		i++;
+	}
+}

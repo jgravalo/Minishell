@@ -60,7 +60,10 @@ void execute(t_shell *shell, t_cmd **cmd)
 	create_pipes(shell, cmd);
 	fork_cmd(shell, cmd, &i);
 	if (cmd[i]->pid == 0)
+	{
 		execute_redir(shell, cmd, &i);
+		builtin(shell, cmd, &i);
+	}
 	else
 		parent_wait(shell, cmd);
 	

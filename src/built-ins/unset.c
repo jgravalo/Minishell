@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:00:23 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/14 11:10:36 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 15:46:53 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,26 +41,26 @@ static int	unset_n(char *var, t_shell *shell)
 	return (0);
 }
 
-int	unset(t_shell *shell, int n)
+int	unset(t_shell *shell, t_cmd **cmd, int i)
 {
-	int		i;
+	int		j;
 
-	i = 1;
-	if (shell->struct_cmd[n]->args[i] == NULL)
+	j = 1;
+	if (cmd[i]->args[j] == NULL)
 		return (0);
-	while (shell->struct_cmd[n]->args[i])
+	while (cmd[i]->args[j])
 	{	
-		//printf("entra aqui %s\n", shell->struct_cmd[n]->args[i]);
-		if (ft_strchr(shell->struct_cmd[n]->args[i], '=') != NULL)
+		printf("entra aqui %s\n", cmd[i]->args[j]);
+		if (ft_strchr(cmd[i]->args[j], '=') != NULL)
 		{
 			write(2, "bash: unset: `", 14);
-			write(2, shell->struct_cmd[n]->args[i],
-				ft_strlen(shell->struct_cmd[n]->args[i]));
+			write(2, cmd[i]->args[j],
+				ft_strlen(cmd[i]->args[j]));
 			write(2, "\': not a valid identifier\n", 26);
 			shell->exit++;
 		}
-		shell->exit += unset_n(shell->struct_cmd[n]->args[i], shell);
-		i++;
+		shell->exit += unset_n(cmd[i]->args[j], shell);
+		j++;
 	}
 	return (shell->exit);
 }

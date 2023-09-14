@@ -25,6 +25,19 @@ t_arg	*ft_arglstnew(void *content)
 	return (node);
 }
 
+int	ft_arglstsize(t_arg *lst)
+{
+	int	c;
+
+	c = 0;
+	while (lst != NULL)
+	{
+		c++;
+		lst = lst->next;
+	}
+	return (c);
+}
+
 t_redir	*ft_redirlstnew(int type)
 {
 	t_redir	*node;
