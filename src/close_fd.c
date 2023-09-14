@@ -6,7 +6,7 @@ static void mid_cmd(t_shell *shell, int i)
 
 	store = i;
 	i++;
-	while (i < shell->pipex)
+	while (i < shell->pipes)
 	{
 		close(shell->p[i].p[READ]);
 		close(shell->p[i].p[WRITE]);
@@ -27,14 +27,14 @@ void close_fd(t_shell *shell, int i)
 	if (i == 0)
 	{	
 		i++;
-		while (i < shell->pipex)
+		while (i < shell->pipes)
 		{
 			close(shell->p[i].p[READ]);
 			close(shell->p[i].p[WRITE]);
 			i++;	
 		}
 	}
-	else if (i == shell->pipex)
+	else if (i == shell->pipes)
 	{	
 		i -= 2;
 		while (i >= 0)
@@ -53,7 +53,7 @@ void parent_close_but_one(t_shell *shell)
 	int i;
 
 	i = 0;
-	while (i < shell->pipex - 1)
+	while (i < shell->pipes - 1)
 	{
 		close(shell->p[i].p[READ]);
 		close(shell->p[i].p[WRITE]);
@@ -66,7 +66,7 @@ void parent_close(t_shell *shell)
 	int i;
 
 	i = 0;
-	while (i < shell->pipex)
+	while (i < shell->pipes)
 	{
 		close(shell->p[i].p[READ]);
 		close(shell->p[i].p[WRITE]);

@@ -1,6 +1,6 @@
 #include "../inc/minishell.h"
 
-static int count_pipes(t_tok *tokens)
+static int count_pipes(t_shell *shell, t_tok *tokens)
 {	
 	int count;
 
@@ -11,6 +11,7 @@ static int count_pipes(t_tok *tokens)
 			count++;
 		tokens = tokens->next;
 	}
+	shell->pipes = count;
 	return (count);
 }
 
@@ -38,6 +39,7 @@ static void init(t_cmd **cmd, int n)
 		cmd[i]->redir_x = NULL;
 		cmd[i]->arg = NULL;
 		cmd[i]->argx = NULL;
+		cmd[i]->builtin = 0;
 		i++;
 	}
 	cmd[i] = NULL;
@@ -78,7 +80,7 @@ void parser(t_shell *shell)
 {	
 	int n;
 
-	n = count_pipes(shell->tokens);   // el numero de pipes marca cuantas estructuras de comandos.
+	n = count_pipes(shell, shell->tokens);   // el numero de pipes marca cuantas estructuras de comandos.
 	shell->s_cmd = malloc(sizeof (t_cmd *) * (n + 2)); // si es n = 0, seguiremos necesitando uno + el nulo
 	init(shell->s_cmd, n + 1); 
 	parse(shell->tokens, shell->s_cmd);

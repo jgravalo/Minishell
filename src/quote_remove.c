@@ -101,7 +101,6 @@ static void arg_remove(t_cmd **cmd)
 		ptr = cmd[i]->argx;
 		while (ptr)
 		{	
-			printf("argx es %s\n", ptr->arg);
 			if (ptr->quoted)
 			{
 				len = count_quotes(ptr->arg);
@@ -114,7 +113,6 @@ static void arg_remove(t_cmd **cmd)
 					free(tmp);
 				}
 			}
-			printf("new argx es %s\n", ptr->arg);
 			ptr = ptr->next;
 		}
 		i++;

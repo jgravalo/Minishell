@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:13:28 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/12 23:13:33 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 11:10:31 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ int	export_n(char *var, t_shell *shell)
 	type = parse_var(var);
 	if (type == 1)
 		return (write_not_valid(var));
+	//printf("entra aqui\n");
 	if (is_existing(var, shell->envp) == 1)
 		return (0);
 	else if (is_existing(var, shell->envp) == 2 && type == 0)

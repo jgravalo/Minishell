@@ -4,7 +4,8 @@ M_SRCS		= src/utils.c src/ft_split_marks.c src/minishell.c src/pipes.c src/promp
 			  src/lexer.c src/lexer_aux.c src/utils2.c src/utils3.c src/utils4.c src/meta.c src/init_shell.c \
 			  src/parse_no_pipes.c src/parse_quotes.c src/ft_itoa.c src/parent.c src/main.c src/init_envp.c src/redir_aux.c \
 			  src/redir_aux2.c src/redir_prepare.c src/meta_utils.c src/set_redir.c src/expander.c src/utils5.c \
-			  src/expander_count.c src/expander_string.c src/quote_remove.c src/parser.c src/categorizer.c
+			  src/expander_count.c src/expander_string.c src/quote_remove.c src/parser.c src/categorizer.c \
+			  src/execute.c
 
 BUILT_SRCS	= src/built-ins/echo.c src/built-ins/cd.c src/built-ins/export.c \
 			  src/built-ins/unset.c src/built-ins/env.c src/built-ins/pwd.c src/built-ins/run_builtin.c \

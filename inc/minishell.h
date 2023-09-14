@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/14 09:59:29 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 11:37:10 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,10 @@ typedef	struct s_cmd
 	char	*infile_path;
 	char	*outfile_path;
 	int		here_doc;
+	int		builtin;
 	int		infile;
 	int 	outfile;
+	pid_t	pid;
 }				t_cmd;
 
 typedef struct s_token
@@ -105,7 +107,6 @@ typedef struct s_shell
 	t_tok	*tokens;
 	t_tok	*expanded;
 	char 	*tmp_tok;
-	char	**pipes;
 	char 	**envp;
 	char	**args;
 	char	*here_tmp;
@@ -135,7 +136,7 @@ typedef struct s_shell
 	int		saved_stdout;
 	int		*inpipe;
 	int		*outpipe;
-	int		pipex;
+	int		pipes;
 	int		exit;
 	int		children;
 	int		last_builtin;
@@ -236,7 +237,7 @@ void 	parent_close_but_one(t_shell *shell);
 
 void 	close_fd(t_shell *shell, int i);
 
-void 	create_pipes(t_shell *shell);
+//void 	create_pipes(t_shell *shell);
 
 void	check_pipe(t_shell *shell, int i);
 
@@ -369,6 +370,9 @@ void	ft_arglstadd_front(t_arg **lst, t_arg *new);
 void	ft_printcmdargx(t_cmd **cmd);
 
 void 	quote_remove(t_cmd **cmd);
+
+void 	execute(t_shell *shell, t_cmd **cmd);
+
 
 /*
 void	make_history(t_hist *hist, char *line);

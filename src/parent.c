@@ -19,7 +19,7 @@ void	wait_for_children(t_shell *shell)
 		while (shell->children != 0)
 		{	
 			i = 0;
-			while (i < shell->pipex + 1)
+			while (i < shell->pipes + 1)
 			{
 				pid = waitpid(shell->pid[i], &status, 0);
 				if (pid > 0)
@@ -66,6 +66,6 @@ void	set_signals(t_shell *shell, char **envp)
 void	parent_routine(t_shell *shell, int i)
 {	
 	shell->children++;
-	if (i < shell->pipex)
+	if (i < shell->pipes)
 		parse_line(shell, i + 1);
 }

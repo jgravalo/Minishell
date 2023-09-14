@@ -32,7 +32,7 @@ void child_routine(t_shell *shell, int i)
 	//shell->struct_cmd[i]->args = ft_split_marks(shell->pipes[i], ' ');
 	check_inpipe(shell, i);
 	check_outpipe(shell, i);
-	if (shell->pipex > 1)
+	if (shell->pipes > 1)
 		close_fd(shell, i);
 	if (shell->struct_cmd[i]->infile > -1 || shell->struct_cmd[i]->outfile > -1)
 		make_redir(shell, i);

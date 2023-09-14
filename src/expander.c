@@ -147,10 +147,8 @@ static void arg_loop(t_shell *shell, char *str, t_cmd *cmd)
 		size = count_expand(shell, str, &len, &cpy) + 1;
 		if (size > 1)
 		{
-			printf("size is %d\n", size);
 			shell->tmp_tok = (char *)malloc(sizeof (char) * size);
 			copy_token(shell->tmp_tok, str, &cpy, size);
-			printf("Tmp es %s\n", shell->tmp_tok);
 			if (shell->var_cat)
 				ft_arglstlast(cmd->argx)->arg = ft_strjoin(ft_arglstlast(cmd->argx)->arg, shell->tmp_tok);
 			else

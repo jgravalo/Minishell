@@ -13,7 +13,6 @@ static	void handle_signal(int sig)
 
 static void prepare_infile(t_shell *shell, char *tmp, int n, int redir_num)
 {	
-	tmp = remove_quotes(tmp);
 	shell->struct_cmd[n]->redir[redir_num]->path = ft_strdup(tmp);
 	shell->struct_cmd[n]->redir[redir_num]->type = 0;
 	free(tmp);
