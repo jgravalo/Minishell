@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:03:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/14 20:38:07 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 21:21:24 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ int		unset(t_shell *shell, t_cmd **cmd, int *i);
 int		export(t_shell *shell, t_cmd **cmd, int *i);
 
 int		export_n(char *var, t_shell *shell);
-
-int		check_builtin(char **args);
 
 int		run_builtin(t_shell *shell, int n);
 

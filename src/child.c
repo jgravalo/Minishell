@@ -1,25 +1,5 @@
 #include  "../inc/minishell.h"
 
-static void check_inpipe(t_shell *shell, int i)
-{
-	if (shell->inpipe[i] == 1) // hay pipe de entrada
-	{	
-		close(shell->p[i - 1].p[WRITE]);
-		dup2(shell->p[i - 1].p[READ], STDIN_FILENO);
-		close(shell->p[i - 1].p[READ]);
-	}
-}
-
-static void check_outpipe(t_shell *shell, int i)
-{
-	if (shell->outpipe[i] == 1) // hay pipe de salida
-	{	
-		close(shell->p[i].p[READ]);
-		dup2(shell->p[i].p[WRITE], STDOUT_FILENO);
-		close(shell->p[i].p[WRITE]);
-	}
-}
-
 void child_routine(t_shell *shell, int i)
 {	
 	if (shell->struct_cmd[i]->redir)

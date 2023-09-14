@@ -63,9 +63,39 @@ void	set_signals(t_shell *shell, char **envp)
 	wait_for_children(shell);
 }
 
-void	parent_routine(t_shell *shell, int i)
+void	parent_wait(t_shell *shell, t_cmd **cmd)
 {	
-	shell->children++;
-	if (i < shell->pipes)
-		parse_line(shell, i + 1);
+	int status;
+	int i;
+	pid_t	pid;
+
+	status = 0;
+	while (shell->children != 0)
+	{	
+		i = 0;
+		while (i < shell->pipes + 1)
+		{
+			pid = waitpid(cmd[i]->pid, &status, 0);
+			if (pid > 0)
+			{	
+				shell->children--;
+				if (WIFEXITED(status))
+					shell->exit = WEXITSTATUS(status);
+			}
+			i++;
+		}		
+	}
+}
+
+void parent_close(t_shell *shell)
+{
+	int i;
+
+	i = 0;
+	while (i < shell->pipes)
+	{
+		close(shell->p[i].p[READ]);
+		close(shell->p[i].p[WRITE]);
+		i++;
+	}
 }

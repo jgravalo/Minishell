@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/14 20:32:43 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 21:21:58 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ typedef	struct s_cmd
 	char	*path;
 	char	*infile_path;
 	char	*outfile_path;
+	int		in_pipe;
+	int		out_pipe;
 	int		here_doc;
 	int		builtin;
 	int		infile;
@@ -242,8 +244,6 @@ void 	close_fd(t_shell *shell, int i);
 
 //void 	create_pipes(t_shell *shell);
 
-void	check_pipe(t_shell *shell, int i);
-
 char 	*get_prompt(t_shell *shell, char **envp);
 
 char	*prompt_join(char *s1, char *s2);
@@ -378,7 +378,7 @@ void 	execute_redir(t_shell *shell, t_cmd **cmd, int *i);
 
 void 	heredoc(t_shell *shell, t_cmd **cmd, int *i);
 
-void 	builtin(t_shell *shell, t_cmd **cmd, int *i);
+int 	builtin(t_shell *shell, t_cmd **cmd, int *i);
 
 int		ft_arglstsize(t_arg *lst);
 
@@ -389,6 +389,12 @@ void	set_argv(t_cmd **cmd);
 void	search(t_shell *shell, t_cmd **cmd, int *i);
 
 void	filedir_not_found(char *cmd);
+
+void 	execute_pipes(t_shell *shell, t_cmd **cmd, int i);
+
+void	parent_wait(t_shell *shell, t_cmd **cmd);
+
+int 	check_builtin(char **args);
 
 /*
 void	make_history(t_hist *hist, char *line);
