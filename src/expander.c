@@ -103,22 +103,24 @@ static void redir_loop(t_shell *shell, char *str, t_cmd *cmd)
 			len++;
 			cpy++;
 		}
-
 		size = count_expand(shell, str, &len, &cpy) + 1;
-		shell->tmp_tok = (char *)malloc(sizeof (char) * size);
-		copy_token(shell->tmp_tok, str, &cpy, size);
-		if (shell->var_cat)
-			ft_arglstlast(cmd->redir_x->path_arg)->arg = ft_strjoin(ft_arglstlast(cmd->redir_x->path_arg)->arg, shell->tmp_tok);
-		else
-		{	
-			if (!shell->next_redir)
-			{
-				ft_redirlstadd_back(&(cmd->redir_x), ft_redirlstnew(cmd->redir_list->type)); // ycopiamos nodo en nueva lista
-				shell->next_redir = 1; // tenemos que seguir copiando nuevos args, si tocase, hasta que en funcion anterior cambiamos de redir struct
+		if (size > 1)
+		{
+			shell->tmp_tok = (char *)malloc(sizeof (char) * size);
+			copy_token(shell->tmp_tok, str, &cpy, size);
+			if (shell->var_cat)
+				ft_arglstlast(cmd->redir_x->path_arg)->arg = ft_strjoin(ft_arglstlast(cmd->redir_x->path_arg)->arg, shell->tmp_tok);
+			else
+			{	
+				if (!shell->next_redir)
+				{
+					ft_redirlstadd_back(&(cmd->redir_x), ft_redirlstnew(cmd->redir_list->type)); // ycopiamos nodo en nueva lista
+					shell->next_redir = 1; // tenemos que seguir copiando nuevos args, si tocase, hasta que en funcion anterior cambiamos de redir struct
+				}
+				ft_arglstadd_back(&(ft_redirlstlast(cmd->redir_x)->path_arg), ft_arglstnew(ft_strdup(shell->tmp_tok)));
 			}
-			ft_arglstadd_back(&(ft_redirlstlast(cmd->redir_x)->path_arg), ft_arglstnew(ft_strdup(shell->tmp_tok)));
+			free(shell->tmp_tok);
 		}
-		free(shell->tmp_tok);
 	}
 }
 
@@ -141,13 +143,18 @@ static void arg_loop(t_shell *shell, char *str, t_cmd *cmd)
 			cpy++;
 		}
 		size = count_expand(shell, str, &len, &cpy) + 1;
-		shell->tmp_tok = (char *)malloc(sizeof (char) * size);
-		copy_token(shell->tmp_tok, str, &cpy, size);
-		if (shell->var_cat)
-			ft_arglstlast(cmd->argx)->arg = ft_strjoin(ft_arglstlast(cmd->argx)->arg, shell->tmp_tok);
-		else
-			ft_arglstadd_back(&(cmd->argx), ft_arglstnew(ft_strdup(shell->tmp_tok)));
-		free(shell->tmp_tok);
+		if (size > 1)
+		{
+			printf("size is %d\n", size);
+			shell->tmp_tok = (char *)malloc(sizeof (char) * size);
+			copy_token(shell->tmp_tok, str, &cpy, size);
+			printf("Tmp es %s\n", shell->tmp_tok);
+			if (shell->var_cat)
+				ft_arglstlast(cmd->argx)->arg = ft_strjoin(ft_arglstlast(cmd->argx)->arg, shell->tmp_tok);
+			else
+				ft_arglstadd_back(&(cmd->argx), ft_arglstnew(ft_strdup(shell->tmp_tok)));
+			free(shell->tmp_tok);
+		}
 	}
 }
 

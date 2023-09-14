@@ -47,8 +47,8 @@ static void copy_new(char *new, char *str)
 	new[j] = '\0';
 }
 
-void quote_remove(t_cmd **cmd)
-{	
+static void redir_remove(t_cmd **cmd)
+{
 	int len;
 	int i;
 	char *tmp;
@@ -57,7 +57,37 @@ void quote_remove(t_cmd **cmd)
 	len = 0;
 	while (cmd[i])
 	{	
-		cmd[i]->arg = NULL;
+		while (cmd[i]->redir_x)
+		{	
+			while(cmd[i]->redir_x->path_arg)
+			{
+				len = count_quotes(cmd[i]->redir_x->path_arg->arg);
+				if (len > 0)
+				{
+					tmp = malloc(sizeof (char) * ft_strlen(cmd[i]->redir_x->path_arg->arg) - len + 1);
+					copy_new(tmp, cmd[i]->redir_x->path_arg->arg);
+					free(cmd[i]->redir_x->path_arg->arg);
+					cmd[i]->redir_x->path_arg->arg = ft_strdup(tmp);
+					free(tmp);
+				}
+				cmd[i]->redir_x->path_arg = cmd[i]->redir_x->path_arg->next;
+			}
+			cmd[i]->redir_x = cmd[i]->redir_x->next;
+		}
+		i++;
+	}	
+}
+
+static void arg_remove(t_cmd **cmd)
+{
+	int len;
+	int i;
+	char *tmp;
+
+	i = 0;
+	len = 0;
+	while (cmd[i])
+	{	
 		while (cmd[i]->argx)
 		{	
 			len = count_quotes(cmd[i]->argx->arg);
@@ -65,13 +95,18 @@ void quote_remove(t_cmd **cmd)
 			{
 				tmp = malloc(sizeof (char) * ft_strlen(cmd[i]->argx->arg) - len + 1);
 				copy_new(tmp, cmd[i]->argx->arg);
-				printf("pasa de aqui\n");
-				ft_arglstadd_back(&(cmd[i]->arg), ft_arglstnew(ft_strdup(tmp)));
+				free(cmd[i]->argx->arg);
+				cmd[i]->argx->arg = ft_strdup(tmp);
+				free(tmp);
 			}
-			else
-				ft_arglstadd_back(&(cmd[i]->arg), ft_arglstnew(ft_strdup(cmd[i]->argx->arg)));
 			cmd[i]->argx = cmd[i]->argx->next;
 		}
 		i++;
 	}
+}
+
+void quote_remove(t_cmd **cmd)
+{	
+	arg_remove(cmd);
+	redir_remove(cmd);
 }
