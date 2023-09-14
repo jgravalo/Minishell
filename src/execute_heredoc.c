@@ -16,11 +16,10 @@ static char *here_loop(t_shell *shell, t_cmd **cmd, int *i, int start_line)
 	char *str;
 	char *heredoc;
 
+	heredoc = ft_strdup("");
 	while (1)
 	{	
-		printf("delimiter es %s\n", cmd[*i]->redir_x->path_arg->arg);
 		str = readline("> ");
-		printf("str es %s\n", str);
 		if (ft_strcmp(str, cmd[*i]->redir_x->path_arg->arg) == 0)
 			break;
 		else if (str == NULL)
@@ -45,7 +44,6 @@ static void make_heredoc(t_shell *shell, t_cmd **cmd, int *i)
 	heredoc = ft_strdup("");
 	start_line = shell->line_number;
 	heredoc = here_loop(shell, cmd, i, start_line);
-	printf("sale de hereloop\n");
 	write(cmd[*i]->redir_x->fd, heredoc, ft_strlen(heredoc));
 	close(cmd[*i]->redir_x->fd);
 	cmd[*i]->redir_x->fd = open(shell->here_tmp, O_RDONLY);
