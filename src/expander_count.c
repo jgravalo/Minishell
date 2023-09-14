@@ -103,7 +103,13 @@ int count_expstr(t_shell *shell, char *str, int *i)
 	count = 0;
 	while (str[*i])
 	{	
-		check_single(str, &count, i);
+		if (check_single(str, &count, i))
+		{
+			shell->var_quoted = 1;
+			if (str[*i] && str[*i + 1] && str[*i + 1] != ' ')
+				shell->var_cat = 1;
+			return (count);
+		}
 		if (check_double(str, &count, i, shell->envp))
 		{	
 			shell->var_quoted = 1;
