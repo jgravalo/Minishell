@@ -71,7 +71,7 @@ static void set_redirs(t_shell *shell, t_cmd **cmd, int *i)
 }
 
 void execute_redir(t_shell *shell, t_cmd **cmd, int *i)
-{
+{	
 	heredoc(shell, cmd, i);
 	set_redirs(shell, cmd, i);
 }

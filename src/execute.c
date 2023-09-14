@@ -57,6 +57,13 @@ void execute(t_shell *shell, t_cmd **cmd)
 	int status;
 
 	i = -1;
+	if (!shell->pipes && check_builtin(cmd[0]->args))
+	{	
+		i++;
+		execute_redir(shell, cmd, &i);
+		builtin(shell, cmd, &i);
+		return ;	
+	}
 	create_pipes(shell, cmd);
 	fork_cmd(shell, cmd, &i);
 	if (cmd[i]->pid == 0)
