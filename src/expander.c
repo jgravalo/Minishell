@@ -134,7 +134,10 @@ static void expandstr_loop(t_shell *shell, char *str, t_cmd *cmd)
 		printf("size is %d\n", size);
 		shell->tmp_tok = (char *)malloc(sizeof (char) * size);
 		copy_token(shell->tmp_tok, str, &cpy, size);
-		ft_arglstadd_back(&(cmd->argx), ft_arglstnew(ft_strdup(shell->tmp_tok)));
+		if (shell->var_cat)
+			ft_arglstlast(cmd->argx)->arg = ft_strjoin(ft_arglstlast(cmd->argx)->arg, shell->tmp_tok);
+		else
+			ft_arglstadd_back(&(cmd->argx), ft_arglstnew(ft_strdup(shell->tmp_tok)));
 		free(shell->tmp_tok);
 	}
 }
@@ -154,6 +157,7 @@ void expander(t_shell *shell, t_cmd **cmd)
 		cmd[n]->argx = NULL;
 		while (cmd[n]->arg)
 		{	
+			printf("arg es %s\n",cmd[n]->arg->arg);
 			while (cmd[n]->arg->arg[i])
 			{
 				expstr = ft_strdup(expand_str(shell, cmd[n]->arg, &i, &j));
@@ -163,6 +167,8 @@ void expander(t_shell *shell, t_cmd **cmd)
 					expandstr_loop(shell, expstr, cmd[n]);
 			}
 			cmd[n]->arg = cmd[n]->arg->next;
+			i = 0;
+			j = 0;
 		}
 		n++;
 	}

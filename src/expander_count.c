@@ -95,6 +95,8 @@ static int check_normal(char *str, int *count, int *i, char **envp)
 int count_expstr(t_shell *shell, char *str, int *i)
 {
 	int count;
+	shell->var_cat = 0;
+	shell->var_quoted = 0;
 
 	count = 0;
 	while (str[*i])
@@ -103,11 +105,14 @@ int count_expstr(t_shell *shell, char *str, int *i)
 		if (check_double(str, &count, i, shell->envp))
 		{
 			shell->var_quoted = 1;
+			if (str[*i + 1] != ' ')
+				shell->var_cat = 1;
 			return (count);
 		}
 		if (check_normal(str, &count, i, shell->envp))
 		{	
-			shell->var_quoted = 0;
+			if (str[*i + 1] == ' ')
+				shell->var_cat = 1;
 			return (count);
 		}
 	}
