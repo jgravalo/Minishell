@@ -17,13 +17,21 @@ static char *get_var(char *str, int *j)
 }
 
 static void check_single(char *str, int *i, int *j, t_shell *shell)
-{
+{	
+	int start;
+	int end;
+
+
 	if (str[*j] == '\'')
 	{	
+		start = *i;
 		shell->tmp_tok[(*i)++] = str[(*j)++];
 		while (str[*j] != '\'')
 			shell->tmp_tok[(*i)++] = str[(*j)++];
 		shell->tmp_tok[(*i)++] = str[(*j)++];
+		end = *i;
+		ft_quotelstadd_back(&shell->quote, ft_quotelstnew(start, end));
+		printf("quote struct added, start %d. end %d\n", start, end);
 	}
 }
 
@@ -31,10 +39,13 @@ static int check_double(char *str, int *i, int *j, t_shell *shell)
 {	
 	char *var;
 	char *exp;
+	int start;
+	int end;
 	int	m;
 
 	if (str[*j] == '\"')
 	{	
+		start = *i;
 		shell->tmp_tok[(*i)++] = str[(*j)++];
 		while (str[*j] != '\"')
 		{	
@@ -53,12 +64,13 @@ static int check_double(char *str, int *i, int *j, t_shell *shell)
 				shell->tmp_tok[(*i)++] = str[(*j)++];
 		}
 		shell->tmp_tok[(*i)++] = str[(*j)++];
-		return (1);
+		end = *i - 1;
+		ft_quotelstadd_back(&shell->quote, ft_quotelstnew(start, end));
+		printf("quote struct added, start %d. end %d\n", start, end);
 	}
-	return (0);
 }
 
-static int check_normal(char *str, int *i, int *j, t_shell *shell)
+static void check_normal(char *str, int *i, int *j, t_shell *shell)
 {	
 	char *var;
 	char *exp;
@@ -76,12 +88,10 @@ static int check_normal(char *str, int *i, int *j, t_shell *shell)
 				exp = ft_strdup(search_var_line(var, shell->envp));
 			while (exp[m])
 				shell->tmp_tok[(*i)++] = exp[m++];
-			return (1);
 		}
 		else
 			shell->tmp_tok[(*i)++] = str[(*j)++];
 	}
-	return (0);
 }
 
 static void	expand(t_shell *shell, char *str, int *j)
@@ -92,10 +102,8 @@ static void	expand(t_shell *shell, char *str, int *j)
 	while (str[*j])
 	{
 		check_single(str, &i, j, shell);
-		if (check_double(str, &i, j, shell))
-			break ;
-		if (check_normal(str, &i, j, shell))
-			break ;
+		check_double(str, &i, j, shell);
+		check_normal(str, &i, j, shell);
 	}
 	shell->tmp_tok[i] = '\0';
 }
@@ -105,7 +113,6 @@ char *expand_str(t_shell *shell, t_arg *arg, int *i, int *j)
 	int len;
 
 	len = count_expstr(shell, arg->arg, i);
-	printf("len es %d\n", len);
 	if (len > 0)
 	{
 		shell->tmp_tok = malloc(sizeof (char) * len + 1);

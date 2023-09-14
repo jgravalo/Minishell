@@ -1,23 +1,5 @@
 #include "../../inc/minishell.h"
 
-static int count_quotes(char *var)
-{
-	int i;
-	int c;
-
-	i = 0;
-	c = 0;
-	while(var[i])
-	{
-		if (var[i] == '\"')
-			c++;
-		else if (var[i] == '\\')
-			c++;
-		i++;
-	}
-	return (c);
-}
-
 char *protect_quotes(char *var)
 {
 	int i;

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/14 22:12:47 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 22:54:11 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,13 @@ typedef struct s_redir
 
 extern int	g_exit;
 
+typedef struct s_quote
+{
+	int	start;
+	int end;
+	struct t_quote	*next;
+}				t_quote;
+
 typedef	struct s_cmd
 {
 	char **args;
@@ -112,6 +119,7 @@ typedef struct s_shell
 {	
 	t_tok	*tokens;
 	t_tok	*expanded;
+	t_quote	*quote;
 	char 	*tmp_tok;
 	char 	**envp;
 	char	**args;
@@ -400,6 +408,12 @@ int 	check_builtin(char **args);
 int 	count_quotes(char *str);
 
 void 	copy_new(char *new, char *str);
+
+t_quote	*ft_quotelstnew(int start, int end);
+
+void	ft_quotelstadd_back(t_quote **lst, t_quote *new);
+
+t_quote	*ft_quotelstlast(t_quote *lst);
 
 /*
 void	make_history(t_hist *hist, char *line);

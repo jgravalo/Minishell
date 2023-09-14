@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:22:59 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/14 11:09:17 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 22:55:12 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	is_existing(char *line, char **envp)
 	var = ft_substr(line, 0, i);
 	i = 0;
 	while (envp[i])
-	{	
+	{
 		if (ft_varcmp(var, envp[i], ft_strlen(var)) == 0)
 		{	
 			if (ft_strchr(envp[i], '=') != NULL && ft_strchr(line, '=') == NULL)

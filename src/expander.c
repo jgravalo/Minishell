@@ -110,6 +110,8 @@ static void redir_loop(t_shell *shell, char *str, t_cmd *cmd)
 		{
 			shell->tmp_tok = (char *)malloc(sizeof (char) * size);
 			copy_token(shell->tmp_tok, str, &cpy, size);
+			if (shell->var_quoted)
+				shell->tmp_tok = remove_quotes(shell->tmp_tok);
 			if (shell->var_cat)
 				ft_arglstlast(cmd->redir_x->path_arg)->arg = ft_strjoin(ft_arglstlast(cmd->redir_x->path_arg)->arg, shell->tmp_tok);
 			else
@@ -120,8 +122,6 @@ static void redir_loop(t_shell *shell, char *str, t_cmd *cmd)
 					shell->next_redir = 1; // tenemos que seguir copiando nuevos args, si tocase, hasta que en funcion anterior cambiamos de redir struct
 				}
 				ft_arglstadd_back(&(ft_redirlstlast(cmd->redir_x)->path_arg), ft_arglstnew(ft_strdup(shell->tmp_tok)));
-				if (shell->var_quoted)
-					ft_arglstlast(ft_redirlstlast(cmd->redir_x)->path_arg)->quoted = 1;
 			}
 			free(shell->tmp_tok);
 		}
@@ -159,7 +159,6 @@ static void arg_loop(t_shell *shell, char *str, t_cmd *cmd)
 			cpy++;
 		}
 		size = count_expand(shell, str, &len, &cpy) + 1;
-		printf("size es %d, var cat es %d\n", size, shell->var_cat);
 		if (size > 1)
 		{
 			shell->tmp_tok = (char *)malloc(sizeof (char) * size);
@@ -239,6 +238,7 @@ static void expand_redir(t_shell *shell, t_cmd **cmd)
 
 void expander(t_shell *shell, t_cmd **cmd)
 {	
+	shell->quote = NULL;
 	expand_args(shell, cmd);
 	expand_redir(shell, cmd);
 }

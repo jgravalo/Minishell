@@ -95,23 +95,11 @@ int count_expstr(t_shell *shell, char *str, int *i)
 	shell->var_quoted = 0;
 
 	count = 0;
-	//printf("str %s, cat es %d\n", &str[*i], shell->var_cat);
 	while (str[*i])
 	{	
-		if (check_single(str, &count, i))
-		{
-			shell->var_quoted = 1;
-			return (count);
-		}
-		if (check_double(str, &count, i, shell->envp))
-		{	
-			shell->var_quoted = 1;
-			return (count);
-		}
-		if (check_normal(str, &count, i, shell->envp))
-		{	
-			return (count);
-		}
+		check_single(str, &count, i);
+		check_double(str, &count, i, shell->envp);
+		check_normal(str, &count, i, shell->envp);
 	}
 	return (count);
 }
