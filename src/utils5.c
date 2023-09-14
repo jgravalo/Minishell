@@ -20,6 +20,7 @@ t_arg	*ft_arglstnew(void *content)
 	if (!node)
 		return (NULL);
 	node->arg = content;
+	node->quoted = 0;
 	node->next = NULL;
 	return (node);
 }

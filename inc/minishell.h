@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/14 03:21:56 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 09:59:29 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_pipe{
 typedef struct s_arg
 {
 	char *arg;
+	int	 quoted;
 	struct s_arg 	*next;
 }				t_arg;
 

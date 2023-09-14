@@ -52,27 +52,36 @@ static void redir_remove(t_cmd **cmd)
 	int len;
 	int i;
 	char *tmp;
+	t_arg *ptr;
+	t_redir *r_ptr;
 
 	i = 0;
 	len = 0;
 	while (cmd[i])
 	{	
-		while (cmd[i]->redir_x)
+		r_ptr = cmd[i]->redir_x;
+		while (r_ptr)
 		{	
-			while(cmd[i]->redir_x->path_arg)
-			{
-				len = count_quotes(cmd[i]->redir_x->path_arg->arg);
-				if (len > 0)
+			ptr = r_ptr->path_arg;
+			while(ptr)
+			{	
+				printf("arg es %s\n", ptr->arg);
+				if (ptr->quoted)
 				{
-					tmp = malloc(sizeof (char) * ft_strlen(cmd[i]->redir_x->path_arg->arg) - len + 1);
-					copy_new(tmp, cmd[i]->redir_x->path_arg->arg);
-					free(cmd[i]->redir_x->path_arg->arg);
-					cmd[i]->redir_x->path_arg->arg = ft_strdup(tmp);
-					free(tmp);
+					len = count_quotes(ptr->arg);
+					printf("len is %d\n", len);
+					if (len > 0)
+					{
+						tmp = malloc(sizeof (char) * ft_strlen(ptr->arg) - len + 1);
+						copy_new(tmp, ptr->arg);
+						free(ptr->arg);
+						ptr->arg = ft_strdup(tmp);
+						free(tmp);
+					}
 				}
-				cmd[i]->redir_x->path_arg = cmd[i]->redir_x->path_arg->next;
+				ptr = ptr->next;
 			}
-			cmd[i]->redir_x = cmd[i]->redir_x->next;
+			r_ptr = r_ptr->next;
 		}
 		i++;
 	}	
@@ -83,23 +92,30 @@ static void arg_remove(t_cmd **cmd)
 	int len;
 	int i;
 	char *tmp;
+	t_arg *ptr;
 
 	i = 0;
 	len = 0;
 	while (cmd[i])
 	{	
-		while (cmd[i]->argx)
+		ptr = cmd[i]->argx;
+		while (ptr)
 		{	
-			len = count_quotes(cmd[i]->argx->arg);
-			if (len > 0)
+			printf("argx es %s\n", ptr->arg);
+			if (ptr->quoted)
 			{
-				tmp = malloc(sizeof (char) * ft_strlen(cmd[i]->argx->arg) - len + 1);
-				copy_new(tmp, cmd[i]->argx->arg);
-				free(cmd[i]->argx->arg);
-				cmd[i]->argx->arg = ft_strdup(tmp);
-				free(tmp);
+				len = count_quotes(ptr->arg);
+				if (len > 0)
+				{
+					tmp = malloc(sizeof (char) * ft_strlen(ptr->arg) - len + 1);
+					copy_new(tmp, ptr->arg);
+					free(ptr->arg);
+					ptr->arg = ft_strdup(tmp);
+					free(tmp);
+				}
 			}
-			cmd[i]->argx = cmd[i]->argx->next;
+			printf("new argx es %s\n", ptr->arg);
+			ptr = ptr->next;
 		}
 		i++;
 	}

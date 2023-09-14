@@ -118,6 +118,8 @@ static void redir_loop(t_shell *shell, char *str, t_cmd *cmd)
 					shell->next_redir = 1; // tenemos que seguir copiando nuevos args, si tocase, hasta que en funcion anterior cambiamos de redir struct
 				}
 				ft_arglstadd_back(&(ft_redirlstlast(cmd->redir_x)->path_arg), ft_arglstnew(ft_strdup(shell->tmp_tok)));
+				if (shell->var_quoted)
+					ft_arglstlast(ft_redirlstlast(cmd->redir_x)->path_arg)->quoted = 1;
 			}
 			free(shell->tmp_tok);
 		}
@@ -152,7 +154,11 @@ static void arg_loop(t_shell *shell, char *str, t_cmd *cmd)
 			if (shell->var_cat)
 				ft_arglstlast(cmd->argx)->arg = ft_strjoin(ft_arglstlast(cmd->argx)->arg, shell->tmp_tok);
 			else
+			{
 				ft_arglstadd_back(&(cmd->argx), ft_arglstnew(ft_strdup(shell->tmp_tok)));
+				if (shell->var_quoted)
+					ft_arglstlast(cmd->argx)->quoted = 1;
+			}
 			free(shell->tmp_tok);
 		}
 	}
