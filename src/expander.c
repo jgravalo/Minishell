@@ -85,7 +85,7 @@ static int check_quotes(char *str, int *len)
 	return (0);
 }
 
-static void expandredir_loop(t_shell *shell, char *str, t_cmd *cmd)
+static void redir_loop(t_shell *shell, char *str, t_cmd *cmd)
 {
 	int	i;
 	int	len;
@@ -107,12 +107,22 @@ static void expandredir_loop(t_shell *shell, char *str, t_cmd *cmd)
 		size = count_expand(shell, str, &len, &cpy) + 1;
 		shell->tmp_tok = (char *)malloc(sizeof (char) * size);
 		copy_token(shell->tmp_tok, str, &cpy, size);
-		ft_arglstadd_back(&(cmd->redir_list->path_arg), ft_arglstnew(ft_strdup(shell->tmp_tok)));
+		if (shell->var_cat)
+			ft_arglstlast(cmd->redir_x->path_arg)->arg = ft_strjoin(ft_arglstlast(cmd->redir_x->path_arg)->arg, shell->tmp_tok);
+		else
+		{	
+			if (!shell->next_redir)
+			{
+				ft_redirlstadd_back(&(cmd->redir_x), ft_redirlstnew(cmd->redir_list->type)); // ycopiamos nodo en nueva lista
+				shell->next_redir = 1; // tenemos que seguir copiando nuevos args, si tocase, hasta que en funcion anterior cambiamos de redir struct
+			}
+			ft_arglstadd_back(&(ft_redirlstlast(cmd->redir_x)->path_arg), ft_arglstnew(ft_strdup(shell->tmp_tok)));
+		}
 		free(shell->tmp_tok);
 	}
 }
 
-static void expandstr_loop(t_shell *shell, char *str, t_cmd *cmd)
+static void arg_loop(t_shell *shell, char *str, t_cmd *cmd)
 {
 	int	i;
 	int	len;
@@ -131,7 +141,6 @@ static void expandstr_loop(t_shell *shell, char *str, t_cmd *cmd)
 			cpy++;
 		}
 		size = count_expand(shell, str, &len, &cpy) + 1;
-		printf("size is %d\n", size);
 		shell->tmp_tok = (char *)malloc(sizeof (char) * size);
 		copy_token(shell->tmp_tok, str, &cpy, size);
 		if (shell->var_cat)
@@ -142,8 +151,8 @@ static void expandstr_loop(t_shell *shell, char *str, t_cmd *cmd)
 	}
 }
 
-void expander(t_shell *shell, t_cmd **cmd)
-{	
+static  void expand_args(t_shell *shell, t_cmd **cmd)
+{
 	int i;
 	int j;
 	int n;
@@ -157,40 +166,54 @@ void expander(t_shell *shell, t_cmd **cmd)
 		cmd[n]->argx = NULL;
 		while (cmd[n]->arg)
 		{	
-			printf("arg es %s\n",cmd[n]->arg->arg);
 			while (cmd[n]->arg->arg[i])
 			{
 				expstr = ft_strdup(expand_str(shell, cmd[n]->arg, &i, &j));
-				printf("expstr es %s\n", expstr);
 				free(shell->tmp_tok);
 				if (expstr)
-					expandstr_loop(shell, expstr, cmd[n]);
+					arg_loop(shell, expstr, cmd[n]);
 			}
 			cmd[n]->arg = cmd[n]->arg->next;
 			i = 0;
 			j = 0;
 		}
 		n++;
-	}
+	}	
+}
+
+static void expand_redir(t_shell *shell, t_cmd **cmd)
+{
+	int i;
+	int j;
+	int n;
+	char *expstr;
+
+	shell->next_redir = 0;
+	i = 0;
+	j = 0;
 	n = 0;
 	while (cmd[n])
 	{	
-		if (cmd[n]->redir_list)
-		{
-			expstr = ft_strdup(expand_str(shell, cmd[n]->redir_list->path_arg, &i, &j));
-			free(shell->tmp_tok);
-			if (expstr)
-			{	
-				free(cmd[n]->redir_list->path_arg);
-				cmd[n]->redir_list->path_arg = NULL;
-				expandredir_loop(shell, expstr, cmd[n]);
+		while (cmd[n]->redir_list)
+		{	
+			while (cmd[n]->redir_list->path_arg->arg[i])
+			{
+				expstr = ft_strdup(expand_str(shell, cmd[n]->redir_list->path_arg, &i, &j));
+				free(shell->tmp_tok);
+				if (expstr)
+					redir_loop(shell, expstr, cmd[n]);
 			}
-			else
-			{	
-				free(cmd[n]->redir_list->path_arg);
-				cmd[n]->redir_list->path_arg = NULL;
-			}
+			cmd[n]->redir_list = cmd[n]->redir_list->next;
+			shell->next_redir = 0;
+			i = 0;
+			j = 0;
 		}
 		n++;
 	}
+}
+
+void expander(t_shell *shell, t_cmd **cmd)
+{	
+	expand_args(shell, cmd);
+	expand_redir(shell, cmd);
 }

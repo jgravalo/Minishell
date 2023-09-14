@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/14 02:18:49 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 03:21:56 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef	struct s_cmd
 	t_arg 	*arg;
 	t_arg	*argx;
 	t_redir *redir_list;
+	t_redir	*redir_x;
 	char	*infile_path;
 	char	*outfile_path;
 	int		here_doc;
@@ -121,6 +122,7 @@ typedef struct s_shell
 	char 	*error_tmp;
 	char 	*old_pwd;
 	int		*redir_error;
+	int		next_redir;
 	int		var_quoted;
 	int		var_cat;
 	int		line_number;

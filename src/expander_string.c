@@ -35,7 +35,6 @@ static int check_double(char *str, int *i, int *j, t_shell *shell)
 
 	if (str[*j] == '\"')
 	{	
-		printf("entra en check double\n");
 		shell->tmp_tok[(*i)++] = str[(*j)++];
 		while (str[*j] != '\"')
 		{	
@@ -92,7 +91,7 @@ static void	expand(t_shell *shell, char *str, int *j)
 
 	i = 0;
 	while (str[*j])
-	{	//printf("str es %s\n", &str[*j]);
+	{
 		check_single(str, &i, j, shell);
 		if (check_double(str, &i, j, shell))
 			break ;
@@ -107,12 +106,10 @@ char *expand_str(t_shell *shell, t_arg *arg, int *i, int *j)
 	int len;
 
 	len = count_expstr(shell, arg->arg, i);
-	printf("len is %d\n", len);
 	if (len > 0)
 	{
 		shell->tmp_tok = malloc(sizeof (char) * len + 1);
 		expand(shell, arg->arg, j);
-		printf("tmp es %s\n", shell->tmp_tok);
 	}
 	else
 		shell->tmp_tok = NULL;

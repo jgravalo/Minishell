@@ -32,31 +32,13 @@ static void init(t_cmd **cmd, int n)
 
 	i = 0;
 	while (i < n)
-	{	
+	{
 		cmd[i] = malloc(sizeof (t_cmd));
 		cmd[i]->redir_list = NULL;
 		cmd[i]->arg = NULL;
 		i++;
 	}
 	cmd[i] = NULL;
-}
-
-static void alloc_args(t_cmd **cmd, t_tok *tokens)
-{	
-	int i;
-	int n;
-
-	n = 0;
-	i = 0;
-	while(tokens)
-	{
-		if (ft_strcmp(tokens->type, "WORD") == 0)
-			n++;
-		else if (ft_strcmp(tokens->type, "PIPE") == 0)
-			cmd[i++]->args = malloc(sizeof (char *) * (n + 1));
-		tokens = tokens->next;
-	}
-	cmd[i]->args = malloc(sizeof (char *) * (n + 1));
 }
 
 static void parse(t_tok *tokens, t_cmd **cmd)
@@ -69,16 +51,18 @@ static void parse(t_tok *tokens, t_cmd **cmd)
 	redir = 0;
 	while (tokens)
 	{
-		if (ft_strcmp(tokens->type, "WORD") == 0)
+		if (ft_strcmp(tokens->type, "WORD") == 0)			// si es palabra, para la lista de argumentos
 			ft_arglstadd_back(&(cmd[j]->arg), ft_arglstnew(ft_strdup(tokens->token)));
 		else if (ft_strcmp(tokens->type, "REDIR") == 0)
 		{	
-			redir = redir_type(tokens);
+			redir = redir_type(tokens);						//si es redir, guardamos el tipo
 			tokens = tokens->next;
-			ft_redirlstadd_back(&(cmd[j]->redir_list), ft_redirlstnew(redir));
+			ft_redirlstadd_back(&(cmd[j]->redir_list), ft_redirlstnew(redir)); // y creamos nodo con el tipo, como en funcion
 			ft_arglstadd_back(&(ft_redirlstlast(cmd[j]->redir_list)->path_arg), ft_arglstnew(tokens->token));
+			// y en esta ultima linea, vamos a buscar al ultimo nodo de redir, y anadimos al fondo de la lista un nodo de arg,
+			// con el texto del token que tocara, es decir, el path del file
 		}
-		else // pipe, nuevo command struct
+		else //si encontramos pipe, vamos a una nueva estructura de comando
 			j++;
 		tokens = tokens->next;
 	}
@@ -91,8 +75,8 @@ void parser(t_shell *shell)
 {	
 	int n;
 
-	n = count_pipes(shell->tokens);
-	shell->s_cmd = malloc(sizeof (t_cmd *) * (n + 2));
-	init(shell->s_cmd, n + 1);
+	n = count_pipes(shell->tokens);   // el numero de pipes marca cuantas estructuras de comandos.
+	shell->s_cmd = malloc(sizeof (t_cmd *) * (n + 2)); // si es n = 0, seguiremos necesitando uno + el nulo
+	init(shell->s_cmd, n + 1); 
 	parse(shell->tokens, shell->s_cmd);
 }

@@ -80,7 +80,9 @@ static int check_normal(char *str, int *count, int *i, char **envp)
 			if (ft_strcmp(var, "?") == 0)
 				(*count)++;
 			else
+			{	
 				(*count) +=	ft_strlen(search_var_line(var, envp));
+			}
 			return (1);
 		}
 		else
@@ -105,13 +107,13 @@ int count_expstr(t_shell *shell, char *str, int *i)
 		if (check_double(str, &count, i, shell->envp))
 		{
 			shell->var_quoted = 1;
-			if (str[*i + 1] != ' ')
+			if (str[*i] && str[*i + 1] && str[*i + 1] != ' ')
 				shell->var_cat = 1;
 			return (count);
 		}
 		if (check_normal(str, &count, i, shell->envp))
 		{	
-			if (str[*i + 1] == ' ')
+			if (str[*i] && str[*i + 1] && str[*i + 1] == ' ')
 				shell->var_cat = 1;
 			return (count);
 		}
