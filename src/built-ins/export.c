@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:59:28 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/14 15:46:37 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 20:36:41 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,20 +97,20 @@ static void	order_env(t_shell *shell, char **envp)
 	free(order);
 }
 
-int	export(t_shell *shell, t_cmd **cmd, int i)
+int	export(t_shell *shell, t_cmd **cmd, int *i)
 {
 	int	j;
 
-	if (cmd[i]->args[1] == NULL)
+	if (cmd[*i]->args[1] == NULL)
 	{
 		order_env(shell, shell->envp);
 		return (0);
 	}
 	j = 1;
-	while (cmd[i]->args[j])
+	while (cmd[*i]->args[j])
 	{	
 		//printf("entra aqui %s\n", shell->struct_cmd[n]->args[i]);
-		shell->exit = export_n(cmd[i]->args[j], shell);
+		shell->exit = export_n(cmd[*i]->args[j], shell);
 		j++;
 	}
 	return (shell->exit);

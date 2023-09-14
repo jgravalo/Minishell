@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/14 15:45:58 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 20:38:54 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	args_error(void)
 	return (1);
 }
 
-char	*cd_home(t_shell *shell, t_cmd **cmd, int i)
+char	*cd_home(t_shell *shell, t_cmd **cmd, int *i)
 {	
 	if (search_var_line("HOME", shell->envp) == NULL)
 	{
@@ -26,27 +26,27 @@ char	*cd_home(t_shell *shell, t_cmd **cmd, int i)
 		shell->exit = 1;
 		return (NULL);
 	}
-	free_m(cmd[i]->args);
-	cmd[i]->args = (char **)malloc(3 * sizeof(char *));
-	cmd[i]->args[0] = ft_strdup("cd");
-	cmd[i]->args[1] = ft_strdup(search_var_line("HOME",
+	free_m(cmd[*i]->args);
+	cmd[*i]->args = (char **)malloc(3 * sizeof(char *));
+	cmd[*i]->args[0] = ft_strdup("cd");
+	cmd[*i]->args[1] = ft_strdup(search_var_line("HOME",
 				shell->envp));
-	cmd[i]->args[2] = NULL;
-	return (cmd[i]->args[1]);
+	cmd[*i]->args[2] = NULL;
+	return (cmd[*i]->args[1]);
 }
 
-char *cd_back(t_shell *shell, t_cmd **cmd, int i)
+char *cd_back(t_shell *shell, t_cmd **cmd, int *i)
 {
 	char	*tmp;
 
 	tmp = ft_strjoin(search_var_line("PWD", shell->envp), "/");
-	cmd[i]->args[1] = ft_strjoin(tmp,
-			cmd[i]->args[1]);
+	cmd[*i]->args[1] = ft_strjoin(tmp,
+			cmd[*i]->args[1]);
 	free(tmp);
-	return (cmd[i]->args[1]);
+	return (cmd[*i]->args[1]);
 }
 
-char	*cd_last(t_shell *shell, t_cmd **cmd, int i)
+char	*cd_last(t_shell *shell, t_cmd **cmd, int *i)
 {
 	char	*tmp;
 
@@ -60,22 +60,22 @@ char	*cd_last(t_shell *shell, t_cmd **cmd, int i)
 	if (!tmp) // si no hay variable OLDPWD, copia el oldpwd interno de la shell
 		tmp = ft_strdup(shell->old_pwd);
 	printf("%s\n", tmp); // se imprime directorio como en bash
-	cmd[i]->args[1] = ft_strdup(tmp);
+	cmd[*i]->args[1] = ft_strdup(tmp);
 	free(tmp);
-	return (cmd[i]->args[1]);
+	return (cmd[*i]->args[1]);
 }
 
-int	cd(t_shell *shell, t_cmd **cmd, int i)
+int	cd(t_shell *shell, t_cmd **cmd, int *i)
 {
 	char	*tmp;
 	char	buffer[100];
 	char	*dir;
 
-	if (cmd[i]->args[2] != NULL)
+	if (cmd[*i]->args[2] != NULL)
 		return (args_error());
 	if (!shell->envp)
 		return (1);
-	dir = ft_strdup(cmd[i]->args[1]);
+	dir = ft_strdup(cmd[*i]->args[1]);
 	if (dir == NULL)
 		dir = cd_home(shell, cmd, i);
 	else if (ft_strlen(dir) == 0)

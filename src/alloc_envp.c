@@ -2,19 +2,22 @@
 
 void empty_old_pwd(t_shell *shell)
 {	
+	int i;
+
+	i = 0;
 	shell->s_cmd = (t_cmd **)malloc(sizeof (t_cmd *));
 	shell->s_cmd[0] = (t_cmd *)malloc(sizeof (t_cmd));
 	shell->s_cmd[0]->args = (char **)malloc(sizeof (char *) * 3);
 	shell->s_cmd[0]->args[0] = ft_strdup("unset");
 	shell->s_cmd[0]->args[1] = ft_strdup("OLDPWD");
 	shell->s_cmd[0]->args[2] = NULL;
-	unset(shell, shell->s_cmd, 0);
+	unset(shell, shell->s_cmd, &i);
 	free_m(shell->s_cmd[0]->args);
 	shell->s_cmd[0]->args = (char **)malloc(sizeof (char *) * 3);
 	shell->s_cmd[0]->args[0] = ft_strdup("export");
 	shell->s_cmd[0]->args[1] = ft_strdup("OLDPWD");
 	shell->s_cmd[0]->args[2] = NULL;
-	export(shell, shell->s_cmd, 0);
+	export(shell, shell->s_cmd, &i);
 	free_m(shell->s_cmd[0]->args);
 	free(shell->s_cmd[0]);
 	free(shell->s_cmd);

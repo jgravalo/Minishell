@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:00:23 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/14 16:00:40 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 20:43:53 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,24 @@ static int	unset_n(char *var, t_shell *shell)
 	return (0);
 }
 
-int	unset(t_shell *shell, t_cmd **cmd, int i)
+int	unset(t_shell *shell, t_cmd **cmd, int *i)
 {
 	int		j;
 
 	j = 1;
-	if (cmd[i]->args[j] == NULL)
+	if (cmd[*i]->args[j] == NULL)
 		return (0);
-	while (cmd[i]->args[j])
+	while (cmd[*i]->args[j])
 	{
-		if (ft_strchr(cmd[i]->args[j], '=') != NULL)
+		if (ft_strchr(cmd[*i]->args[j], '=') != NULL)
 		{
 			write(2, "bash: unset: `", 14);
-			write(2, cmd[i]->args[j],
-				ft_strlen(cmd[i]->args[j]));
+			write(2, cmd[*i]->args[j],
+				ft_strlen(cmd[*i]->args[j]));
 			write(2, "\': not a valid identifier\n", 26);
 			shell->exit++;
 		}
-		shell->exit += unset_n(cmd[i]->args[j], shell);
+		shell->exit += unset_n(cmd[*i]->args[j], shell);
 		j++;
 	}
 	return (shell->exit);
