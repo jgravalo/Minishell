@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/14 22:18:00 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 23:25:31 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ int	new_shell(t_shell *shell)
 		lexer(shell, shell->readline);
 		categorizer(shell->tokens);
 		parser(shell);
-		printf("tras parser\n");
-		ft_printcmd(shell->s_cmd);
+/* 		printf("tras parser\n");
+		ft_printcmd(shell->s_cmd); */
 		expander(shell, shell->s_cmd);
-		printf("tras expander\n");
-		ft_printcmdargx(shell->s_cmd);
+/* 		printf("tras expander\n");
+		ft_printcmdargx(shell->s_cmd); */
 //		quote_remove(shell->s_cmd);
 		set_argv(shell->s_cmd);   // volcamos definitivamente en un char** (solo args, que pueden ser mas de uno, redirs de mas de un argumento ya ha que dar error)
 /* 		printf("lista definitiva: \n");

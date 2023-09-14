@@ -66,7 +66,7 @@ static int check_double(char *str, int *i, int *j, t_shell *shell)
 		shell->tmp_tok[(*i)++] = str[(*j)++];
 		end = *i - 1;
 		ft_quotelstadd_back(&shell->quote, ft_quotelstnew(start, end));
-		printf("quote struct added, start %d. end %d\n", start, end);
+		//printf("quote struct added, start %d. end %d\n", start, end);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/14 22:54:11 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 23:20:03 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ typedef struct s_quote
 {
 	int	start;
 	int end;
-	struct t_quote	*next;
+	struct s_quote	*next;
 }				t_quote;
 
 typedef	struct s_cmd

@@ -59,34 +59,6 @@ static void	copy_token(char *dst, const char *src, int *cpy, size_t dstsize)
 	dst[i] = '\0';
 }
 
-static int check_quotes(char *str, int *len)
-{
-	int cpy_len;
-	char	quote;
-
-	cpy_len = *len;
-	while(str[cpy_len] && str[cpy_len] != ' ')
-	{	
-		if ((str[cpy_len] == '\'' || str[cpy_len] == '\"'))
-		{
-			quote = str[cpy_len];
-			while (str[cpy_len] != quote)
-			{
-				cpy_len++;
-
-			}
-		}
-		else if (str[cpy_len] == ' ')
-		{	
-			(*len)++;
-			return (1);
-		}
-		else
-			cpy_len++;
-	}
-	return (0);
-}
-
 static void redir_loop(t_shell *shell, char *str, t_cmd *cmd)
 {
 	int	i;
@@ -158,6 +130,13 @@ static void arg_loop(t_shell *shell, char *str, t_cmd *cmd)
 			len++;
 			cpy++;
 		}
+		if (shell->quote && shell->quote->start == len)
+		{
+			shell->var_quoted = 1;
+			shell->quote = shell->quote->next;
+		}
+		else
+			shell->var_quoted = 0;
 		size = count_expand(shell, str, &len, &cpy) + 1;
 		if (size > 1)
 		{
@@ -192,7 +171,6 @@ static  void expand_args(t_shell *shell, t_cmd **cmd)
 			while (cmd[n]->arg->arg[i])
 			{
 				expstr = ft_strdup(expand_str(shell, cmd[n]->arg, &i, &j));
-				printf("exp str es %s\n", expstr);
 				free(shell->tmp_tok);
 				if (expstr)
 					arg_loop(shell, expstr, cmd[n]);

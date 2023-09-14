@@ -37,7 +37,7 @@ static void fill_pipe_check(t_shell *shell)
 		i++;
 	}
 }
-
+/* 
 void init_shell(t_shell *shell)
 {	
 	shell->pipes = count_ascii(shell->readline, '|');
@@ -66,3 +66,4 @@ void init_shell(t_shell *shell)
 	shell->redir_error = (int *)malloc(sizeof (int) *(shell->pipes + 1));
 	fill_redir_error(shell);
 }
+ */

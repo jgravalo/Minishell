@@ -49,7 +49,7 @@ void	ft_quotelstadd_back(t_quote **lst, t_quote *new)
 		*lst = new;
 		return ;
 	}
-	curr = ft_redirlstlast(*lst);
+	curr = ft_quotelstlast(*lst);
 	curr->next = new;
 }
 
