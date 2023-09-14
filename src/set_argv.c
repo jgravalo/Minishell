@@ -11,10 +11,11 @@ void	set_argv(t_cmd **cmd)
 	while (cmd[i])
 	{	
 		cmd[i]->args = malloc(sizeof (char * ) * ft_arglstsize(cmd[i]->arg) + 1);
-		ptr = cmd[i]->arg;
+		ptr = cmd[i]->argx;
 		while(ptr)
-		{
-			cmd[i]->args[j++] = ft_strdup(ptr->arg);
+		{	
+			cmd[i]->args[j] = ft_strdup(ptr->arg);
+			j++;
 			ptr = ptr->next;
 		}
 		i++;

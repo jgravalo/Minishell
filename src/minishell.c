@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/14 15:20:51 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 15:55:16 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,15 @@ int	new_shell(t_shell *shell)
 		ft_printcmd(shell->s_cmd); */
 		
 		expander(shell, shell->s_cmd);
-		printf("tras expander\n");
-		ft_printcmdargx(shell->s_cmd);
+		//printf("tras expander\n");   // sale de expander en una lista de argumentos y redir nueva / argx y redir_x !! 
+		//ft_printcmdargx(shell->s_cmd);
 		quote_remove(shell->s_cmd);
 		
 /* 		printf("tras quote remove\n");
 		ft_printcmdargx(shell->s_cmd); */
-		set_argv(shell->s_cmd);
-		ft_printdeflist(shell->s_cmd);
+		set_argv(shell->s_cmd);   // volcamos definitivamente en un char** (solo args, que pueden ser mas de uno, redirs de mas de un argumento ya ha que dar error)
+		/* printf("lista definitiva: \n");
+		ft_printdeflist(shell->s_cmd); */
 		execute(shell, shell->s_cmd);
 /* 		if (shell->readline == NULL)
 		{	
