@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/14 11:30:15 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 12:20:42 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,12 @@ int	new_shell(t_shell *shell)
 		parser(shell);
 /* 		printf("tras parser\n");
 		ft_printcmd(shell->s_cmd); */
+		
 		expander(shell, shell->s_cmd);
 /* 		printf("tras expander\n");
 		ft_printcmdargx(shell->s_cmd); */
 		quote_remove(shell->s_cmd);
+		
 /* 		printf("tras quote remove\n");
 		ft_printcmdargx(shell->s_cmd); */
 		execute(shell, shell->s_cmd);

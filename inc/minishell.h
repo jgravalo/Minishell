@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/14 11:37:10 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 12:14:28 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,9 @@ typedef struct s_redir
 {
 	t_arg 	*path_arg;
 	char	*path;
+	int 	heredoc_quoted;
 	int		heredoc_fd;
+	int		fd;
 	int		type;
 	struct s_redir	*next;
 }			t_redir;
@@ -301,8 +303,6 @@ int		count_redir(char *line);
 
 int		len_redir(char *line);
 
-void	make_heredoc(t_shell *shell, int n, int redir_num);
-
 int 	is_there_dollar(char *line, char c);
 
 int 	check_for_tilde(char *line);
@@ -373,7 +373,9 @@ void 	quote_remove(t_cmd **cmd);
 
 void 	execute(t_shell *shell, t_cmd **cmd);
 
+void 	execute_redir(t_shell *shell, t_cmd **cmd, int *i);
 
+void 	heredoc(t_shell *shell, t_cmd **cmd, int *i);
 /*
 void	make_history(t_hist *hist, char *line);
 

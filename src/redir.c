@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/12 00:39:06 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 12:16:24 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,41 +73,6 @@ static	void handle_signal(int sig)
 		exit(1);
 }
 
-void make_heredoc(t_shell *shell, int n, int redir_num)
-{	
-	int start_line;
-	char *str;
-	char *heredoc;
-
-	signal(SIGINT, handle_signal);
-	signal(SIGQUIT, handle_signal);
-	str = NULL;
-	heredoc = ft_strdup("");
-	start_line = shell->line_number;
-	while (1)
-	{	
-		str = readline("> ");
-		if (ft_strcmp(str, shell->delimiter) == 0)
-			break;
-		else if (str == NULL)
-		{	
-			write_heredoc_eof(shell, start_line);
-			break;
-		}
-		if (shell->heredoc_quoted == 0)
-			str = expand_meta(shell, str, 1);
-		str = ft_strjoin(str, "\n");
-		heredoc = ft_strjoin(heredoc, str);
-		shell->line_number++;
-	}
-	write(shell->struct_cmd[n]->redir[redir_num]->heredoc_fd, heredoc, ft_strlen(heredoc));
-	close(shell->struct_cmd[n]->redir[redir_num]->heredoc_fd);
-	shell->struct_cmd[n]->redir[redir_num]->heredoc_fd = open(shell->here_tmp, O_RDONLY);
-	unlink(shell->here_tmp);
-	free(heredoc);
-	exit(0);
-}
-
 void	make_redir(t_shell *shell, int n)
 {	
 	if (shell->struct_cmd[n]->infile > -1)
@@ -137,8 +102,8 @@ char *parse_redir(char *line, t_shell *shell, int n)
 	args = ft_split_redir(line);
 	shell->struct_cmd[n]->redir = (t_redir **)malloc(sizeof (t_redir *) * (count_redir_arr(args) + 1));
 	shell->struct_cmd[n]->redir[count_redir_arr(args)] = NULL;
-/* 	printf("redir args son:\n");
-	ft_printarr(args); */
+	printf("redir args son:\n");
+	ft_printarr(args);
 	i = 0;
 	while (args[i])
 	{	

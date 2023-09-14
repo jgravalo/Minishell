@@ -14,12 +14,6 @@ static	void create_pipes(t_shell *shell, t_cmd **cmd)
 	shell->children = 0;
 }
 
-static void child(t_shell *shell, t_cmd **cmd, int *i)
-{
-	printf("i am child %d\n", getpid());
-	exit(0);
-}
-
 static void	fork_cmd(t_shell *shell, t_cmd **cmd, int *i)
 {	
 	(*i)++;
@@ -33,14 +27,41 @@ static void	fork_cmd(t_shell *shell, t_cmd **cmd, int *i)
 	}
 }
 
+static void	parent_wait(t_shell *shell, t_cmd **cmd)
+{	
+	int status;
+	int i;
+	pid_t	pid;
+
+	status = 0;
+	while (shell->children != 0)
+	{	
+		i = 0;
+		while (i < shell->pipes + 1)
+		{
+			pid = waitpid(cmd[i]->pid, &status, 0);
+			if (pid > 0)
+			{	
+				shell->children--;
+				if (WIFEXITED(status))
+					shell->exit = WEXITSTATUS(status);
+			}
+			i++;
+		}		
+	}
+}
+
 void execute(t_shell *shell, t_cmd **cmd)
 {	
 	int i;
+	int status;
 
 	i = -1;
 	create_pipes(shell, cmd);
 	fork_cmd(shell, cmd, &i);
 	if (cmd[i]->pid == 0)
-		child(shell, cmd, &i);
+		execute_redir(shell, cmd, &i);
+	else
+		parent_wait(shell, cmd);
 	
 }

@@ -65,11 +65,9 @@ static void redir_remove(t_cmd **cmd)
 			ptr = r_ptr->path_arg;
 			while(ptr)
 			{	
-				printf("arg es %s\n", ptr->arg);
 				if (ptr->quoted)
 				{
 					len = count_quotes(ptr->arg);
-					printf("len is %d\n", len);
 					if (len > 0)
 					{
 						tmp = malloc(sizeof (char) * ft_strlen(ptr->arg) - len + 1);
