@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/14 00:37:50 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/14 02:08:11 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ typedef struct s_shell
 	char 	*error_tmp;
 	char 	*old_pwd;
 	int		*redir_error;
+	int		var_quoted;
 	int		line_number;
 	int		heredoc_quoted;
 	int		redir_type;
@@ -327,11 +328,11 @@ t_tok	*ft_lstlast(t_tok *lst);
 
 void	ft_printlst(t_tok *lst);
 
-char 	*expand_str(t_shell *shell, t_arg *arg, int *quotes);
+char 	*expand_str(t_shell *shell, t_arg *arg, int *i, int *j);
 
 int		is_alpha_num_exp(char c);
 
-int 	count_expstr(t_shell *shell, char *str, int *quotes);
+int 	count_expstr(t_shell *shell, char *str, int *i);
 
 void 	parser(t_shell *shell);
 
@@ -362,6 +363,8 @@ void	ft_printredirarglist(t_arg *arg);
 void	ft_arglstadd_front(t_arg **lst, t_arg *new);
 
 void	ft_printcmdargx(t_cmd **cmd);
+
+void 	quote_remove(t_cmd **cmd);
 
 /*
 void	make_history(t_hist *hist, char *line);

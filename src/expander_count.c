@@ -51,6 +51,9 @@ static int check_double(char *str, int *count, int *i, char **envp)
 					(*count)++;
 				else
 					(*count) +=	ft_strlen(search_var_line(var, envp));
+				(*i)++;
+				(*count)++;
+				return (1);
 			}
 			else
 			{	
@@ -60,12 +63,12 @@ static int check_double(char *str, int *count, int *i, char **envp)
 		}
 		(*i)++;
 		(*count)++;
-		return (1);
+		return (0);
 	}
 	return (0);
 }
 
-static void check_normal(char *str, int *count, int *i, char **envp)
+static int check_normal(char *str, int *count, int *i, char **envp)
 {	
 	char *var;
 
@@ -78,6 +81,7 @@ static void check_normal(char *str, int *count, int *i, char **envp)
 				(*count)++;
 			else
 				(*count) +=	ft_strlen(search_var_line(var, envp));
+			return (1);
 		}
 		else
 		{	
@@ -85,22 +89,27 @@ static void check_normal(char *str, int *count, int *i, char **envp)
 			(*count)++;
 		}
 	}
+	return (0);
 }
 
-int count_expstr(t_shell *shell, char *str, int *quotes)
+int count_expstr(t_shell *shell, char *str, int *i)
 {
-	int i;
 	int count;
 
-	i = 0;
 	count = 0;
-	while (str[i])
+	while (str[*i])
 	{	
-		if (check_single(str, &count, &i))
-			*quotes = 1;
-		if (check_double(str, &count, &i, shell->envp))
-			*quotes = 1;
-		check_normal(str, &count, &i, shell->envp);
+		check_single(str, &count, i);
+		if (check_double(str, &count, i, shell->envp))
+		{
+			shell->var_quoted = 1;
+			return (count);
+		}
+		if (check_normal(str, &count, i, shell->envp))
+		{	
+			shell->var_quoted = 0;
+			return (count);
+		}
 	}
 	return (count);
 }

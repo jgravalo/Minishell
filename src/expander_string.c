@@ -1,110 +1,118 @@
 #include  "../inc/minishell.h"
 
-static char *get_var(char *str, int *i)
+static char *get_var(char *str, int *j)
 {
-	int j;
+	int i;
 	int start;
 
-	j = 0;
-	(*i)++;
-	start = *i;
-	while (str[*i] && str[*i] != ' ' && str[*i] != '$' && str[*i] != '\"' && str[*i] != '\'')
+	i = 0;
+	(*j)++;
+	start = *j;
+	while (str[*j] && str[*j] != ' ' && str[*j] != '$' && str[*j] != '\"' && str[*j] != '\'')
 	{	
-		(*i)++;
-		j++;
+		(*j)++;
+		i++;
 	}
-	return (ft_substr(str, start, j));
+	return (ft_substr(str, start, i));
 }
 
 static void check_single(char *str, int *i, int *j, t_shell *shell)
 {
-	if (str[*i] == '\'')
+	if (str[*j] == '\'')
 	{	
-		shell->tmp_tok[(*j)++] = str[(*i)++];
-		while (str[*i] != '\'')
-			shell->tmp_tok[(*j)++] = str[(*i)++];
-		shell->tmp_tok[(*j)++] = str[(*i)++];
+		shell->tmp_tok[(*i)++] = str[(*j)++];
+		while (str[*j] != '\'')
+			shell->tmp_tok[(*i)++] = str[(*j)++];
+		shell->tmp_tok[(*i)++] = str[(*j)++];
 	}
 }
 
-static void check_double(char *str, int *i, int *j, t_shell *shell)
+static int check_double(char *str, int *i, int *j, t_shell *shell)
 {	
 	char *var;
 	char *exp;
 	int	m;
 
-	if (str[*i] == '\"')
+	if (str[*j] == '\"')
 	{	
-		shell->tmp_tok[(*j)++] = str[(*i)++];
-		while (str[*i] != '\"')
+		printf("entra en check double\n");
+		shell->tmp_tok[(*i)++] = str[(*j)++];
+		while (str[*j] != '\"')
 		{	
 			m = 0;
-			if (str[*i] == '$' && is_alpha_num_exp(str[(*i) + 1]) == 1)
+			if (str[*j] == '$' && is_alpha_num_exp(str[(*j) + 1]) == 1)
 			{	
-				var	=	get_var(str, i);
+				var	=	get_var(str, j);
 				if (ft_strcmp(var, "?") == 0)
 					exp = ft_itoa(shell->exit);
 				else
 					exp = ft_strdup(search_var_line(var, shell->envp));
 				while (exp && exp[m])
-					shell->tmp_tok[(*j)++] = exp[m++];
+					shell->tmp_tok[(*i)++] = exp[m++];
+				shell->tmp_tok[(*i)++] = str[(*j)++];
+				return (1);
 			}
 			else
-				shell->tmp_tok[(*j)++] = str[(*i)++];
+				shell->tmp_tok[(*i)++] = str[(*j)++];
 		}
-		shell->tmp_tok[(*j)++] = str[(*i)++];
+		shell->tmp_tok[(*i)++] = str[(*j)++];
 	}
+	return (0);
 }
 
-static void check_normal(char *str, int *i, int *j, t_shell *shell)
+static int check_normal(char *str, int *i, int *j, t_shell *shell)
 {	
 	char *var;
 	char *exp;
 	int m;
 
-	while (str[*i] && str[*i] != '\'' && str[*i] != '\"')
+	while (str[*j] && str[*j] != '\'' && str[*j] != '\"')
 	{	
 		m = 0;
-		if (str[*i] == '$' && is_alpha_num_exp(str[*i + 1]) == 1)
+		if (str[*j] == '$' && is_alpha_num_exp(str[*j + 1]) == 1)
 		{
-			var	=	get_var(str, i);
+			var	=	get_var(str, j);
 			if (ft_strcmp(var, "?") == 0)
 				exp = ft_itoa(shell->exit);
 			else
 				exp = ft_strdup(search_var_line(var, shell->envp));
 			while (exp[m])
-				shell->tmp_tok[(*j)++] = exp[m++];
+				shell->tmp_tok[(*i)++] = exp[m++];
+			return (1);
 		}
 		else
-			shell->tmp_tok[(*j)++] = str[(*i)++];
+			shell->tmp_tok[(*i)++] = str[(*j)++];
 	}
+	return (0);
 }
 
-static void	expand(t_shell *shell, char *str)
+static void	expand(t_shell *shell, char *str, int *j)
 {
 	int i;
-	int j;
 
 	i = 0;
-	j = 0;
-	while (str[i])
-	{	
-		check_single(str, &i, &j, shell);
-		check_double(str, &i, &j, shell);
-		check_normal(str, &i, &j, shell);
+	while (str[*j])
+	{	//printf("str es %s\n", &str[*j]);
+		check_single(str, &i, j, shell);
+		if (check_double(str, &i, j, shell))
+			break ;
+		if (check_normal(str, &i, j, shell))
+			break ;
 	}
-	shell->tmp_tok[j] = '\0';
+	shell->tmp_tok[i] = '\0';
 }
 
-char *expand_str(t_shell *shell, t_arg *arg, int *quotes)
+char *expand_str(t_shell *shell, t_arg *arg, int *i, int *j)
 {
 	int len;
 
-	len = count_expstr(shell, arg->arg, quotes);
+	len = count_expstr(shell, arg->arg, i);
+	printf("len is %d\n", len);
 	if (len > 0)
 	{
 		shell->tmp_tok = malloc(sizeof (char) * len + 1);
-		expand(shell, arg->arg);
+		expand(shell, arg->arg, j);
+		printf("tmp es %s\n", shell->tmp_tok);
 	}
 	else
 		shell->tmp_tok = NULL;

@@ -16,7 +16,7 @@ static void (count_quote(char *token, int *len, int *cpy, int *count))
 	(*len)++;
 }
 
-static int count_expand(char *token, int *len, int *cpy, int *quotes)
+static int count_expand(t_shell *shell, char *token, int *len, int *cpy)
 {
 	int count;
 	int i;
@@ -25,8 +25,7 @@ static int count_expand(char *token, int *len, int *cpy, int *quotes)
 	count = 0;
 	while(token[*len])
 	{	
-		printf("quotes es %d\n", *quotes);
-		if (*quotes == 1 && (token[*len] == '\'' || token[*len] == '\"'))
+		if (shell->var_quoted == 1 && (token[*len] == '\'' || token[*len] == '\"'))
 			count_quote(token, len, cpy, &count);
 		else if (token[*len] == ' ')
 		{	
@@ -58,7 +57,35 @@ static void	copy_token(char *dst, const char *src, int *cpy, size_t dstsize)
 	dst[i] = '\0';
 }
 
-static void expandredir_loop(t_shell *shell, char *str, t_cmd *cmd, int *quotes)
+static int check_quotes(char *str, int *len)
+{
+	int cpy_len;
+	char	quote;
+
+	cpy_len = *len;
+	while(str[cpy_len] && str[cpy_len] != ' ')
+	{	
+		if ((str[cpy_len] == '\'' || str[cpy_len] == '\"'))
+		{
+			quote = str[cpy_len];
+			while (str[cpy_len] != quote)
+			{
+				cpy_len++;
+
+			}
+		}
+		else if (str[cpy_len] == ' ')
+		{	
+			(*len)++;
+			return (1);
+		}
+		else
+			cpy_len++;
+	}
+	return (0);
+}
+
+static void expandredir_loop(t_shell *shell, char *str, t_cmd *cmd)
 {
 	int	i;
 	int	len;
@@ -76,7 +103,8 @@ static void expandredir_loop(t_shell *shell, char *str, t_cmd *cmd, int *quotes)
 			len++;
 			cpy++;
 		}
-		size = count_expand(str, &len, &cpy, quotes) + 1;
+
+		size = count_expand(shell, str, &len, &cpy) + 1;
 		shell->tmp_tok = (char *)malloc(sizeof (char) * size);
 		copy_token(shell->tmp_tok, str, &cpy, size);
 		ft_arglstadd_back(&(cmd->redir_list->path_arg), ft_arglstnew(ft_strdup(shell->tmp_tok)));
@@ -84,7 +112,7 @@ static void expandredir_loop(t_shell *shell, char *str, t_cmd *cmd, int *quotes)
 	}
 }
 
-static void expandstr_loop(t_shell *shell, char *str, t_cmd *cmd, int *quotes)
+static void expandstr_loop(t_shell *shell, char *str, t_cmd *cmd)
 {
 	int	i;
 	int	len;
@@ -102,7 +130,8 @@ static void expandstr_loop(t_shell *shell, char *str, t_cmd *cmd, int *quotes)
 			len++;
 			cpy++;
 		}
-		size = count_expand(str, &len, &cpy, quotes) + 1;
+		size = count_expand(shell, str, &len, &cpy) + 1;
+		printf("size is %d\n", size);
 		shell->tmp_tok = (char *)malloc(sizeof (char) * size);
 		copy_token(shell->tmp_tok, str, &cpy, size);
 		ft_arglstadd_back(&(cmd->argx), ft_arglstnew(ft_strdup(shell->tmp_tok)));
@@ -113,44 +142,49 @@ static void expandstr_loop(t_shell *shell, char *str, t_cmd *cmd, int *quotes)
 void expander(t_shell *shell, t_cmd **cmd)
 {	
 	int i;
+	int j;
+	int n;
 	char *expstr;
-	int quotes;
 
-	quotes = 0;
 	i = 0;
-	while (cmd[i])
+	j = 0;
+	n = 0;
+	while (cmd[n])
 	{	
-		cmd[i]->argx = NULL;
-		while (cmd[i]->arg)
+		cmd[n]->argx = NULL;
+		while (cmd[n]->arg)
 		{	
-			expstr = ft_strdup(expand_str(shell, cmd[i]->arg, &quotes));
-			printf("expstr es %s\n", expstr);
-			free(shell->tmp_tok);
-			if (expstr)
-				expandstr_loop(shell, expstr, cmd[i], &quotes);
-			cmd[i]->arg = cmd[i]->arg->next;
+			while (cmd[n]->arg->arg[i])
+			{
+				expstr = ft_strdup(expand_str(shell, cmd[n]->arg, &i, &j));
+				printf("expstr es %s\n", expstr);
+				free(shell->tmp_tok);
+				if (expstr)
+					expandstr_loop(shell, expstr, cmd[n]);
+			}
+			cmd[n]->arg = cmd[n]->arg->next;
 		}
-		i++;
+		n++;
 	}
-	i = 0;
-	while (cmd[i])
+	n = 0;
+	while (cmd[n])
 	{	
-		if (cmd[i]->redir_list)
+		if (cmd[n]->redir_list)
 		{
-			expstr = ft_strdup(expand_str(shell, cmd[i]->redir_list->path_arg, &quotes));
+			expstr = ft_strdup(expand_str(shell, cmd[n]->redir_list->path_arg, &i, &j));
 			free(shell->tmp_tok);
 			if (expstr)
 			{	
-				free(cmd[i]->redir_list->path_arg);
-				cmd[i]->redir_list->path_arg = NULL;
-				expandredir_loop(shell, expstr, cmd[i], &quotes);
+				free(cmd[n]->redir_list->path_arg);
+				cmd[n]->redir_list->path_arg = NULL;
+				expandredir_loop(shell, expstr, cmd[n]);
 			}
 			else
 			{	
-				free(cmd[i]->redir_list->path_arg);
-				cmd[i]->redir_list->path_arg = NULL;
+				free(cmd[n]->redir_list->path_arg);
+				cmd[n]->redir_list->path_arg = NULL;
 			}
 		}
-		i++;
+		n++;
 	}
 }

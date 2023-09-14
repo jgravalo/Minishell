@@ -47,23 +47,31 @@ static void copy_new(char *new, char *str)
 	new[j] = '\0';
 }
 
-void quote_remove(t_tok *expanded)
+void quote_remove(t_cmd **cmd)
 {	
 	int len;
-	char *new;
+	int i;
+	char *tmp;
 
+	i = 0;
 	len = 0;
-	while (expanded)
+	while (cmd[i])
 	{	
-		len = count_quotes(expanded->token);
-		printf("len es %d\n", len);
-		if (len > 0)
-		{
-			new = malloc(sizeof (char) * ft_strlen(expanded->token) - 2 + 1);
-			copy_new(new, expanded->token);
-			free(expanded->token);
-			expanded->token = new;
+		cmd[i]->arg = NULL;
+		while (cmd[i]->argx)
+		{	
+			len = count_quotes(cmd[i]->argx->arg);
+			if (len > 0)
+			{
+				tmp = malloc(sizeof (char) * ft_strlen(cmd[i]->argx->arg) - len + 1);
+				copy_new(tmp, cmd[i]->argx->arg);
+				printf("pasa de aqui\n");
+				ft_arglstadd_back(&(cmd[i]->arg), ft_arglstnew(ft_strdup(tmp)));
+			}
+			else
+				ft_arglstadd_back(&(cmd[i]->arg), ft_arglstnew(ft_strdup(cmd[i]->argx->arg)));
+			cmd[i]->argx = cmd[i]->argx->next;
 		}
-		expanded = expanded->next;
+		i++;
 	}
 }
