@@ -51,6 +51,8 @@ static void	copy_token(char *dst, const char *src, int *cpy, size_t dstsize)
 	int 	quote;
 
 	i = 0;
+	while (src[*cpy] == ' ')
+		(*cpy)++;
 	while (i < (dstsize - 1))
 	{	
 		dst[i] = src[*cpy];
