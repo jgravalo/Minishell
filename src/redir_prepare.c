@@ -30,7 +30,7 @@ static void prepare_heredocs(t_shell *shell, char *tmp, int n, int redir_num)
 	if(ft_strchr(tmp, '\"') || ft_strchr(tmp, '\''))
 	{
 		shell->heredoc_quoted = 1;
-		shell->delimiter = remove_quotes(shell->delimiter);
+		shell->delimiter = remove_quotes(shell, shell->delimiter);
 	}
 	shell->saved_stdin = dup(0);
 	shell->redir_type = 2;
@@ -47,7 +47,7 @@ static void prepare_heredocs(t_shell *shell, char *tmp, int n, int redir_num)
 
 static void prepare_outfile(t_shell *shell, char *tmp, int n, int redir_num)
 {	
-	tmp = remove_quotes(tmp);
+	tmp = remove_quotes(shell, tmp);
 	shell->struct_cmd[n]->redir[redir_num]->path = ft_strdup(tmp);
 	shell->struct_cmd[n]->redir[redir_num]->type = 2;
 	free(tmp);
@@ -55,7 +55,7 @@ static void prepare_outfile(t_shell *shell, char *tmp, int n, int redir_num)
 
 static void prepare_append(t_shell *shell, char *tmp, int n, int redir_num)
 {	
-	tmp = remove_quotes(tmp);
+	tmp = remove_quotes(shell, tmp);
 	shell->struct_cmd[n]->redir[redir_num]->path = ft_strdup(tmp);
 	shell->struct_cmd[n]->redir[redir_num]->type = 3;
 	free(tmp);

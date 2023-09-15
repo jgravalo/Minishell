@@ -1,43 +1,46 @@
 #include "../inc/minishell.h"
 
-int count_quotes(char *str)
+int count_quotes(t_shell *shell, char *str)
 {	
 	int count;
-	char quote;
+	int i;
+	t_quote	*ptr;
 
+	i = 0;
 	count = 0;
-	while (*str)
+	ptr = shell->quote;
+	//printf("str es %s\n", str);
+	while (str[i])
 	{
-		if (*str == '\'' || *str == '\"')
+		if (i == ptr->start)
 		{
-			quote = *str;
 			count += 2;
-			str++;
-			while (*str != quote)
-				str++;
-			str++;
+			i++;
+			while (i != ptr->end)
+				i++;
+			i++;
 		}
 		else
-			str++;
+			i++;
 	}
 	return (count);
 }
 
-void copy_new(char *new, char *str)
+void copy_new(t_shell *shell, char *new, char *str)
 {
 	int i;
 	int j;
-	char quote;
+	t_quote *ptr;
 
 	i = 0;
 	j = 0;
+	ptr = shell->quote;
 	while (str[i])
 	{
-		if (str[i] == '\'' || str[i] == '\"')
+		if (i == ptr->start - ptr->start)
 		{
-			quote = str[i];
 			i++;
-			while(quote != str[i])
+			while(i != ptr->end - ptr->start)
 				new[j++] = str[i++];
 			i++;
 		}
@@ -47,7 +50,21 @@ void copy_new(char *new, char *str)
 	new[j] = '\0';
 }
 
-static void redir_remove(t_cmd **cmd)
+char *remove_quotes(t_shell *shell, char *str)
+{
+	char *tmp;
+	int	len;
+
+	len = count_quotes(shell, str);
+	//printf("quotes to remove %d\n", len);
+	tmp = malloc(sizeof (char) * ft_strlen(str) - len + 1);
+	copy_new(shell, tmp, str);
+	//printf("after remove quote %s\n", tmp);
+	free(str);
+	return (tmp);
+}
+
+/* static void redir_remove(t_cmd **cmd)
 {
 	int len;
 	int i;
@@ -84,8 +101,8 @@ static void redir_remove(t_cmd **cmd)
 		i++;
 	}	
 }
-
-static void arg_remove(t_cmd **cmd)
+ */
+/* static void arg_remove(t_cmd **cmd)
 {
 	int len;
 	int i;
@@ -122,4 +139,4 @@ void quote_remove(t_cmd **cmd)
 {	
 	arg_remove(cmd);
 	redir_remove(cmd);
-}
+} */

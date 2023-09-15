@@ -8,7 +8,7 @@ static char *get_var(char *str, int *i)
 	j = 0;
 	(*i)++;
 	start = *i;
-	while (str[*i] && str[*i] != ' ' && str[*i] != '$' && str[*i] != '\"' && str[*i] != '\'')
+	while (str[*i] && is_alpha_num(str[*i]) && str[*i] != ' ' && str[*i] != '$' && str[*i] != '\"' && str[*i] != '\'')
 	{	
 		(*i)++;
 		j++;
@@ -47,6 +47,7 @@ static int check_double(char *str, int *count, int *i, char **envp)
 			if (str[*i] == '$' && is_alpha_num_exp(str[*i + 1]) == 1)
 			{
 				var	=	get_var(str, i);
+			//	printf("var es %s\n", var);
 				if (ft_strcmp(var, "?") == 0)
 					(*count)++;
 				else
@@ -79,6 +80,8 @@ static int check_normal(char *str, int *count, int *i, char **envp)
 			else
 				(*count) +=	ft_strlen(search_var_line(var, envp));
 		}
+		else if (str[*i] == '$' && (str[*i + 1] == '\'' || str[*i + 1] == '\"'))
+			(*i)++;
 		else
 		{	
 			(*i)++;

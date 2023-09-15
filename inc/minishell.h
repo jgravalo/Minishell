@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/14 23:20:03 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/15 09:52:34 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,7 +305,7 @@ int		prepare_redir(char *line, t_shell *shell, int n, int redir_num);
 
 char	*get_redir(char *line);
 
-char	*remove_quotes(char *str);
+char	*remove_quotes(t_shell *shell, char *str);
 
 int 	count_len_quotes(char *str);
 
@@ -405,9 +405,9 @@ void	parent_wait(t_shell *shell, t_cmd **cmd);
 
 int 	check_builtin(char **args);
 
-int 	count_quotes(char *str);
+int 	count_quotes(t_shell *shell, char *str);
 
-void 	copy_new(char *new, char *str);
+void 	copy_new(t_shell *shell, char *new, char *str);
 
 t_quote	*ft_quotelstnew(int start, int end);
 

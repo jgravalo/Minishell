@@ -1,13 +1,8 @@
 #include  "../inc/minishell.h"
 
-static void (count_quote(char *token, int *len, int *count))
+static void count_quote(char *token, int *len, int *count, t_quote *quote)
 {	
-	char	quote;
-
-	quote = token[*len];
-	(*count)++;
-	(*len)++;
-	while (token[*len] != quote)
+	while (*len != quote->end)
 	{
 		(*count)++;
 		(*len)++;
@@ -20,15 +15,22 @@ static int count_expand(t_shell *shell, char *token, int *len)
 {
 	int count;
 	int i;
+	t_quote *ptr;
 
 	i = 0;
 	count = 0;
+	ptr = shell->quote;
+	shell->var_cat = 0;
+	//printf("estamos en %s\n", &token[*len]);
 	if (*len && token[*len] && token[*len - 1] && token[*len - 1] != ' ')
 		shell->var_cat = 1;
 	while(token[*len])
 	{
-		if (shell->var_quoted == 1 && (token[*len] == '\'' || token[*len] == '\"'))
-			count_quote(token, len, &count);
+		if (shell->var_quoted == 1 && *len == ptr->start)
+		{
+			count_quote(token, len, &count, ptr);
+			return (count);
+		}
 		else if (shell->quote && shell->var_quoted == 0 && *len == shell->quote->start)
 			return (count);
 		else if (token[*len] == ' ')
@@ -51,6 +53,7 @@ static void	copy_token(char *dst, const char *src, int *cpy, size_t dstsize)
 	int 	quote;
 
 	i = 0;
+	//printf("str before cpy es %s\n", &src[*cpy]);
 	while (src[*cpy] == ' ')
 		(*cpy)++;
 	while (i < (dstsize - 1))
@@ -80,22 +83,23 @@ static void redir_loop(t_shell *shell, char *str, t_cmd *cmd)
 			len++;
 			cpy++;
 		}
+		//printf("str es %s, len is %d\n", str, len);
 		if (shell->quote && shell->quote->start == len)
-		{
 			shell->var_quoted = 1;
-			shell->quote = shell->quote->next;
-		}
 		else
 			shell->var_quoted = 0;
-		size = count_expand(shell, str, &len) + 1;
+		size = count_expand(shell, str, &len) + 1; 
 		if (size > 1)
 		{
 			shell->tmp_tok = (char *)malloc(sizeof (char) * size);
 			copy_token(shell->tmp_tok, str, &cpy, size);
 			if (shell->var_quoted)
-				shell->tmp_tok = remove_quotes(shell->tmp_tok);
+			{
+				shell->tmp_tok = remove_quotes(shell, shell->tmp_tok);
+				shell->quote = shell->quote->next;
+			}
 			if (shell->var_cat)
-				ft_arglstlast(cmd->redir_x->path_arg)->arg = ft_strjoin(ft_arglstlast(cmd->redir_x->path_arg)->arg, shell->tmp_tok);
+				ft_arglstlast(cmd->redir_x->path_arg)->arg = ft_strjoin(ft_arglstlast(cmd->redir_x->path_arg)->arg, ft_strdup(shell->tmp_tok));
 			else
 			{	
 				if (!shell->next_redir)
@@ -108,18 +112,6 @@ static void redir_loop(t_shell *shell, char *str, t_cmd *cmd)
 			free(shell->tmp_tok);
 		}
 	}
-}
-
-char *remove_quotes(char *str)
-{
-	char *tmp;
-	int	len;
-
-	len = count_quotes(str);
-	tmp = malloc(sizeof (char) * ft_strlen(str) - len + 1);
-	copy_new(tmp, str);
-	free(str);
-	return (tmp);
 }
 
 static void arg_loop(t_shell *shell, char *str, t_cmd *cmd)
@@ -140,27 +132,32 @@ static void arg_loop(t_shell *shell, char *str, t_cmd *cmd)
 			len++;
 			cpy++;
 		}
-		if (shell->quote && (shell->quote->start == len))
-		{
+		//printf("str es %s, index is %d\n", str, len);
+		if (shell->quote && len == shell->quote->start)
 			shell->var_quoted = 1;
-			shell->quote = shell->quote->next;
-		}
 		else
 			shell->var_quoted = 0;
 		size = count_expand(shell, str, &len) + 1;
+		//printf("size %d, cat %d, quote %d\n", size, shell->var_cat, shell->var_quoted);
 		if (size > 1)
 		{
 			shell->tmp_tok = (char *)malloc(sizeof (char) * size);
 			copy_token(shell->tmp_tok, str, &cpy, size);
+			//printf("tmp es %s\n", shell->tmp_tok);
 			if (shell->var_quoted)
-				shell->tmp_tok = remove_quotes(shell->tmp_tok);
+			{
+				shell->tmp_tok = remove_quotes(shell, shell->tmp_tok);
+				shell->quote = shell->quote->next;
+			}
+			//printf("tmp after remove quotes es %s\n", shell->tmp_tok);
 			if (shell->var_cat)
-				ft_arglstlast(cmd->argx)->arg = ft_strjoin(ft_arglstlast(cmd->argx)->arg, shell->tmp_tok);
+				ft_arglstlast(cmd->argx)->arg = ft_strjoin(ft_arglstlast(cmd->argx)->arg, ft_strdup(shell->tmp_tok));
 			else
 				ft_arglstadd_back(&(cmd->argx), ft_arglstnew(ft_strdup(shell->tmp_tok)));	
 			free(shell->tmp_tok);
 		}
 	}
+	shell->quote = NULL;
 }
 
 static  void expand_args(t_shell *shell, t_cmd **cmd)
@@ -181,6 +178,7 @@ static  void expand_args(t_shell *shell, t_cmd **cmd)
 			while (cmd[n]->arg->arg[i])
 			{
 				expstr = ft_strdup(expand_str(shell, cmd[n]->arg, &i, &j));
+			//	printf("expstr es %s\n", expstr);
 				free(shell->tmp_tok);
 				if (expstr)
 					arg_loop(shell, expstr, cmd[n]);

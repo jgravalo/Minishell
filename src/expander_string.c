@@ -8,7 +8,7 @@ static char *get_var(char *str, int *j)
 	i = 0;
 	(*j)++;
 	start = *j;
-	while (str[*j] && str[*j] != ' ' && str[*j] != '$' && str[*j] != '\"' && str[*j] != '\'')
+	while (str[*j] && is_alpha_num(str[*j]) && str[*j] != ' ' && str[*j] != '$' && str[*j] != '\"' && str[*j] != '\'')
 	{	
 		(*j)++;
 		i++;
@@ -29,7 +29,7 @@ static void check_single(char *str, int *i, int *j, t_shell *shell)
 		while (str[*j] != '\'')
 			shell->tmp_tok[(*i)++] = str[(*j)++];
 		shell->tmp_tok[(*i)++] = str[(*j)++];
-		end = *i;
+		end = *i - 1;
 		ft_quotelstadd_back(&shell->quote, ft_quotelstnew(start, end));
 		//printf("quote struct added, start %d. end %d\n", start, end);
 	}
@@ -66,7 +66,7 @@ static int check_double(char *str, int *i, int *j, t_shell *shell)
 		shell->tmp_tok[(*i)++] = str[(*j)++];
 		end = *i - 1;
 		ft_quotelstadd_back(&shell->quote, ft_quotelstnew(start, end));
-		//printf("quote struct added, start %d. end %d\n", start, end);
+	//	printf("quote struct added, start %d. end %d\n", start, end);
 	}
 }
 
@@ -86,9 +86,12 @@ static void check_normal(char *str, int *i, int *j, t_shell *shell)
 				exp = ft_itoa(shell->exit);
 			else
 				exp = ft_strdup(search_var_line(var, shell->envp));
-			while (exp[m])
+			//printf("exp is %s\n", exp);
+			while (exp && exp[m])
 				shell->tmp_tok[(*i)++] = exp[m++];
 		}
+		else if (str[*i] == '$' && (str[*i + 1] == '\'' || str[*i + 1] == '\"'))
+			(*j)++;	
 		else
 			shell->tmp_tok[(*i)++] = str[(*j)++];
 	}
@@ -113,6 +116,7 @@ char *expand_str(t_shell *shell, t_arg *arg, int *i, int *j)
 	int len;
 
 	len = count_expstr(shell, arg->arg, i);
+	//printf("len is %d\n", len);
 	if (len > 0)
 	{
 		shell->tmp_tok = malloc(sizeof (char) * len + 1);
