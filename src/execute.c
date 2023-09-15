@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:10:58 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 21:24:54 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/15 22:08:15 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static void	create_pipes(t_shell *sh, t_cmd **cmd)
 static void	fork_cmd(t_shell *sh, t_cmd **cmd, int *i)
 {
 	(*i)++;
-	cmd[*i]->pid = fork();
 	sh->children++;
+	cmd[*i]->pid = fork();
 	if (cmd[*i]->pid > 0)
 	{
 		if (*i < sh->pipes)
@@ -71,6 +71,7 @@ void	execute(t_shell *sh, t_cmd **cmd)
 	i = -1;
 	if (no_pipe_built_in(sh, cmd, &i))
 		return ;
+	sh->children = 0;
 	create_pipes(sh, cmd);
 	fork_cmd(sh, cmd, &i);
 	if (cmd[i]->pid == 0)

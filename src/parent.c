@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:59:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 15:00:44 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/15 22:07:58 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	handler(int signal)
 		kill(0, SIGQUIT);
 }
 
-/* void	set_signals(t_shell *shell, char **envp)
+/* void	set_signals(t_shell *sh, char **envp)
 {
 	sigset_t			sigset;
 	struct sigaction	sa;
@@ -39,39 +39,39 @@ void	handler(int signal)
 	sigaddset(&sigset, SIGQUIT);
 } */
 
-void	parent_wait(t_shell *shell, t_cmd **cmd)
+void	parent_wait(t_shell *sh, t_cmd **cmd)
 {
 	int		status;
 	int		i;
 	pid_t	pid;
 
 	status = 0;
-	while (shell->children != 0)
+	while (sh->children != 0)
 	{
 		i = 0;
-		while (i < shell->pipes + 1)
+		while (i < sh->pipes + 1)
 		{
 			pid = waitpid(cmd[i]->pid, &status, 0);
 			if (pid > 0)
 			{
-				shell->children--;
+				sh->children--;
 				if (WIFEXITED(status))
-					shell->exit = WEXITSTATUS(status);
+					sh->exit = WEXITSTATUS(status);
 			}
 			i++;
 		}
 	}
 }
 
-void	parent_close(t_shell *shell)
+void	parent_close(t_shell *sh)
 {
 	int	i;
 
 	i = 0;
-	while (i < shell->pipes)
+	while (i < sh->pipes)
 	{
-		close(shell->p[i].p[READ]);
-		close(shell->p[i].p[WRITE]);
+		close(sh->p[i].p[READ]);
+		close(sh->p[i].p[WRITE]);
 		i++;
 	}
 }
