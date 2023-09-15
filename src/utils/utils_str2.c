@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils3.c                                           :+:      :+:    :+:   */
+/*   utils_str2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/14 15:41:10 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/08 12:37:36 by theonewhokn      ###   ########.fr       */
+/*   Created: 2023/09/15 11:51:06 by theonewhokn       #+#    #+#             */
+/*   Updated: 2023/09/15 12:13:15 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 size_t	ft_strlen(const char *str)
 {
@@ -34,8 +34,7 @@ char	*ft_strchr(char *str, int c)
 	if (c == '\0')
 		return ((char *)&str[ft_strlen(str)]);
 	while (str[i] != '\0')
-	{	
-		//printf("i es %d\n", i);
+	{
 		if (str[i] == (char) c)
 			return ((char *)&str[i]);
 		i++;
@@ -67,62 +66,33 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (new);
 }
 
-int64_t	ft_atoi(char *str)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int64_t	n;
-	int	sign;
-
-	n = 0;
-	sign = 1;
-	while (*str == ' ' || *str == '\t'
-		|| *str == '\v' || *str == '\n'
-		|| *str == '\r' || *str == '\f')
-		str++;
-	if (*str == '-')
-		sign = -1;
-	if (*str == '+' || *str == '-')
-		str++;
-	while ((*str >= '0') && (*str <= '9'))
-	{
-		n = n * 10 + (*str - 48);
-		str++;
-	}
-	return (n * sign);
-}
-
-uint64_t	ft_u_atoi(char *str)
-{
-	uint64_t	n;
-	int	sign;
-
-	n = 0;
-	sign = 1;
-	while (*str == ' ' || *str == '\t'
-		|| *str == '\v' || *str == '\n'
-		|| *str == '\r' || *str == '\f')
-		str++;
-	if (*str == '-')
-		sign = -1;
-	if (*str == '+' || *str == '-')
-		str++;
-	while ((*str >= '0') && (*str <= '9'))
-	{
-		n = n * 10 + (*str - 48);
-		str++;
-	}
-	return (n * sign);
-}
-
-int	is_local(char *cmd)
-{
-	int	i;
+	unsigned int	i;
 
 	i = 0;
-	while (cmd[i])
+	while (((s1[i] != '\0') || (s2[i] != '\0')) && i < n)
 	{
-		if (cmd[i] == '/' && cmd[i - 1] != '.')
-			return (-1);
+		if (s1[i] != s2[i])
+			return ((unsigned char) s1[i] - (unsigned char) s2[i]);
 		i++;
 	}
 	return (0);
+}
+
+int	ft_varcmp(const char *s1, const char *s2, size_t n)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (i < n)
+	{
+		if (s1[i] != s2[i])
+			return ((unsigned char) s1[i] - (unsigned char) s2[i]);
+		i++;
+	}
+	if (s2[i] == '+' || s2[i] == '=' || s2[i] == '\0')
+		return (0);
+	else
+		return (-1);
 }

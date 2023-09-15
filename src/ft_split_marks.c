@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 13:29:05 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/12 10:55:35 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/15 12:21:05 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ char	*c_str(char const *s, char c, int *n)
 	return (new);
 }
 
-char	*mark_str(char const *s, char c, int *n)
+/* char	*mark_str(char const *s, char c, int *n)
 {
 	char	*new;
 	int		i;
@@ -192,8 +192,8 @@ char	*mark_str(char const *s, char c, int *n)
 	i++;
 	*n = i;
 	return (new);
-}
-
+} */
+/* 
 char	**ft_split_loop(char **res, char const *s, char c)
 {
 	int		j;
@@ -228,8 +228,8 @@ char	**ft_split_loop(char **res, char const *s, char c)
 	}
 	res[j] = NULL;
 	//ft_printarr(res);
-	return (res);
-}
+	return (res); */
+/* }
 
 char	**ft_split_marks(char const *s, char c)
 {
@@ -247,3 +247,4 @@ char	**ft_split_marks(char const *s, char c)
 	//ft_printarr(res);
 	return (res);
 }
+ */

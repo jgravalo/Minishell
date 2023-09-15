@@ -1,23 +1,68 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2.c                                           :+:      :+:    :+:   */
+/*   utils_str.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/13 17:21:59 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/12 20:05:50 by theonewhokn      ###   ########.fr       */
+/*   Created: 2023/09/15 11:47:45 by theonewhokn       #+#    #+#             */
+/*   Updated: 2023/09/15 12:13:11 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
-int	is_meta(char c)
+char	*ft_strcat(char *dest, char *src)
 {
-	if (c == '<' || c == '>' || c == '|')
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (dest[i] != '\0')
+	{
+		i++;
+	}
+	while (src[j] != '\0')
+	{
+		dest[i] = src[j];
+		i++;
+		j++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
+char	*ft_strdup(char *str)
+{
+	char	*new;
+	int		i;
+
+	if (!str)
+		return (NULL);
+	i = 0;
+	new = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
+	while (str[i])
+	{
+		new[i] = str[i];
+		i++;
+	}
+	new[i] = '\0';
+	return (new);
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	if (!s1 || !s2)
 		return (1);
-	else
-		return (0);
+	while (*s1 || *s2)
+	{
+		if (*s1 != *s2)
+			return (*s1 - *s2);
+		s1++;
+		s2++;
+	}
+	return (0);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
@@ -75,32 +120,3 @@ char	**ft_split(char const *s, char c)
 	res[j] = NULL;
 	return (res);
 }
-/*
-char	**ft_split_double(char const *s, char c)
-{
-	int		size;
-	int		j;
-	char	**res;
-
-	size = 0;
-	j = 0;
-	res = (char **) malloc((words(s, c) * (sizeof(char *))) + 8);
-	if (!res || !s)
-		return (0);
-	while (*s)
-	{
-		if (*s != c && *(s + 1) != c)
-		{
-			size = -1;
-			while (*s && *s != c && *(s + 1) != c && ++size)
-				s++;
-			res[j++] = ft_substr(s - size, 0, size);
-		}
-		else
-			++s;
-	}
-	res[j] = NULL;
-	return (res);
-}
-*/
-

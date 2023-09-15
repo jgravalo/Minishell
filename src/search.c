@@ -63,7 +63,7 @@ static void locate_path(t_shell *shell, t_cmd **cmd, int *i)
 	{
 		docs = split_paths(shell->envp[env]); // split todos los paths
 		shell->tmp_tok = get_path(docs, cmd[*i]->args[0]); // lo intenta buscar
-		if (!shell->tmp_tok)
+		if (!shell->tmp_tok || ft_strlen(cmd[*i]->args[0]) == 0)
 			cmd_not_found(cmd[*i]->args[0]);
 		cmd[*i]->path = ft_strdup(shell->tmp_tok);
 		free(shell->tmp_tok);

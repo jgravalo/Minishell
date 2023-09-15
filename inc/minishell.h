@@ -6,13 +6,14 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 09:52:34 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/15 12:19:48 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-#define _POSIX_C_SOURCE 200809L
+
+# define _POSIX_C_SOURCE 200809L
 # include <fcntl.h>
 //# include <defines.h>
 # include <errno.h>
@@ -110,14 +111,14 @@ typedef	struct s_cmd
 
 typedef struct s_token
 {
-	char	*token;
+	char	*tok;
 	char	*type;
 	struct s_token	*next;
 }				t_tok;
 
 typedef struct s_shell
 {	
-	t_tok	*tokens;
+	t_tok	*tok;
 	t_tok	*expanded;
 	t_quote	*quote;
 	char 	*tmp_tok;
@@ -335,11 +336,11 @@ char 	*remove_backslash(char *s);
 
 void 	expander(t_shell *shell, t_cmd **cmd);
 
-t_tok	*ft_lstnew(void *content);
+t_tok	*ft_toklstnew(void *content);
 
-void	ft_lstadd_back(t_tok **lst, t_tok *new);
+void	ft_toklstadd_back(t_tok **lst, t_tok *new);
 
-t_tok	*ft_lstlast(t_tok *lst);
+t_tok	*ft_toklstlast(t_tok *lst);
 
 void	ft_printlst(t_tok *lst);
 
@@ -414,6 +415,18 @@ t_quote	*ft_quotelstnew(int start, int end);
 void	ft_quotelstadd_back(t_quote **lst, t_quote *new);
 
 t_quote	*ft_quotelstlast(t_quote *lst);
+
+void 	expand_args(t_shell *shell, t_cmd **cmd);
+
+void 	expand_redir(t_shell *shell, t_cmd **cmd);
+
+int 	count_expand(t_shell *shell, char *token, int *len);
+
+void	copy_exp(char *dst, const char *src, int *cpy, size_t dstsize);
+
+void	*ft_memset(void *b, int c, size_t n);
+
+int	get_len(char *line, int *len, int *cpy);
 
 /*
 void	make_history(t_hist *hist, char *line);

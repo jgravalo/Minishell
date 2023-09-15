@@ -1,30 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   categorizer.c                                      :+:      :+:    :+:   */
+/*   lexer_count_aux.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/15 11:38:00 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 11:41:30 by theonewhokn      ###   ########.fr       */
+/*   Created: 2023/09/15 11:31:06 by theonewhokn       #+#    #+#             */
+/*   Updated: 2023/09/15 11:50:03 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	categorizer(t_tok *tok)
+int	is_pipe(char c)
 {
-	while (tok)
-	{
-		if (ft_strcmp(tok->tok, "|") == 0)
-			tok->type = "PIPE";
-		else if (ft_strcmp(tok->tok, ">") == 0
-			|| ft_strcmp(tok->tok, "<") == 0
-			|| ft_strcmp(tok->tok, ">>") == 0
-			|| ft_strcmp(tok->tok, "<<") == 0)
-			tok->type = "REDIR";
-		else
-			tok->type = "WORD";
-		tok = tok->next;
-	}
+	if (c == '|')
+		return (1);
+	return (0);
+}
+
+int	is_redir(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '<' && str[i + 1] == '<')
+		return (2);
+	else if (str[i] == '>' && str[i + 1] == '>')
+		return (2);
+	else if (str[i] == '<' || str[i] == '>')
+		return (1);
+	else
+		return (0);
+}
+
+int	is_meta(char c)
+{
+	if (c == '<' || c == '>' || c == '|')
+		return (1);
+	else
+		return (0);
 }

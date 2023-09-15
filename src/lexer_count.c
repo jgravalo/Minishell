@@ -1,40 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_aux.c                                        :+:      :+:    :+:   */
+/*   lexer_count.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:39:35 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/12 20:00:51 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/15 12:22:19 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	is_pipe(char c)
-{
-	if (c == '|')
-		return (1);
-	return (0);
-}
-
-int	is_redir(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[i] == '<' && str[i + 1] == '<')
-		return (2);
-	else if (str[i] == '>' && str[i + 1] == '>')
-		return (2);
-	else if (str[i] == '<' || str[i] == '>')
-		return (1);
-	else
-		return (0);
-}
-
-static int	count_meta(char *line, int *i, int *tokens, int word)
+static int	count_meta(char *line, int *i, int *tokens)
 {
 	if (is_pipe(line[*i]) == 1)
 	{
@@ -57,24 +35,27 @@ static int	count_meta(char *line, int *i, int *tokens, int word)
 	return (0);
 }
 
-static void	loop(char *line, int *i, int *tokens, int *word)
-{	
-	char quote;
+static void	quotes(char *line, int *i, int *tokens, int *word)
+{
+	char	quote;
 
-	if (line[*i] == '\'' || line[*i] == '\"')
-	{	
-		quote = line[*i];
-		if (*word == 0)
-		{
-			(*tokens)++;
-			*word = 1;
-		}
-		(*i)++;
-		while (line[*i] != quote)
-			(*i)++;
-		(*i)++;
+	quote = line[*i];
+	if (*word == 0)
+	{
+		(*tokens)++;
+		*word = 1;
 	}
-	else if (count_meta(line, i, tokens, *word) > 0)
+	(*i)++;
+	while (line[*i] != quote)
+		(*i)++;
+	(*i)++;
+}
+
+static void	loop(char *line, int *i, int *tokens, int *word)
+{
+	if (line[*i] == '\'' || line[*i] == '\"')
+		quotes(line, i, tokens, word);
+	else if (count_meta(line, i, tokens) > 0)
 		*word = 0;
 	else if (line[*i] != ' ' && *word == 0)
 	{
