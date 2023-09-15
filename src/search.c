@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:41:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 12:41:19 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/15 21:35:28 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,12 @@ static void	locate_path(t_shell *shell, t_cmd **cmd, int *i)
 
 void	search(t_shell *shell, t_cmd **cmd, int *i)
 {
-	if (ft_strchr(cmd[*i]->args[0], '/'))		//si tiene slash se considera el argumento como el path
+	if (ft_strchr(cmd[*i]->args[0], '/'))
+	{
 		cmd[*i]->path = ft_strdup(cmd[*i]->args[0]);
-	else										// si no se busca en env PATH
+		if (access(cmd[*i]->path, F_OK) == -1)
+			exit(cmd_error(cmd[*i]->path, errno, 127));
+	}
+	else
 		locate_path(shell, cmd, i);
 }
