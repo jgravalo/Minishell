@@ -6,11 +6,11 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:22:59 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/14 22:55:12 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/15 14:08:43 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 int	search_var_num(char *name, char **envp)
 {
@@ -37,7 +37,7 @@ char	*search_var_line(char *name, char **envp)
 
 	env = search_var_num(name, envp);
 	if (env < 0)
-		return (NULL);	
+		return (NULL);
 	if (ft_strchr(envp[env], '=') == NULL)
 		return (NULL);
 	var = ft_strchr(envp[env], '=') + 1;
@@ -46,8 +46,8 @@ char	*search_var_line(char *name, char **envp)
 
 int	is_existing(char *line, char **envp)
 {
-	int i;
-	char *var;
+	int		i;
+	char	*var;
 
 	i = 0;
 	while (line[i] != '+' && line[i] != '=' && line[i] != '\0')
@@ -57,7 +57,7 @@ int	is_existing(char *line, char **envp)
 	while (envp[i])
 	{
 		if (ft_varcmp(var, envp[i], ft_strlen(var)) == 0)
-		{	
+		{
 			if (ft_strchr(envp[i], '=') != NULL && ft_strchr(line, '=') == NULL)
 				return (1);
 			else

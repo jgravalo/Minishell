@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:11:14 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/26 17:03:16 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/15 14:07:13 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,9 @@ int	built_ins(char **argv, char **envp)
 	int	out;
 
 	out = 0;
-//	printf("%s\n", argv[1]);
 	if (ft_strcmp(argv[1], "cd") == 0)
 	{
-//		pwd(envp);
 		out = cd(argv[2], envp);
-//		pwd(envp);
 		env(envp);
 	}
 	else if (ft_strcmp(argv[1], "echo") == 0)
@@ -31,15 +28,12 @@ int	built_ins(char **argv, char **envp)
 		out = env(envp);
 	else if (ft_strcmp(argv[1], "pwd") == 0)
 		out = pwd(envp);
-	
 	else if (ft_strcmp(argv[1], "unset") == 0)
 	{
-//		env(envp);
 		unset(++argv, &envp);
 	}
 	else if (ft_strcmp(argv[1], "export") == 0)
 		out = export(++argv, &envp);
-	
 	else if (ft_strcmp(argv[1], "exit") == 0)
 		exit(0);
 	return (out);

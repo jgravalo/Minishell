@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:48:54 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 12:13:04 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/15 14:08:18 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_printcmd(t_cmd **cmd)
 	{
 		printf("args son:\n");
 		ft_printarglist(cmd[i]->arg);
-		ft_printredirlist(cmd[i]->redir_list);
+		ft_printredirlist(cmd[i]->red);
 		i++;
 	}
 }
@@ -60,19 +60,19 @@ void	ft_printcmdargx(t_cmd **cmd)
 	while (cmd[i])
 	{
 		printf("argxs son:\n");
-		ft_printarglist(cmd[i]->argx);
-		if (cmd[i]->redir_x)
-			ft_printredirlist(cmd[i]->redir_x);
+		ft_printarglist(cmd[i]->arg_x);
+		if (cmd[i]->red_x)
+			ft_printredirlist(cmd[i]->red_x);
 		i++;
 	}
 }
 
-void	ft_printredirlist(t_redir *redir)
+void	ft_printredirlist(t_redir *red)
 {
-	while (redir)
+	while (red)
 	{
-		printf("redir type %d\n", redir->type);
-		ft_printredirarglist(redir->path_arg);
-		redir = redir->next;
+		printf("redir type %d\n", red->type);
+		ft_printredirarglist(red->arg);
+		red = red->next;
 	}
 }

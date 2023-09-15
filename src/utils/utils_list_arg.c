@@ -6,13 +6,13 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:54:32 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 12:12:43 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/15 14:17:24 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-t_arg	*ft_arglstnew(void *content)
+t_arg	*argnew(void *content)
 {
 	t_arg	*node;
 
@@ -25,7 +25,7 @@ t_arg	*ft_arglstnew(void *content)
 	return (node);
 }
 
-void	ft_arglstadd_back(t_arg **lst, t_arg *new)
+void	argback(t_arg **lst, t_arg *new)
 {
 	t_arg	*curr;
 
@@ -36,11 +36,11 @@ void	ft_arglstadd_back(t_arg **lst, t_arg *new)
 		*lst = new;
 		return ;
 	}
-	curr = ft_arglstlast(*lst);
+	curr = arglast(*lst);
 	curr->next = new;
 }
 
-t_arg	*ft_arglstlast(t_arg *lst)
+t_arg	*arglast(t_arg *lst)
 {
 	if (!lst)
 		return (NULL);
@@ -53,7 +53,7 @@ t_arg	*ft_arglstlast(t_arg *lst)
 	return (lst);
 }
 
-int	ft_arglstsize(t_arg *lst)
+int	argsize(t_arg *lst)
 {
 	int	c;
 
@@ -66,7 +66,7 @@ int	ft_arglstsize(t_arg *lst)
 	return (c);
 }
 
-void	ft_arglstadd_front(t_arg **lst, t_arg *new)
+void	argfront(t_arg **lst, t_arg *new)
 {
 	if (lst)
 	{

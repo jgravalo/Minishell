@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 16:56:43 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/14 20:32:28 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/15 13:19:10 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int	errors(t_pipex *pipex, int argc, char **argv)
 }
 */
 int	cmd_error(char *s, int n, int exit)
-{	
+{
 	char	*str;
-	char 	*tmp;
+	char	*tmp;
 
 	tmp = ft_strjoin(s, ": ");
 	str = ft_strjoin(tmp, strerror(n));
@@ -43,9 +43,9 @@ int	cmd_error(char *s, int n, int exit)
 }
 
 int	dir_error(char *s, int n, int exit)
-{	
+{
 	char	*str;
-	char 	*tmp;
+	char	*tmp;
 
 	tmp = ft_strjoin(s, ": ");
 	str = ft_strjoin(tmp, strerror(n));
@@ -66,23 +66,9 @@ void	filedir_not_found(char *cmd)
 	exit (127);
 }
 
-void cmd_not_found(char *cmd)
+void	cmd_not_found(char *cmd)
 {
 	write(2, cmd, ft_strlen(cmd));
 	write(2, ": command not found\n", 20);
 	exit(127);
 }
-/*
-void	free_child(t_pipex *pipex)
-{
-	int	i;
-
-	i = 0;
-	while (pipex->args[i])
-	{
-		free(pipex->args[i]);
-		i++;
-	}
-	free(pipex->args);
-	free(pipex->cmd);
-}*/

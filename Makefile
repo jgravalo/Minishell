@@ -1,11 +1,10 @@
 UTILS_DIR	= src/utils
 
-M_SRCS		= src/ft_split_marks.c src/minishell.c src/pipes.c src/prompt2.c \
-			  src/access_cmd.c src/errors.c src/utils_env.c src/here_doc.c src/prompt.c \
-			  src/count.c src/history.c src/redir.c src/parse_pipes.c \
-			  src/lexer.c src/lexer_count.c src/meta.c src/init_shell.c \
-			  src/parse_quotes.c src/ft_itoa.c src/main.c src/alloc_envp.c src/redir_aux.c \
-			  src/redir_aux2.c src/redir_prepare.c src/meta_utils.c src/set_redir.c src/expander.c  \
+M_SRCS		= src/alloc_envp.c src/minishell.c src/pipes.c \
+			  src/errors.c \
+			  src/lexer.c src/lexer_count.c  \
+			  src/main.c  \
+			  src/set_redir.c src/expander.c src/expander_aux.c  \
 			  src/expander_count.c src/expander_string.c src/quote_remove.c src/parser.c src/categorizer.c \
 			  src/execute.c src/execute_redir.c src/execute_heredoc.c src/builtin.c src/set_argv.c src/search.c \
 			  src/execute_pipes.c src/parent.c src/expander_arg.c src/expander_redir.c src/lexer_len.c \
@@ -18,7 +17,8 @@ BUILT_SRCS	= src/built-ins/echo.c src/built-ins/cd.c src/built-ins/export.c \
 
 UTILS_SRCS	= $(UTILS_DIR)/utils_list_arg.c $(UTILS_DIR)/utils_list_quote.c $(UTILS_DIR)/utils_list_redir.c \
 			  $(UTILS_DIR)/utils_list_tok.c $(UTILS_DIR)/utils_other.c $(UTILS_DIR)/utils_print.c \
-			  $(UTILS_DIR)/utils_print2.c $(UTILS_DIR)/utils_str.c $(UTILS_DIR)/utils_str2.c
+			  $(UTILS_DIR)/utils_print2.c $(UTILS_DIR)/utils_str.c $(UTILS_DIR)/utils_str2.c $(UTILS_DIR)/ft_itoa.c \
+			  $(UTILS_DIR)/utils_str3.c $(UTILS_DIR)/utils_env.c
 			
 M_OBJS		= $(patsubst src/%.c, $(OBJECTS_DIR)/%.o, $(M_SRCS))
 

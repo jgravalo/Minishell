@@ -1,37 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_argv.c                                         :+:      :+:    :+:   */
+/*   utils_str3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/15 12:39:29 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 14:18:15 by theonewhokn      ###   ########.fr       */
+/*   Created: 2023/09/15 13:17:40 by theonewhokn       #+#    #+#             */
+/*   Updated: 2023/09/15 13:26:44 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
-void	set_argv(t_cmd **cmd)
+int	words(const char *s, char c)
 {
-	int		i;
-	int		j;
-	t_arg	*ptr;
+	int	j;
 
-	i = 0;
 	j = 0;
-	while (cmd[i])
+	while (*s)
 	{
-		ptr = cmd[i]->arg_x;
-		cmd[i]->args = malloc(sizeof (char *) * (argsize(ptr) + 1));
-		while (ptr)
+		if (*s != c)
 		{
-			cmd[i]->args[j] = ft_strdup(ptr->arg);
+			while (*s && *s != c)
+			{
+				s++;
+			}
 			j++;
-			ptr = ptr->next;
 		}
-		cmd[i]->args[j] = NULL;
-		i++;
-		j = 0;
+		else
+			++s;
 	}
+	return (j);
+}
+
+void	move_ptrs(int *i, int *j)
+{
+	(*i)++;
+	(*j)++;
 }

@@ -1,79 +1,81 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expander_redir.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/15 12:43:41 by theonewhokn       #+#    #+#             */
+/*   Updated: 2023/09/15 14:58:27 by theonewhokn      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/minishell.h"
 
-static void redir_loop(t_shell *shell, char *str, t_cmd *cmd)
+static void	add_redir_node(t_shell *sh, t_cmd *cmd)
+{
+	char	*aux;
+
+	if (sh->var_cat)
+	{
+		aux = ft_strjoin(arglast(cmd->red_x->arg)->arg, ft_strdup(sh->tmp));
+		arglast(cmd->red_x->arg)->arg = ft_strdup(aux);
+		free(aux);
+	}
+	else
+	{
+		if (!sh->next_redir)
+		{
+			redirback(&(cmd->red_x), redirnew(cmd->red->type));
+			sh->next_redir = 1;
+		}
+		argback(&(redirlast(cmd->red_x)->arg), argnew(ft_strdup(sh->tmp)));
+	}
+}
+
+static void	redir_loop(t_shell *sh, char *str, t_cmd *cmd)
 {
 	int	i;
 	int	len;
 	int	cpy;
 	int	size;
 
-	i = 0;
-	len = 0;
-	cpy = 0;
-	size = 0;
+	init_variables_loop(&i, &len, &cpy, &size);
 	while (str[len])
-	{	
-		while (str[len] == ' ')
-		{
-			len++;
-			cpy++;
-		}
-		//printf("str es %s, len is %d\n", str, len);
-		if (shell->quote && shell->quote->start == len)
-			shell->var_quoted = 1;
-		else
-			shell->var_quoted = 0;
-		size = count_expand(shell, str, &len) + 1; 
+	{
+		advance_space(str, &len, &cpy);
+		check_quoted(sh, &len);
+		size = count_expand(sh, str, &len) + 1; 
 		if (size > 1)
 		{
-			shell->tmp_tok = (char *)malloc(sizeof (char) * size);
-			copy_exp(shell->tmp_tok, str, &cpy, size);
-			if (shell->var_quoted)
-			{
-				shell->tmp_tok = remove_quotes(shell, shell->tmp_tok);
-				shell->quote = shell->quote->next;
-			}
-			if (shell->var_cat)
-				ft_arglstlast(cmd->redir_x->path_arg)->arg = ft_strjoin(ft_arglstlast(cmd->redir_x->path_arg)->arg, ft_strdup(shell->tmp_tok));
-			else
-			{	
-				if (!shell->next_redir)
-				{
-					ft_redirlstadd_back(&(cmd->redir_x), ft_redirlstnew(cmd->redir_list->type)); // ycopiamos nodo en nueva lista
-					shell->next_redir = 1; // tenemos que seguir copiando nuevos args, si tocase, hasta que en funcion anterior cambiamos de redir struct
-				}
-				ft_arglstadd_back(&(ft_redirlstlast(cmd->redir_x)->path_arg), ft_arglstnew(ft_strdup(shell->tmp_tok)));
-			}
-			free(shell->tmp_tok);
+			copy_and_remove_quotes(sh, size, str, &cpy);
+			add_redir_node(sh, cmd);
 		}
+		free(sh->tmp);
 	}
 }
 
-
-void expand_redir(t_shell *shell, t_cmd **cmd)
+void	expand_redir(t_shell *sh, t_cmd **cmd)
 {
-	int i;
-	int j;
-	int n;
-	char *expstr;
+	int		i;
+	int		j;
+	int		n;
+	char	*expstr;
 
-	shell->next_redir = 0;
-	i = 0;
-	j = 0;
-	n = 0;
+	init_variables(&i, &j, &n, sh);
 	while (cmd[n])
-	{	
-		while (cmd[n]->redir_list)
-		{	
-			while (cmd[n]->redir_list->path_arg->arg[i])
+	{
+		while (cmd[n]->red)
+		{
+			while (cmd[n]->red->arg->arg[i])
 			{
-				expstr = ft_strdup(expand_str(shell, cmd[n]->redir_list->path_arg, &i, &j));
-				free(shell->tmp_tok);
+				expstr = ft_strdup(expand_str(sh, cmd[n]->red->arg, &i, &j));
+				free(sh->tmp);
 				if (expstr)
-					redir_loop(shell, expstr, cmd[n]);
+					redir_loop(sh, expstr, cmd[n]);
 			}
-			cmd[n]->redir_list = cmd[n]->redir_list->next;
-			shell->next_redir = 0;
+			cmd[n]->red = cmd[n]->red->next;
+			sh->next_redir = 0;
 			i = 0;
 			j = 0;
 		}

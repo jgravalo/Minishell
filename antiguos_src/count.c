@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:20:04 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/08 16:23:56 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/09/15 13:18:40 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,6 @@ int	count_ascii(char *line, int c)
 		i++;
 	}
 	return (count);
-}
-
-int	count_arr(char **args)
-{
-	int	i;
-
-	i = 0;
-	while (args[i])
-	{
-		i++;
-	}
-	return (i);
 }
 
 char	*modify_line(char *args, char **vars, int len)

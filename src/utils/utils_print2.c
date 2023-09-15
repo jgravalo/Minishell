@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:53:20 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 12:13:08 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/15 14:08:24 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	ft_printdeflist(t_cmd **cmd)
 	while (cmd[i])
 	{
 		ft_printarr(cmd[i]->args);
-		if (cmd[i]->redir_x)
-			ft_printredirlist(cmd[i]->redir_x);
+		if (cmd[i]->red_x)
+			ft_printredirlist(cmd[i]->red_x);
 		i++;
 	}
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_other.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/15 13:16:39 by theonewhokn       #+#    #+#             */
+/*   Updated: 2023/09/15 14:07:59 by theonewhokn      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 void	free_m(char **fdf)
@@ -16,7 +28,7 @@ void	free_m(char **fdf)
 int64_t	ft_atoi(char *str)
 {
 	int64_t	n;
-	int	sign;
+	int		sign;
 
 	n = 0;
 	sign = 1;
@@ -39,7 +51,7 @@ int64_t	ft_atoi(char *str)
 uint64_t	ft_u_atoi(char *str)
 {
 	uint64_t	n;
-	int	sign;
+	int			sign;
 
 	n = 0;
 	sign = 1;
@@ -72,4 +84,16 @@ void	*ft_memset(void *b, int c, size_t n)
 		i++;
 	}
 	return (b);
+}
+
+int	count_arr(char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
+	{
+		i++;
+	}
+	return (i);
 }

@@ -1,4 +1,14 @@
-#include "../inc/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   search.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/15 12:41:17 by theonewhokn       #+#    #+#             */
+/*   Updated: 2023/09/15 12:41:19 by theonewhokn      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
@@ -40,7 +50,7 @@ static char	*get_path(char **docs, char *cmd)
 
 	i = 0;
 	if ((cmd[0] == '.' && cmd[1] == '/') || cmd[0] == '/' || !docs)
-		return (cmd);	
+		return (cmd);
 	while (docs[i])
 	{
 		tmp = ft_strjoin(docs[i], "/");
@@ -53,28 +63,28 @@ static char	*get_path(char **docs, char *cmd)
 	return (NULL);
 }
 
-static void locate_path(t_shell *shell, t_cmd **cmd, int *i)
-{	
-	int env;
-	char **docs;
+static void	locate_path(t_shell *shell, t_cmd **cmd, int *i)
+{
+	int		env;
+	char	**docs;
 
 	env = get_path_env(shell->envp);
 	if (env != -1)
 	{
-		docs = split_paths(shell->envp[env]); // split todos los paths
-		shell->tmp_tok = get_path(docs, cmd[*i]->args[0]); // lo intenta buscar
-		if (!shell->tmp_tok || ft_strlen(cmd[*i]->args[0]) == 0)
+		docs = split_paths(shell->envp[env]);
+		shell->tmp = get_path(docs, cmd[*i]->args[0]);
+		if (!shell->tmp || ft_strlen(cmd[*i]->args[0]) == 0)
 			cmd_not_found(cmd[*i]->args[0]);
-		cmd[*i]->path = ft_strdup(shell->tmp_tok);
-		free(shell->tmp_tok);
+		cmd[*i]->path = ft_strdup(shell->tmp);
+		free(shell->tmp);
 	}
 	else
-		filedir_not_found(cmd[*i]->args[0]); //si no esta PATH, damos error tambien
+		filedir_not_found(cmd[*i]->args[0]);
 }
 
 void	search(t_shell *shell, t_cmd **cmd, int *i)
 {
-	if (ft_strchr(cmd[*i]->args[0], '/'))				//si tiene slash se considera el argumento como el path
+	if (ft_strchr(cmd[*i]->args[0], '/'))		//si tiene slash se considera el argumento como el path
 		cmd[*i]->path = ft_strdup(cmd[*i]->args[0]);
 	else										// si no se busca en env PATH
 		locate_path(shell, cmd, i);

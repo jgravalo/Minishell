@@ -1,78 +1,78 @@
-#include  "../inc/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expander_arg.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/15 12:41:49 by theonewhokn       #+#    #+#             */
+/*   Updated: 2023/09/15 14:58:40 by theonewhokn      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static void arg_loop(t_shell *shell, char *str, t_cmd *cmd)
+#include "../inc/minishell.h"
+
+static void	add_arg_node(t_shell *sh, t_cmd *cmd)
+{
+	char	*aux;
+
+	if (sh->var_cat)
+	{
+		aux = ft_strjoin(arglast(cmd->arg_x)->arg, ft_strdup(sh->tmp));
+		arglast(cmd->arg_x)->arg = ft_strdup(aux);
+		free(aux);
+	}
+	else
+		argback(&(cmd->arg_x), argnew(ft_strdup(sh->tmp)));
+}
+
+static void	arg_loop(t_shell *sh, char *str, t_cmd *cmd)
 {
 	int	i;
 	int	len;
 	int	cpy;
 	int	size;
 
-	i = 0;
-	len = 0;
-	cpy = 0;
-	size = 0;
+	init_variables_loop(&i, &len, &cpy, &size);
 	while (str[len])
 	{
-		while (str[len] == ' ')
-		{
-			len++;
-			cpy++;
-		}
-		//printf("str es %s, index is %d\n", str, len);
-		if (shell->quote && len == shell->quote->start)
-			shell->var_quoted = 1;
-		else
-			shell->var_quoted = 0;
-		size = count_expand(shell, str, &len) + 1;
-		//printf("size %d, cat %d, quote %d\n", size, shell->var_cat, shell->var_quoted);
+		advance_space(str, &len, &cpy);
+		check_quoted(sh, &len);
+		size = count_expand(sh, str, &len) + 1;
 		if (size > 1)
 		{
-			shell->tmp_tok = (char *)malloc(sizeof (char) * size);
-			copy_exp(shell->tmp_tok, str, &cpy, size);
-			//printf("tmp es %s\n", shell->tmp_tok);
-			if (shell->var_quoted)
-			{
-				shell->tmp_tok = remove_quotes(shell, shell->tmp_tok);
-				shell->quote = shell->quote->next;
-			}
-			//printf("tmp after remove quotes es %s\n", shell->tmp_tok);
-			if (shell->var_cat)
-				ft_arglstlast(cmd->argx)->arg = ft_strjoin(ft_arglstlast(cmd->argx)->arg, ft_strdup(shell->tmp_tok));
-			else
-				ft_arglstadd_back(&(cmd->argx), ft_arglstnew(ft_strdup(shell->tmp_tok)));	
-			free(shell->tmp_tok);
+			copy_and_remove_quotes(sh, size, str, &cpy);
+			add_arg_node(sh, cmd);
+			free(sh->tmp);
 		}
 	}
-	shell->quote = NULL;
+	sh->quote = NULL;
 }
 
-void expand_args(t_shell *shell, t_cmd **cmd)
+void	expand_args(t_shell *sh, t_cmd **cmd)
 {
-	int i;
-	int j;
-	int n;
-	char *expstr;
+	int		i;
+	int		j;
+	int		n;
+	char	*expstr;
 
-	i = 0;
-	j = 0;
-	n = 0;
+	init_variables(&i, &j, &n, NULL);
 	while (cmd[n])
-	{	
-		cmd[n]->argx = NULL;
+	{
+		cmd[n]->arg_x = NULL;
 		while (cmd[n]->arg)
-		{	
+		{
 			while (cmd[n]->arg->arg[i])
 			{
-				expstr = ft_strdup(expand_str(shell, cmd[n]->arg, &i, &j));
-			//	printf("expstr es %s\n", expstr);
-				free(shell->tmp_tok);
+				expstr = ft_strdup(expand_str(sh, cmd[n]->arg, &i, &j));
+				free(sh->tmp);
 				if (expstr)
-					arg_loop(shell, expstr, cmd[n]);
+					arg_loop(sh, expstr, cmd[n]);
 			}
 			cmd[n]->arg = cmd[n]->arg->next;
 			i = 0;
 			j = 0;
 		}
 		n++;
-	}	
+	}
 }

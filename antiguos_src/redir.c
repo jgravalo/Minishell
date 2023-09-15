@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:27:26 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/14 12:16:24 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/15 13:10:39 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char* no_redir(char **m, char *line, int *i)
 			{
 				(*i)++;
 				line++;
-			}	
+			}
 			line++;
 			(*i)++;
 		}
@@ -87,7 +87,7 @@ void	make_redir(t_shell *shell, int n)
 	}
 }
 
-char *parse_redir(char *line, t_shell *shell, int n)
+/* char *parse_redir(char *line, t_shell *shell, int n)
 {
 	char **args;
 	char *cmd;
@@ -131,4 +131,4 @@ char *parse_redir(char *line, t_shell *shell, int n)
 	free(line);
 	free(args);
 	return (cmd);
-}
+} */

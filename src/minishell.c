@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 11:42:34 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/15 12:29:19 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	check_null(char *str)
 	return (0);
 }
 
-int	new_shell(t_shell *shell)
+int	new_shell(t_shell *sh)
 {
 	struct sigaction	sigint;
 	struct sigaction	sigquit;
@@ -59,16 +59,16 @@ int	new_shell(t_shell *shell)
 	{
 		g_exit = 0;
 		set_sig(&sigint, &sigquit);
-		shell->readline = readline("minishell> ");
-		if (check_null(shell->readline))
+		sh->readline = readline("minishell> ");
+		if (check_null(sh->readline))
 			break ;
-		add_history(shell->readline);
-		lexer(shell, shell->readline);
-		categorizer(shell->tok);
-		parser(shell);
-		expander(shell, shell->s_cmd);
-		set_argv(shell->s_cmd);
-		execute(shell, shell->s_cmd);
+		add_history(sh->readline);
+		lexer(sh, sh->readline);
+		categorizer(sh->tok);
+		parser(sh);
+		expander(sh, sh->s_cmd);
+		set_argv(sh->s_cmd);
+		execute(sh, sh->s_cmd);
 	}
-	return (shell->exit);
+	return (sh->exit);
 }

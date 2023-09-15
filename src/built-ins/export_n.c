@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:13:28 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/14 11:10:31 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/15 14:03:26 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	parse_var(char *var)
 		return (1);
 	i++;
 	while (var[i])
-	{	
+	{
 		if (var[i] == '+' && var[i + 1] == '=')
 			return (2);
 		if (var[i] == '=')
@@ -33,15 +33,7 @@ static int	parse_var(char *var)
 	return (0);
 }
 
-static int	write_not_valid(char *var)
-{
-	write(2, "bash: export: `", 15);
-	write(2, var, ft_strlen(var));
-	write(2, "': not a valid identifier\n", 27);
-	return (1);
-}
-
-static int	replace_existing(char *line, char *existing, t_shell *shell)
+static int	replace_existing(char *line, char *existing, t_shell *sh)
 {
 	char	**new;
 	int		i;
@@ -52,24 +44,24 @@ static int	replace_existing(char *line, char *existing, t_shell *shell)
 		i++;
 	var = ft_substr(line, 0, i);
 	i = 0;
-	new = (char **)malloc(sizeof(char *) * (count_arr(shell->envp) + 1));
+	new = (char **)malloc(sizeof(char *) * (count_arr(sh->envp) + 1));
 	if (!new)
 		return (1);
-	while (shell->envp[i] != NULL)
+	while (sh->envp[i] != NULL)
 	{
-		if (ft_varcmp(var, shell->envp[i], ft_strlen(var)) == 0)
+		if (ft_varcmp(var, sh->envp[i], ft_strlen(var)) == 0)
 			new[i] = ft_strdup(line);
 		else
-			new[i] = ft_strdup(shell->envp[i]);
+			new[i] = ft_strdup(sh->envp[i]);
 		i++;
 	}
 	new[i] = NULL;
-	free(shell->envp);
-	shell->envp = new;
+	free(sh->envp);
+	sh->envp = new;
 	return (0);
 }
 
-static int	cat_existing(char *line, char *existing, t_shell *shell)
+static int	cat_existing(char *line, char *existing, t_shell *sh)
 {
 	char	*tmp;
 	int		i;
@@ -80,14 +72,13 @@ static int	cat_existing(char *line, char *existing, t_shell *shell)
 		i++;
 	var = ft_substr(line, 0, i);
 	i = 0;
-	while (shell->envp[i] != NULL)
+	while (sh->envp[i] != NULL)
 	{
-		if (ft_varcmp(var, shell->envp[i], ft_strlen(var)) == 0)
-		{	
-			//printf("var is %s and envp is %s\n", var, shell->envp[i]);
-			tmp = ft_strjoin(ft_strchr(shell->envp[i], '='), ft_strchr(line, '=') + 1);
-			//printf("tmp es %s\n", tmp);
-			shell->envp[i] = ft_strjoin(var, tmp);
+		if (ft_varcmp(var, sh->envp[i], ft_strlen(var)) == 0)
+		{
+			tmp = ft_strjoin(ft_strchr(sh->envp[i], '='), 
+					ft_strchr(line, '=') + 1);
+			sh->envp[i] = ft_strjoin(var, tmp);
 			break ;
 		}
 		i++;
@@ -95,46 +86,44 @@ static int	cat_existing(char *line, char *existing, t_shell *shell)
 	return (0);
 }
 
-static int	add_envp(char *var, t_shell *shell)
+static int	add_envp(char *var, t_shell *sh)
 {
 	char	**new;
 	int		i;
 
-	new = (char **)malloc(sizeof(char *) * (count_arr(shell->envp) + 2));
+	new = (char **)malloc(sizeof(char *) * (count_arr(sh->envp) + 2));
 	if (!new)
 		return (1);
 	i = 0;
-	while (shell->envp[i] != NULL)
+	while (sh->envp[i] != NULL)
 	{
-		new[i] = ft_strdup(shell->envp[i]);
+		new[i] = ft_strdup(sh->envp[i]);
 		i++;
 	}
 	new[i] = ft_strdup(var);
 	i++;
 	new[i] = NULL;
-	free_m(shell->envp);
-	shell->envp = new;
+	free_m(sh->envp);
+	sh->envp = new;
 	return (0);
 }
 
-int	export_n(char *var, t_shell *shell)
+int	export_n(char *var, t_shell *sh)
 {
 	char	**new;
 	char	*existing;
 	int		i;
 	int		type;
 
-	//var = protect_quotes(var);
 	type = parse_var(var);
 	if (type == 1)
 		return (write_not_valid(var));
-	//printf("entra aqui\n");
-	if (is_existing(var, shell->envp) == 1)
+	if (is_existing(var, sh->envp) == 1)
 		return (0);
-	else if (is_existing(var, shell->envp) == 2 && type == 0)
-		return (replace_existing(var, existing, shell));
-	else if (is_existing(var, shell->envp) == 2 && type == 2)
-		return (cat_existing(var, existing, shell));
+	else if (is_existing(var, sh->envp) == 2 && type == 0)
+		return (replace_existing(var, existing, sh));
+	else if (is_existing(var, sh->envp) == 2 && type == 2)
+		return (cat_existing(var, existing, sh));
 	else
-		return (add_envp(var, shell));
+		return (add_envp(var, sh));
 }

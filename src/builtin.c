@@ -1,6 +1,18 @@
-#include  "../inc/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/15 12:23:46 by theonewhokn       #+#    #+#             */
+/*   Updated: 2023/09/15 12:24:50 by theonewhokn      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int check_builtin(char **args)
+#include "../inc/minishell.h"
+
+int	check_builtin(char **args)
 {
 	if (!args)
 		return (0);
@@ -22,7 +34,7 @@ int check_builtin(char **args)
 		return (0);
 }
 
-int builtin(t_shell *shell, t_cmd **cmd, int *i)
+int	builtin(t_shell *shell, t_cmd **cmd, int *i)
 {
 	if (check_builtin(cmd[*i]->args))
 	{

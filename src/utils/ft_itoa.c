@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:16:59 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/07/31 10:06:13 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/15 14:07:42 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	ft_number_count(long n)
 }
 
 void	ft_reverse(char *str, int len)
-{	
+{
 	int		low;
 	char	swap;
 

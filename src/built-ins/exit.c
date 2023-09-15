@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:37:09 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/14 20:39:32 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/15 14:01:53 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static int	is_it_numeric(char *line)
 		return (1);
 	while (line[i] == ' ')
 		i++;
-	if (is_digit(line[i]) || ((line[i] == '-' || line[i] == '+') && is_digit(line[i + 1]) == 1))
+	if (is_digit(line[i]) || ((line[i] == '-' || line[i] == '+') 
+			&& is_digit(line[i + 1]) == 1))
 		i++;
 	else
 		return (1);
@@ -53,7 +54,7 @@ static int	check_long_min(int64_t number)
 		return (0);
 }
 
-static void	exit_message(t_shell *shell, int type, char *argument)
+static void	exit_message(t_shell *sh, int type, char *argument)
 {
 	if (type == 2)
 	{
@@ -66,21 +67,21 @@ static void	exit_message(t_shell *shell, int type, char *argument)
 	else
 	{
 		write(2, "bash: exit: too many arguments\n", 32);
-		shell->exit = 1;
+		sh->exit = 1;
 	}
 }
 
-void	ft_exit(t_shell *shell, t_cmd **cmd, int *i)
+void	ft_exit(t_shell *sh, t_cmd **cmd, int *i)
 {
 	if (cmd[*i]->args[1] != NULL)
 	{
 		if (compare_exit(cmd[*i]->args[1]) || is_it_numeric(cmd[*i]->args[1]))
-			exit_message(shell, 2, cmd[*i]->args[1]);
+			exit_message(sh, 2, cmd[*i]->args[1]);
 		if (cmd[*i]->args[2] != NULL)
-			exit_message(shell, 1, cmd[*i]->args[1]);
+			exit_message(sh, 1, cmd[*i]->args[1]);
 		else
 			exit(ft_atoi(cmd[*i]->args[1]));
 	}
 	else
-		exit(shell->exit);
+		exit(sh->exit);
 }

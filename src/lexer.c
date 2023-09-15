@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:20:58 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 12:19:07 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/15 14:15:36 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	copy_token(char *dst, const char *src, int *cpy, size_t dstsize)
 	dst[i] = '\0';
 }
 
-static void	lexer_loop(char *line, t_shell *shell, int n)
+static void	lexer_loop(char *line, t_shell *sh, int n)
 {
 	int	i;
 	int	len;
@@ -46,19 +46,19 @@ static void	lexer_loop(char *line, t_shell *shell, int n)
 			cpy++;
 		}
 		size = get_len(line, &len, &cpy) + 1;
-		shell->tmp_tok = (char *)malloc(sizeof (char) * size);
-		copy_token(shell->tmp_tok, line, &cpy, size);
-		ft_toklstadd_back(&(shell->tok), ft_toklstnew(ft_strdup(shell->tmp_tok)));
-		free(shell->tmp_tok);
+		sh->tmp = (char *)malloc(sizeof (char) * size);
+		copy_token(sh->tmp, line, &cpy, size);
+		tokback(&(sh->tok), toknew(ft_strdup(sh->tmp)));
+		free(sh->tmp);
 		i++;
 	}
 }
 
-void	lexer(t_shell *shell, char *line)
+void	lexer(t_shell *sh, char *line)
 {
 	int		n;
 
-	shell->tok = NULL;
+	sh->tok = NULL;
 	n = count_tokens(line);
-	lexer_loop(line, shell, n);
+	lexer_loop(line, sh, n);
 }

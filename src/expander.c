@@ -1,7 +1,19 @@
-#include  "../inc/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expander.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/15 13:01:54 by theonewhokn       #+#    #+#             */
+/*   Updated: 2023/09/15 13:28:44 by theonewhokn      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static void count_quote(char *token, int *len, int *count, t_quote *quote)
-{	
+#include "../inc/minishell.h"
+
+static int	count_quote(char *token, int *len, int *count, t_quote *quote)
+{
 	while (*len != quote->end)
 	{
 		(*count)++;
@@ -9,40 +21,34 @@ static void count_quote(char *token, int *len, int *count, t_quote *quote)
 	}
 	(*count)++;
 	(*len)++;
+	return (*count);
 }
 
-int count_expand(t_shell *shell, char *token, int *len)
+int	count_expand(t_shell *sh, char *token, int *len)
 {
-	int count;
-	int i;
-	t_quote *ptr;
+	int		count;
+	int		i;
+	t_quote	*ptr;
 
 	i = 0;
 	count = 0;
-	ptr = shell->quote;
-	shell->var_cat = 0;
-	//printf("estamos en %s\n", &token[*len]);
+	ptr = sh->quote;
+	sh->var_cat = 0;
 	if (*len && token[*len] && token[*len - 1] && token[*len - 1] != ' ')
-		shell->var_cat = 1;
-	while(token[*len])
+		sh->var_cat = 1;
+	while (token[*len])
 	{
-		if (shell->var_quoted == 1 && *len == ptr->start)
-		{
-			count_quote(token, len, &count, ptr);
-			return (count);
-		}
-		else if (shell->quote && shell->var_quoted == 0 && *len == shell->quote->start)
+		if (sh->var_quoted == 1 && *len == ptr->start)
+			return (count_quote(token, len, &count, ptr));
+		else if (sh->quote && sh->var_quoted == 0 && *len == sh->quote->start)
 			return (count);
 		else if (token[*len] == ' ')
-		{	
+		{
 			(*len)++;
 			return (count);
 		}
 		else
-		{
-			count++;
-			(*len)++;
-		}
+			move_ptrs(&count, len);
 	}
 	return (count);
 }
@@ -64,9 +70,9 @@ void	copy_exp(char *dst, const char *src, int *cpy, size_t dstsize)
 	dst[i] = '\0';
 }
 
-void	expander(t_shell *shell, t_cmd **cmd)
+void	expander(t_shell *sh, t_cmd **cmd)
 {
-	shell->quote = NULL;
-	expand_args(shell, cmd);
-	expand_redir(shell, cmd);
+	sh->quote = NULL;
+	expand_args(sh, cmd);
+	expand_redir(sh, cmd);
 }

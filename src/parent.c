@@ -1,42 +1,19 @@
-#include  "../inc/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parent.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/15 14:59:17 by theonewhokn       #+#    #+#             */
+/*   Updated: 2023/09/15 15:00:44 by theonewhokn      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	wait_for_children(t_shell *shell)
-{	
-	int status;
-	int i;
-	pid_t	pid;
-	int fd;
-
-	status = 0;
-	if (shell->children == 1)
-	{	
-		pid = waitpid(shell->pid[0], &status, 0);
-		if (WIFEXITED(status))
-			shell->exit = WEXITSTATUS(status);
-	}
-	else
-	{	
-		while (shell->children != 0)
-		{	
-			i = 0;
-			while (i < shell->pipes + 1)
-			{
-				pid = waitpid(shell->pid[i], &status, 0);
-				if (pid > 0)
-				{	
-					shell->children--;
-					if (WIFEXITED(status))
-						shell->exit = WEXITSTATUS(status);
-				}
-				i++;
-			}
-			
-		}
-	}
-}
+#include "../inc/minishell.h"
 
 void	handler(int signal)
-{	
+{
 	if (signal == SIGINT)
 	{
 		write(1, "\n", 1);
@@ -46,7 +23,7 @@ void	handler(int signal)
 		kill(0, SIGQUIT);
 }
 
-void	set_signals(t_shell *shell, char **envp)
+/* void	set_signals(t_shell *shell, char **envp)
 {
 	sigset_t			sigset;
 	struct sigaction	sa;
@@ -60,36 +37,35 @@ void	set_signals(t_shell *shell, char **envp)
 	sigaddset(&sigset, SIGINT);
 	sigaction(SIGQUIT, &sa, NULL);
 	sigaddset(&sigset, SIGQUIT);
-	wait_for_children(shell);
-}
+} */
 
 void	parent_wait(t_shell *shell, t_cmd **cmd)
-{	
-	int status;
-	int i;
+{
+	int		status;
+	int		i;
 	pid_t	pid;
 
 	status = 0;
 	while (shell->children != 0)
-	{	
+	{
 		i = 0;
 		while (i < shell->pipes + 1)
 		{
 			pid = waitpid(cmd[i]->pid, &status, 0);
 			if (pid > 0)
-			{	
+			{
 				shell->children--;
 				if (WIFEXITED(status))
 					shell->exit = WEXITSTATUS(status);
 			}
 			i++;
-		}		
+		}
 	}
 }
 
-void parent_close(t_shell *shell)
+void	parent_close(t_shell *shell)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < shell->pipes)

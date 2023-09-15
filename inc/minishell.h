@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 12:19:48 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/15 15:08:58 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_arg
 
 typedef struct s_redir
 {
-	t_arg 	*path_arg;
+	t_arg 	*arg;
 	char	*path;
 	int 	heredoc_quoted;
 	int		heredoc_fd;
@@ -92,11 +92,10 @@ typedef struct s_quote
 typedef	struct s_cmd
 {
 	char **args;
-	t_redir	**redir;
 	t_arg 	*arg;
-	t_arg	*argx;
-	t_redir *redir_list;
-	t_redir	*redir_x;
+	t_arg	*arg_x;
+	t_redir *red;
+	t_redir	*red_x;
 	char	*path;
 	char	*infile_path;
 	char	*outfile_path;
@@ -117,11 +116,11 @@ typedef struct s_token
 }				t_tok;
 
 typedef struct s_shell
-{	
+{
 	t_tok	*tok;
 	t_tok	*expanded;
 	t_quote	*quote;
-	char 	*tmp_tok;
+	char	*tmp;
 	char 	**envp;
 	char	**args;
 	char	*here_tmp;
@@ -298,8 +297,6 @@ void 	cmd_not_found(char *cmd);
 
 int 	is_there_redir(char *line);
 
-void 	write_heredoc_eof(t_shell *shell, int start_line);
-
 int		make_stdin_stdout(t_shell *shell, int n);
 
 int		prepare_redir(char *line, t_shell *shell, int n, int redir_num);
@@ -336,12 +333,6 @@ char 	*remove_backslash(char *s);
 
 void 	expander(t_shell *shell, t_cmd **cmd);
 
-t_tok	*ft_toklstnew(void *content);
-
-void	ft_toklstadd_back(t_tok **lst, t_tok *new);
-
-t_tok	*ft_toklstlast(t_tok *lst);
-
 void	ft_printlst(t_tok *lst);
 
 char 	*expand_str(t_shell *shell, t_arg *arg, int *i, int *j);
@@ -356,27 +347,13 @@ void 	categorizer(t_tok *expanded);
 
 void	ft_printbothlst(t_tok *lst);
 
-t_redir	*ft_redirlstnew(int type);
-
-void	ft_redirlstadd_back(t_redir **lst, t_redir *new);
-
-t_redir	*ft_redirlstlast(t_redir *lst);
-
 void	ft_printcmd(t_cmd **cmd);
 
 void	ft_printredirlist(t_redir *redir);
 
-t_arg	*ft_arglstlast(t_arg *lst);
-
-void	ft_arglstadd_back(t_arg **lst, t_arg *new);
-
-t_arg	*ft_arglstnew(void *content);
-
 void	ft_printarglist(t_arg *arg);
 
 void	ft_printredirarglist(t_arg *arg);
-
-void	ft_arglstadd_front(t_arg **lst, t_arg *new);
 
 void	ft_printcmdargx(t_cmd **cmd);
 
@@ -389,8 +366,6 @@ void 	execute_redir(t_shell *shell, t_cmd **cmd, int *i);
 void 	heredoc(t_shell *shell, t_cmd **cmd, int *i);
 
 int 	builtin(t_shell *shell, t_cmd **cmd, int *i);
-
-int		ft_arglstsize(t_arg *lst);
 
 void 	ft_printdeflist(t_cmd **cmd);
 
@@ -410,12 +385,6 @@ int 	count_quotes(t_shell *shell, char *str);
 
 void 	copy_new(t_shell *shell, char *new, char *str);
 
-t_quote	*ft_quotelstnew(int start, int end);
-
-void	ft_quotelstadd_back(t_quote **lst, t_quote *new);
-
-t_quote	*ft_quotelstlast(t_quote *lst);
-
 void 	expand_args(t_shell *shell, t_cmd **cmd);
 
 void 	expand_redir(t_shell *shell, t_cmd **cmd);
@@ -428,11 +397,54 @@ void	*ft_memset(void *b, int c, size_t n);
 
 int	get_len(char *line, int *len, int *cpy);
 
-/*
-void	make_history(t_hist *hist, char *line);
+void	move_ptrs(int *i, int *j);
 
-void	print_history(t_hist *hist);
+/*tok lists*/
 
-void	free_history(t_hist *hist);
-*/
+t_tok	*toknew(void *content);
+
+void	tokback(t_tok **lst, t_tok *new);
+
+t_tok	*toklast(t_tok *lst);
+
+/* arg lists */
+
+t_arg	*argnew(void *content);
+
+t_arg	*arglast(t_arg *lst);
+
+void	argback(t_arg **lst, t_arg *new);
+
+int		argsize(t_arg *lst);
+
+void	argfront(t_arg **lst, t_arg *new);
+
+/*redir lists*/
+
+t_redir	*redirnew(int type);
+
+void	redirback(t_redir **lst, t_redir *new);
+
+t_redir	*redirlast(t_redir *lst);
+
+/*quote lists*/
+
+t_quote	*quotenew(int start, int end);
+
+void	quoteback(t_quote **lst, t_quote *new);
+
+t_quote	*quotelast(t_quote *lst);
+
+/*aux expander*/
+
+void	init_variables_loop(int *i, int *len, int *cpy, int *size);
+
+void	init_variables(int *i, int *j, int *n, t_shell *sh);
+
+void	advance_space(char *str, int *len, int *cpy);
+
+void	check_quoted(t_shell *sh, int *len);
+
+void	copy_and_remove_quotes(t_shell *sh, int size, char *str, int *cpy);
+
 #endif

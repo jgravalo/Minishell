@@ -1,4 +1,4 @@
- #include "../inc/minishell.h"
+/*  #include "../inc/minishell.h"
 
 static	void handle_signal(int sig)
 {
@@ -41,9 +41,9 @@ static void prepare_heredocs(t_shell *shell, char *tmp, int n, int redir_num)
 		signal(SIGQUIT, handle_signal);
 		waitpid(pid, &status, 0);
 	}
-/* 	else if (pid == 0)
+ 	else if (pid == 0)
 		make_heredoc(shell, n, redir_num); */
-}
+/* }
 
 static void prepare_outfile(t_shell *shell, char *tmp, int n, int redir_num)
 {	
@@ -102,4 +102,4 @@ int		prepare_redir(char *line, t_shell *shell, int n, int redir_num)
 	else if (line[0] == '>' && line[1] == '>' && shell->redir_error[n] != 1)
  		prepare_append(shell, ft_strdup(tmp), n, redir_num);
 	return (0);
-}
+} */ 

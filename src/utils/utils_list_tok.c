@@ -6,13 +6,13 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:56:04 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 12:20:11 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/15 14:17:56 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-t_tok	*ft_toklstnew(void *content)
+t_tok	*toknew(void *content)
 {
 	t_tok	*node;
 
@@ -24,7 +24,7 @@ t_tok	*ft_toklstnew(void *content)
 	return (node);
 }
 
-void	ft_toklstadd_back(t_tok **lst, t_tok *new)
+void	tokback(t_tok **lst, t_tok *new)
 {
 	t_tok	*curr;
 
@@ -35,11 +35,11 @@ void	ft_toklstadd_back(t_tok **lst, t_tok *new)
 		*lst = new;
 		return ;
 	}
-	curr = ft_toklstlast(*lst);
+	curr = toklast(*lst);
 	curr->next = new;
 }
 
-t_tok	*ft_toklstlast(t_tok *lst)
+t_tok	*toklast(t_tok *lst)
 {
 	if (!lst)
 		return (NULL);

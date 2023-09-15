@@ -1,105 +1,114 @@
-#include  "../inc/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expander_string.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/15 12:36:44 by theonewhokn       #+#    #+#             */
+/*   Updated: 2023/09/15 15:08:43 by theonewhokn      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static char *get_var(char *str, int *j)
+#include "../inc/minishell.h"
+
+static char	*get_var(char *str, int *i)
 {
-	int i;
-	int start;
+	int	j;
+	int	start;
 
-	i = 0;
-	(*j)++;
-	start = *j;
-	while (str[*j] && is_alpha_num(str[*j]) && str[*j] != ' ' && str[*j] != '$' && str[*j] != '\"' && str[*j] != '\'')
-	{	
-		(*j)++;
-		i++;
+	j = 0;
+	(*i)++;
+	start = *i;
+	while (str[*i] && is_alpha_num(str[*i]) && str[*i] != ' ' 
+		&& str[*i] != '$' && str[*i] != '\"' && str[*i] != '\'')
+	{
+		(*i)++;
+		j++;
 	}
-	return (ft_substr(str, start, i));
+	return (ft_substr(str, start, j));
 }
 
-static void check_single(char *str, int *i, int *j, t_shell *shell)
-{	
-	int start;
-	int end;
-
+static void	check_single(char *str, int *i, int *j, t_shell *shell)
+{
+	int	start;
+	int	end;
 
 	if (str[*j] == '\'')
-	{	
+	{
 		start = *i;
-		shell->tmp_tok[(*i)++] = str[(*j)++];
+		shell->tmp[(*i)++] = str[(*j)++];
 		while (str[*j] != '\'')
-			shell->tmp_tok[(*i)++] = str[(*j)++];
-		shell->tmp_tok[(*i)++] = str[(*j)++];
+			shell->tmp[(*i)++] = str[(*j)++];
+		shell->tmp[(*i)++] = str[(*j)++];
 		end = *i - 1;
-		ft_quotelstadd_back(&shell->quote, ft_quotelstnew(start, end));
-		//printf("quote struct added, start %d. end %d\n", start, end);
+		quoteback(&shell->quote, quotenew(start, end));
 	}
 }
 
-static int check_double(char *str, int *i, int *j, t_shell *shell)
-{	
-	char *var;
-	char *exp;
-	int start;
-	int end;
-	int	m;
+static int	check_double(char *str, int *i, int *j, t_shell *shell)
+{
+	char	*var;
+	char	*exp;
+	int		start;
+	int		end;
+	int		m;
 
 	if (str[*j] == '\"')
-	{	
+	{
 		start = *i;
-		shell->tmp_tok[(*i)++] = str[(*j)++];
+		shell->tmp[(*i)++] = str[(*j)++];
 		while (str[*j] != '\"')
-		{	
+		{
 			m = 0;
 			if (str[*j] == '$' && is_alpha_num_exp(str[(*j) + 1]) == 1)
-			{	
-				var	=	get_var(str, j);
+			{
+				var = get_var(str, j);
 				if (ft_strcmp(var, "?") == 0)
 					exp = ft_itoa(shell->exit);
 				else
 					exp = ft_strdup(search_var_line(var, shell->envp));
 				while (exp && exp[m])
-					shell->tmp_tok[(*i)++] = exp[m++];
+					shell->tmp[(*i)++] = exp[m++];
 			}
 			else
-				shell->tmp_tok[(*i)++] = str[(*j)++];
+				shell->tmp[(*i)++] = str[(*j)++];
 		}
-		shell->tmp_tok[(*i)++] = str[(*j)++];
+		shell->tmp[(*i)++] = str[(*j)++];
 		end = *i - 1;
-		ft_quotelstadd_back(&shell->quote, ft_quotelstnew(start, end));
-	//	printf("quote struct added, start %d. end %d\n", start, end);
+		quoteback(&shell->quote, quotenew(start, end));
 	}
 }
 
-static void check_normal(char *str, int *i, int *j, t_shell *shell)
-{	
-	char *var;
-	char *exp;
-	int m;
+static void	check_normal(char *str, int *i, int *j, t_shell *shell)
+{
+	char	*var;
+	char	*exp;
+	int		m;
 
 	while (str[*j] && str[*j] != '\'' && str[*j] != '\"')
-	{	
+	{
 		m = 0;
 		if (str[*j] == '$' && is_alpha_num_exp(str[*j + 1]) == 1)
 		{
-			var	=	get_var(str, j);
+			var = get_var(str, j);
 			if (ft_strcmp(var, "?") == 0)
 				exp = ft_itoa(shell->exit);
 			else
 				exp = ft_strdup(search_var_line(var, shell->envp));
-			//printf("exp is %s\n", exp);
 			while (exp && exp[m])
-				shell->tmp_tok[(*i)++] = exp[m++];
+				shell->tmp[(*i)++] = exp[m++];
 		}
 		else if (str[*i] == '$' && (str[*i + 1] == '\'' || str[*i + 1] == '\"'))
-			(*j)++;	
+			(*j)++;
 		else
-			shell->tmp_tok[(*i)++] = str[(*j)++];
+			shell->tmp[(*i)++] = str[(*j)++];
 	}
 }
-
+/* 
 static void	expand(t_shell *shell, char *str, int *j)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[*j])
@@ -108,21 +117,28 @@ static void	expand(t_shell *shell, char *str, int *j)
 		check_double(str, &i, j, shell);
 		check_normal(str, &i, j, shell);
 	}
-	shell->tmp_tok[i] = '\0';
-}
+	shell->tmp[i] = '\0';
+} */
 
-char *expand_str(t_shell *shell, t_arg *arg, int *i, int *j)
+char	*expand_str(t_shell *shell, t_arg *arg, int *i, int *j)
 {
-	int len;
+	int	len;
+	int	n;
 
+	n = 0;
 	len = count_expstr(shell, arg->arg, i);
-	//printf("len is %d\n", len);
 	if (len > 0)
 	{
-		shell->tmp_tok = malloc(sizeof (char) * len + 1);
-		expand(shell, arg->arg, j);
+		shell->tmp = malloc(sizeof (char) * len + 1);
+		while (arg->arg[*j])
+		{
+			check_single(arg->arg, &n, j, shell);
+			check_double(arg->arg, &n, j, shell);
+			check_normal(arg->arg, &n, j, shell);
+		}
+		shell->tmp[n] = '\0';
 	}
 	else
-		shell->tmp_tok = NULL;
-	return (shell->tmp_tok);
+		shell->tmp = NULL;
+	return (shell->tmp);
 }

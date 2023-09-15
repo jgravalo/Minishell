@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:59:28 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/14 20:36:41 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/15 14:05:18 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,7 @@ int	export(t_shell *shell, t_cmd **cmd, int *i)
 	}
 	j = 1;
 	while (cmd[*i]->args[j])
-	{	
-		//printf("entra aqui %s\n", shell->struct_cmd[n]->args[i]);
+	{
 		shell->exit = export_n(cmd[*i]->args[j], shell);
 		j++;
 	}

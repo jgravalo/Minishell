@@ -1,4 +1,4 @@
-#include "../inc/minishell.h"
+/* #include "../inc/minishell.h"
 
 void set_redir(t_shell *shell, int n)
 {	
@@ -42,4 +42,4 @@ void set_redir(t_shell *shell, int n)
 		
 		i++;
 	}
-}
+} */

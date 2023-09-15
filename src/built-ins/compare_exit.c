@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   compare_exit.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/15 14:01:06 by theonewhokn       #+#    #+#             */
+/*   Updated: 2023/09/15 14:01:28 by theonewhokn      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
-static int count_numbers(char *argument)
+static int	count_numbers(char *argument)
 {
-	int i;
-	int c;
+	int	i;
+	int	c;
 
 	i = 0;
 	c = 0;
@@ -19,10 +31,10 @@ static int count_numbers(char *argument)
 	return (c);
 }
 
-static void set_numbers(int *number, char *argument)
+static void	set_numbers(int *number, char *argument)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -36,9 +48,9 @@ static void set_numbers(int *number, char *argument)
 	}
 }
 
-static int compare(int *number, int *long_compare, int n)
+static int	compare(int *number, int *long_compare, int n)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (n)
@@ -52,12 +64,12 @@ static int compare(int *number, int *long_compare, int n)
 	}
 }
 
-int compare_exit(char *argument)
+int	compare_exit(char *argument)
 {
-	int	*number;
-	int *long_array;
-	char *long_compare;
-	
+	int		*number;
+	int		*long_array;
+	char	*long_compare;
+
 	if (argument[0] == '-')
 		long_compare = ft_strdup("9223372036854775808");
 	else
@@ -70,7 +82,5 @@ int compare_exit(char *argument)
 	long_array = malloc(sizeof (int) * count_numbers(long_compare));
 	set_numbers(number, argument);
 	set_numbers(long_array, long_compare);
-/* 	ft_print_intarr(number, count_numbers(argument));
-	ft_print_intarr(long_array, count_numbers(long_compare)); */
-	return (compare(number, long_array, count_numbers(long_compare)));	
+	return (compare(number, long_array, count_numbers(long_compare)));
 }
