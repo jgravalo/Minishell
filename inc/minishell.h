@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 15:08:58 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/15 21:22:52 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ typedef	struct s_cmd
 	int		out_pipe;
 	int		here_doc;
 	int		builtin;
-	int		infile;
-	int 	outfile;
+	int		in_fd;
+	int 	out_fd;
 	pid_t	pid;
 }				t_cmd;
 
@@ -146,8 +146,8 @@ typedef struct s_shell
 	int		redir_type;
 	int		infd;
 	int		outfd;
-	int		saved_stdin;
-	int		saved_stdout;
+	int		stdin_cpy;
+	int		stdout_cpy;
 	int		*inpipe;
 	int		*outpipe;
 	int		pipes;
@@ -263,11 +263,9 @@ int		*parse_pipes(t_shell *shell);
 
 void	make_redir(t_shell *shell, int n);
 
-int 	recover_std(t_shell *shell, int n);
+char		*ft_itoa(int n);
 
-char	*ft_itoa(int n);
-
-int64_t	ft_atoi(char *str);
+int64_t		ft_atoi(char *str);
 
 uint64_t	ft_u_atoi(char *str);
 
@@ -361,7 +359,7 @@ void 	quote_remove(t_cmd **cmd);
 
 void 	execute(t_shell *shell, t_cmd **cmd);
 
-void 	execute_redir(t_shell *shell, t_cmd **cmd, int *i);
+int 	execute_redir(t_shell *shell, t_cmd **cmd, int *i);
 
 void 	heredoc(t_shell *shell, t_cmd **cmd, int *i);
 

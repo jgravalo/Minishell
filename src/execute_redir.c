@@ -6,58 +6,57 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:51:29 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 14:49:25 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/15 21:23:13 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static void	set_in(t_shell *shell, t_redir *ptr)
+static int	set_in(t_shell *sh, t_cmd **cmd, t_redir *ptr, int *i)
 {
 	if (ptr->type == IN)
 	{
-		ptr->fd = open(ptr->arg->arg, O_RDONLY);
-		if (ptr->fd == -1)
+		cmd[*i]->in_fd = open(ptr->arg->arg, O_RDONLY);
+		if (cmd[*i]->in_fd == -1)
 		{
-			shell->exit = cmd_error(ptr->arg->arg, errno, 1);
-			return ;
+			sh->exit = cmd_error(ptr->arg->arg, errno, 1);
+			return (1);
 		}
-		dup2(ptr->fd, STDIN_FILENO);
-		close(ptr->fd);
 	}
+	return (0);
 }
 
-static void	set_out(t_shell *shell, t_redir *ptr)
+static int	set_out(t_shell *sh, t_cmd **cmd, t_redir *ptr, int *i)
 {
 	if (ptr->type == OUT)
 	{
-		ptr->fd = open(ptr->arg->arg, O_RDWR | O_CREAT | O_TRUNC, 00644);
-		if (ptr->fd == -1)
+		cmd[*i]->out_fd = open(ptr->arg->arg,
+				O_RDWR | O_CREAT | O_TRUNC, 00644);
+		if (cmd[*i]->out_fd == -1)
 		{
-			shell->exit = cmd_error(ptr->arg->arg, errno, 1);
-			return ;
+			sh->exit = cmd_error(ptr->arg->arg, errno, 1);
+			return (1);
 		}
-		dup2(ptr->fd, STDOUT_FILENO);
-		close(ptr->fd);
 	}
+	return (0);
 }
 
-static void	set_append(t_shell *shell, t_redir *ptr)
+static int	set_append(t_shell *sh, t_cmd **cmd, t_redir *ptr, int *i)
 {
-	if (ptr->type == OUT)
+	if (ptr->type == APPEND)
 	{
-		ptr->fd = open(ptr->arg->arg, O_RDWR | O_CREAT | O_APPEND, 00644);
-		if (ptr->fd == -1)
+		cmd[*i]->out_fd = open(ptr->arg->arg, 
+				O_RDWR | O_CREAT | O_APPEND, 00644);
+		if (cmd[*i]->out_fd == -1)
 		{
-			shell->exit = cmd_error(ptr->arg->arg, errno, 1);
-			return ;
+			sh->exit = cmd_error(ptr->arg->arg, errno, 1);
+			return (1);
 		}
-		dup2(ptr->fd, STDOUT_FILENO);
-		close(ptr->fd);
 	}
+	return (0);
 }
 
-static void	set_redirs(t_shell *shell, t_cmd **cmd, int *i)
+static int	set_redirs(t_shell *sh, t_cmd **cmd, int *i)
 {
 	t_redir	*ptr;
 	int		error;
@@ -66,22 +65,36 @@ static void	set_redirs(t_shell *shell, t_cmd **cmd, int *i)
 	ptr = cmd[*i]->red_x;
 	while (ptr)
 	{
-		set_in(shell, ptr);
-		set_out(shell, ptr);
-		set_append(shell, ptr);
+		if (set_in(sh, cmd, ptr, i))
+			return (1);
+		if (set_out(sh, cmd, ptr, i))
+			return (1);
+		if (set_append(sh, cmd, ptr, i))
+			return (1);
 		if (ptr->type == HERE)
-		{
-			dup2(ptr->fd, STDIN_FILENO);
-			close(ptr->fd);
-		}
-		if (shell->exit)
-			exit (shell->exit);
+			cmd[*i]->in_fd = ptr->fd;
 		ptr = ptr->next;
 	}
 }
 
-void	execute_redir(t_shell *shell, t_cmd **cmd, int *i)
+int	execute_redir(t_shell *sh, t_cmd **cmd, int *i)
 {
-	heredoc(shell, cmd, i);
-	set_redirs(shell, cmd, i);
+	cmd[*i]->in_fd = -20;
+	cmd[*i]->out_fd = -20;
+	heredoc(sh, cmd, i);
+	if (set_redirs(sh, cmd, i))
+		return (1);
+	if (cmd[*i]->in_fd > -1)
+	{
+		sh->stdin_cpy = dup(STDIN_FILENO);
+		dup2(cmd[*i]->in_fd, STDIN_FILENO);
+		close(cmd[*i]->in_fd);
+	}
+	if (cmd[*i]->out_fd > -1)
+	{
+		sh->stdout_cpy = dup(STDOUT_FILENO);
+		dup2(cmd[*i]->out_fd, STDOUT_FILENO);
+		close(cmd[*i]->out_fd);
+	}
+	return (0);
 }

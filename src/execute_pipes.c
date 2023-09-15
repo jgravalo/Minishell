@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:20:53 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 13:20:55 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/15 20:52:40 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,11 @@ static void	handle_pipes(t_shell *sh, t_cmd **cmd, int i)
 
 void	execute_pipes(t_shell *sh, t_cmd **cmd, int i)
 {
-	check_pipe(sh, cmd, i);
-	handle_pipes(sh, cmd, i);
-	if (sh->pipes > 1)
-		close_pipes(sh, i);
+	if (sh->pipes)
+	{
+		check_pipe(sh, cmd, i);
+		handle_pipes(sh, cmd, i);
+		if (sh->pipes > 1)
+			close_pipes(sh, i);
+	}
 }
