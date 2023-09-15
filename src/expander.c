@@ -1,6 +1,6 @@
 #include  "../inc/minishell.h"
 
-static void (count_quote(char *token, int *len, int *cpy, int *count))
+static void (count_quote(char *token, int *len, int *count))
 {	
 	char	quote;
 
@@ -16,7 +16,7 @@ static void (count_quote(char *token, int *len, int *cpy, int *count))
 	(*len)++;
 }
 
-static int count_expand(t_shell *shell, char *token, int *len, int *cpy)
+static int count_expand(t_shell *shell, char *token, int *len)
 {
 	int count;
 	int i;
@@ -26,9 +26,11 @@ static int count_expand(t_shell *shell, char *token, int *len, int *cpy)
 	if (*len && token[*len] && token[*len - 1] && token[*len - 1] != ' ')
 		shell->var_cat = 1;
 	while(token[*len])
-	{	
+	{
 		if (shell->var_quoted == 1 && (token[*len] == '\'' || token[*len] == '\"'))
-			count_quote(token, len, cpy, &count);
+			count_quote(token, len, &count);
+		else if (shell->quote && shell->var_quoted == 0 && *len == shell->quote->start)
+			return (count);
 		else if (token[*len] == ' ')
 		{	
 			(*len)++;
@@ -55,7 +57,6 @@ static void	copy_token(char *dst, const char *src, int *cpy, size_t dstsize)
 		++i;
 		(*cpy)++;
 	}
-	(*cpy)++;
 	dst[i] = '\0';
 }
 
@@ -77,7 +78,14 @@ static void redir_loop(t_shell *shell, char *str, t_cmd *cmd)
 			len++;
 			cpy++;
 		}
-		size = count_expand(shell, str, &len, &cpy) + 1;
+		if (shell->quote && shell->quote->start == len)
+		{
+			shell->var_quoted = 1;
+			shell->quote = shell->quote->next;
+		}
+		else
+			shell->var_quoted = 0;
+		size = count_expand(shell, str, &len) + 1;
 		if (size > 1)
 		{
 			shell->tmp_tok = (char *)malloc(sizeof (char) * size);
@@ -124,20 +132,20 @@ static void arg_loop(t_shell *shell, char *str, t_cmd *cmd)
 	cpy = 0;
 	size = 0;
 	while (str[len])
-	{	
+	{
 		while (str[len] == ' ')
 		{
 			len++;
 			cpy++;
 		}
-		if (shell->quote && shell->quote->start == len)
+		if (shell->quote && (shell->quote->start == len))
 		{
 			shell->var_quoted = 1;
 			shell->quote = shell->quote->next;
 		}
 		else
 			shell->var_quoted = 0;
-		size = count_expand(shell, str, &len, &cpy) + 1;
+		size = count_expand(shell, str, &len) + 1;
 		if (size > 1)
 		{
 			shell->tmp_tok = (char *)malloc(sizeof (char) * size);
