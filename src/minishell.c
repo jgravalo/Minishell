@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 20:58:00 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 07:48:26 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int	new_shell(t_shell *sh)
 		parser(sh);
 		expander(sh, sh->s_cmd);
 		set_argv(sh->s_cmd);
-		//ft_printdeflist(sh->s_cmd);
 		execute(sh, sh->s_cmd);
 	}
 	return (sh->exit);

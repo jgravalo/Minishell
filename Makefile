@@ -1,14 +1,11 @@
 UTILS_DIR	= src/utils
 
-M_SRCS		= src/alloc_envp.c src/minishell.c src/pipes.c \
-			  src/errors.c \
-			  src/lexer.c src/lexer_count.c  \
-			  src/main.c  \
-			  src/set_redir.c src/expander.c src/expander_aux.c  \
-			  src/expander_count.c src/expander_string.c src/quote_remove.c src/parser.c src/categorizer.c \
-			  src/execute.c src/execute_redir.c src/execute_heredoc.c src/builtin.c src/set_argv.c src/search.c \
-			  src/execute_pipes.c src/parent.c src/expander_arg.c src/expander_redir.c src/lexer_len.c \
-			  src/lexer_count_aux.c
+M_SRCS		= src/alloc_envp.c src/builtin.c src/categorizer.c src/errors.c  \
+			  src/execute.c  src/execute_heredoc.c src/execute_heredoc_aux.c  src/execute_redir.c src/execute_pipes.c  \
+			  src/expander.c src/expander_arg.c src/expander_redir.c src/expander_string.c  src/expander_count.c \
+			  src/expander_aux.c   src/lexer.c src/lexer_count.c  src/lexer_len.c src/lexer_count_aux.c \
+			  src/main.c  src/minishell.c  src/parent.c src/parser.c src/pipes.c  src/quote_remove.c  \
+			  src/search.c  src/set_argv.c  src/set_redir.c 	  
  
 BUILT_SRCS	= src/built-ins/echo.c src/built-ins/cd.c src/built-ins/export.c \
 			  src/built-ins/unset.c src/built-ins/env.c src/built-ins/pwd.c  \

@@ -6,38 +6,38 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:59:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 22:07:58 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 07:56:01 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	handler(int signal)
+static void	handler(int signal)
 {
 	if (signal == SIGINT)
 	{
-		write(1, "\n", 1);
+		printf("\n");
 		return ;
 	}
 	else if (signal == SIGQUIT)
 		kill(0, SIGQUIT);
 }
 
-/* void	set_signals(t_shell *sh, char **envp)
+static void	set_waitsig(void)
 {
-	sigset_t			sigset;
-	struct sigaction	sa;
-	int					status;
+	struct sigaction	sigint;
+	struct sigaction	sigquit;
 
-	memset(&sa, 0, sizeof(struct sigaction));
-	sigemptyset(&sa.sa_mask);
-	sa.sa_handler = handler;
-	sa.sa_flags = SA_RESTART;
-	sigaction(SIGINT, &sa, NULL);
-	sigaddset(&sigset, SIGINT);
-	sigaction(SIGQUIT, &sa, NULL);
-	sigaddset(&sigset, SIGQUIT);
-} */
+	ft_memset(&sigint, 0, sizeof(struct sigaction));
+	ft_memset(&sigquit, 0, sizeof(struct sigaction));
+
+	sigint.sa_flags = SA_RESTART;
+	sigquit.sa_flags = SA_RESTART;
+	sigint.sa_handler = handler;
+	sigquit.sa_handler = handler;
+	sigaction(SIGINT, &sigint, NULL);
+	sigaction(SIGQUIT, &sigquit, NULL);
+}
 
 void	parent_wait(t_shell *sh, t_cmd **cmd)
 {
@@ -51,6 +51,7 @@ void	parent_wait(t_shell *sh, t_cmd **cmd)
 		i = 0;
 		while (i < sh->pipes + 1)
 		{
+			set_waitsig();
 			pid = waitpid(cmd[i]->pid, &status, 0);
 			if (pid > 0)
 			{

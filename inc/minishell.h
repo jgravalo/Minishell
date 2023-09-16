@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 21:22:52 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 07:33:46 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -444,5 +444,14 @@ void	advance_space(char *str, int *len, int *cpy);
 void	check_quoted(t_shell *sh, int *len);
 
 void	copy_and_remove_quotes(t_shell *sh, int size, char *str, int *cpy);
+
+/*heredoc aux*/
+
+void	exit_heredoc(int sig);
+
+void	parent_heredoc(int sig);
+
+void	write_heredoc_eof(t_shell *shell, int start_line);
+
 
 #endif
