@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:51:29 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 08:12:30 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 08:27:43 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,10 @@ static int	set_redirs(t_shell *sh, t_cmd **cmd, int *i)
 		if (set_append(sh, cmd, ptr, i))
 			return (1);
 		if (ptr->type == HERE)
+		{	
+			printf("entra en heredoc\n");
 			cmd[*i]->in_fd = ptr->fd;
+		}
 		ptr = ptr->next;
 	}
 }
@@ -81,12 +84,11 @@ int	execute_redir(t_shell *sh, t_cmd **cmd, int *i)
 {
 	cmd[*i]->in_fd = -20;
 	cmd[*i]->out_fd = -20;
-	printf("proceso %d en execute redir\n", getpid());
-	heredoc(sh, cmd, i);
+	//heredoc(sh, cmd, i);
 	if (set_redirs(sh, cmd, i))
 		return (1);
 	if (cmd[*i]->in_fd > -1)
-	{
+	{	
 		printf("tocamos stdin\n");
 		sh->stdin_cpy = dup(STDIN_FILENO);
 		dup2(cmd[*i]->in_fd, STDIN_FILENO);

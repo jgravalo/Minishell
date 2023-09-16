@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 07:33:46 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 08:18:46 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -361,8 +361,6 @@ void 	execute(t_shell *shell, t_cmd **cmd);
 
 int 	execute_redir(t_shell *shell, t_cmd **cmd, int *i);
 
-void 	heredoc(t_shell *shell, t_cmd **cmd, int *i);
-
 int 	builtin(t_shell *shell, t_cmd **cmd, int *i);
 
 void 	ft_printdeflist(t_cmd **cmd);
@@ -397,7 +395,9 @@ int	get_len(char *line, int *len, int *cpy);
 
 void	move_ptrs(int *i, int *j);
 
-/*tok lists*/
+/*LISTS*/
+
+/*tok*/
 
 t_tok	*toknew(void *content);
 
@@ -405,7 +405,7 @@ void	tokback(t_tok **lst, t_tok *new);
 
 t_tok	*toklast(t_tok *lst);
 
-/* arg lists */
+/* arg*/
 
 t_arg	*argnew(void *content);
 
@@ -417,7 +417,7 @@ int		argsize(t_arg *lst);
 
 void	argfront(t_arg **lst, t_arg *new);
 
-/*redir lists*/
+/*redir*/
 
 t_redir	*redirnew(int type);
 
@@ -425,7 +425,7 @@ void	redirback(t_redir **lst, t_redir *new);
 
 t_redir	*redirlast(t_redir *lst);
 
-/*quote lists*/
+/*quote*/
 
 t_quote	*quotenew(int start, int end);
 
@@ -433,7 +433,8 @@ void	quoteback(t_quote **lst, t_quote *new);
 
 t_quote	*quotelast(t_quote *lst);
 
-/*aux expander*/
+
+/*EXPANDER*/
 
 void	init_variables_loop(int *i, int *len, int *cpy, int *size);
 
@@ -445,7 +446,11 @@ void	check_quoted(t_shell *sh, int *len);
 
 void	copy_and_remove_quotes(t_shell *sh, int size, char *str, int *cpy);
 
-/*heredoc aux*/
+
+
+/*HEREDOC*/
+
+void 	heredoc(t_shell *shell, t_cmd **cmd);
 
 void	exit_heredoc(int sig);
 

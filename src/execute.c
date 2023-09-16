@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:10:58 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 07:59:57 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 08:32:11 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,22 +66,23 @@ static int	no_pipe_built_in(t_shell *sh, t_cmd **cmd, int *i)
 void	execute(t_shell *sh, t_cmd **cmd)
 {
 	int	i;
-	int	status;
 
 	i = -1;
-	printf("proceso %d entra en execute\n", getpid());
 	if (no_pipe_built_in(sh, cmd, &i))
 		return ;
-	printf("proceso %d no entra en no pipe builtin\n", getpid());
 	sh->children = 0;
 	create_pipes(sh, cmd);
+	heredoc(sh, cmd);
+	if (g_exit)
+		return ;
+	printf("pasamos de heredoc\n");
 	fork_cmd(sh, cmd, &i);
-	printf("proceso %d sale de fork,\n", getpid());
 	if (cmd[i]->pid == 0)
 	{
 		execute_pipes(sh, cmd, i);
 		if (execute_redir(sh, cmd, &i))
 			exit(1);
+		printf("salimos de redir\n");
 		if (builtin(sh, cmd, &i))
 			exit(sh->exit);
 		search(sh, cmd, &i);
