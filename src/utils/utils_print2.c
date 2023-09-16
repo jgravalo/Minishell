@@ -6,11 +6,11 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:53:20 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 14:08:24 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 10:31:20 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "../../inc/utils.h"
 
 void	ft_printredirarglist(t_arg *arg)
 {

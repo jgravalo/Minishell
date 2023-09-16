@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:32:52 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 11:33:43 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 10:23:48 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	meta_len(char *line, int *len)
 	return (0);
 }
 
-static int	get_len_quotes(char *line, int *len, int *cpy)
+static int	get_len_quotes(char *line, int *len)
 {
 	int	count;
 	int	quote;
@@ -51,7 +51,7 @@ static int	get_len_quotes(char *line, int *len, int *cpy)
 	return (count);
 }
 
-int	get_len(char *line, int *len, int *cpy)
+int	get_len(char *line, int *len)
 {
 	int	count;
 
@@ -62,7 +62,7 @@ int	get_len(char *line, int *len, int *cpy)
 	while (line[*len] != ' ' && is_meta(line[*len]) != 1 && line[*len] != '\0')
 	{
 		if (line[*len] == '\'' || line[*len] == '\"')
-			count += get_len_quotes(line, len, cpy);
+			count += get_len_quotes(line, len);
 		else
 		{
 			count++;

@@ -6,11 +6,11 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:56:04 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 14:17:56 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 10:30:52 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "../../inc/utils.h"
 
 t_tok	*toknew(void *content)
 {

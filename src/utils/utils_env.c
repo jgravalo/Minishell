@@ -6,11 +6,11 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:22:59 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 14:08:43 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 10:31:04 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "../../inc/utils.h"
 
 int	search_var_num(char *name, char **envp)
 {

@@ -6,13 +6,14 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:23:42 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 15:09:14 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 10:22:53 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+#include "../inc/utils.h"
 
-static char	*get_var(char *str, int *i)
+char	*get_var(char *str, int *i)
 {
 	int	j;
 	int	start;

@@ -6,11 +6,11 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:01:06 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 14:01:28 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 10:28:05 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "../../inc/utils.h"
 
 static int	count_numbers(char *argument)
 {

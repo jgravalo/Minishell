@@ -6,27 +6,13 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 16:56:43 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/15 13:19:10 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 10:19:32 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-/*
-int	errors(t_pipex *pipex, int argc, char **argv)
-{
-	int	i;
+#include "../inc/utils.h"
 
-	i = 0;
-	if (access(argv[argc - 1], F_OK) != -1
-		&& access(argv[argc - 1], W_OK) == -1)
-		exit(1);
-	pipex->fdout = open(argv[argc - 1], O_RDWR | O_CREAT | O_TRUNC, 00644);
-	if (pipex->fdout == -1)
-		exit(127);
-	pipex->fdin = open(argv[1], O_RDONLY);
-	return (i);
-}
-*/
 int	cmd_error(char *s, int n, int exit)
 {
 	char	*str;

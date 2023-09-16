@@ -6,11 +6,12 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:58:59 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 14:05:42 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 10:27:07 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+#include "../../inc/utils.h"
 
 static int	is_n_option(char *argv)
 {

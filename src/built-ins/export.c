@@ -6,11 +6,12 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:59:28 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 14:05:18 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 10:29:39 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "../../inc/utils.h"
+#include "../../inc/builtins.h"
 
 char	*for_equal(char *var)
 {
@@ -97,19 +98,19 @@ static void	order_env(t_shell *shell, char **envp)
 	free(order);
 }
 
-int	export(t_shell *shell, t_cmd **cmd, int *i)
+int	export(t_shell *shell, t_cmd **cmd, int i)
 {
 	int	j;
 
-	if (cmd[*i]->args[1] == NULL)
+	if (cmd[i]->args[1] == NULL)
 	{
 		order_env(shell, shell->envp);
 		return (0);
 	}
 	j = 1;
-	while (cmd[*i]->args[j])
+	while (cmd[i]->args[j])
 	{
-		shell->exit = export_n(cmd[*i]->args[j], shell);
+		shell->exit = export_n(cmd[i]->args[j], shell);
 		j++;
 	}
 	return (shell->exit);

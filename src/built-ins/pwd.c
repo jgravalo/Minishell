@@ -6,11 +6,11 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:00:08 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 21:59:08 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 10:28:31 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "../../inc/utils.h"
 
 int	pwd(char **envp)
 {

@@ -6,19 +6,19 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:20:58 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 14:15:36 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 10:24:09 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+#include "../inc/utils.h"
 
 static void	copy_token(char *dst, const char *src, int *cpy, size_t dstsize)
 {
 	int	i;
-	int	quote;
 
 	i = 0;
-	while (i < (dstsize - 1))
+	while (i < ((int) dstsize - 1))
 	{
 		dst[i] = src[*cpy];
 		++i;
@@ -45,7 +45,7 @@ static void	lexer_loop(char *line, t_shell *sh, int n)
 			len++;
 			cpy++;
 		}
-		size = get_len(line, &len, &cpy) + 1;
+		size = get_len(line, &len) + 1;
 		sh->tmp = (char *)malloc(sizeof (char) * size);
 		copy_token(sh->tmp, line, &cpy, size);
 		tokback(&(sh->tok), toknew(ft_strdup(sh->tmp)));

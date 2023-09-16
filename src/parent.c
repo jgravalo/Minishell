@@ -6,11 +6,12 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:59:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 07:56:01 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 10:25:11 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+#include "../inc/utils.h"
 
 static void	handler(int signal)
 {
@@ -30,7 +31,6 @@ static void	set_waitsig(void)
 
 	ft_memset(&sigint, 0, sizeof(struct sigaction));
 	ft_memset(&sigquit, 0, sizeof(struct sigaction));
-
 	sigint.sa_flags = SA_RESTART;
 	sigquit.sa_flags = SA_RESTART;
 	sigint.sa_handler = handler;

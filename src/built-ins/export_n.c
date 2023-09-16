@@ -6,11 +6,12 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:13:28 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/15 14:03:26 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 10:29:07 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "../../inc/utils.h"
+#include "../../inc/builtins.h"
 
 static int	parse_var(char *var)
 {

@@ -6,11 +6,12 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:27:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 15:05:48 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 10:20:33 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+#include "../inc/utils.h"
 
 void	init_variables_loop(int *i, int *len, int *cpy, int *size)
 {

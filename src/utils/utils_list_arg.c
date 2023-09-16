@@ -6,11 +6,11 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:54:32 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 14:17:24 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 10:30:25 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "../../inc/utils.h"
 
 t_arg	*argnew(void *content)
 {
@@ -20,7 +20,6 @@ t_arg	*argnew(void *content)
 	if (!node)
 		return (NULL);
 	node->arg = content;
-	node->quoted = 0;
 	node->next = NULL;
 	return (node);
 }

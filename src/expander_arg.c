@@ -6,11 +6,12 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:41:49 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 14:58:40 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 10:20:30 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+#include "../inc/utils.h"
 
 static void	add_arg_node(t_shell *sh, t_cmd *cmd)
 {

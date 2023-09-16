@@ -6,11 +6,11 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:47:45 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 12:13:11 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 10:31:30 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "../../inc/utils.h"
 
 char	*ft_strcat(char *dest, char *src)
 {

@@ -6,11 +6,12 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:38:00 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 12:30:47 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 10:22:16 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+#include "../inc/utils.h"
 
 void	categorizer(t_tok *tok)
 {

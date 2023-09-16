@@ -6,11 +6,11 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:51:06 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 12:13:15 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 10:31:35 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "../../inc/utils.h"
 
 size_t	ft_strlen(const char *str)
 {

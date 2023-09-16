@@ -6,14 +6,15 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 08:17:26 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 10:24:59 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+#include "../inc/utils.h"
 #include <readline/readline.h>
 
-int g_exit = 0;
+int	g_exit = 0;
 
 static void	handler(int sig)
 {

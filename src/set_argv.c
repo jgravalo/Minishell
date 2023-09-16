@@ -6,11 +6,12 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:39:29 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 14:18:15 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 10:26:48 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+#include "../inc/utils.h"
 
 void	set_argv(t_cmd **cmd)
 {

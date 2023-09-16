@@ -6,13 +6,14 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:01:54 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 13:28:44 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 10:19:21 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+#include "../inc/utils.h"
 
-static int	count_quote(char *token, int *len, int *count, t_quote *quote)
+static int	count_quote(int *len, int *count, t_quote *quote)
 {
 	while (*len != quote->end)
 	{
@@ -27,10 +28,8 @@ static int	count_quote(char *token, int *len, int *count, t_quote *quote)
 int	count_expand(t_shell *sh, char *token, int *len)
 {
 	int		count;
-	int		i;
 	t_quote	*ptr;
 
-	i = 0;
 	count = 0;
 	ptr = sh->quote;
 	sh->var_cat = 0;
@@ -39,7 +38,7 @@ int	count_expand(t_shell *sh, char *token, int *len)
 	while (token[*len])
 	{
 		if (sh->var_quoted == 1 && *len == ptr->start)
-			return (count_quote(token, len, &count, ptr));
+			return (count_quote(len, &count, ptr));
 		else if (sh->quote && sh->var_quoted == 0 && *len == sh->quote->start)
 			return (count);
 		else if (token[*len] == ' ')
@@ -56,12 +55,11 @@ int	count_expand(t_shell *sh, char *token, int *len)
 void	copy_exp(char *dst, const char *src, int *cpy, size_t dstsize)
 {
 	int	i;
-	int	quote;
 
 	i = 0;
 	while (src[*cpy] == ' ')
 		(*cpy)++;
-	while (i < (dstsize - 1))
+	while (i < ((int) dstsize - 1))
 	{
 		dst[i] = src[*cpy];
 		++i;

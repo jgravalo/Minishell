@@ -6,11 +6,11 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 14:00:04 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 10:27:24 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "../../inc/utils.h"
 
 static int	args_error(void)
 {
@@ -18,7 +18,7 @@ static int	args_error(void)
 	return (1);
 }
 
-char	*cd_home(t_shell *sh, t_cmd **cmd, int *i)
+static char	*cd_home(t_shell *sh, t_cmd **cmd, int i)
 {
 	if (search_var_line("HOME", sh->envp) == NULL)
 	{
@@ -26,27 +26,27 @@ char	*cd_home(t_shell *sh, t_cmd **cmd, int *i)
 		sh->exit = 1;
 		return (NULL);
 	}
-	free_m(cmd[*i]->args);
-	cmd[*i]->args = (char **)malloc(3 * sizeof(char *));
-	cmd[*i]->args[0] = ft_strdup("cd");
-	cmd[*i]->args[1] = ft_strdup(search_var_line("HOME",
+	free_m(cmd[i]->args);
+	cmd[i]->args = (char **)malloc(3 * sizeof(char *));
+	cmd[i]->args[0] = ft_strdup("cd");
+	cmd[i]->args[1] = ft_strdup(search_var_line("HOME",
 				sh->envp));
-	cmd[*i]->args[2] = NULL;
-	return (cmd[*i]->args[1]);
+	cmd[i]->args[2] = NULL;
+	return (cmd[i]->args[1]);
 }
 
-char	*cd_back(t_shell *sh, t_cmd **cmd, int *i)
+static char	*cd_back(t_shell *sh, t_cmd **cmd, int i)
 {
 	char	*tmp;
 
 	tmp = ft_strjoin(search_var_line("PWD", sh->envp), "/");
-	cmd[*i]->args[1] = ft_strjoin(tmp,
-			cmd[*i]->args[1]);
+	cmd[i]->args[1] = ft_strjoin(tmp,
+			cmd[i]->args[1]);
 	free(tmp);
-	return (cmd[*i]->args[1]);
+	return (cmd[i]->args[1]);
 }
 
-char	*cd_last(t_shell *sh, t_cmd **cmd, int *i)
+char	*cd_last(t_shell *sh, t_cmd **cmd, int i)
 {
 	char	*tmp;
 
@@ -60,19 +60,19 @@ char	*cd_last(t_shell *sh, t_cmd **cmd, int *i)
 	if (!tmp)
 		tmp = ft_strdup(sh->old_pwd);
 	printf("%s\n", tmp);
-	cmd[*i]->args[1] = ft_strdup(tmp);
+	cmd[i]->args[1] = ft_strdup(tmp);
 	free(tmp);
-	return (cmd[*i]->args[1]);
+	return (cmd[i]->args[1]);
 }
 
-int	cd(t_shell *sh, t_cmd **cmd, int *i)
+int	cd(t_shell *sh, t_cmd **cmd, int i)
 {
 	char	buffer[100];
 	char	*dir;
 
-	if (cmd[*i]->args[2] != NULL)
+	if (cmd[i]->args[2] != NULL)
 		return (args_error());
-	dir = ft_strdup(cmd[*i]->args[1]);
+	dir = ft_strdup(cmd[i]->args[1]);
 	if (dir == NULL)
 		dir = cd_home(sh, cmd, i);
 	else if (ft_strlen(dir) == 0)

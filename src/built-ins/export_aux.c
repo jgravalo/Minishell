@@ -6,11 +6,11 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:17:20 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/15 14:06:08 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 10:28:21 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "../../inc/utils.h"
 
 int	is_digit(char c)
 {

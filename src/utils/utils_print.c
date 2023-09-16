@@ -6,11 +6,11 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:48:54 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 14:08:18 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 10:31:17 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "../../inc/utils.h"
 
 void	ft_printarr(char **arr)
 {

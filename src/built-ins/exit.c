@@ -6,11 +6,12 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:37:09 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/15 14:01:53 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/16 10:29:20 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "../../inc/utils.h"
+#include "../../inc/builtins.h"
 
 static int	is_it_numeric(char *line)
 {
@@ -71,16 +72,16 @@ static void	exit_message(t_shell *sh, int type, char *argument)
 	}
 }
 
-void	ft_exit(t_shell *sh, t_cmd **cmd, int *i)
+void	ft_exit(t_shell *sh, t_cmd **cmd, int i)
 {
-	if (cmd[*i]->args[1] != NULL)
+	if (cmd[i]->args[1] != NULL)
 	{
-		if (compare_exit(cmd[*i]->args[1]) || is_it_numeric(cmd[*i]->args[1]))
-			exit_message(sh, 2, cmd[*i]->args[1]);
-		if (cmd[*i]->args[2] != NULL)
-			exit_message(sh, 1, cmd[*i]->args[1]);
+		if (compare_exit(cmd[i]->args[1]) || is_it_numeric(cmd[i]->args[1]))
+			exit_message(sh, 2, cmd[i]->args[1]);
+		if (cmd[i]->args[2] != NULL)
+			exit_message(sh, 1, cmd[i]->args[1]);
 		else
-			exit(ft_atoi(cmd[*i]->args[1]));
+			exit(ft_atoi(cmd[i]->args[1]));
 	}
 	else
 		exit(sh->exit);
