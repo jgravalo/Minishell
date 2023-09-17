@@ -6,12 +6,19 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 16:56:43 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/16 10:19:32 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/17 20:59:01 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include "../inc/utils.h"
+
+void	access_dir(void)
+{
+	write(2, "cd: error retrieving current directory : ", 41);
+	write(2, "getcwd: cannot access parent directories: ", 42);
+	write(2, "No such file or directory\n", 26);
+}
 
 int	cmd_error(char *s, int n, int exit)
 {
@@ -58,3 +65,5 @@ void	cmd_not_found(char *cmd)
 	write(2, ": command not found\n", 20);
 	exit(127);
 }
+
+

@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   errors2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/13 18:00:08 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/17 19:25:20 by theonewhokn      ###   ########.fr       */
+/*   Created: 2023/09/17 20:51:24 by theonewhokn       #+#    #+#             */
+/*   Updated: 2023/09/17 20:51:24 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/utils.h"
+#include "../inc/minishell.h"
+#include "../inc/utils.h"
 
-int	pwd(char **envp)
+int	args_error(void)
 {
-	char	*pwd;
-	char	buf[100];
-
-	pwd = search_var_line("PWD", envp);
-	if (pwd)
-		;
-	else
-		pwd = getcwd(buf, 100);
-	write(STDOUT_FILENO, pwd, ft_strlen(pwd));
-	write(STDOUT_FILENO, "\n", 1);
-	return (0);
+	write(2, "bash: cd: too many arguments\n", 29);
+	return (1);
 }

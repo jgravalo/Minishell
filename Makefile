@@ -1,6 +1,6 @@
 UTILS_DIR	= src/utils
 
-M_SRCS		= src/alloc_envp.c src/builtin.c src/categorizer.c src/errors.c  \
+M_SRCS		= src/alloc_envp.c src/builtin.c src/categorizer.c src/errors.c src/errors2.c  \
 			  src/execute.c  src/execute_heredoc.c src/execute_heredoc_aux.c  src/execute_redir.c src/execute_pipes.c  \
 			  src/expander.c src/expander_arg.c src/expander_redir.c src/expander_string.c  src/expander_count.c \
 			  src/expander_aux.c   src/lexer.c src/lexer_count.c  src/lexer_len.c src/lexer_count_aux.c \

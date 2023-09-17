@@ -6,17 +6,11 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 10:27:24 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/17 20:59:59 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/utils.h"
-
-static int	args_error(void)
-{
-	write(2, "bash: cd: too many arguments\n", 29);
-	return (1);
-}
 
 static char	*cd_home(t_shell *sh, t_cmd **cmd, int i)
 {
@@ -46,7 +40,7 @@ static char	*cd_back(t_shell *sh, t_cmd **cmd, int i)
 	return (cmd[i]->args[1]);
 }
 
-char	*cd_last(t_shell *sh, t_cmd **cmd, int i)
+static char	*cd_last(t_shell *sh, t_cmd **cmd, int i)
 {
 	char	*tmp;
 
@@ -65,25 +59,38 @@ char	*cd_last(t_shell *sh, t_cmd **cmd, int i)
 	return (cmd[i]->args[1]);
 }
 
-int	cd(t_shell *sh, t_cmd **cmd, int i)
+static char	*get_dir(t_shell *sh, t_cmd **cmd, int i)
 {
-	char	buffer[100];
 	char	*dir;
 
-	if (cmd[i]->args[2] != NULL)
-		return (args_error());
 	dir = ft_strdup(cmd[i]->args[1]);
 	if (dir == NULL)
 		dir = cd_home(sh, cmd, i);
 	else if (ft_strlen(dir) == 0)
-		return (0);
+		return (NULL);
 	else if (dir[0] != '/' && ft_strcmp(dir, "..") == 0)
 		dir = cd_back(sh, cmd, i);
 	else if (ft_strcmp(dir, "-") == 0)
 		dir = cd_last(sh, cmd, i);
+	else if (ft_strcmp(dir, ".") == 0)
+		dir = search_var_line("PWD", sh->envp);
 	if (!dir)
-		return (1);
+		return (NULL);
+	return (dir);
+}
+
+int	cd(t_shell *sh, t_cmd **cmd, int i)
+{
+	char	buffer[100];
+	int		chdir_return;
+	char	*dir;
+
+	if (cmd[i]->args[2] != NULL)
+		return (args_error());
+	dir = get_dir(sh, cmd, i);
 	sh->tmp = ft_strdup(getcwd(buffer, 100));
+	if (!sh->tmp)
+		access_dir();
 	if (chdir(dir) < 0)
 		return (dir_error(dir, errno, 1));
 	change_var(sh, "PWD", getcwd(buffer, 100));
