@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:20:53 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 10:20:21 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/17 18:10:59 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ static void	handle_pipes(t_shell *sh, t_cmd **cmd, int i)
 {
 	if (cmd[i]->in_pipe == 1)
 	{
-		printf("tocamos in pipe\n");
 		close(sh->p[i - 1].p[WRITE]);
 		dup2(sh->p[i - 1].p[READ], STDIN_FILENO);
 		close(sh->p[i - 1].p[READ]);
