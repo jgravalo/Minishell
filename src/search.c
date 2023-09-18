@@ -6,12 +6,15 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:41:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 10:26:39 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 16:11:07 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include "../inc/utils.h"
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 static int	get_path_env(char **envp)
 {
@@ -84,12 +87,18 @@ static void	locate_path(t_shell *shell, t_cmd **cmd, int i)
 }
 
 void	search(t_shell *shell, t_cmd **cmd, int i)
-{
+{	
+	struct stat	buf;
+
 	if (ft_strchr(cmd[i]->args[0], '/'))
 	{
 		cmd[i]->path = ft_strdup(cmd[i]->args[0]);
 		if (access(cmd[i]->path, F_OK) == -1)
 			exit(cmd_error(cmd[i]->path, errno, 127));
+		if (stat(cmd[i]->path, &buf) == -1)
+			exit(cmd_error(cmd[i]->path, errno, 127));
+		if (access(cmd[i]->path, X_OK) == 0 && S_ISDIR(buf.st_mode))
+			exit(is_dir_error(cmd[i]->path, 126));
 	}
 	else
 		locate_path(shell, cmd, i);

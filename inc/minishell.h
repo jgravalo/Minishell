@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 15:08:14 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/09/18 16:12:25 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,5 +247,7 @@ void	access_dir(void);
 int		args_error(void);
 
 void	free_sh(t_shell *sh);
+
+int		is_dir_error(char *str, int exit);
 
 #endif
