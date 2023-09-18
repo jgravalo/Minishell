@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 08:50:24 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 12:23:45 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int	new_shell(t_shell *sh)
 		sh->readline = readline("minishell> ");
 		if (check_null(sh->readline))
 			break ;
+		if (parse_pipes(sh) != 0)
+            continue ;
 		add_history(sh->readline);
 		lexer(sh, sh->readline);
 		categorizer(sh->tok);
