@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:27:15 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/17 19:06:37 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 09:05:48 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ void	empty_old_pwd(t_shell *sh)
 	sh->old_pwd = ft_strdup("");
 }
 
-static void	export_shlvl(t_shell *sh)
+void	ft_export(t_shell *sh, char *var)
 {
 	sh->s_cmd = (t_cmd **)malloc(sizeof (t_cmd *));
 	sh->s_cmd[0] = (t_cmd *)malloc(sizeof (t_cmd));
 	sh->s_cmd[0]->args = (char **)malloc(sizeof (char *) * 3);
 	sh->s_cmd[0]->args[0] = ft_strdup("export");
-	sh->s_cmd[0]->args[1] = ft_strdup("SHLVL");
+	sh->s_cmd[0]->args[1] = ft_strdup(var);
 	sh->s_cmd[0]->args[2] = NULL;
 	export(sh, sh->s_cmd, 0);
 	free_m(sh->s_cmd[0]->args);
@@ -70,7 +70,7 @@ static void	get_shlvl(t_shell *sh)
 	}
 	else
 	{
-		export_shlvl(sh);
+		ft_export(sh, "SHLVL");
 		change_var(sh, "SHLVL", ft_itoa(1));
 	}
 }

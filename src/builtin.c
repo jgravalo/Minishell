@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:23:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 10:15:01 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 08:53:24 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,24 @@ int	check_builtin(char **args)
 		return (0);
 }
 
-int	builtin(t_shell *shell, t_cmd **cmd, int i)
+int	builtin(t_shell *sh, t_cmd **cmd, int i)
 {
 	if (check_builtin(cmd[i]->args))
 	{
 		if (ft_strcmp(cmd[i]->args[0], "cd") == 0)
-			shell->exit = cd(shell, cmd, i);
+			sh->exit = cd(sh, cmd, i);
 		else if (ft_strcmp(cmd[i]->args[0], "echo") == 0)
-			shell->exit = echo(cmd[i]->args);
+			sh->exit = echo(cmd[i]->args);
 		else if (ft_strcmp(cmd[i]->args[0], "env") == 0)
-			shell->exit = env(shell->envp);
+			sh->exit = env(sh->envp);
 		else if (ft_strcmp(cmd[i]->args[0], "export") == 0)
-			shell->exit = export(shell, cmd, i);
+			sh->exit = export(sh, cmd, i);
 		else if (ft_strcmp(cmd[i]->args[0], "pwd") == 0)
-			shell->exit = pwd(shell->envp);
+			sh->exit = pwd(sh->envp);
 		else if (ft_strcmp(cmd[i]->args[0], "unset") == 0)
-			shell->exit = unset(shell, cmd, i);
+			sh->exit = unset(sh, cmd, i);
 		else if (ft_strcmp(cmd[i]->args[0], "exit") == 0)
-			ft_exit(shell, cmd, i);
+			ft_exit(sh, cmd, i);
 		return (1);
 	}
 	else

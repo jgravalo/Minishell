@@ -6,62 +6,46 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/17 20:59:59 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 10:25:36 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/utils.h"
+#include "../../inc/builtins.h"
 
-static char	*cd_home(t_shell *sh, t_cmd **cmd, int i)
+static void	update_pwd(t_shell *sh, int error, char *dir)
 {
-	if (search_var_line("HOME", sh->envp) == NULL)
+	char	buffer[100];
+
+	if (!error)
 	{
-		write(2, "bash: cd: HOME not set\n", 23);
-		sh->exit = 1;
-		return (NULL);
+		if (search_var_line("OLDPWD", sh->envp) == NULL 
+			&& search_var_line("PWD", sh->envp))
+			ft_export(sh, "OLDPWD");
+		change_var(sh, "OLDPWD", sh->tmp);
+		if (search_var_line("PWD", sh->envp) == NULL)
+			ft_export(sh, "PWD");
+		change_var(sh, "PWD", getcwd(buffer, 100));
+		sh->pwd = ft_strdup(getcwd(buffer, 100));
+		sh->old_pwd = ft_strdup(sh->tmp);
 	}
-	free_m(cmd[i]->args);
-	cmd[i]->args = (char **)malloc(3 * sizeof(char *));
-	cmd[i]->args[0] = ft_strdup("cd");
-	cmd[i]->args[1] = ft_strdup(search_var_line("HOME",
-				sh->envp));
-	cmd[i]->args[2] = NULL;
-	return (cmd[i]->args[1]);
-}
-
-static char	*cd_back(t_shell *sh, t_cmd **cmd, int i)
-{
-	char	*tmp;
-
-	tmp = ft_strjoin(search_var_line("PWD", sh->envp), "/");
-	cmd[i]->args[1] = ft_strjoin(tmp,
-			cmd[i]->args[1]);
-	free(tmp);
-	return (cmd[i]->args[1]);
-}
-
-static char	*cd_last(t_shell *sh, t_cmd **cmd, int i)
-{
-	char	*tmp;
-
-	if (search_var_line("OLDPWD", sh->envp) == NULL && sh->old_pwd == NULL)
+	else
 	{
-		write(2, "bash: cd: OLDPWD not set\n", 25);
-		sh->exit = 1;
-		return (NULL);
+		if (search_var_line("OLDPWD", sh->envp) == NULL 
+			&& search_var_line("PWD", sh->envp))
+			ft_export(sh, "OLDPWD");
+		change_var(sh, "OLDPWD", sh->old_pwd);
+		if (search_var_line("PWD", sh->envp) == NULL)
+			ft_export(sh, "PWD");
+		change_var(sh, "PWD", dir);
+		sh->pwd = ft_strdup(dir);
 	}
-	tmp = ft_strdup(search_var_line("OLDPWD", sh->envp));
-	if (!tmp)
-		tmp = ft_strdup(sh->old_pwd);
-	printf("%s\n", tmp);
-	cmd[i]->args[1] = ft_strdup(tmp);
-	free(tmp);
-	return (cmd[i]->args[1]);
 }
 
 static char	*get_dir(t_shell *sh, t_cmd **cmd, int i)
 {
 	char	*dir;
+	char	buffer[100];
 
 	dir = ft_strdup(cmd[i]->args[1]);
 	if (dir == NULL)
@@ -73,9 +57,17 @@ static char	*get_dir(t_shell *sh, t_cmd **cmd, int i)
 	else if (ft_strcmp(dir, "-") == 0)
 		dir = cd_last(sh, cmd, i);
 	else if (ft_strcmp(dir, ".") == 0)
-		dir = search_var_line("PWD", sh->envp);
-	if (!dir)
-		return (NULL);
+	{
+		dir = ft_strdup(getcwd(buffer, 100));
+		if (!dir)
+		{
+			access_dir();
+			dir = ft_strdup(sh->pwd);
+			dir = ft_strjoin(dir, "/.");
+			update_pwd(sh, 1, dir);
+			return (NULL);
+		}
+	}
 	return (dir);
 }
 
@@ -85,18 +77,15 @@ int	cd(t_shell *sh, t_cmd **cmd, int i)
 	int		chdir_return;
 	char	*dir;
 
-	if (cmd[i]->args[2] != NULL)
+	if (count_arr(cmd[i]->args) > 2)
 		return (args_error());
 	dir = get_dir(sh, cmd, i);
+	if (!dir)
+		return (sh->exit);
 	sh->tmp = ft_strdup(getcwd(buffer, 100));
-	if (!sh->tmp)
-		access_dir();
 	if (chdir(dir) < 0)
 		return (dir_error(dir, errno, 1));
-	change_var(sh, "PWD", getcwd(buffer, 100));
-	change_var(sh, "OLDPWD", sh->tmp);
-	free(sh->old_pwd);
-	sh->old_pwd = ft_strdup(sh->tmp);
+	update_pwd(sh, 0, NULL);
 	free(sh->tmp);
 	return (0);
 }

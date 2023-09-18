@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:03:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 10:22:39 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 09:09:05 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,13 @@ int		run_builtin(t_shell *shell, int n);
 int		built_in(t_shell *shell, int n);
 
 int		write_not_valid(char *var);
+
+/*cd*/
+
+char	*cd_home(t_shell *sh, t_cmd **cmd, int i);
+
+char	*cd_back(t_shell *sh, t_cmd **cmd, int i);
+
+char	*cd_last(t_shell *sh, t_cmd **cmd, int i);
 
 #endif

@@ -7,7 +7,7 @@ M_SRCS		= src/alloc_envp.c src/builtin.c src/categorizer.c src/errors.c src/erro
 			  src/main.c  src/minishell.c  src/parent.c src/parser.c src/pipes.c  src/quote_remove.c  \
 			  src/search.c  src/set_argv.c 	  
  
-BUILT_SRCS	= src/built-ins/echo.c src/built-ins/cd.c src/built-ins/export.c \
+BUILT_SRCS	= src/built-ins/echo.c src/built-ins/cd.c src/built-ins/cd_aux.c src/built-ins/export.c \
 			  src/built-ins/unset.c src/built-ins/env.c src/built-ins/pwd.c  \
 			  src/built-ins/export_aux.c src/built-ins/export_n.c src/built-ins/exit.c \
 			  src/built-ins/compare_exit.c 

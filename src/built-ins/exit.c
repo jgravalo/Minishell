@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:37:09 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/16 10:29:20 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 09:51:34 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void	ft_exit(t_shell *sh, t_cmd **cmd, int i)
 {
 	if (cmd[i]->args[1] != NULL)
 	{
+		if (ft_strcmp(cmd[i]->args[1], "--") == 0)
+			exit(0);
 		if (compare_exit(cmd[i]->args[1]) || is_it_numeric(cmd[i]->args[1]))
 			exit_message(sh, 2, cmd[i]->args[1]);
 		if (cmd[i]->args[2] != NULL)

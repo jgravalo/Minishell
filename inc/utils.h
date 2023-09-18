@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 09:29:58 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 10:22:47 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 10:07:51 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ char		*ft_strchr(char *str, int c);
 char		*ft_strcat(char *dest, char *src);
 
 char		*ft_strjoin(char *s1, char *s2);
+
+size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
 
 char		*ft_strdup(char *str);
 
