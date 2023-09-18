@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:27:15 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 09:05:48 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 11:21:38 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,6 @@ void	empty_old_pwd(t_shell *sh)
 	free(sh->s_cmd[0]);
 	free(sh->s_cmd);
 	sh->old_pwd = ft_strdup("");
-}
-
-void	ft_export(t_shell *sh, char *var)
-{
-	sh->s_cmd = (t_cmd **)malloc(sizeof (t_cmd *));
-	sh->s_cmd[0] = (t_cmd *)malloc(sizeof (t_cmd));
-	sh->s_cmd[0]->args = (char **)malloc(sizeof (char *) * 3);
-	sh->s_cmd[0]->args[0] = ft_strdup("export");
-	sh->s_cmd[0]->args[1] = ft_strdup(var);
-	sh->s_cmd[0]->args[2] = NULL;
-	export(sh, sh->s_cmd, 0);
-	free_m(sh->s_cmd[0]->args);
-	free(sh->s_cmd[0]);
-	free(sh->s_cmd);
 }
 
 static void	get_shlvl(t_shell *sh)
@@ -88,7 +74,7 @@ void	alloc_envp(t_shell *sh, char **envp)
 		i++;
 	}
 	sh->envp[i] = NULL;
-	empty_old_pwd(sh);
+	//empty_old_pwd(sh);
 	if (getenv("SHELL") != NULL)
 		change_var(sh, "SHELL", getcwd(buffer, 100));
 	get_shlvl(sh);

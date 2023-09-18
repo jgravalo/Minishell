@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 16:56:43 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/18 10:38:54 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 10:54:43 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,3 @@ void	cmd_not_found(char *cmd)
 	write(2, ": command not found\n", 20);
 	exit(127);
 }
-
-

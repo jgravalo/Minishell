@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:03:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 09:09:05 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 11:10:44 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 
 # include "minishell.h"
 
-void	ft_exit(t_shell *shell, t_cmd **cmd, int i);
+void	ft_exit(t_shell *sh, t_cmd **cmd, int i);
+
+void	ft_unset(t_shell *sh, char *var);
+
+void	ft_export(t_shell *sh, char *var);
 
 int		compare_exit(char *argument);
 
@@ -25,17 +29,17 @@ int		pwd(char **envp);
 
 int		echo(char **argv);
 
-int		cd(t_shell *shell, t_cmd **cmd, int i);
+int		cd(t_shell *sh, t_cmd **cmd, int i);
 
-int		unset(t_shell *shell, t_cmd **cmd, int i);
+int		unset(t_shell *sh, t_cmd **cmd, int i);
 
-int		export(t_shell *shell, t_cmd **cmd, int i);
+int		export(t_shell *sh, t_cmd **cmd, int i);
 
-int		export_n(char *var, t_shell *shell);
+int		export_n(char *var, t_shell *sh);
 
-int		run_builtin(t_shell *shell, int n);
+int		run_builtin(t_shell *sh, int n);
 
-int		built_in(t_shell *shell, int n);
+int		built_in(t_shell *sh, int n);
 
 int		write_not_valid(char *var);
 

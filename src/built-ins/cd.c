@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 10:37:14 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 11:18:20 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,17 @@ static void	update_pwd(t_shell *sh, int error, char *dir)
 
 	if (!error)
 	{
-		if (search_var_line("OLDPWD", sh->envp) == NULL 
-			&& search_var_line("PWD", sh->envp))
-			ft_export(sh, "OLDPWD");
+		if (search_var_line("OLDPWD", sh->envp) 
+			&& search_var_line("PWD", sh->envp) == NULL)
+			ft_unset(sh, "OLDPWD");
 		change_var(sh, "OLDPWD", sh->tmp);
-		if (search_var_line("PWD", sh->envp) == NULL)
-			ft_export(sh, "PWD");
 		change_var(sh, "PWD", getcwd(buffer, 100));
 		sh->pwd = ft_strdup(getcwd(buffer, 100));
 		sh->old_pwd = ft_strdup(sh->tmp);
 	}
 	else
 	{
-		if (search_var_line("OLDPWD", sh->envp) == NULL 
-			&& search_var_line("PWD", sh->envp))
-			ft_export(sh, "OLDPWD");
 		change_var(sh, "OLDPWD", sh->old_pwd);
-		if (search_var_line("PWD", sh->envp) == NULL)
-			ft_export(sh, "PWD");
 		change_var(sh, "PWD", dir);
 		sh->pwd = ft_strdup(dir);
 	}

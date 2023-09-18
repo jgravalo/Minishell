@@ -10,7 +10,7 @@ M_SRCS		= src/alloc_envp.c src/builtin.c src/categorizer.c src/errors.c src/erro
 BUILT_SRCS	= src/built-ins/echo.c src/built-ins/cd.c src/built-ins/cd_aux.c src/built-ins/export.c \
 			  src/built-ins/unset.c src/built-ins/env.c src/built-ins/pwd.c  \
 			  src/built-ins/export_aux.c src/built-ins/export_n.c src/built-ins/exit.c \
-			  src/built-ins/compare_exit.c 
+			  src/built-ins/compare_exit.c src/built-ins/ft_builtins.c
 
 UTILS_SRCS	= $(UTILS_DIR)/utils_list_arg.c $(UTILS_DIR)/utils_list_quote.c $(UTILS_DIR)/utils_list_redir.c \
 			  $(UTILS_DIR)/utils_list_tok.c $(UTILS_DIR)/utils_other.c $(UTILS_DIR)/utils_print.c \

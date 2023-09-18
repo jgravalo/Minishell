@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 10:36:29 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 11:10:39 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ typedef struct s_shell
 	char	*last_arg;
 	char	*pwd;
 	int		cd_last;
+	int		pwd_set;
 	int		next_redir;
 	int		var_quoted;
 	int		var_cat;
@@ -242,9 +243,5 @@ void	write_heredoc_eof(t_shell *shell, int start_line, char *delimiter);
 void	access_dir(void);
 
 int		args_error(void);
-
-/*OTHERS*/
-
-void	ft_export(t_shell *sh, char *var);
 
 #endif
