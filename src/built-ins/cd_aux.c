@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 09:08:34 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 10:51:58 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 11:25:13 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ char	*cd_back(t_shell *sh, t_cmd **cmd, int i)
 	char	*ptr;
 	char	buf[100];
 
+	sh->old_pwd = ft_strdup(cmd[i]->args[1]);
 	tmp = ft_strjoin(getcwd(buf, 100), "/");
 	cmd[i]->args[1] = get_back_dir(tmp);
 	free(tmp);
