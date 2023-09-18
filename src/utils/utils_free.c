@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 12:16:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 12:27:38 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 12:38:59 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	redclear(t_redir **lst)
 	{
 		next = curr->next;
 		free(curr->path);
-		argclear(curr->arg);
+		argclear(&(curr->arg));
 		free(curr);
 		curr = next;
 	}

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 12:11:53 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 12:33:25 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 12:37:22 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void	free_cmd(t_cmd **cmd)
 	i = 0;
 	while (cmd[i])
 	{
-		printf("entramos cmd %d\n", i);
 		argclear(&cmd[i]->arg);
 		argclear(&cmd[i]->arg_x);
 		redclear(&cmd[i]->red);

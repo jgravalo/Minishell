@@ -6,11 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/09/18 12:26:53 by theonewhokn      ###   ########.fr       */
-=======
-/*   Updated: 2023/09/18 12:24:24 by jgravalo         ###   ########.fr       */
->>>>>>> 6096c4b40639ad5f93da53552704a37a58edeabd
+/*   Updated: 2023/09/18 12:36:31 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
