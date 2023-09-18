@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 09:08:34 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 11:25:13 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 16:00:24 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*cd_home(t_shell *sh, t_cmd **cmd, int i)
 	}
 	else
 	{
-		free_m(cmd[i]->args);
+		free(cmd[i]->args[1]);
 		return (ft_strdup(search_var_line("HOME",
 					sh->envp)));
 	}

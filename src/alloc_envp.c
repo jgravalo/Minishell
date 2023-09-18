@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:27:15 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 12:02:48 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 16:04:55 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static void	over_999_shlvl(t_shell *sh, int shlvl, char *tmp)
 	write(2, "bash: warning: shell level (", 28);
 	write(2, tmp, ft_strlen(tmp));
 	write(2, ") too high, resetting to 1\n", 27);
+	free(tmp);
+	tmp = ft_itoa(1);
 	change_var(sh, "SHLVL", tmp);
 }
 
@@ -57,6 +59,7 @@ int	change_var(t_shell *sh, char *var, char *content)
 	int		var_num;
 	char	*tmp;
 
+	sh->tmp = NULL;
 	var_num = search_var_num(var, sh->envp);
 	if (var_num < 0)
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 11:43:37 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 16:00:33 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	update_pwd(t_shell *sh, int error, char *dir)
 		change_var(sh, "OLDPWD", ft_strdup(search_var_line("PWD", sh->envp)));
 		change_var(sh, "PWD", getcwd(buffer, 100));
 		sh->pwd = ft_strdup(getcwd(buffer, 100));
-		sh->old_pwd = ft_strdup(sh->tmp);
+		sh->old_pwd = ft_strdup(search_var_line("PWD", sh->envp));
 	}
 	else
 	{
@@ -84,6 +84,5 @@ int	cd(t_shell *sh, t_cmd **cmd, int i)
 	if (sh->cd_last)
 		printf("%s\n", dir);
 	update_pwd(sh, 0, NULL);
-	free(sh->tmp);
 	return (0);
 }
