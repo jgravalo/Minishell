@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 08:50:24 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 12:26:49 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	new_shell(t_shell *sh)
 		execute(sh, sh->s_cmd);
 		if (g_exit)
 			sh->exit = 130;
+		free_sh(sh);
 	}
 	return (sh->exit);
 }

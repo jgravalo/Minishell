@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:41:49 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 10:20:30 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 12:07:44 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	expand_args(t_shell *sh, t_cmd **cmd)
 				if (expstr)
 					arg_loop(sh, expstr, cmd[n]);
 			}
+			free(expstr);
 			cmd[n]->arg = cmd[n]->arg->next;
 			i = 0;
 			j = 0;

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 11:10:39 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 12:26:53 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,8 +170,6 @@ void	parent_close_but_one(t_shell *shell);
 
 void	create_pipes(t_shell *sh);
 
-void	empty_old_pwd(t_shell *shell);
-
 void	alloc_envp(t_shell *shell, char **envp);
 
 int		new_shell(t_shell *shell);
@@ -243,5 +241,7 @@ void	write_heredoc_eof(t_shell *shell, int start_line, char *delimiter);
 void	access_dir(void);
 
 int		args_error(void);
+
+void	free_sh(t_shell *sh);
 
 #endif

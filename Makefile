@@ -1,6 +1,6 @@
 UTILS_DIR	= src/utils
 
-M_SRCS		= src/alloc_envp.c src/builtin.c src/categorizer.c src/errors.c src/errors2.c  \
+M_SRCS		= src/alloc_envp.c src/builtin.c src/categorizer.c src/errors.c src/errors2.c src/free_sh.c \
 			  src/execute.c  src/execute_heredoc.c src/execute_heredoc_aux.c  src/execute_redir.c src/execute_pipes.c  \
 			  src/expander.c src/expander_arg.c src/expander_redir.c src/expander_string.c  src/expander_count.c \
 			  src/expander_aux.c   src/lexer.c src/lexer_count.c  src/lexer_len.c src/lexer_count_aux.c \
@@ -15,7 +15,7 @@ BUILT_SRCS	= src/built-ins/echo.c src/built-ins/cd.c src/built-ins/cd_aux.c src/
 UTILS_SRCS	= $(UTILS_DIR)/utils_list_arg.c $(UTILS_DIR)/utils_list_quote.c $(UTILS_DIR)/utils_list_redir.c \
 			  $(UTILS_DIR)/utils_list_tok.c $(UTILS_DIR)/utils_other.c $(UTILS_DIR)/utils_print.c \
 			  $(UTILS_DIR)/utils_print2.c $(UTILS_DIR)/utils_str.c $(UTILS_DIR)/utils_str2.c $(UTILS_DIR)/ft_itoa.c \
-			  $(UTILS_DIR)/utils_str3.c $(UTILS_DIR)/utils_env.c
+			  $(UTILS_DIR)/utils_str3.c $(UTILS_DIR)/utils_env.c $(UTILS_DIR)/utils_free.c 
 			
 M_OBJS		= $(patsubst src/%.c, $(OBJECTS_DIR)/%.o, $(M_SRCS))
 

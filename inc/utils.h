@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 09:29:58 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 10:07:51 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 12:27:49 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void		tokback(t_tok **lst, t_tok *new);
 
 t_tok		*toklast(t_tok *lst);
 
+void		tokclear(t_tok **lst);
+
 /* arg*/
 
 t_arg		*argnew(void *content);
@@ -37,6 +39,8 @@ int			argsize(t_arg *lst);
 
 void		argfront(t_arg **lst, t_arg *new);
 
+void		argclear(t_arg **lst);
+
 /*redir*/
 
 t_redir		*redirnew(int type);
@@ -44,6 +48,8 @@ t_redir		*redirnew(int type);
 void		redirback(t_redir **lst, t_redir *new);
 
 t_redir		*redirlast(t_redir *lst);
+
+void		redclear(t_redir **lst);
 
 /*quote*/
 
