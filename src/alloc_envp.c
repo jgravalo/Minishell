@@ -6,34 +6,13 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:27:15 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 11:21:38 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 11:53:10 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include "../inc/utils.h"
 #include "../inc/builtins.h"
-
-void	empty_old_pwd(t_shell *sh)
-{
-	sh->s_cmd = (t_cmd **)malloc(sizeof (t_cmd *));
-	sh->s_cmd[0] = (t_cmd *)malloc(sizeof (t_cmd));
-	sh->s_cmd[0]->args = (char **)malloc(sizeof (char *) * 3);
-	sh->s_cmd[0]->args[0] = ft_strdup("unset");
-	sh->s_cmd[0]->args[1] = ft_strdup("OLDPWD");
-	sh->s_cmd[0]->args[2] = NULL;
-	unset(sh, sh->s_cmd, 0);
-	free_m(sh->s_cmd[0]->args);
-	sh->s_cmd[0]->args = (char **)malloc(sizeof (char *) * 3);
-	sh->s_cmd[0]->args[0] = ft_strdup("export");
-	sh->s_cmd[0]->args[1] = ft_strdup("OLDPWD");
-	sh->s_cmd[0]->args[2] = NULL;
-	export(sh, sh->s_cmd, 0);
-	free_m(sh->s_cmd[0]->args);
-	free(sh->s_cmd[0]);
-	free(sh->s_cmd);
-	sh->old_pwd = ft_strdup("");
-}
 
 static void	get_shlvl(t_shell *sh)
 {
@@ -74,7 +53,6 @@ void	alloc_envp(t_shell *sh, char **envp)
 		i++;
 	}
 	sh->envp[i] = NULL;
-	//empty_old_pwd(sh);
 	if (getenv("SHELL") != NULL)
 		change_var(sh, "SHELL", getcwd(buffer, 100));
 	get_shlvl(sh);
