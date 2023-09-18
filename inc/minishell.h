@@ -6,7 +6,11 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/09/18 12:26:53 by theonewhokn      ###   ########.fr       */
+=======
+/*   Updated: 2023/09/18 12:24:24 by jgravalo         ###   ########.fr       */
+>>>>>>> 6096c4b40639ad5f93da53552704a37a58edeabd
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +131,8 @@ typedef struct s_shell
 /*MAINS*/
 
 int		new_shell(t_shell *shell);
+
+int     parse_pipes(t_shell *shell);
 
 void	lexer(t_shell *shell, char *line);
 
