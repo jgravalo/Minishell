@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 09:37:32 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 10:36:29 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ typedef struct s_shell
 	char	*old_pwd;
 	char	*last_arg;
 	char	*pwd;
+	int		cd_last;
 	int		next_redir;
 	int		var_quoted;
 	int		var_cat;

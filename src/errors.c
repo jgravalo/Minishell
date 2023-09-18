@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 16:56:43 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/18 09:17:42 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 10:38:54 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	access_dir(void)
 {
-	write(2, "cd: error retrieving current directory : ", 41);
+	write(2, "cd: error retrieving current directory: ", 40);
 	write(2, "getcwd: cannot access parent directories: ", 42);
 	write(2, "No such file or directory\n", 26);
 }

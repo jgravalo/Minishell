@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 09:08:34 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 10:24:30 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 10:51:58 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,9 @@ char	*cd_back(t_shell *sh, t_cmd **cmd, int i)
 {
 	char	*tmp;
 	char	*ptr;
+	char	buf[100];
 
-	tmp = ft_strjoin(search_var_line("PWD", sh->envp), "/");
+	tmp = ft_strjoin(getcwd(buf, 100), "/");
 	cmd[i]->args[1] = get_back_dir(tmp);
 	free(tmp);
 	return (cmd[i]->args[1]);
@@ -85,7 +86,7 @@ char	*cd_last(t_shell *sh, t_cmd **cmd, int i)
 	tmp = ft_strdup(search_var_line("OLDPWD", sh->envp));
 	if (!tmp)
 		tmp = ft_strdup(sh->old_pwd);
-	printf("%s\n", tmp);
+	sh->cd_last = 1;
 	cmd[i]->args[1] = ft_strdup(tmp);
 	free(tmp);
 	return (cmd[i]->args[1]);

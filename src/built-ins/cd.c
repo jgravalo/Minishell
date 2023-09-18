@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 10:25:36 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/18 10:37:14 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	cd(t_shell *sh, t_cmd **cmd, int i)
 	int		chdir_return;
 	char	*dir;
 
+	sh->cd_last = 0;
 	if (count_arr(cmd[i]->args) > 2)
 		return (args_error());
 	dir = get_dir(sh, cmd, i);
@@ -85,6 +86,8 @@ int	cd(t_shell *sh, t_cmd **cmd, int i)
 	sh->tmp = ft_strdup(getcwd(buffer, 100));
 	if (chdir(dir) < 0)
 		return (dir_error(dir, errno, 1));
+	if (sh->cd_last)
+		printf("%s\n", dir);
 	update_pwd(sh, 0, NULL);
 	free(sh->tmp);
 	return (0);
