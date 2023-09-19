@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:27:15 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/19 08:12:19 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/19 08:58:11 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	change_var(t_shell *sh, char *var, char *content)
 
 	sh->tmp = NULL;
 	var_num = search_var_num(var, sh->envp);
-	if (var_num < 0)
+	if (var_num < 0 || !var || !content)
 		return (1);
 	tmp = ft_strjoin(var, "=");
 	free(sh->envp[var_num]);

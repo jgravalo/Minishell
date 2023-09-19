@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 11:11:04 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 11:18:51 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/19 09:00:50 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_unset(t_shell *sh, char *var)
 	free_m(sh->s_cmd[0]->args);
 	free(sh->s_cmd[0]);
 	free(sh->s_cmd);
+	sh->s_cmd = NULL;
 }
 
 void	ft_export(t_shell *sh, char *var)
@@ -39,4 +40,5 @@ void	ft_export(t_shell *sh, char *var)
 	free_m(sh->s_cmd[0]->args);
 	free(sh->s_cmd[0]);
 	free(sh->s_cmd);
+	sh->s_cmd = NULL;
 }

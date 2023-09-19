@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 12:11:53 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 12:37:22 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/19 09:01:21 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,20 @@ static void	free_cmd(t_cmd **cmd)
 	int	i;
 
 	i = 0;
-	while (cmd[i])
+	if (cmd)
 	{
-		argclear(&cmd[i]->arg);
-		argclear(&cmd[i]->arg_x);
-		redclear(&cmd[i]->red);
-		redclear(&cmd[i]->red_x);
-		free_m(cmd[i]->args);
-		free(cmd[i]);
-		i++;
+		while (cmd[i])
+		{
+			argclear(&cmd[i]->arg);
+			argclear(&cmd[i]->arg_x);
+			redclear(&cmd[i]->red);
+			redclear(&cmd[i]->red_x);
+			free_m(cmd[i]->args);
+			free(cmd[i]);
+			i++;
+		}
+		free(cmd);
 	}
-	free(cmd);
 }
 
 void	free_sh(t_shell *sh)
