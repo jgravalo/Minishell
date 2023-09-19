@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:59:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/19 08:00:53 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/19 08:48:34 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ static void	handler(int signal)
 		return ;
 	}
 	else if (signal == SIGQUIT)
-		kill(0, SIGQUIT);
+	{
+		printf("Quit\n");
+	}
 }
 
 static void	set_waitsig(void)
@@ -37,6 +39,19 @@ static void	set_waitsig(void)
 	sigquit.sa_handler = handler;
 	sigaction(SIGINT, &sigint, NULL);
 	sigaction(SIGQUIT, &sigquit, NULL);
+}
+
+static void	set_exit(t_shell *sh, int status)
+{
+	if (WIFEXITED(status))
+		sh->exit = WEXITSTATUS(status);
+	if (WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status) == SIGINT)
+			sh->exit = 130;
+		else if (WTERMSIG(status) == SIGQUIT)
+			sh->exit = 131;
+	}
 }
 
 void	parent_wait(t_shell *sh, t_cmd **cmd)
@@ -56,8 +71,12 @@ void	parent_wait(t_shell *sh, t_cmd **cmd)
 			if (pid > 0)
 			{
 				sh->children--;
-				if (WIFEXITED(status))
-					sh->exit = WEXITSTATUS(status);
+				set_exit(sh, status);
+			}
+			else
+			{
+				cmd_error("bash; ", errno, 1);
+				return ;
 			}
 			i++;
 		}
