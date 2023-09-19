@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:10:58 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 10:20:18 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/19 08:11:21 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,12 @@ void	execute(t_shell *sh, t_cmd **cmd)
 	int	i;
 
 	i = -1;
-	if (no_pipe_built_in(sh, cmd))
-		return ;
 	sh->children = 0;
 	create_pipes(sh);
 	heredoc(sh, cmd);
 	if (g_exit)
+		return ;
+	if (no_pipe_built_in(sh, cmd))
 		return ;
 	fork_cmd(sh, cmd, &i);
 	if (cmd[i]->pid == 0)

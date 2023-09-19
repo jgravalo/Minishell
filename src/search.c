@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:41:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 16:11:07 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/19 08:14:34 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static void	locate_path(t_shell *shell, t_cmd **cmd, int i)
 }
 
 void	search(t_shell *shell, t_cmd **cmd, int i)
-{	
+{
 	struct stat	buf;
 
 	if (ft_strchr(cmd[i]->args[0], '/'))

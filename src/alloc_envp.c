@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:27:15 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 16:04:55 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/19 08:12:19 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,3 @@ void	alloc_envp(t_shell *sh, char **envp)
 		change_var(sh, "SHELL", getcwd(buffer, 100));
 	get_shlvl(sh);
 }
-

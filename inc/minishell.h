@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 16:12:25 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/19 08:08:41 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,7 +238,7 @@ void	exit_heredoc(int sig);
 
 void	parent_heredoc(int sig);
 
-void	write_heredoc_eof(t_shell *shell, int start_line, char *delimiter);
+void	write_heredoc_eof(int start_line, char *delimiter);
 
 /*ERRORS*/
 

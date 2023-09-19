@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 20:51:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 16:12:11 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/19 08:14:41 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,3 @@ int	is_dir_error(char *str, int exit)
 	write(2, ": Is a directory\n", 17);
 	return (exit);
 }
-

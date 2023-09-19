@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 15:08:36 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/09/19 08:14:08 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,17 @@ static int	check_null(char *str)
 	return (0);
 }
 
+static void	shell_body(t_shell *sh)
+{
+	add_history(sh->readline);
+	lexer(sh, sh->readline);
+	categorizer(sh->tok);
+	parser(sh);
+	expander(sh, sh->s_cmd);
+	set_argv(sh->s_cmd);
+	execute(sh, sh->s_cmd);
+}
+
 int	new_shell(t_shell *sh)
 {
 	struct sigaction	sigint;
@@ -64,14 +75,8 @@ int	new_shell(t_shell *sh)
 		if (check_null(sh->readline))
 			break ;
 		if (sintax_errors(sh) != 0)
-            continue ;
-		add_history(sh->readline);
-		lexer(sh, sh->readline);
-		categorizer(sh->tok);
-		parser(sh);
-		expander(sh, sh->s_cmd);
-		set_argv(sh->s_cmd);
-		execute(sh, sh->s_cmd);
+			continue ;
+		shell_body(sh);
 		if (g_exit)
 			sh->exit = 130;
 		free_sh(sh);
