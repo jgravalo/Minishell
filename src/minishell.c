@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/19 08:14:08 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/20 17:31:05 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,23 @@ static int	check_null(char *str)
 	return (0);
 }
 
-static void	shell_body(t_shell *sh)
+int	shell_body(t_shell *sh)
 {
-	add_history(sh->readline);
 	lexer(sh, sh->readline);
 	categorizer(sh->tok);
+	ft_printbothlst(sh->tok);
+	if (reviser(sh->tok, sh) != 0)
+	{
+		add_history(sh->readline);
+		sh->exit = 258;
+		return (1);
+	}
+	add_history(sh->readline);
 	parser(sh);
 	expander(sh, sh->s_cmd);
 	set_argv(sh->s_cmd);
 	execute(sh, sh->s_cmd);
+	return (0);
 }
 
 int	new_shell(t_shell *sh)
@@ -74,9 +82,8 @@ int	new_shell(t_shell *sh)
 		sh->readline = readline("minishell> ");
 		if (check_null(sh->readline))
 			break ;
-		if (sintax_errors(sh) != 0)
+		if (quotes_errors(sh) != 0 || shell_body(sh) != 0)
 			continue ;
-		shell_body(sh);
 		if (g_exit)
 			sh->exit = 130;
 		free_sh(sh);

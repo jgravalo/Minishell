@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/19 08:08:41 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/20 17:30:35 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,13 +128,15 @@ typedef struct s_shell
 
 int		new_shell(t_shell *shell);
 
-int		parse_pipes(t_shell *shell);
+//int		parse_pipes(t_shell *shell);
 
-int		sintax_errors(t_shell *shell);
+int		quotes_errors(t_shell *shell);
 
 void	lexer(t_shell *shell, char *line);
 
 void	categorizer(t_tok *expanded);
+
+int		reviser(t_tok *lst, t_shell *sh);
 
 void	expander(t_shell *shell, t_cmd **cmd);
 
