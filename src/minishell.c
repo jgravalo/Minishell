@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/20 17:31:05 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:10:19 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	shell_body(t_shell *sh)
 {
 	lexer(sh, sh->readline);
 	categorizer(sh->tok);
-	ft_printbothlst(sh->tok);
+	//ft_printbothlst(sh->tok);
 	if (reviser(sh->tok, sh) != 0)
 	{
 		add_history(sh->readline);
@@ -82,7 +82,8 @@ int	new_shell(t_shell *sh)
 		sh->readline = readline("minishell> ");
 		if (check_null(sh->readline))
 			break ;
-		if (quotes_errors(sh) != 0 || shell_body(sh) != 0)
+		if (ft_strcmp(sh->readline, "") == 0
+			|| quotes_errors(sh) != 0 || shell_body(sh) != 0)
 			continue ;
 		if (g_exit)
 			sh->exit = 130;
