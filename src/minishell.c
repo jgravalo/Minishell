@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/25 17:10:19 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/09/26 12:14:54 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,10 @@ int	new_shell(t_shell *sh)
 			break ;
 		if (ft_strcmp(sh->readline, "") == 0
 			|| quotes_errors(sh) != 0 || shell_body(sh) != 0)
+		{
+			free(sh->readline);
 			continue ;
+		}
 		if (g_exit)
 			sh->exit = 130;
 		free_sh(sh);

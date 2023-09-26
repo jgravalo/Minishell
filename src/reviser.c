@@ -6,7 +6,7 @@
 /*   By: jgravalo <jgravalo@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 14:23:44 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/20 17:26:00 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/09/26 12:22:29 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,12 @@ int	search_pipe(t_shell *sh)
 	char	*tmp2;
 
 //	printf("readline before = <%s>\n", shell->readline);
-	line = "";
+	line = ft_strdup("");
 	while (ft_strcmp(line, "") == 0)
+	{
+		free(line);
 		line = readline("> ");
+	}
 	tmp = ft_strjoin(" ", line);
 	tmp2 = ft_strjoin(sh->readline, tmp);
 	free(line);
