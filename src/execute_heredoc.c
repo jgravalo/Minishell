@@ -6,23 +6,28 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:52:47 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 10:43:50 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 11:17:06 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include "../inc/utils.h"
 
-/* static void	here_aux(char *str, char *tmp, char *tmp2, char *heredoc)
+static int	here_aux(char *str, t_redir *ptr, int start_line)
 {
-	str = ft_strjoin(str, "\n");
-	free(tmp2);
-	tmp2 = str;
-	tmp = heredoc;
-	heredoc = ft_strjoin(heredoc, str);
-	free(tmp);
-	free(tmp2);
-} */
+	if (ft_strcmp(str, ptr->arg->arg) == 0)
+	{
+		free(str);
+		return (1);
+	}
+	else if (str == NULL)
+	{
+		write_heredoc_eof(start_line, ptr->arg->arg);
+		free(str);
+		return (1);
+	}
+	return (0);
+}
 
 static char	*here_loop(t_shell *sh, t_redir *ptr, int start_line)
 {
@@ -36,17 +41,8 @@ static char	*here_loop(t_shell *sh, t_redir *ptr, int start_line)
 	{
 		str = readline("> ");
 		tmp2 = str;
-		if (ft_strcmp(str, ptr->arg->arg) == 0)
-		{
-			free(tmp2);
+		if (here_aux(str, ptr, start_line))
 			break ;
-		}
-		else if (str == NULL)
-		{
-			write_heredoc_eof(start_line, ptr->arg->arg);
-			free(tmp2);
-			break ;
-		}
 		str = ft_strjoin(str, "\n");
 		free(tmp2);
 		tmp2 = str;
