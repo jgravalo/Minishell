@@ -37,7 +37,11 @@ RM			= rm -f
 
 NAME		= minishell
 
-all:		$(NAME)
+LIBFT_DIR	= libft
+
+LIBFT 		= $(LIBFT_DIR)/libft.a
+
+all: make_libft	$(NAME)
 
 $(NAME): $(M_OBJS) $(BUILT_OBJS) $(UTILS_OBJS) $(GNL_OBJS) inc/minishell.h
 	$(CC) -g $(CFLAGS) $(M_OBJS) $(BUILT_OBJS) $(UTILS_OBJS) -o $(NAME) $(LFLAGS) $(LRFLAG)
@@ -48,6 +52,9 @@ $(OBJECTS_DIR)/%.o : src/%.c inc/minishell.h  | $(OBJECTS_DIR)
 $(OBJECTS_DIR)/%.o : src/built-ins/%.c  inc/builtins.h | $(OBJECTS_DIR)
 	$(CC) -c  $< -o $@
 
+make_libft:
+	@make -C $(LIBFT_DIR)
+
 $(OBJECTS_DIR)/%.o : src/utils/%.c inc/utils.h | $(OBJECTS_DIR)
 	$(CC) -c  $< -o $@
 
@@ -56,9 +63,11 @@ $(OBJECTS_DIR) :
 
 clean:
 	$(RM) -r $(OBJECTS_DIR)
+	@make clean -C $(LIBFT_DIR)
 
 fclean: clean
 	$(RM) $(NAME)
+	@make fclean -C $(LIBFT_DIR)
 
 re: fclean all
 
