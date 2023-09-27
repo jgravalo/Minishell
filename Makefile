@@ -25,7 +25,7 @@ BUILT_SRCS	= $(addprefix $(BUILT_DIRS)/, echo.c cd.c cd_aux.c export.c unset.c e
 			  compare_exit.c ft_builtins.c export_aux2.c)
 
 UTILS_SRCS	= $(addprefix $(UTILS_DIR)/, utils_list_arg.c utils_list_quote.c utils_list_redir.c utils_list_tok.c utils_other.c \
-			  utils_print.c utils_print2.c utils_str.c utils_str2.c ft_itoa.c utils_str3.c utils_env.c utils_free.c)
+			  utils_print.c utils_print2.c utils_env.c utils_free.c)
 			
 M_OBJS		= $(patsubst src/%.c, $(OBJECTS_DIR)/%.o, $(M_SRCS))
 
@@ -42,7 +42,7 @@ RM			= rm -f
 all: make_libft	$(NAME)
 
 $(NAME): $(M_OBJS) $(BUILT_OBJS) $(UTILS_OBJS) $(GNL_OBJS) $(LIBFT) inc/minishell.h
-	$(CC) -g $(CFLAGS) $(M_OBJS) $(BUILT_OBJS) $(UTILS_OBJS) -o $(NAME) $(LFLAGS) $(LRFLAG)
+	$(CC) -g $(CFLAGS) $(LIBFT) $(M_OBJS) $(BUILT_OBJS) $(UTILS_OBJS) -o $(NAME) $(LFLAGS) $(LRFLAG)
 
 $(OBJECTS_DIR)/%.o : src/%.c inc/minishell.h  | $(OBJECTS_DIR)
 	$(CC) -c  $< -o $@ -I ~/.brew/opt/readline/include $(CFLAGS)
@@ -50,11 +50,11 @@ $(OBJECTS_DIR)/%.o : src/%.c inc/minishell.h  | $(OBJECTS_DIR)
 $(OBJECTS_DIR)/%.o : src/built-ins/%.c  inc/builtins.h | $(OBJECTS_DIR)
 	$(CC) -c  $< -o $@
 
-make_libft:
-	@make -C $(LIBFT_DIR)
-
 $(OBJECTS_DIR)/%.o : src/utils/%.c inc/utils.h | $(OBJECTS_DIR)
 	$(CC) -c  $< -o $@
+
+make_libft:
+	@make -C $(LIBFT_DIR)
 
 $(OBJECTS_DIR) :
 	mkdir -p $(OBJECTS_DIR)

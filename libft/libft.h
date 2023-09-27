@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 09:35:45 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/27 13:09:53 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 16:41:10 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ t_dlist		*ft_dlstlast(t_dlist *lst);
 void		ft_dlstadd_front(t_dlist **lst, t_dlist *new);
 void		ft_reverse_tab(int *tab, int n);
 void		ft_printarr(int *arr, int n);
+char		*ft_strcat(char *dest, char *src);
 
 /*printf*/
 size_t		check_conversions(va_list args, char const *str);

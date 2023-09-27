@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:22:59 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 10:31:04 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/27 16:43:06 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/utils.h"
+
+void	move_ptrs(int *i, int *j)
+{
+	(*i)++;
+	(*j)++;
+}
 
 int	search_var_num(char *name, char **envp)
 {
@@ -67,4 +73,21 @@ int	is_existing(char *line, char **envp)
 	}
 	free (var);
 	return (0);
+}
+
+int	ft_varcmp(const char *s1, const char *s2, size_t n)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (i < n)
+	{
+		if (s1[i] != s2[i])
+			return ((unsigned char) s1[i] - (unsigned char) s2[i]);
+		i++;
+	}
+	if (s2[i] == '+' || s2[i] == '=' || s2[i] == '\0')
+		return (0);
+	else
+		return (-1);
 }

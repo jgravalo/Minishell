@@ -1,29 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 09:03:49 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/27 16:44:51 by dtome-pe         ###   ########.fr       */
+/*   Created: 2023/09/27 16:17:03 by dtome-pe          #+#    #+#             */
+/*   Updated: 2023/09/27 16:40:51 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memset(void *b, int c, size_t n)
+char	*ft_strcat(char *dest, char *src)
 {
-	size_t			i;
-	unsigned char	*ptr;
+	int	i;
+	int	j;
 
-	ptr = b;
 	i = 0;
-	while (i < n)
+	j = 0;
+	while (dest[i] != '\0')
 	{
-		ptr[i] = c;
 		i++;
 	}
-	return (b);
+	while (src[j] != '\0')
+	{
+		dest[i] = src[j];
+		i++;
+		j++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }
-

@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:16:39 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/26 18:26:40 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 16:45:03 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,21 +72,6 @@ uint64_t	ft_u_atoi(char *str)
 		str++;
 	}
 	return (n * sign);
-}
-
-void	*ft_memset(void *b, int c, size_t n)
-{
-	size_t			i;
-	unsigned char	*ptr;
-
-	ptr = b;
-	i = 0;
-	while (i < n)
-	{
-		ptr[i] = c;
-		i++;
-	}
-	return (b);
 }
 
 int	count_arr(char **args)
