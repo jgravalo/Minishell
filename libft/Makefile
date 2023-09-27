@@ -13,8 +13,10 @@ SRCS = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
 		ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c \
 		ft_lstmap.c ft_dlstnew.c ft_dlstadd_back.c ft_dlstlast.c ft_dlstadd_front.c ft_reverse_tab.c \
 		ft_printarr.c
-		
-OBJS =  $(SRCS:.c=.o)
+
+OBJS_DIR = obj
+
+OBJS =  $(patsubst src/%.c, $(OBJS_DIR)/%.o, $(SRCS))
 
 PRINT_DIR = printf
 
@@ -35,8 +37,11 @@ all: $(NAME)
 $(NAME) : $(OBJS) $(PRINT_OBJS) $(GET_OBJS)
 	ar rcs $(NAME) $(OBJS) $(PRINT_OBJS)  $(GET_OBJS)
 
-%.o : %.c ./libft.h
+$(OBJS_DIR)/%.o : %.c ./libft.h | $(OBJS_DIR)
 	gcc -c  $(CFLAGS) $< -o $@
+
+$(OBJS) :
+	mkdir -p $(OBJS_DIR)
 
 clean:
 	rm -f *.o 

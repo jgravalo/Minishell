@@ -1,21 +1,31 @@
+NAME		= minishell
+
+LIBFT 		= $(LIBFT_DIR)/libft.a
+
+LIBFT_DIR	= libft
+
 UTILS_DIR	= src/utils
 
-M_SRCS		= src/alloc_envp.c src/builtin.c src/categorizer.c src/errors.c src/errors2.c src/free_sh.c \
-			  src/execute.c  src/execute_heredoc.c src/execute_heredoc_aux.c  src/execute_redir.c src/execute_pipes.c  \
-			  src/expander.c src/expander_arg.c src/expander_redir.c src/expander_string.c  src/expander_count.c \
-			  src/expander_aux.c   src/lexer.c src/lexer_count.c  src/lexer_len.c src/lexer_count_aux.c \
-			  src/main.c  src/minishell.c  src/parent.c src/parser.c src/pipes.c  src/quote_remove.c  \
-			  src/search.c  src/set_argv.c  src/sintax_errors.c src/reviser.c
- 
-BUILT_SRCS	= src/built-ins/echo.c src/built-ins/cd.c src/built-ins/cd_aux.c src/built-ins/export.c \
-			  src/built-ins/unset.c src/built-ins/env.c src/built-ins/pwd.c  \
-			  src/built-ins/export_aux.c src/built-ins/export_n.c src/built-ins/exit.c \
-			  src/built-ins/compare_exit.c src/built-ins/ft_builtins.c
+BUILT_DIRS	= src/built-ins
 
-UTILS_SRCS	= $(UTILS_DIR)/utils_list_arg.c $(UTILS_DIR)/utils_list_quote.c $(UTILS_DIR)/utils_list_redir.c \
-			  $(UTILS_DIR)/utils_list_tok.c $(UTILS_DIR)/utils_other.c $(UTILS_DIR)/utils_print.c \
-			  $(UTILS_DIR)/utils_print2.c $(UTILS_DIR)/utils_str.c $(UTILS_DIR)/utils_str2.c $(UTILS_DIR)/ft_itoa.c \
-			  $(UTILS_DIR)/utils_str3.c $(UTILS_DIR)/utils_env.c $(UTILS_DIR)/utils_free.c 
+CC			= gcc
+
+OBJECTS_DIR = obj
+
+CFLAGS		= -Wall -Werror -Wextra -I inc/
+
+M_SRCS		= $(addprefix src/, alloc_envp.c builtin.c categorizer.c errors.c errors2.c free_sh.c \
+			  execute.c  execute_heredoc.c execute_heredoc_aux.c  execute_redir.c execute_pipes.c  \
+			  expander.c expander_arg.c expander_redir.c expander_string.c  expander_count.c \
+			  expander_aux.c   lexer.c lexer_count.c  lexer_len.c lexer_count_aux.c \
+			  main.c  minishell.c  parent.c parser.c pipes.c  quote_remove.c  \
+			  search.c  set_argv.c  sintax_errors.c reviser.c)
+ 
+BUILT_SRCS	= $(addprefix $(BUILT_DIRS)/, echo.c cd.c cd_aux.c export.c unset.c env.c pwd.c export_aux.c export_n.c exit.c \
+			  compare_exit.c ft_builtins.c export_aux2.c)
+
+UTILS_SRCS	= $(addprefix $(UTILS_DIR)/, utils_list_arg.c utils_list_quote.c utils_list_redir.c utils_list_tok.c utils_other.c \
+			  utils_print.c utils_print2.c utils_str.c utils_str2.c ft_itoa.c utils_str3.c utils_env.c utils_free.c)
 			
 M_OBJS		= $(patsubst src/%.c, $(OBJECTS_DIR)/%.o, $(M_SRCS))
 
@@ -23,27 +33,15 @@ BUILT_OBJS	= $(patsubst src/built-ins/%.c, $(OBJECTS_DIR)/%.o, $(BUILT_SRCS))
 
 UTILS_OBJS	= $(patsubst src/utils/%.c, $(OBJECTS_DIR)/%.o, $(UTILS_SRCS))
 
-OBJECTS_DIR = obj
-
-CC			= gcc
-
-CFLAGS		= -Wall -Werror -Wextra -I inc/
-
 LFLAGS		= -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include
 
 LRFLAG		= -lreadline
 
 RM			= rm -f
 
-NAME		= minishell
-
-LIBFT_DIR	= libft
-
-LIBFT 		= $(LIBFT_DIR)/libft.a
-
 all: make_libft	$(NAME)
 
-$(NAME): $(M_OBJS) $(BUILT_OBJS) $(UTILS_OBJS) $(GNL_OBJS) inc/minishell.h
+$(NAME): $(M_OBJS) $(BUILT_OBJS) $(UTILS_OBJS) $(GNL_OBJS) $(LIBFT) inc/minishell.h
 	$(CC) -g $(CFLAGS) $(M_OBJS) $(BUILT_OBJS) $(UTILS_OBJS) -o $(NAME) $(LFLAGS) $(LRFLAG)
 
 $(OBJECTS_DIR)/%.o : src/%.c inc/minishell.h  | $(OBJECTS_DIR)

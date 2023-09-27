@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:37:09 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/27 10:34:33 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 13:41:33 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	exit_message(t_shell *sh, int type, char *argument)
 		if (ft_strlen(argument) > 0)
 			write(2, argument, ft_strlen(argument));
 		write(2, ": numeric argument required\n", 28);
-		exit(2);
+		exit(255);
 	}
 	else
 	{
@@ -77,7 +77,7 @@ void	ft_exit(t_shell *sh, t_cmd **cmd, int i)
 	if (cmd[i]->args[1] != NULL)
 	{
 		if (ft_strcmp(cmd[i]->args[1], "--") == 0)
-			exit(0);
+			exit(sh->exit);
 		if (compare_exit(cmd[i]->args[1]) || is_it_numeric(cmd[i]->args[1]))
 			exit_message(sh, 2, cmd[i]->args[1]);
 		if (cmd[i]->args[2] != NULL)

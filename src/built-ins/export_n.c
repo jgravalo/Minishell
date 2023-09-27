@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:13:28 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/27 10:34:04 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 13:53:09 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static int	cat_existing(char *line, char *existing, t_shell *sh)
 	return (0);
 }
 
-static int	add_envp(char *var, t_shell *sh)
+static int	add_envp(char *var, t_shell *sh, int type)
 {
 	char	**new;
 	int		i;
@@ -101,8 +101,10 @@ static int	add_envp(char *var, t_shell *sh)
 		new[i] = ft_strdup(sh->envp[i]);
 		i++;
 	}
-	new[i] = ft_strdup(var);
-	i++;
+	if (type == 2)
+		new[i++] = add_without_plus(var);
+	else
+		new[i++] = ft_strdup(var);
 	new[i] = NULL;
 	free_m(sh->envp);
 	sh->envp = new;
@@ -126,5 +128,5 @@ int	export_n(char *var, t_shell *sh)
 	else if (is_existing(var, sh->envp) == 2 && type == 2)
 		return (cat_existing(var, existing, sh));
 	else
-		return (add_envp(var, sh));
+		return (add_envp(var, sh, type));
 }

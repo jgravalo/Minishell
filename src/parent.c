@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parent.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:59:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/19 08:48:34 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/27 13:59:00 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	handler(int signal)
 	}
 	else if (signal == SIGQUIT)
 	{
-		printf("Quit\n");
+		printf("Quit: 3\n");
 	}
 }
 
