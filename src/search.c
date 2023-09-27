@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:41:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 10:35:51 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 11:41:18 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,22 @@ static char	*get_path(char **docs, char *cmd)
 {
 	int		i;
 	char	*tmp;
+	char	*ptr;
 
 	i = 0;
 	if ((cmd[0] == '.' && cmd[1] == '/') || cmd[0] == '/' || !docs)
 		return (cmd);
 	while (docs[i])
-	{
+	{	
+		ptr = docs[i];
 		tmp = ft_strjoin(docs[i], "/");
 		docs[i] = ft_strjoin(tmp, cmd);
+		free(tmp);
+		free(ptr);
 		if ((access(docs[i], F_OK)) != -1)
 			return (docs[i]);
 		i++;
 	}
-	free(tmp);
 	return (NULL);
 }
 

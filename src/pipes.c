@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 08:49:12 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 09:15:22 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/27 11:53:31 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,13 @@ void	create_pipes(t_shell *sh)
 	int	i;
 
 	i = 0;
-	sh->p = (t_pipe *)malloc(sizeof(t_pipe) * (sh->pipes));
-	while (i < sh->pipes)
+	if (sh->pipes)
 	{
-		pipe(sh->p[i].p);
-		i++;
+		sh->p = (t_pipe *)malloc(sizeof(t_pipe) * (sh->pipes));
+		while (i < sh->pipes)
+		{
+			pipe(sh->p[i].p);
+			i++;
+		}
 	}
 }

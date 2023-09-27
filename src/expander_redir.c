@@ -6,14 +6,14 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:43:41 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 10:39:30 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 11:51:55 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include "../inc/utils.h"
 
-static void	add_redir_node(t_shell *sh, t_cmd *cmd)
+static void	add_redir_node(t_shell *sh, t_cmd *cmd, t_redir *ptr)
 {
 	char	*aux;
 
@@ -27,14 +27,14 @@ static void	add_redir_node(t_shell *sh, t_cmd *cmd)
 	{
 		if (!sh->next_redir)
 		{
-			redirback(&(cmd->red_x), redirnew(cmd->red->type));
+			redirback(&(cmd->red_x), redirnew(ptr->type));
 			sh->next_redir = 1;
 		}
 		argback(&(redirlast(cmd->red_x)->arg), argnew(ft_strdup(sh->tmp)));
 	}
 }
 
-static void	redir_loop(t_shell *sh, char *str, t_cmd *cmd)
+static void	redir_loop(t_shell *sh, char *str, t_cmd *cmd, t_redir *ptr)
 {
 	int	i;
 	int	len;
@@ -50,7 +50,7 @@ static void	redir_loop(t_shell *sh, char *str, t_cmd *cmd)
 		if (size > 1)
 		{
 			copy_and_remove_quotes(sh, size, str, &cpy);
-			add_redir_node(sh, cmd);
+			add_redir_node(sh, cmd, ptr);
 		}
 		free(sh->tmp);
 	}
@@ -82,7 +82,7 @@ void	expand_redir(t_shell *sh, t_cmd **cmd)
 				expstr = ft_strdup(expand_str(sh, ptr->arg, &i, &j));
 				free(sh->tmp);
 				if (expstr)
-					redir_loop(sh, expstr, cmd[n]);
+					redir_loop(sh, expstr, cmd[n], ptr);
 				free(expstr);
 			}
 			ptr = ptr->next;

@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:10:58 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/26 18:58:25 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 11:54:18 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	execute(t_shell *sh, t_cmd **cmd)
 	{
 		parent_close(sh);
 		parent_wait(sh, cmd);
-		free(sh->p);
+		if (sh->pipes)
+			free(sh->p);
 	}
 }
