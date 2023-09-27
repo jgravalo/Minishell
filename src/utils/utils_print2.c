@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utils_print2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:53:20 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 10:33:09 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:27:03 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/utils.h"
+#include "../../libft/libft.h"
 
 void	ft_printredirarglist(t_arg *arg)
 {
@@ -38,7 +39,7 @@ void	ft_printdeflist(t_cmd **cmd)
 	while (cmd[i])
 	{
 		if (cmd[i]->args)
-			ft_printarr(cmd[i]->args);
+			ft_printchararr(cmd[i]->args);
 		if (cmd[i]->red_x)
 			ft_printredirlist(cmd[i]->red_x);
 		i++;

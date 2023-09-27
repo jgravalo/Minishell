@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export_n.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:13:28 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/27 13:53:09 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:25:12 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/utils.h"
 #include "../../inc/builtins.h"
+#include "../../libft/libft.h"
 
 static int	parse_var(char *var)
 {

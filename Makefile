@@ -1,8 +1,8 @@
 NAME		= minishell
 
-LIBFT 		= $(LIBFT_DIR)/libft.a
-
 LIBFT_DIR	= libft
+
+LIBFT 		= $(LIBFT_DIR)/libft.a
 
 UTILS_DIR	= src/utils
 
@@ -19,7 +19,7 @@ M_SRCS		= $(addprefix src/, alloc_envp.c builtin.c categorizer.c errors.c errors
 			  expander.c expander_arg.c expander_redir.c expander_string.c  expander_count.c \
 			  expander_aux.c   lexer.c lexer_count.c  lexer_len.c lexer_count_aux.c \
 			  main.c  minishell.c  parent.c parser.c pipes.c  quote_remove.c  \
-			  search.c  set_argv.c  sintax_errors.c reviser.c)
+			  search.c  set_argv.c  syntax_errors.c reviser.c)
  
 BUILT_SRCS	= $(addprefix $(BUILT_DIRS)/, echo.c cd.c cd_aux.c export.c unset.c env.c pwd.c export_aux.c export_n.c exit.c \
 			  compare_exit.c ft_builtins.c export_aux2.c)
@@ -42,7 +42,7 @@ RM			= rm -f
 all: make_libft	$(NAME)
 
 $(NAME): $(M_OBJS) $(BUILT_OBJS) $(UTILS_OBJS) $(GNL_OBJS) $(LIBFT) inc/minishell.h
-	$(CC) -g $(CFLAGS) $(LIBFT) $(M_OBJS) $(BUILT_OBJS) $(UTILS_OBJS) -o $(NAME) $(LFLAGS) $(LRFLAG)
+	$(CC) -g $(CFLAGS) $(M_OBJS) $(BUILT_OBJS) $(UTILS_OBJS) -o $(NAME) $(LFLAGS) $(LRFLAG) -L$(LIBFT_DIR) -lft
 
 $(OBJECTS_DIR)/%.o : src/%.c inc/minishell.h  | $(OBJECTS_DIR)
 	$(CC) -c  $< -o $@ -I ~/.brew/opt/readline/include $(CFLAGS)

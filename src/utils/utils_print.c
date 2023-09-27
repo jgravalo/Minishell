@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils_print.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:48:54 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/26 19:28:51 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:53:32 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/utils.h"
 
-void	ft_printarr(char **arr)
+void	ft_printchararr(char **arr)
 {
 	int	i;
 

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   expander_string.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:36:44 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 10:38:17 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:29:51 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+#include "../libft/libft.h"
 #include "../inc/utils.h"
 
 static void	check_single(char *str, int *i, int *j, t_shell *sh)

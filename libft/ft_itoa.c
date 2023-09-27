@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:16:59 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/05/10 11:36:03 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:36:13 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -31,7 +30,7 @@ static int	ft_number_count(long n)
 }
 
 void	ft_reverse(char *str, int len)
-{	
+{
 	int		low;
 	char	swap;
 

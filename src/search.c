@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   search.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:41:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 11:41:18 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:17:10 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include "../inc/utils.h"
+#include "../libft/libft.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>

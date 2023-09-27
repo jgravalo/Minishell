@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_envp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:27:15 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/26 17:42:23 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:32:41 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include "../inc/utils.h"
 #include "../inc/builtins.h"
+#include "../libft/libft.h"
 
 static void	over_999_shlvl(t_shell *sh, int shlvl, char *tmp)
 {

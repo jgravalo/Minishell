@@ -6,14 +6,14 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 10:05:07 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/05/12 22:54:29 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/27 19:18:23 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 char	*ft_strchr(const char *s, int c)
-{	
+{
 	const char	*ptr;
 
 	ptr = s;

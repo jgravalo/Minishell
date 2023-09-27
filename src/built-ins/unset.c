@@ -6,12 +6,13 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:00:23 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 11:16:18 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/27 19:24:54 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/utils.h"
 #include "../../inc/builtins.h"
+#include "../../libft/libft.h"
 
 static int	unset_n(char *var, t_shell *sh)
 {

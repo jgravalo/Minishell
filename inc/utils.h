@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 09:29:58 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 12:27:49 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/27 19:28:50 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ int			ft_strncmp(const char *s1, const char *s2, size_t n);
 
 int			ft_varcmp(const char *s1, const char *s2, size_t n);
 
-char		*ft_strchr(char *str, int c);
-
 char		*ft_strcat(char *dest, char *src);
 
 char		*ft_strjoin(char *s1, char *s2);
@@ -83,15 +81,11 @@ char		*ft_substr(char const *s, unsigned int start, size_t len);
 
 char		**ft_split(char const *s, char c);
 
-char		*ft_itoa(int n);
-
 int64_t		ft_atoi(char *str);
-
-uint64_t	ft_u_atoi(char *str);
 
 /*printing utils*/
 
-void		ft_printarr(char **arr);
+void		ft_printchararr(char **arr);
 
 void		ft_printlst(t_tok *lst);
 

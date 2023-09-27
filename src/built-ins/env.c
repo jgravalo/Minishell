@@ -6,11 +6,12 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:59:19 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 11:03:45 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/27 19:25:50 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/utils.h"
+#include "../../libft/libft.h"
 
 int	env(char **envp)
 {

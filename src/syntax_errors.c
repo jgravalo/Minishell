@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sintax_errors.c                                    :+:      :+:    :+:   */
+/*   syntax_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:23:10 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/27 10:35:33 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:17:56 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include "../inc/utils.h"
+#include "../libft/libft.h"
 
 int	quote_error(char quote)
 {

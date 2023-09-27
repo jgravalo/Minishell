@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 09:35:45 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/27 17:04:50 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:31:50 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stddef.h>
 # include <stdarg.h>
+# include <stdint.h>
 # include "../inc/minishell.h"
 
 typedef struct s_list
