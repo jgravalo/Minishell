@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 10:33:32 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 20:10:10 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ static char	*get_dir(t_shell *sh, t_cmd **cmd, int i)
 
 int	cd(t_shell *sh, t_cmd **cmd, int i)
 {
-	char	buffer[100];
-	int		chdir_return;
 	char	*dir;
 
 	sh->cd_last = 0;

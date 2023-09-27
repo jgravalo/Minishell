@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:22:59 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 19:26:31 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/27 20:13:55 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	search_var_num(char *name, char **envp)
 		j = 0;
 		while (name[j] && envp[i][j] == name[j])
 			j++;
-		if (!name[j] && envp[i][j] == '=' || envp[i][j] == '\0')
+		if ((!name[j] && envp[i][j] == '=') || envp[i][j] == '\0')
 			return (i);
 		i++;
 	}

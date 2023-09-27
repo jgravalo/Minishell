@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 09:08:34 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 16:00:24 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/27 20:10:38 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static char	*get_back_dir(char *str)
 {
 	int		i;
 	int		slashes;
-	char	*ptr;
 
 	i = 0;
 	slashes = 0;
@@ -64,7 +63,6 @@ static char	*get_back_dir(char *str)
 char	*cd_back(t_shell *sh, t_cmd **cmd, int i)
 {
 	char	*tmp;
-	char	*ptr;
 	char	buf[100];
 
 	sh->old_pwd = ft_strdup(cmd[i]->args[1]);

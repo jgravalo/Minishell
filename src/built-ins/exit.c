@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:37:09 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/27 17:12:08 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 20:13:33 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,6 @@ static int	is_it_numeric(char *line)
 		return (0);
 	}
 	return (1);
-}
-
-static int	check_long_min(int64_t number)
-{
-	uint64_t	u_number;
-	uint64_t	min;
-
-	min = (uint64_t) LONG_MIN * -1;
-	u_number = number * -1;
-	if (u_number > LONG_MIN)
-		return (1);
-	else
-		return (0);
 }
 
 static void	exit_message(t_shell *sh, int type, char *argument)

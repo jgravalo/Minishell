@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:58:59 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 10:27:07 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/27 20:09:47 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static int	is_n_option(char *argv)
 int	echo(char **argv)
 {
 	int		i;
-	char	*new;
 
 	i = 1;
 	if (argv[1] == NULL)

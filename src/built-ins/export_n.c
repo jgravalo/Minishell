@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:13:28 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/27 19:25:12 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/27 20:12:10 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	parse_var(char *var)
 	return (0);
 }
 
-static int	replace_existing(char *line, char *existing, t_shell *sh)
+static int	replace_existing(char *line, t_shell *sh)
 {
 	char	**new;
 	int		i;
@@ -63,7 +63,7 @@ static int	replace_existing(char *line, char *existing, t_shell *sh)
 	return (0);
 }
 
-static int	cat_existing(char *line, char *existing, t_shell *sh)
+static int	cat_existing(char *line, t_shell *sh)
 {
 	char	*tmp;
 	int		i;
@@ -114,9 +114,6 @@ static int	add_envp(char *var, t_shell *sh, int type)
 
 int	export_n(char *var, t_shell *sh)
 {
-	char	**new;
-	char	*existing;
-	int		i;
 	int		type;
 
 	type = parse_var(var);
@@ -125,9 +122,9 @@ int	export_n(char *var, t_shell *sh)
 	if (is_existing(var, sh->envp) == 1)
 		return (0);
 	else if (is_existing(var, sh->envp) == 2 && type == 0)
-		return (replace_existing(var, existing, sh));
+		return (replace_existing(var, sh));
 	else if (is_existing(var, sh->envp) == 2 && type == 2)
-		return (cat_existing(var, existing, sh));
+		return (cat_existing(var, sh));
 	else
 		return (add_envp(var, sh, type));
 }

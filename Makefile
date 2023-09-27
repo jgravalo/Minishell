@@ -45,13 +45,13 @@ $(NAME): $(M_OBJS) $(BUILT_OBJS) $(UTILS_OBJS) $(GNL_OBJS) $(LIBFT) inc/minishel
 	$(CC) -g $(CFLAGS) $(M_OBJS) $(BUILT_OBJS) $(UTILS_OBJS) -o $(NAME) $(LFLAGS) $(LRFLAG) -L$(LIBFT_DIR) -lft
 
 $(OBJECTS_DIR)/%.o : src/%.c inc/minishell.h  | $(OBJECTS_DIR)
-	$(CC) -c  $< -o $@ -I ~/.brew/opt/readline/include $(CFLAGS)
+	$(CC) -c $(CFLAGS)  $< -o $@ -I ~/.brew/opt/readline/include
 
 $(OBJECTS_DIR)/%.o : src/built-ins/%.c  inc/builtins.h | $(OBJECTS_DIR)
-	$(CC) -c  $< -o $@
+	$(CC) -c $(CFLAGS)  $< -o $@
 
 $(OBJECTS_DIR)/%.o : src/utils/%.c inc/utils.h | $(OBJECTS_DIR)
-	$(CC) -c  $< -o $@
+	$(CC) -c $(CFLAGS)  $< -o $@
 
 $(OBJECTS_DIR) :
 	mkdir -p $(OBJECTS_DIR)
