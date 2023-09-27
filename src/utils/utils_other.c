@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:16:39 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 16:45:03 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 16:51:34 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,52 +26,6 @@ void	free_m(char **fdf)
 		}
 		free(fdf);
 	}
-}
-
-int64_t	ft_atoi(char *str)
-{
-	int64_t	n;
-	int		sign;
-
-	n = 0;
-	sign = 1;
-	while (*str == ' ' || *str == '\t'
-		|| *str == '\v' || *str == '\n'
-		|| *str == '\r' || *str == '\f')
-		str++;
-	if (*str == '-')
-		sign = -1;
-	if (*str == '+' || *str == '-')
-		str++;
-	while ((*str >= '0') && (*str <= '9'))
-	{
-		n = n * 10 + (*str - 48);
-		str++;
-	}
-	return (n * sign);
-}
-
-uint64_t	ft_u_atoi(char *str)
-{
-	uint64_t	n;
-	int			sign;
-
-	n = 0;
-	sign = 1;
-	while (*str == ' ' || *str == '\t'
-		|| *str == '\v' || *str == '\n'
-		|| *str == '\r' || *str == '\f')
-		str++;
-	if (*str == '-')
-		sign = -1;
-	if (*str == '+' || *str == '-')
-		str++;
-	while ((*str >= '0') && (*str <= '9'))
-	{
-		n = n * 10 + (*str - 48);
-		str++;
-	}
-	return (n * sign);
 }
 
 int	count_arr(char **args)

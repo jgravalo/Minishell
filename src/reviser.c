@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 14:23:44 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/27 10:37:09 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 17:09:34 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	sintax_error(char *s)
 {
-	write(2, "bash: syntax error near expected token `", 41);
+	write(2, "bash: syntax error near unexpected token `", 43);
 	write(2, s, ft_strlen(s));
 	write(2, "\'\n", 2);
 	return (258);
