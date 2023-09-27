@@ -53,11 +53,11 @@ $(OBJECTS_DIR)/%.o : src/built-ins/%.c  inc/builtins.h | $(OBJECTS_DIR)
 $(OBJECTS_DIR)/%.o : src/utils/%.c inc/utils.h | $(OBJECTS_DIR)
 	$(CC) -c  $< -o $@
 
-make_libft:
-	@make -C $(LIBFT_DIR)
-
 $(OBJECTS_DIR) :
 	mkdir -p $(OBJECTS_DIR)
+
+make_libft:
+	@make -C $(LIBFT_DIR)
 
 clean:
 	$(RM) -r $(OBJECTS_DIR)
