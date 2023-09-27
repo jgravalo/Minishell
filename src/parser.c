@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:40:11 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/26 18:33:01 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 10:37:42 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ static void	parse(t_tok *tok, t_cmd **cmd)
 			redir = redir_type(tok);
 			tok = tok->next;
 			redirback(&(cmd[j]->red), redirnew(redir));
-			argback(&(redirlast(cmd[j]->red)->arg), argnew(ft_strdup(tok->tok)));
+			argback(&(redirlast(cmd[j]->red)->arg),
+				argnew(ft_strdup(tok->tok)));
 		}
 		else
 			j++;
@@ -91,6 +92,6 @@ void	parser(t_shell *sh)
 
 	n = count_pipes(sh, sh->tok);
 	sh->s_cmd = malloc(sizeof (t_cmd *) * (n + 2));
-	init(sh->s_cmd, n + 1); 
+	init(sh->s_cmd, n + 1);
 	parse(sh->tok, sh->s_cmd);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_redir.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:51:29 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 10:20:19 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/27 10:38:59 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	set_append(t_shell *sh, t_cmd **cmd, t_redir *ptr, int i)
 {
 	if (ptr->type == APPEND)
 	{
-		cmd[i]->out_fd = open(ptr->arg->arg, 
+		cmd[i]->out_fd = open(ptr->arg->arg,
 				O_RDWR | O_CREAT | O_APPEND, 00644);
 		if (cmd[i]->out_fd == -1)
 		{

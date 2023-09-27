@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 14:23:44 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/26 18:49:37 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 10:37:09 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	search_pipe(t_shell *sh)
 	char	*tmp;
 	char	*tmp2;
 
-//	printf("readline before = <%s>\n", shell->readline);
 	line = ft_strdup("");
 	while (ft_strcmp(line, "") == 0)
 	{
@@ -42,10 +41,9 @@ int	search_pipe(t_shell *sh)
 	free(sh->readline);
 	sh->readline = tmp2;
 	free(tmp);
-//	printf("readline after = <%s>\n", shell->readline);
 	tokclear(&sh->tok);
 	lexer(sh, sh->readline);
-    categorizer(sh->tok);
+	categorizer(sh->tok);
 	if (reviser(sh->tok, sh) != 0)
 		return (258);
 	return (0);
@@ -79,12 +77,11 @@ int	reviser_loop(t_tok *tok, int *redir, int *pipe)
 
 int	reviser(t_tok *tok, t_shell *sh)
 {
-	int pipe;
-	int redir;
-	
+	int	pipe;
+	int	redir;
+
 	redir = 0;
 	pipe = 1;
-
 	if (reviser_loop(tok, &redir, &pipe) != 0)
 		return (258);
 	if (redir == 1)

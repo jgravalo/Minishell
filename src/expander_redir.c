@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:43:41 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/26 18:17:33 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 10:39:30 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	redir_loop(t_shell *sh, char *str, t_cmd *cmd)
 	{
 		advance_space(str, &len, &cpy);
 		check_quoted(sh, &len);
-		size = count_expand(sh, str, &len) + 1; 
+		size = count_expand(sh, str, &len) + 1;
 		if (size > 1)
 		{
 			copy_and_remove_quotes(sh, size, str, &cpy);
@@ -60,7 +60,7 @@ static void	aux_expand_red(t_shell *sh, int *i, int *j)
 {
 	sh->next_redir = 0;
 	*i = 0;
-	*j = 0;	
+	*j = 0;
 }
 
 void	expand_redir(t_shell *sh, t_cmd **cmd)
@@ -73,7 +73,7 @@ void	expand_redir(t_shell *sh, t_cmd **cmd)
 
 	init_variables(&i, &j, &n, sh);
 	while (cmd[n])
-	{	
+	{
 		ptr = cmd[n]->red;
 		while (ptr)
 		{

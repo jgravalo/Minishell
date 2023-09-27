@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_n.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:13:28 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/18 11:03:55 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/27 10:34:04 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static int	cat_existing(char *line, char *existing, t_shell *sh)
 	{
 		if (ft_varcmp(var, sh->envp[i], ft_strlen(var)) == 0)
 		{
-			tmp = ft_strjoin(ft_strchr(sh->envp[i], '='), 
+			tmp = ft_strjoin(ft_strchr(sh->envp[i], '='),
 					ft_strchr(line, '=') + 1);
 			sh->envp[i] = ft_strjoin(var, tmp);
 			break ;

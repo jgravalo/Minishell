@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:20:53 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/17 18:10:59 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/27 10:40:23 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	check_pipe(t_shell *sh, t_cmd **cmd, int i)
 		cmd[i]->in_pipe = 1;
 		cmd[i]->out_pipe = 0;
 	}
-	else 
+	else
 	{
 		cmd[i]->in_pipe = 1;
 		cmd[i]->out_pipe = 1;

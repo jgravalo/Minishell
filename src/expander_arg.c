@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:41:49 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/26 17:58:45 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 10:40:14 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	aux_expand_args(char *expstr, int *i, int *j)
 {
 	free(expstr);
 	*i = 0;
-	*j = 0;	
+	*j = 0;
 }
 
 void	expand_args(t_shell *sh, t_cmd **cmd)

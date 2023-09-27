@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_string.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:36:44 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 10:21:31 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/27 10:38:17 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ static void	check_normal(char *str, int *i, int *j, t_shell *sh)
 			while (exp && exp[m])
 				sh->tmp[(*i)++] = exp[m++];
 		}
-		else if (str[*i] == '$' && (str[*i + 1] == '\'' || str[*i + 1] == '\"'))
+		else if (str[*i] == '$' && (str[*i + 1] == '\''
+				|| str[*i + 1] == '\"'))
 			(*j)++;
 		else
 			sh->tmp[(*i)++] = str[(*j)++];

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_count.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:23:42 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 10:22:53 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/27 10:40:00 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*get_var(char *str, int *i)
 	j = 0;
 	(*i)++;
 	start = *i;
-	while (str[*i] && is_alpha_num(str[*i]) && str[*i] != ' ' 
+	while (str[*i] && is_alpha_num(str[*i]) && str[*i] != ' '
 		&& str[*i] != '$' && str[*i] != '\"' && str[*i] != '\'')
 	{
 		(*i)++;
@@ -90,7 +90,8 @@ static int	check_normal(char *str, int *count, int *i, char **envp)
 			else
 				(*count) += ft_strlen(search_var_line(var, envp));
 		}
-		else if (str[*i] == '$' && (str[*i + 1] == '\'' || str[*i + 1] == '\"'))
+		else if (str[*i] == '$' && (str[*i + 1] == '\''
+				|| str[*i + 1] == '\"'))
 			(*i)++;
 		else
 		{

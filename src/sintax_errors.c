@@ -6,14 +6,14 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:23:10 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/26 18:53:27 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 10:35:33 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../inc/minishell.h"
+#include "../inc/minishell.h"
 #include "../inc/utils.h"
 
-int quote_error(char quote)
+int	quote_error(char quote)
 {
 	write(2, "bash: syntax error near expected token `", 41);
 	write(2, &quote, 1);
@@ -27,7 +27,8 @@ int	parse_quotes(t_shell *shell)
 	char	quote;
 
 	i = 0;
-	if (!ft_strchr(shell->readline, '\'') && !ft_strchr(shell->readline, '\"'))
+	if (!ft_strchr(shell->readline, '\'')
+		&& !ft_strchr(shell->readline, '\"'))
 		return (0);
 	while (shell->readline[i])
 	{
@@ -45,9 +46,9 @@ int	parse_quotes(t_shell *shell)
 	return (0);
 }
 
-int quotes_errors(t_shell *sh)
+int	quotes_errors(t_shell *sh)
 {
-	if (parse_quotes(sh) != 0)// || parse_pipes(sh) != 0)
+	if (parse_quotes(sh) != 0)
 	{
 		sh->exit = 258;
 		add_history(sh->readline);

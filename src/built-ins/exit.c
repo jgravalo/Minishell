@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:37:09 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/18 09:51:34 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/27 10:34:33 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	is_it_numeric(char *line)
 		return (1);
 	while (line[i] == ' ')
 		i++;
-	if (is_digit(line[i]) || ((line[i] == '-' || line[i] == '+') 
+	if (is_digit(line[i]) || ((line[i] == '-' || line[i] == '+')
 			&& is_digit(line[i + 1]) == 1))
 		i++;
 	else

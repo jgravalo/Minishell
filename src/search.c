@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:41:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/26 18:44:19 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/27 10:35:51 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static void	locate_path(t_shell *shell, t_cmd **cmd, int i)
 
 	env = get_path_env(shell->envp);
 	if (env != -1)
-	{	
+	{
 		docs = split_paths(shell->envp[env]);
 		shell->tmp = get_path(docs, cmd[i]->args[0]);
 		if (!shell->tmp || ft_strlen(cmd[i]->args[0]) == 0)
