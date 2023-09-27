@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:52:47 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/19 08:12:12 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/27 10:25:54 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,32 @@ static char	*here_loop(t_shell *sh, t_redir *ptr, int start_line)
 {
 	char	*str;
 	char	*heredoc;
+	char	*tmp;
+	char	*tmp2;
 
-	heredoc = ft_strdup("");
+	heredoc = NULL;
 	while (1)
 	{
 		str = readline("> ");
+		tmp2 = str;
 		if (ft_strcmp(str, ptr->arg->arg) == 0)
+		{	
+			free(tmp2);
 			break ;
+		}
 		else if (str == NULL)
 		{
 			write_heredoc_eof(start_line, ptr->arg->arg);
+			free(tmp2);
 			break ;
 		}
 		str = ft_strjoin(str, "\n");
+		free(tmp2);
+		tmp2 = str;
+		tmp = heredoc;
 		heredoc = ft_strjoin(heredoc, str);
+		free(tmp);
+		free(tmp2);
 		sh->line_number++;
 	}
 	return (heredoc);
@@ -42,6 +54,7 @@ static void	make_heredoc(t_shell *sh, t_redir *ptr)
 	char				*heredoc;
 	struct sigaction	sigint;
 
+	ft_memset(&sigint, 0, sizeof(struct sigaction));
 	sigint.sa_flags = SA_RESTART;
 	sigint.sa_handler = exit_heredoc;
 	sigaction(SIGINT, &sigint, NULL);
@@ -49,13 +62,12 @@ static void	make_heredoc(t_shell *sh, t_redir *ptr)
 	signal(SIGQUIT, exit_heredoc);
 	ptr->fd = open("/tmp/here_tmp",
 			O_WRONLY | O_CREAT | O_EXCL | O_TRUNC, 0600);
-	heredoc = ft_strdup("");
 	start_line = sh->line_number;
 	heredoc = here_loop(sh, ptr, start_line);
 	write(ptr->fd, heredoc, ft_strlen(heredoc));
 	close(ptr->fd);
 	free(heredoc);
-	exit(0);
+	exit(g_exit);
 }
 
 static void	parent(pid_t pid, t_redir *ptr)
@@ -63,6 +75,7 @@ static void	parent(pid_t pid, t_redir *ptr)
 	int					status;
 	struct sigaction	sigint;
 
+	ft_memset(&sigint, 0, sizeof(struct sigaction));
 	sigint.sa_flags = SA_RESTART;
 	sigint.sa_handler = parent_heredoc;
 	sigaction(SIGINT, &sigint, NULL);

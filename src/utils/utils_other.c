@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_other.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:16:39 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 14:07:59 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/26 18:26:40 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,15 @@ void	free_m(char **fdf)
 	int	i;
 
 	i = 0;
-	while (fdf[i])
+	if (fdf)
 	{
-		free(fdf[i]);
-		i++;
+		while (fdf[i])
+		{
+			free(fdf[i]);
+			i++;
+		}
+		free(fdf);
 	}
-	free(fdf);
 }
 
 int64_t	ft_atoi(char *str)

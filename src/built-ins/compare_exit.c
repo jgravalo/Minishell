@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   compare_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:01:06 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 10:28:05 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/26 19:36:40 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static int	compare(int *number, int *long_compare, int n)
 		else 
 			i++;
 	}
+	return (0);
 }
 
 int	compare_exit(char *argument)

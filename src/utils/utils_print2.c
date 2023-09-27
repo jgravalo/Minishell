@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_print2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:53:20 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 10:31:20 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/26 18:57:25 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ void	ft_printdeflist(t_cmd **cmd)
 
 	i = 0;
 	while (cmd[i])
-	{
-		ft_printarr(cmd[i]->args);
+	{	
+		if (cmd[i]->args)
+			ft_printarr(cmd[i]->args);
 		if (cmd[i]->red_x)
 			ft_printredirlist(cmd[i]->red_x);
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:40:11 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 12:30:46 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/26 18:33:01 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	parse(t_tok *tok, t_cmd **cmd)
 			redir = redir_type(tok);
 			tok = tok->next;
 			redirback(&(cmd[j]->red), redirnew(redir));
-			argback(&(redirlast(cmd[j]->red)->arg), argnew(tok->tok));
+			argback(&(redirlast(cmd[j]->red)->arg), argnew(ft_strdup(tok->tok)));
 		}
 		else
 			j++;

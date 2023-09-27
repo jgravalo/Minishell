@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_redir.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:43:41 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 10:21:01 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/26 18:17:33 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,29 +56,37 @@ static void	redir_loop(t_shell *sh, char *str, t_cmd *cmd)
 	}
 }
 
+static void	aux_expand_red(t_shell *sh, int *i, int *j)
+{
+	sh->next_redir = 0;
+	*i = 0;
+	*j = 0;	
+}
+
 void	expand_redir(t_shell *sh, t_cmd **cmd)
 {
 	int		i;
 	int		j;
 	int		n;
 	char	*expstr;
+	t_redir	*ptr;
 
 	init_variables(&i, &j, &n, sh);
 	while (cmd[n])
-	{
-		while (cmd[n]->red)
+	{	
+		ptr = cmd[n]->red;
+		while (ptr)
 		{
-			while (cmd[n]->red->arg->arg[i])
+			while (ptr->arg->arg[i])
 			{
-				expstr = ft_strdup(expand_str(sh, cmd[n]->red->arg, &i, &j));
+				expstr = ft_strdup(expand_str(sh, ptr->arg, &i, &j));
 				free(sh->tmp);
 				if (expstr)
 					redir_loop(sh, expstr, cmd[n]);
+				free(expstr);
 			}
-			cmd[n]->red = cmd[n]->red->next;
-			sh->next_redir = 0;
-			i = 0;
-			j = 0;
+			ptr = ptr->next;
+			aux_expand_red(sh, &i, &j);
 		}
 		n++;
 	}

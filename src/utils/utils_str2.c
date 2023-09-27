@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_str2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:51:06 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 12:10:28 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/27 10:24:59 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ char	*ft_strjoin(char *s1, char *s2)
 	char	*new;
 
 	if (!s1 || ft_strcmp("", s1) == 0)
-		return (s2);
+		return (ft_strdup(s2));
 	if (!s2 || ft_strcmp("", s2) == 0)
-		return (s1);
+		return (ft_strdup(s1));
 	new = malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2)) + 1));
 	if (new == NULL)
 		return (NULL);

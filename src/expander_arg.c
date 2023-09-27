@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_arg.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:41:49 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 12:07:44 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/26 17:58:45 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,30 +50,37 @@ static void	arg_loop(t_shell *sh, char *str, t_cmd *cmd)
 	sh->quote = NULL;
 }
 
+static void	aux_expand_args(char *expstr, int *i, int *j)
+{
+	free(expstr);
+	*i = 0;
+	*j = 0;	
+}
+
 void	expand_args(t_shell *sh, t_cmd **cmd)
 {
 	int		i;
 	int		j;
 	int		n;
 	char	*expstr;
+	t_arg	*ptr;
 
 	init_variables(&i, &j, &n, NULL);
 	while (cmd[n])
 	{
 		cmd[n]->arg_x = NULL;
-		while (cmd[n]->arg)
+		ptr = cmd[n]->arg;
+		while (ptr)
 		{
-			while (cmd[n]->arg->arg[i])
+			while (ptr->arg[i])
 			{
-				expstr = ft_strdup(expand_str(sh, cmd[n]->arg, &i, &j));
+				expstr = ft_strdup(expand_str(sh, ptr, &i, &j));
 				free(sh->tmp);
 				if (expstr)
 					arg_loop(sh, expstr, cmd[n]);
 			}
-			free(expstr);
-			cmd[n]->arg = cmd[n]->arg->next;
-			i = 0;
-			j = 0;
+			ptr = ptr->next;
+			aux_expand_args(expstr, &i, &j);
 		}
 		n++;
 	}

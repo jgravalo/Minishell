@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_envp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:27:15 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/19 08:58:11 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/26 17:42:23 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int	change_var(t_shell *sh, char *var, char *content)
 	int		var_num;
 	char	*tmp;
 
-	sh->tmp = NULL;
 	var_num = search_var_num(var, sh->envp);
 	if (var_num < 0 || !var || !content)
 		return (1);

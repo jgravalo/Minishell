@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:10:58 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/19 08:42:11 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/26 18:58:25 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,13 @@ static void	child(t_shell *sh, t_cmd **cmd, int i)
 		exit(1);
 	if (builtin(sh, cmd, i))
 		exit(sh->exit);
-	search(sh, cmd, i);
-	execve(cmd[i]->path, cmd[i]->args, sh->envp);
+	if (cmd[i]->args)
+	{
+		search(sh, cmd, i);
+		execve(cmd[i]->path, cmd[i]->args, sh->envp);
+	}
+	else
+		exit(0);
 }
 
 void	execute(t_shell *sh, t_cmd **cmd)
@@ -80,5 +85,6 @@ void	execute(t_shell *sh, t_cmd **cmd)
 	{
 		parent_close(sh);
 		parent_wait(sh, cmd);
+		free(sh->p);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/20 17:30:35 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/09/26 19:34:55 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,6 @@ typedef struct s_arg
 typedef struct s_redir
 {
 	t_arg			*arg;
-	char			*path;
-	int				heredoc_quoted;
-	int				heredoc_fd;
 	int				fd;
 	int				type;
 	struct s_redir	*next;

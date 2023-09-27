@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reviser.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgravalo <jgravalo@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 14:23:44 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/26 12:22:29 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:49:37 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	search_pipe(t_shell *sh)
 		free(line);
 		line = readline("> ");
 	}
+	if (!line)
+		return (258);
 	tmp = ft_strjoin(" ", line);
 	tmp2 = ft_strjoin(sh->readline, tmp);
 	free(line);

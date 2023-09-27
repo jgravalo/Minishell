@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 12:16:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 12:38:59 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/26 19:31:20 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	redclear(t_redir **lst)
 	while (curr != NULL)
 	{
 		next = curr->next;
-		free(curr->path);
 		argclear(&(curr->arg));
 		free(curr);
 		curr = next;

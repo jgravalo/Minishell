@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/26 12:14:54 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/09/26 19:28:59 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ int	shell_body(t_shell *sh)
 {
 	lexer(sh, sh->readline);
 	categorizer(sh->tok);
-	//ft_printbothlst(sh->tok);
 	if (reviser(sh->tok, sh) != 0)
 	{
 		add_history(sh->readline);
+		tokclear(&sh->tok);
 		sh->exit = 258;
 		return (1);
 	}
@@ -92,5 +92,6 @@ int	new_shell(t_shell *sh)
 			sh->exit = 130;
 		free_sh(sh);
 	}
+	free(sh->readline);
 	return (sh->exit);
 }
