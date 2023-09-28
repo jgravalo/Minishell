@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dlstadd_back.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:15:24 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/05/22 13:05:21 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/28 09:35:05 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_dlstadd_back(t_dlist **head, t_dlist **tail, t_dlist *new)
 	if (!new)
 		return ;
 	if (*head == NULL)
-	{	
+	{
 		*head = new;
 		*tail = new;
 		return ;

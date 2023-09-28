@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 09:28:29 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/05/29 13:19:37 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 09:36:04 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ size_t	ft_printadd(void *ptr)
 	str = ft_create_arr(str, temp, n, len - 1);
 	n = ft_putstr("0x");
 	if ((int) n == -1)
-	{	
+	{
 		str = ft_free(str);
 		return (-1);
 	}

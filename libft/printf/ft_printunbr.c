@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 09:27:07 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/05/29 13:20:08 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 09:35:52 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 
 static size_t	ft_num_len(unsigned long number)
-{	
+{
 	size_t	len;
 
 	len = 1;
@@ -27,7 +27,7 @@ static size_t	ft_num_len(unsigned long number)
 }
 
 static char	*ft_create_str(char *str, size_t len, unsigned long number)
-{	
+{
 	str[len] = '\0';
 	if (number == 0)
 		str[len - 1] = '0';

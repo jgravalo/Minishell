@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 10:37:06 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/05/09 12:52:25 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 09:32:41 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	{
 		if (s1[i] != s2[i])
 			return ((unsigned char) s1[i] - (unsigned char) s2[i]);
-	i++;
+		i++;
 	}
 	return (0);
 }

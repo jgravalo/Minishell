@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:27:15 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/28 08:55:16 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 09:39:56 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,20 @@ static void	over_999_shlvl(t_shell *sh, int shlvl, char *tmp)
 
 static void	get_shlvl(t_shell *sh)
 {
-	int		shlvl;
-
 	sh->tmp = NULL;
 	if (getenv("SHLVL") != NULL)
 	{
-		shlvl = ft_atoi(getenv("SHLVL"));
-		if (shlvl < 0)
+		sh->shlvl = ft_atoi(getenv("SHLVL"));
+		if (sh->shlvl < 0)
 		{
 			sh->tmp = ft_itoa(0);
 			change_var(sh, "SHLVL", sh->tmp);
 		}
-		else if (shlvl > 999)
-			over_999_shlvl(sh, shlvl, sh->tmp);
+		else if (sh->shlvl > 999)
+			over_999_shlvl(sh, sh->shlvl, sh->tmp);
 		else
 		{
-			sh->tmp = ft_itoa(shlvl + 1);
+			sh->tmp = ft_itoa(sh->shlvl + 1);
 			change_var(sh, "SHLVL", sh->tmp);
 		}
 	}

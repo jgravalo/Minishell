@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 08:30:53 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/05/29 13:19:58 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 09:36:00 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdlib.h>
 
 static size_t	ft_num_len(unsigned long number)
-{	
+{
 	size_t	len;
 
 	len = 1;

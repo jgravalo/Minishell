@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:10:18 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/05/10 08:41:18 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 09:35:18 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 #include <stdio.h>
 
 void	*ft_calloc(size_t count, size_t size)
-{	
+{
 	void	*ptr;
 
 	if (count == 0 || size == 0)
-	{	
+	{
 		ptr = malloc(0);
 		return (ptr);
 	}

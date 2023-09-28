@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:05:15 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/05/04 13:34:53 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/28 09:33:47 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	*ft_memmove(void *dst, const void *src, size_t n)
 		{
 			((unsigned char *) dst)[i] = ((unsigned char *) src)[i];
 			i++;
-		}	
+		}
 	}
 	else
-	{	
+	{
 		i = n;
 		while (i > 0)
 		{

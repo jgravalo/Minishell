@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/28 09:24:26 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 09:39:32 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ typedef struct s_shell
 	int		pipes;
 	int		exit;
 	int		children;
+	int		shlvl;
 }			t_shell;
 
 /*MAINS*/

@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:18:33 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/05/27 17:19:05 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 09:35:12 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_contains_digit(char *str)
 {
 	while (*str)
-	{	
+	{
 		if (ft_isdigit(*str) == 0 && *str != ' ' && *str != '\"')
 			return (0);
 		str++;

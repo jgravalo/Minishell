@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 10:28:09 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/05/10 11:07:48 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 09:32:23 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static size_t	ft_strlen(const char *s)
 }
 
 char	*ft_strrchr(const char *s, int c)
-{	
+{
 	int	i;
 
 	i = ft_strlen(s);

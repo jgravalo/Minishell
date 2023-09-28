@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:12:28 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/05/09 10:12:41 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 09:34:28 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,3 @@ t_list	*ft_lstnew(void *content)
 	node->next = NULL;
 	return (node);
 }
-/*
-int main(void)
-{   
-    t_list *node;
-    int x;
-
-    x = 5;
-    node = ft_lstnew(&x);
-    printf("node content is %d", *(int *)(node->content));
-    free (node);
-    
-}
-*/

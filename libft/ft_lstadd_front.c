@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:15:03 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/05/10 10:32:51 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 09:34:44 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdio.h>
 
 void	ft_lstadd_front(t_list **lst, t_list *new)
-{	
+{
 	if (lst)
 	{
 		if (!lst || !new)

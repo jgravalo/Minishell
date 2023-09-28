@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 11:07:25 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/05/29 13:41:19 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 09:32:06 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static char	*create_string(char *tmp, char c, size_t n)
 	len = ft_get_strchr(tmp, c, n);
 	string = (char *)malloc(sizeof (char) * (len + 1));
 	if (!string)
-	{	
+	{
 		free (string);
 		string = NULL;
 		return (NULL);
@@ -78,7 +78,7 @@ static char	*create_nullstring(char **tmp, char *line)
 	len = ft_get_strlen(*tmp);
 	line = (char *)malloc(sizeof (char) * (len + 1));
 	if (!line)
-	{	
+	{
 		free (line);
 		line = NULL;
 		free (*tmp);
@@ -92,7 +92,7 @@ static char	*create_nullstring(char **tmp, char *line)
 }
 
 char	*get_next_line(int fd)
-{	
+{
 	int				bytes;
 	char			buf[BUFFER_SIZE];
 	static char		*tmp;
@@ -100,7 +100,7 @@ char	*get_next_line(int fd)
 
 	line = NULL;
 	while (1)
-	{	
+	{
 		bytes = read(fd, buf, BUFFER_SIZE);
 		if ((bytes == 0 && tmp == NULL) || bytes == -1)
 			return (tmp = ft_get_free(tmp));

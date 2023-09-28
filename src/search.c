@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   search.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:41:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 19:17:10 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/28 09:38:13 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static char	*get_path(char **docs, char *cmd)
 	if ((cmd[0] == '.' && cmd[1] == '/') || cmd[0] == '/' || !docs)
 		return (cmd);
 	while (docs[i])
-	{	
+	{
 		ptr = docs[i];
 		tmp = ft_strjoin(docs[i], "/");
 		docs[i] = ft_strjoin(tmp, cmd);

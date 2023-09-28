@@ -6,14 +6,14 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 09:54:31 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/05/29 13:19:45 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 09:36:03 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
 size_t	ft_printchar(char c)
-{	
+{
 	size_t	n;
 
 	n = 0;

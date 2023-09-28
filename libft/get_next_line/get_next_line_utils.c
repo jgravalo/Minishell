@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 11:07:42 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/06/02 19:59:29 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/28 09:31:54 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_get_strlcpy(char *dst, const char *src,
 }
 
 size_t	ft_get_strchr(const char *s, int c, int n)
-{	
+{
 	int			i;
 
 	i = 0;
@@ -65,7 +65,7 @@ size_t	ft_get_strchr(const char *s, int c, int n)
 }
 
 static char	*ft_get_strdup(const char *s1, size_t n, char *tmp)
-{	
+{
 	tmp = (char *)malloc(sizeof (char) * (n + 1));
 	if (!tmp)
 		return (NULL);

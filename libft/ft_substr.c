@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:07:12 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/05/11 08:28:14 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 09:32:15 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static size_t	ft_substrlen(const char *s, unsigned start, size_t len)
 }
 
 static char	*ft_null_string(void)
-{	
+{
 	char	*substr;
 
 	substr = (char *)malloc(1);

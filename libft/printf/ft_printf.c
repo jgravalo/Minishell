@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 09:23:33 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/05/29 13:19:49 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 09:36:02 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdarg.h>
 
 size_t	check_conversions(va_list args, char const *str)
-{	
+{
 	++str;
 	if (*str == 'c')
 		return (ft_printchar(va_arg(args, int)));
@@ -40,7 +40,7 @@ size_t	check_conversions(va_list args, char const *str)
 }
 
 int	ft_printf(char const *str, ...)
-{	
+{
 	size_t	n;
 	va_list	args;
 	size_t	total;
@@ -51,7 +51,7 @@ int	ft_printf(char const *str, ...)
 		return (-1);
 	va_start(args, str);
 	while (*str)
-	{	
+	{
 		if (*str == '%')
 		{
 			n = check_conversions(args, str);

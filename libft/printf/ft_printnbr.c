@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 09:55:57 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/05/29 13:20:02 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 09:35:59 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 
 static size_t	ft_num_len(long number)
-{	
+{
 	size_t	len;
 
 	len = 1;

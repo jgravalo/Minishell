@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:05:01 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/05/10 10:00:42 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 09:32:35 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static int	ft_strncmp(const char *s1, const char *s2, size_t len)
 	{
 		if (s1[i] != s2[i])
 			return (1);
-	i++;
-	len--;
+		i++;
+		len--;
 	}
 	if (s2[i] != '\0')
 		return (1);
@@ -43,7 +43,7 @@ static int	ft_strncmp(const char *s1, const char *s2, size_t len)
 }
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
-{	
+{
 	size_t	needle_len;
 
 	needle_len = ft_strlen(needle);
