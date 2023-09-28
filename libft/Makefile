@@ -1,3 +1,4 @@
+MAKEFLAGS += --no-print-directory
 NAME = libft.a
 
 SRCS =  ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
@@ -35,7 +36,7 @@ all: $(NAME)
 $(NAME) : $(OBJS) $(PRINT_OBJS) $(GET_OBJS)
 	ar rcs $(NAME) $(OBJS) $(PRINT_OBJS)  $(GET_OBJS)
 
-%.o : %.c ./libft.h
+%.o : %.c ./libft.h Makefile
 	gcc -c  $(CFLAGS) $< -o $@
 
 clean:

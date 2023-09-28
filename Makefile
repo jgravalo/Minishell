@@ -1,3 +1,4 @@
+MAKEFLAGS += --no-print-directory
 NAME		= minishell
 
 LIBFT_DIR	= libft
@@ -44,13 +45,13 @@ all: make_libft	$(NAME)
 $(NAME): $(M_OBJS) $(BUILT_OBJS) $(UTILS_OBJS) $(GNL_OBJS) $(LIBFT) inc/minishell.h
 	$(CC) -g $(CFLAGS) $(M_OBJS) $(BUILT_OBJS) $(UTILS_OBJS) -o $(NAME) $(LFLAGS) $(LRFLAG) -L$(LIBFT_DIR) -lft
 
-$(OBJECTS_DIR)/%.o : src/%.c inc/minishell.h  | $(OBJECTS_DIR)
+$(OBJECTS_DIR)/%.o : src/%.c inc/minishell.h  Makefile | $(OBJECTS_DIR)
 	$(CC) -c $(CFLAGS)  $< -o $@ -I ~/.brew/opt/readline/include
 
-$(OBJECTS_DIR)/%.o : src/built-ins/%.c  inc/builtins.h | $(OBJECTS_DIR)
+$(OBJECTS_DIR)/%.o : src/built-ins/%.c  inc/builtins.h Makefile| $(OBJECTS_DIR)
 	$(CC) -c $(CFLAGS)  $< -o $@
 
-$(OBJECTS_DIR)/%.o : src/utils/%.c inc/utils.h | $(OBJECTS_DIR)
+$(OBJECTS_DIR)/%.o : src/utils/%.c inc/utils.h Makefile | $(OBJECTS_DIR)
 	$(CC) -c $(CFLAGS)  $< -o $@
 
 $(OBJECTS_DIR) :
