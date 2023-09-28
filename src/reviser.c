@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 14:23:44 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/27 17:09:34 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 16:52:14 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,9 @@ int	reviser(t_tok *tok, t_shell *sh)
 	int	redir;
 
 	redir = 0;
-	pipe = 1;
+	pipe = 0;
+	if (tok)
+		pipe = 1;
 	if (reviser_loop(tok, &redir, &pipe) != 0)
 		return (258);
 	if (redir == 1)
