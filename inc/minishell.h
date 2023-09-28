@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 19:30:20 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/28 09:24:26 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,11 +165,7 @@ int		is_redir(char *str);
 
 int		is_meta(char c);
 
-int		words(const char *s, char c);
-
 void	parent_close(t_shell *shell);
-
-void	parent_close_but_one(t_shell *shell);
 
 void	create_pipes(t_shell *sh);
 
@@ -242,8 +238,6 @@ void	write_heredoc_eof(int start_line, char *delimiter);
 /*ERRORS*/
 
 void	access_dir(void);
-
-int		args_error(void);
 
 void	free_sh(t_shell *sh);
 

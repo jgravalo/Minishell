@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 20:10:10 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/28 09:19:41 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ int	cd(t_shell *sh, t_cmd **cmd, int i)
 	char	*dir;
 
 	sh->cd_last = 0;
-	if (count_arr(cmd[i]->args) > 2)
-		return (args_error());
 	dir = get_dir(sh, cmd, i);
 	if (!dir)
 		return (sh->exit);

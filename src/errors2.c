@@ -3,21 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   errors2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 20:51:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/19 08:14:41 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/28 09:20:07 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include "../inc/utils.h"
-
-int	args_error(void)
-{
-	write(2, "bash: cd: too many arguments\n", 29);
-	return (1);
-}
 
 int	is_dir_error(char *str, int exit)
 {
