@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_envp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:27:15 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 19:32:41 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/28 08:55:16 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	get_shlvl(t_shell *sh)
 {
 	int		shlvl;
 
+	sh->tmp = NULL;
 	if (getenv("SHLVL") != NULL)
 	{
 		shlvl = ft_atoi(getenv("SHLVL"));

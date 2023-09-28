@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:16:59 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/27 19:36:13 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/28 08:53:33 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,22 +101,3 @@ char	*ft_itoa(int n)
 	}
 	return (str);
 }
-/*
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-
-int main(void)
-{	
-	srand(clock());
- 	int n;
- 	char *d;
-
-
- 	n = 353808604;
- 	d = ft_itoa(n);
-	printf("string from itoa is: %s\n", d);
-	free(d);
-	
-}
-*/

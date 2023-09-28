@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:29:42 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/27 17:04:33 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 09:06:00 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,3 @@ char	*ft_strdup(char *str)
 	new[i] = '\0';
 	return (new);
 }
-/*
-#include <stdio.h>
-
-int main(void)
-{
-    char *str;
-	char *dup;
-
-    str = "Hola";
-    dup = ft_strdup(str);
-	printf("%s", dup);
-   
-}
-*/

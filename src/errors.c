@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 16:56:43 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/18 10:54:43 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/28 08:57:27 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	cmd_error(char *s, int n, int exit)
 
 	tmp = ft_strjoin(s, ": ");
 	str = ft_strjoin(tmp, strerror(n));
-	write(2, "bash: ", 7);
+	write(2, "bash: ", 6);
 	write(2, str, ft_strlen(str));
 	write(2, "\n", 1);
 	free(tmp);
@@ -52,9 +52,9 @@ int	dir_error(char *s, int n, int exit)
 
 void	filedir_not_found(char *cmd)
 {
-	write(2, "bash: ", 7);
+	write(2, "bash: ", 6);
 	write(2, cmd, ft_strlen(cmd));
-	write(2, ": No such file or directory", 28);
+	write(2, ": No such file or directory", 27);
 	write(2, "\n", 1);
 	exit (127);
 }

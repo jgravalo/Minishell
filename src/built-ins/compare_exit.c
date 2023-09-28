@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:01:06 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 10:33:19 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 09:08:51 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static int	compare(int *number, int *long_compare, int n)
 			return (0);
 		else
 			i++;
+		n--;
 	}
 	return (0);
 }
