@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_envp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:27:15 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/28 09:39:56 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/01 11:03:15 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,11 @@ void	alloc_envp(t_shell *sh, char **envp)
 	char	buffer[100];
 
 	sh->envp = (char **)malloc(sizeof (char *) * (count_arr(envp) + 1));
+	if (!sh->envp)
+	{
+		perror("malloc failed; ");
+		return ;
+	}
 	i = 0;
 	while (envp[i])
 	{

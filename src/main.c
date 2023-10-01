@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:26:52 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 12:03:55 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/01 11:02:39 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int argc, char **argv, char **envp)
 	sh.line_number = 1;
 	sh.exit = 0;
 	alloc_envp(&sh, envp);
-	if (!argc && !argv && !envp)
+	if (!argc && !argv && !sh.envp)
 		return (0);
 	new_shell(&sh);
 	free_m(sh.envp);

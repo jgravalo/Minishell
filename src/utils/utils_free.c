@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utils_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 12:16:05 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/26 19:31:20 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/30 12:15:57 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/utils.h"
+#include "../../libft/libft.h"
 
 void	tokclear(t_tok **lst)
 {
