@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_aux.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 09:08:34 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 20:10:38 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/02 15:25:55 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static char	*copy_back_dir(char *str, int count)
 
 	dir = malloc(sizeof (char) * count + 1);
 	ft_strlcpy(dir, str, count + 1);
+	free(str);
 	return (dir);
 }
 
@@ -60,22 +61,22 @@ static char	*get_back_dir(char *str)
 	return (copy_back_dir(str, i));
 }
 
-char	*cd_back(t_shell *sh, t_cmd **cmd, int i)
+char	*cd_back(char *dir)
 {
 	char	*tmp;
 	char	buf[100];
 
-	sh->old_pwd = ft_strdup(cmd[i]->args[1]);
-	tmp = ft_strjoin(getcwd(buf, 100), "/");
-	cmd[i]->args[1] = get_back_dir(tmp);
-	free(tmp);
-	return (cmd[i]->args[1]);
+	free(dir);
+	tmp = ft_strjoin(getcwd(buf, 200), "/");
+	tmp = get_back_dir(tmp);
+	return (tmp);
 }
 
-char	*cd_last(t_shell *sh, t_cmd **cmd, int i)
+char	*cd_last(t_shell *sh, char *dir)
 {
 	char	*tmp;
 
+	free(dir);
 	if (search_var_line("OLDPWD", sh->envp) == NULL)
 	{
 		write(2, "bash: cd: OLDPWD not set\n", 25);
@@ -86,7 +87,5 @@ char	*cd_last(t_shell *sh, t_cmd **cmd, int i)
 	if (!tmp)
 		tmp = ft_strdup(sh->old_pwd);
 	sh->cd_last = 1;
-	cmd[i]->args[1] = ft_strdup(tmp);
-	free(tmp);
-	return (cmd[i]->args[1]);
+	return (tmp);
 }

@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/28 09:19:41 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/02 15:26:31 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 static void	update_pwd(t_shell *sh, int error, char *dir)
 {
 	char	buffer[100];
-
+	char	*tmp;
+	tmp = ft_strdup(search_var_line("PWD", sh->envp));
 	if (!error)
 	{
 		if (search_var_line("OLDPWD", sh->envp)
@@ -25,17 +26,15 @@ static void	update_pwd(t_shell *sh, int error, char *dir)
 		if (search_var_line("OLDPWD", sh->envp) == NULL
 			&& search_var_line("PWD", sh->envp))
 			ft_export(sh, "OLDPWD");
-		change_var(sh, "OLDPWD", ft_strdup(search_var_line("PWD", sh->envp)));
-		change_var(sh, "PWD", getcwd(buffer, 100));
-		sh->pwd = ft_strdup(getcwd(buffer, 100));
-		sh->old_pwd = ft_strdup(search_var_line("PWD", sh->envp));
+		change_var(sh, "OLDPWD", tmp);
+		change_var(sh, "PWD", getcwd(buffer, 200));
 	}
 	else
-	{
-		change_var(sh, "OLDPWD", ft_strdup(search_var_line("PWD", sh->envp)));
+	{	
+		change_var(sh, "OLDPWD", tmp);
 		change_var(sh, "PWD", dir);
-		sh->pwd = ft_strdup(dir);
 	}
+	free(tmp);
 }
 
 static char	*get_dir(t_shell *sh, t_cmd **cmd, int i)
@@ -49,9 +48,9 @@ static char	*get_dir(t_shell *sh, t_cmd **cmd, int i)
 	else if (ft_strlen(dir) == 0)
 		return (NULL);
 	else if (dir[0] != '/' && ft_strcmp(dir, "..") == 0)
-		dir = cd_back(sh, cmd, i);
+		dir = cd_back(dir);
 	else if (ft_strcmp(dir, "-") == 0)
-		dir = cd_last(sh, cmd, i);
+		dir = cd_last(sh, dir);
 	else if (ft_strcmp(dir, ".") == 0)
 	{
 		dir = ft_strdup(getcwd(buffer, 100));
@@ -80,5 +79,7 @@ int	cd(t_shell *sh, t_cmd **cmd, int i)
 	if (sh->cd_last)
 		printf("%s\n", dir);
 	update_pwd(sh, 0, NULL);
+	free(dir);
+	dir = NULL;
 	return (0);
 }

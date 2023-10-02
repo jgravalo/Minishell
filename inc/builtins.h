@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:03:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/28 09:24:25 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/02 15:26:03 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int		write_not_valid(char *var);
 
 char	*cd_home(t_shell *sh, t_cmd **cmd, int i);
 
-char	*cd_back(t_shell *sh, t_cmd **cmd, int i);
+char	*cd_back(char *dir);
 
-char	*cd_last(t_shell *sh, t_cmd **cmd, int i);
+char	*cd_last(t_shell *sh, char *dir);
 
 #endif

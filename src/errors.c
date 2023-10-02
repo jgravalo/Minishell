@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 16:56:43 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/28 08:57:27 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/02 15:28:13 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	dir_error(char *s, int n, int exit)
 	write(2, "\n", 1);
 	free(tmp);
 	free(str);
+	free(s);
 	return (exit);
 }
 
