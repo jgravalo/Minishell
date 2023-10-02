@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_n.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:13:28 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/27 20:12:10 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/02 14:55:57 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ static int	replace_existing(char *line, t_shell *sh)
 		i++;
 	}
 	new[i] = NULL;
-	free(sh->envp);
+	free(var);
+	free_m(sh->envp);
 	sh->envp = new;
 	return (0);
 }

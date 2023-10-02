@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:22:59 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/30 12:16:21 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/02 14:57:05 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,10 @@ int	is_existing(char *line, char **envp)
 {
 	int		i;
 	char	*var;
+	int		ret;
 
 	i = 0;
+	ret = 0;
 	while (line[i] != '+' && line[i] != '=' && line[i] != '\0')
 		i++;
 	var = ft_substr(line, 0, i);
@@ -66,14 +68,15 @@ int	is_existing(char *line, char **envp)
 		if (ft_varcmp(var, envp[i], ft_strlen(var)) == 0)
 		{
 			if (ft_strchr(envp[i], '=') != NULL && ft_strchr(line, '=') == NULL)
-				return (1);
+				ret = 1;
 			else
-				return (2);
+				ret = 2;
+			break ;
 		}
 		i++;
 	}
-	free (var);
-	return (0);
+	free(var);
+	return (ret);
 }
 
 int	ft_varcmp(const char *s1, const char *s2, size_t n)

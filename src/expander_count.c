@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:23:42 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 10:40:00 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/02 15:01:03 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static int	check_double(char *str, int *count, int *i, char **envp)
 					(*count)++;
 				else
 					(*count) += ft_strlen(search_var_line(var, envp));
+				free(var);
 			}
 			else
 				move_ptrs(i, count);
@@ -89,6 +90,8 @@ static int	check_normal(char *str, int *count, int *i, char **envp)
 				(*count)++;
 			else
 				(*count) += ft_strlen(search_var_line(var, envp));
+			if (var)
+				free(var);
 		}
 		else if (str[*i] == '$' && (str[*i + 1] == '\''
 				|| str[*i + 1] == '\"'))

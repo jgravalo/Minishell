@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 11:52:10 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/02 14:42:21 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ static int	check_null(char *str)
 int	shell_body(t_shell *sh)
 {
 	lexer(sh, sh->readline);
+	if (!sh->tok)
+		return (1);
 	categorizer(sh->tok);
 	if (reviser(sh->tok, sh) != 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:41:49 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 10:40:14 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/02 15:01:21 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,16 @@
 static void	add_arg_node(t_shell *sh, t_cmd *cmd)
 {
 	char	*aux;
+	char	*tmp;
 
 	if (sh->var_cat)
 	{
-		aux = ft_strjoin(arglast(cmd->arg_x)->arg, ft_strdup(sh->tmp));
+		tmp = ft_strdup(sh->tmp);
+		aux = ft_strjoin(arglast(cmd->arg_x)->arg, tmp);
+		free(arglast(cmd->arg_x)->arg);
 		arglast(cmd->arg_x)->arg = ft_strdup(aux);
 		free(aux);
+		free(tmp);
 	}
 	else
 		argback(&(cmd->arg_x), argnew(ft_strdup(sh->tmp)));

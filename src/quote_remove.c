@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_remove.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 09:18:07 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 10:26:29 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/02 14:57:41 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	count_quotes(t_shell *shell, char *str)
 			i++;
 			while (i != ptr->end)
 				i++;
-			i++;
+			return (count);
 		}
 		else
 			i++;

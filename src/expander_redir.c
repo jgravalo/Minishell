@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:43:41 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 11:51:55 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/02 15:00:55 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@
 static void	add_redir_node(t_shell *sh, t_cmd *cmd, t_redir *ptr)
 {
 	char	*aux;
+	char	*tmp;
 
 	if (sh->var_cat)
 	{
-		aux = ft_strjoin(arglast(cmd->red_x->arg)->arg, ft_strdup(sh->tmp));
+		tmp = ft_strdup(sh->tmp);
+		aux = ft_strjoin(arglast(cmd->red_x->arg)->arg, tmp);
 		arglast(cmd->red_x->arg)->arg = ft_strdup(aux);
 		free(aux);
+		free(tmp);
 	}
 	else
 	{

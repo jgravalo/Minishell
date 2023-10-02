@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_string.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:36:44 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 19:29:51 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/02 14:59:47 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ static void	double_aux(char *str, int *i, int *j, t_shell *sh)
 		exp = ft_strdup(search_var_line(var, sh->envp));
 	while (exp && exp[m])
 		sh->tmp[(*i)++] = exp[m++];
-	if (exp)
-		free(exp);
+	free(var);
+	free(exp);
 }
 
 static void	check_double(char *str, int *i, int *j, t_shell *sh)
@@ -89,6 +89,8 @@ static void	check_normal(char *str, int *i, int *j, t_shell *sh)
 				exp = ft_strdup(search_var_line(var, sh->envp));
 			while (exp && exp[m])
 				sh->tmp[(*i)++] = exp[m++];
+			free(var);
+			free(exp);
 		}
 		else if (str[*i] == '$' && (str[*i + 1] == '\''
 				|| str[*i + 1] == '\"'))

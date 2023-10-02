@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_aux.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:27:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 10:20:33 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/02 15:01:17 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,15 @@ void	check_quoted(t_shell *sh, int *len)
 
 void	copy_and_remove_quotes(t_shell *sh, int size, char *str, int *cpy)
 {
+	t_quote	*ptr;
+
 	sh->tmp = (char *)malloc(sizeof (char) * size);
 	copy_exp(sh->tmp, str, cpy, size);
 	if (sh->var_quoted)
 	{
+		ptr = sh->quote->next;
 		sh->tmp = remove_quotes(sh, sh->tmp);
-		sh->quote = sh->quote->next;
+		free(sh->quote);
+		sh->quote = ptr;
 	}
 }
