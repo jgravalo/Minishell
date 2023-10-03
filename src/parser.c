@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:40:11 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/03 17:22:39 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:30:33 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ static void	word(t_tok *tok, t_cmd **cmd, int j)
 
 	printf("entra en word\n");
 	tmp = ft_strdup(tok->tok);
-	if (!tmp)
-		exit(1);
+	check_malloc_error(tmp);
 	if (argback(&(cmd[j]->arg), argnew(tmp)))
 		exit(1);
 }
@@ -35,8 +34,7 @@ static	t_tok	*redir_aux(t_tok *tok, t_cmd **cmd, int j)
 	if (redirback(&(cmd[j]->red), redirnew(redir)))
 		exit(1);
 	tmp = ft_strdup(tok->tok);
-	if (!tmp)
-		exit(1);
+	check_malloc_error(tmp);
 	if (argback(&(redirlast(cmd[j]->red)->arg), argnew(tmp)))
 		exit(1);
 	return (tok);
@@ -67,8 +65,7 @@ void	parser(t_shell *sh)
 
 	n = count_pipes(sh, sh->tok);
 	sh->s_cmd = malloc(sizeof (t_cmd *) * (n + 2));
-	if (!sh->s_cmd)
-		exit(1);
+	check_malloc_error(sh->s_cmd);
 	init(sh->s_cmd, n + 1);
 	parse(sh->tok, sh->s_cmd);
 }

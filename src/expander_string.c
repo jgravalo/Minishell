@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:36:44 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/02 14:59:47 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:29:45 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ char	*expand_str(t_shell *sh, t_arg *arg, int *i, int *j)
 	if (len > 0)
 	{
 		sh->tmp = malloc(sizeof (char) * len + 1);
+		check_malloc_error(sh->tmp);
 		while (arg->arg[*j])
 		{
 			check_single(arg->arg, &n, j, sh);
