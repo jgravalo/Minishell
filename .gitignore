@@ -1,5 +1,6 @@
 minishell-tester/
 minishell_tester/
+minishell.dSYM
 obj/
 minishell
 test

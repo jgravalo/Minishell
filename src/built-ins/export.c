@@ -6,52 +6,13 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:59:28 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/03 09:54:56 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/03 10:05:22 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/utils.h"
 #include "../../inc/builtins.h"
 #include "../../libft/libft.h"
-
-char	*for_equal(char *var)
-{
-	char	*new;
-	int		i;
-	int		j;
-	int		flag;
-
-	flag = 0;
-	j = 0;
-	i = 0;
-	new = malloc(sizeof (char) * (ft_strlen(var) + 3));
-	while (var[j])
-	{
-		if (flag == 0 && var[j] == '=')
-		{
-			new[i++] = var[j++];
-			new[i++] = '\"';
-			flag = 1;
-		}
-		else
-			new[i++] = var[j++];
-	}
-	new[i++] = '\"';
-	new[i] = '\0';
-	return (new);
-}
-
-static char	*put_var(char *var)
-{
-	char	*new;
-
-	if (ft_strchr(var, '=') != NULL)
-	{
-		new = for_equal(var);
-		return (new);
-	}
-	return (NULL);
-}
 
 static void	print_env(char **envp, int *order)
 {
@@ -63,23 +24,13 @@ static void	print_env(char **envp, int *order)
 	i = 0;
 	count = 0;
 	n = count_arr(envp);
+	var = NULL;
 	while (n > 0)
 	{
 		while (order[i] != count)
 			i++;
 		if (ft_strncmp(envp[i], "_=", 2) != 0)
-		{
-			var = put_var(envp[i]);
-			write(1, "declare -x ", 11);
-			if (!var)
-				write(1, envp[i], ft_strlen(envp[i]));
-			else
-			{
-				write(1, var, ft_strlen(var));
-				free(var);
-			}
-			write(1, "\n", 1);
-		}
+			write_var(var, envp, i);
 		i = 0;
 		count++;
 		n--;

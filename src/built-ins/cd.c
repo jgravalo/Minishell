@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/02 15:26:31 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/03 09:59:48 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	update_pwd(t_shell *sh, int error, char *dir)
 {
 	char	buffer[100];
 	char	*tmp;
+
 	tmp = ft_strdup(search_var_line("PWD", sh->envp));
 	if (!error)
 	{
@@ -30,7 +31,7 @@ static void	update_pwd(t_shell *sh, int error, char *dir)
 		change_var(sh, "PWD", getcwd(buffer, 200));
 	}
 	else
-	{	
+	{
 		change_var(sh, "OLDPWD", tmp);
 		change_var(sh, "PWD", dir);
 	}

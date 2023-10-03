@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:03:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/02 15:26:03 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/03 10:03:34 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int		unset(t_shell *sh, t_cmd **cmd, int i);
 int		export(t_shell *sh, t_cmd **cmd, int i);
 
 int		export_n(char *var, t_shell *sh);
+
+void	write_var(char *var, char **envp, int i);
 
 char	*add_without_plus(char *var);
 
