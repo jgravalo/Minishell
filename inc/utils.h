@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 09:29:58 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/03 15:54:54 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:58:32 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		argclear(t_arg **lst);
 
 t_redir		*redirnew(int type);
 
-void		redirback(t_redir **lst, t_redir *new);
+int			redirback(t_redir **lst, t_redir *new);
 
 t_redir		*redirlast(t_redir *lst);
 

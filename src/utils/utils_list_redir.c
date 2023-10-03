@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_list_redir.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:59:28 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 10:30:48 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/03 15:58:56 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,22 @@ t_redir	*redirnew(int type)
 	return (node);
 }
 
-void	redirback(t_redir **lst, t_redir *new)
+int	redirback(t_redir **lst, t_redir *new)
 {
 	t_redir	*curr;
 
-	if (!lst || !new)
-		return ;
+	if (!new)
+		return (1);
+	if (!lst)
+		return (2);
 	if (*lst == NULL)
 	{
 		*lst = new;
-		return ;
+		return (0);
 	}
 	curr = redirlast(*lst);
 	curr->next = new;
+	return (0);
 }
 
 t_redir	*redirlast(t_redir *lst)

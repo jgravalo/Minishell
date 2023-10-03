@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:40:11 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/03 15:56:31 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/03 16:03:25 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,30 @@ static void	word(t_tok *tok, t_cmd **cmd, int j)
 		exit(1);
 }
 
+static void	redir_aux(t_tok *tok, t_cmd **cmd, int j)
+{	
+	int	redir;
+
+	redir = redir_type(tok);
+	tok = tok->next;
+	if (redirback(&(cmd[j]->red), redirnew(redir)))
+		exit(1);
+	if (argback(&(redirlast(cmd[j]->red)->arg),
+		argnew(ft_strdup(tok->tok))))
+		exit(1);		
+}
+
 static void	parse(t_tok *tok, t_cmd **cmd)
 {
 	int	j;
-	int	redir;
 
 	j = 0;
-	redir = 0;
 	while (tok)
 	{
 		if (ft_strcmp(tok->type, "WORD") == 0)
 			word(tok, cmd, j);
 		else if (ft_strcmp(tok->type, "REDIR") == 0)
-		{
-			redir = redir_type(tok);
-			tok = tok->next;
-			redirback(&(cmd[j]->red), redirnew(redir));
-			argback(&(redirlast(cmd[j]->red)->arg),
-				argnew(ft_strdup(tok->tok)));
-		}
+			redir_aux(tok, cmd, j);
 		else
 			j++;
 		tok = tok->next;
