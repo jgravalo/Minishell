@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:40:11 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/03 17:30:33 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/03 18:38:11 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void	word(t_tok *tok, t_cmd **cmd, int j)
 {
 	char	*tmp;
 
-	printf("entra en word\n");
 	tmp = ft_strdup(tok->tok);
 	check_malloc_error(tmp);
 	if (argback(&(cmd[j]->arg), argnew(tmp)))
