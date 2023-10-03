@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 09:29:58 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 19:28:50 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/03 13:56:04 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 t_tok		*toknew(void *content);
 
-void		tokback(t_tok **lst, t_tok *new);
+int			tokback(t_tok **lst, t_tok *new);
 
 t_tok		*toklast(t_tok *lst);
 

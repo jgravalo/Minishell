@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_list_tok.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:56:04 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 10:30:52 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/03 14:00:03 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,22 @@ t_tok	*toknew(void *content)
 	return (node);
 }
 
-void	tokback(t_tok **lst, t_tok *new)
+int	tokback(t_tok **lst, t_tok *new)
 {
 	t_tok	*curr;
 
-	if (!lst || !new)
-		return ;
+	if (!new)
+		return (1);
+	if (!lst)
+		return (2);
 	if (*lst == NULL)
 	{
 		*lst = new;
-		return ;
+		return (2);
 	}
 	curr = toklast(*lst);
 	curr->next = new;
+	return (0);
 }
 
 t_tok	*toklast(t_tok *lst)
