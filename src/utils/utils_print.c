@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_print.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:48:54 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 19:53:32 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/03 17:18:26 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	ft_printcmd(t_cmd **cmd)
 	i = 0;
 	while (cmd[i])
 	{
-		printf("args son:\n");
 		ft_printarglist(cmd[i]->arg);
 		ft_printredirlist(cmd[i]->red);
 		i++;
