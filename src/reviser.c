@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 14:23:44 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/28 16:52:14 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/10/03 14:12:29 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@ int	sintax_error(char *s)
 	return (258);
 }
 
+static void	loop_empty(char *line)
+{
+	while (ft_strcmp(line, "") == 0)
+	{
+		free(line);
+		line = readline("> ");
+	}
+}
+
 int	search_pipe(t_shell *sh)
 {
 	char	*line;
@@ -28,15 +37,14 @@ int	search_pipe(t_shell *sh)
 	char	*tmp2;
 
 	line = ft_strdup("");
-	while (ft_strcmp(line, "") == 0)
-	{
-		free(line);
-		line = readline("> ");
-	}
+	check_malloc_error(line);
+	loop_empty(line);
 	if (!line)
 		return (258);
 	tmp = ft_strjoin(" ", line);
+	check_malloc_error(tmp);
 	tmp2 = ft_strjoin(sh->readline, tmp);
+	check_malloc_error(tmp2);
 	free(line);
 	free(sh->readline);
 	sh->readline = tmp2;

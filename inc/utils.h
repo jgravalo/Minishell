@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 09:29:58 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/03 13:56:04 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/03 14:09:16 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,7 @@ int			is_digit(char c);
 int			is_alpha(char c);
 
 int			is_alpha_num(char c);
+
+void		check_malloc_error(void *ptr);
 
 #endif

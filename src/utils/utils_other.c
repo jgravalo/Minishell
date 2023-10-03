@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:16:39 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 16:51:34 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/03 14:12:21 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,10 @@ int	count_arr(char **args)
 		i++;
 	}
 	return (i);
+}
+
+void	check_malloc_error(void *ptr)
+{
+	if (!ptr)
+		exit(1);
 }
