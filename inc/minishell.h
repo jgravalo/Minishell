@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/03 13:42:26 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:52:45 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,5 +243,11 @@ void	access_dir(void);
 void	free_sh(t_shell *sh);
 
 int		is_dir_error(char *str, int exit);
+
+int		count_pipes(t_shell *sh, t_tok *tok);
+
+int		redir_type(t_tok *tok);
+
+void	init(t_cmd **cmd, int n);
 
 #endif

@@ -17,7 +17,7 @@ M_SRCS		= $(addprefix src/, alloc_envp.c builtin.c categorizer.c errors.c errors
 			  execute.c  execute_heredoc.c execute_heredoc_aux.c  execute_redir.c execute_pipes.c  \
 			  expander.c expander_arg.c expander_redir.c expander_string.c  expander_count.c \
 			  expander_aux.c   lexer.c lexer_count.c  lexer_len.c lexer_count_aux.c \
-			  main.c  minishell.c  parent.c parser.c pipes.c  quote_remove.c  \
+			  main.c  minishell.c  parent.c parser.c parser_aux.c pipes.c  quote_remove.c  \
 			  search.c  set_argv.c  syntax_errors.c reviser.c)
  
 BUILT_SRCS	= $(addprefix $(BUILT_DIRS)/, echo.c cd.c cd_aux.c export.c unset.c env.c pwd.c export_aux.c export_n.c exit.c \

@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:56:04 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/03 14:00:03 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:55:45 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	tokback(t_tok **lst, t_tok *new)
 	if (*lst == NULL)
 	{
 		*lst = new;
-		return (2);
+		return (0);
 	}
 	curr = toklast(*lst);
 	curr->next = new;

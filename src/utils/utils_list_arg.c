@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_list_arg.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:54:32 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 10:30:25 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/03 15:55:40 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,22 @@ t_arg	*argnew(void *content)
 	return (node);
 }
 
-void	argback(t_arg **lst, t_arg *new)
+int	argback(t_arg **lst, t_arg *new)
 {
 	t_arg	*curr;
 
-	if (!lst || !new)
-		return ;
+	if (!new)
+		return (1);
+	if (!lst)
+		return (2);
 	if (*lst == NULL)
 	{
 		*lst = new;
-		return ;
+		return (0);
 	}
 	curr = arglast(*lst);
 	curr->next = new;
+	return (0);
 }
 
 t_arg	*arglast(t_arg *lst)

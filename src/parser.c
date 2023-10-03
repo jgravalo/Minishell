@@ -6,57 +6,22 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:40:11 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 10:37:42 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:56:31 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include "../inc/utils.h"
 
-static int	count_pipes(t_shell *sh, t_tok *tok)
+static void	word(t_tok *tok, t_cmd **cmd, int j)
 {
-	int	count;
+	char	*tmp;
 
-	count = 0;
-	while (tok)
-	{
-		if (ft_strcmp(tok->type, "PIPE") == 0)
-			count++;
-		tok = tok->next;
-	}
-	sh->pipes = count;
-	return (count);
-}
-
-static int	redir_type(t_tok *tok)
-{
-	if (ft_strcmp(tok->tok, "<") == 0)
-		return (IN);
-	if (ft_strcmp(tok->tok, ">") == 0)
-		return (OUT);
-	if (ft_strcmp(tok->tok, ">>") == 0)
-		return (APPEND);
-	if (ft_strcmp(tok->tok, "<<") == 0)
-		return (HERE);
-	return (-1);
-}
-
-static void	init(t_cmd **cmd, int n)
-{
-	int	i;
-
-	i = 0;
-	while (i < n)
-	{
-		cmd[i] = malloc(sizeof (t_cmd));
-		cmd[i]->red = NULL;
-		cmd[i]->red_x = NULL;
-		cmd[i]->arg = NULL;
-		cmd[i]->arg_x = NULL;
-		cmd[i]->args = NULL;
-		i++;
-	}
-	cmd[i] = NULL;
+	tmp = ft_strdup(tok->tok);
+	if (!tmp)
+		exit(1);
+	if (argback(&(cmd[j]->arg), argnew(ft_strdup(tok->tok))))
+		exit(1);
 }
 
 static void	parse(t_tok *tok, t_cmd **cmd)
@@ -69,7 +34,7 @@ static void	parse(t_tok *tok, t_cmd **cmd)
 	while (tok)
 	{
 		if (ft_strcmp(tok->type, "WORD") == 0)
-			argback(&(cmd[j]->arg), argnew(ft_strdup(tok->tok)));
+			word(tok, cmd, j);
 		else if (ft_strcmp(tok->type, "REDIR") == 0)
 		{
 			redir = redir_type(tok);

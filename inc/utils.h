@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 09:29:58 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/03 14:09:16 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:54:54 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_arg		*argnew(void *content);
 
 t_arg		*arglast(t_arg *lst);
 
-void		argback(t_arg **lst, t_arg *new);
+int			argback(t_arg **lst, t_arg *new);
 
 int			argsize(t_arg *lst);
 
