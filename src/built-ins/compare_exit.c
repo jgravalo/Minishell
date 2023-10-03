@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   compare_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:01:06 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/28 09:08:51 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/03 09:38:17 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,23 +66,42 @@ static int	compare(int *number, int *long_compare, int n)
 	return (0);
 }
 
+static int	compare_aux(char *argument, char *long_compare)
+{
+	if (count_numbers(argument) > count_numbers(long_compare))
+	{
+		free(long_compare);
+		return (1);
+	}
+	if (count_numbers(argument) < count_numbers(long_compare))
+	{
+		free(long_compare);
+		return (0);
+	}
+	return (-1);
+}
+
 int	compare_exit(char *argument)
 {
 	int		*number;
 	int		*long_array;
 	char	*long_compare;
+	int		ret;
 
 	if (argument[0] == '-')
 		long_compare = ft_strdup("9223372036854775808");
 	else
 		long_compare = ft_strdup("9223372036854775807");
-	if (count_numbers(argument) > count_numbers(long_compare))
-		return (1);
-	if (count_numbers(argument) < count_numbers(long_compare))
-		return (0);
+	ret = compare_aux(argument, long_compare);
+	if (ret == 0 || ret == 1)
+		return (ret);
 	number = malloc(sizeof (int) * count_numbers(argument));
 	long_array = malloc(sizeof (int) * count_numbers(long_compare));
 	set_numbers(number, argument);
 	set_numbers(long_array, long_compare);
-	return (compare(number, long_array, count_numbers(long_compare)));
+	ret = compare(number, long_array, count_numbers(long_compare));
+	free(long_compare);
+	free(long_array);
+	free(number);
+	return (ret);
 }

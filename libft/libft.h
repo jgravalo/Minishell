@@ -6,13 +6,14 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 09:35:45 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/30 12:17:44 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/03 09:24:40 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include "../inc/minishell.h"
 # include <stddef.h>
 # include <stdarg.h>
 # include <stdint.h>

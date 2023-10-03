@@ -13,8 +13,6 @@ CC			= gcc
 
 OBJECTS_DIR = obj
 
-CFLAGS		= -Wall -Werror -Wextra -I inc/
-
 M_SRCS		= $(addprefix src/, alloc_envp.c builtin.c categorizer.c errors.c errors2.c free_sh.c \
 			  execute.c  execute_heredoc.c execute_heredoc_aux.c  execute_redir.c execute_pipes.c  \
 			  expander.c expander_arg.c expander_redir.c expander_string.c  expander_count.c \
@@ -37,6 +35,8 @@ UTILS_OBJS	= $(patsubst src/utils/%.c, $(OBJECTS_DIR)/%.o, $(UTILS_SRCS))
 LFLAGS		= -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include
 
 LRFLAG		= -lreadline
+
+CFLAGS		= -Wall -Werror -Wextra -I inc/
 
 RM			= rm -f
 

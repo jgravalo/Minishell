@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:59:28 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 19:24:21 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/03 09:54:56 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,22 @@ char	*for_equal(char *var)
 
 static char	*put_var(char *var)
 {
+	char	*new;
+
 	if (ft_strchr(var, '=') != NULL)
-		return (for_equal(var));
-	return (var);
+	{
+		new = for_equal(var);
+		return (new);
+	}
+	return (NULL);
 }
 
 static void	print_env(char **envp, int *order)
 {
-	int	n;
-	int	count;
-	int	i;
+	int		n;
+	int		count;
+	int		i;
+	char	*var;
 
 	i = 0;
 	count = 0;
@@ -61,10 +67,17 @@ static void	print_env(char **envp, int *order)
 	{
 		while (order[i] != count)
 			i++;
-		if (ft_strncmp(put_var(envp[i]), "_=", 2) != 0)
+		if (ft_strncmp(envp[i], "_=", 2) != 0)
 		{
+			var = put_var(envp[i]);
 			write(1, "declare -x ", 11);
-			write(1, put_var(envp[i]), ft_strlen(put_var(envp[i])));
+			if (!var)
+				write(1, envp[i], ft_strlen(envp[i]));
+			else
+			{
+				write(1, var, ft_strlen(var));
+				free(var);
+			}
 			write(1, "\n", 1);
 		}
 		i = 0;
