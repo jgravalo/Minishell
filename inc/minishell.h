@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/03 09:24:11 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/03 13:42:26 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ void	parent_close(t_shell *shell);
 
 void	create_pipes(t_shell *sh);
 
-void	alloc_envp(t_shell *shell, char **envp);
+int		alloc_envp(t_shell *shell, char **envp);
 
 int		new_shell(t_shell *shell);
 

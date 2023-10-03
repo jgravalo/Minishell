@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:26:52 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/01 11:02:39 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/03 13:42:53 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	main(int argc, char **argv, char **envp)
 
 	sh.line_number = 1;
 	sh.exit = 0;
-	alloc_envp(&sh, envp);
+	if (alloc_envp(&sh, envp))
+		return (1);
 	if (!argc && !argv && !sh.envp)
 		return (0);
 	new_shell(&sh);

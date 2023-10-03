@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_envp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:27:15 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/01 11:03:15 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/03 13:42:34 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	change_var(t_shell *sh, char *var, char *content)
 	return (0);
 }
 
-void	alloc_envp(t_shell *sh, char **envp)
+int	alloc_envp(t_shell *sh, char **envp)
 {
 	int		i;
 	char	buffer[100];
@@ -80,7 +80,7 @@ void	alloc_envp(t_shell *sh, char **envp)
 	if (!sh->envp)
 	{
 		perror("malloc failed; ");
-		return ;
+		return (1);
 	}
 	i = 0;
 	while (envp[i])
@@ -92,4 +92,5 @@ void	alloc_envp(t_shell *sh, char **envp)
 	if (getenv("SHELL") != NULL)
 		change_var(sh, "SHELL", getcwd(buffer, 100));
 	get_shlvl(sh);
+	return (0);
 }
