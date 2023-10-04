@@ -5,3 +5,5 @@ obj/
 minishell
 test
 mpanic/
+libft/obj
+libft/libft.a
