@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:00:23 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 19:24:54 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/04 10:19:47 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,14 @@ static int	unset_n(char *var, t_shell *sh)
 	if (n < 0)
 		return (0);
 	new = (char **)malloc(sizeof(char *) * count_arr(sh->envp));
+	check_malloc_error(new);
 	i = 0;
 	j = 0;
 	while (sh->envp[i])
 	{
 		if (n == i && ++i)
 			continue ;
-		new[j] = ft_strdup(sh->envp[i]);
-		i++;
-		j++;
+		new[j++] = ft_strdup(sh->envp[i++]);
 	}
 	new[j] = NULL;
 	if (ft_strcmp(var, "OLDPWD") == 0)

@@ -6,10 +6,11 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:07:12 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/28 09:32:15 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/04 09:59:23 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../inc/utils.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -44,8 +45,7 @@ static char	*ft_null_string(void)
 	char	*substr;
 
 	substr = (char *)malloc(1);
-	if (!substr)
-		return (NULL);
+	check_malloc_error(substr);
 	substr[0] = '\0';
 	return (substr);
 }
@@ -61,17 +61,9 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (ft_null_string());
 	substr_len = ft_substrlen(s, start, len);
 	substr = (char *)malloc(sizeof (char) * (substr_len + 1));
-	if (!substr)
-		return (NULL);
+	check_malloc_error(substr);
 	while (i < len && s[start])
 		substr[i++] = s[start++];
 	substr[i] = '\0';
 	return (substr);
 }
-/*
-int main(void)
-{
-	
-	printf("%s", ft_substr("hola", 0, 18446744073709551615));
-}
-*/

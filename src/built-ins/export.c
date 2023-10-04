@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:59:28 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/03 10:05:22 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/04 10:11:56 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void	order_env(t_shell *shell, char **envp)
 
 	i = 0;
 	order = (int *)malloc(sizeof (int) * count_arr(shell->envp));
+	check_malloc_error(order);
 	while (shell->envp[i])
 	{
 		j = 0;

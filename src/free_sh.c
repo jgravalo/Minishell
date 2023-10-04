@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 12:11:53 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/02 15:08:12 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/04 10:41:56 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	free_cmd(t_cmd **cmd)
 			redclear(&cmd[i]->red);
 			redclear(&cmd[i]->red_x);
 			free_m(cmd[i]->args);
+			free(cmd[i]->path);
 			free(cmd[i]);
 			i++;
 		}

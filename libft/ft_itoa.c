@@ -6,10 +6,11 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:16:59 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/28 08:53:33 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/04 10:00:20 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../inc/utils.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -88,15 +89,13 @@ char	*ft_itoa(int n)
 	if (n < 0)
 	{
 		str = (char *)malloc(sizeof (char) * (len + 2));
-		if (!str)
-			return (NULL);
+		check_malloc_error(str);
 		str = ft_conversion(n, str, len + 1);
 	}
 	else
 	{
 		str = (char *)malloc(sizeof (char) * (len + 1));
-		if (!str)
-			return (NULL);
+		check_malloc_error(str);
 		str = ft_conversion(n, str, len);
 	}
 	return (str);

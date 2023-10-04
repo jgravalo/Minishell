@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:40:11 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/03 18:38:11 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/04 09:54:54 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ static void	word(t_tok *tok, t_cmd **cmd, int j)
 	char	*tmp;
 
 	tmp = ft_strdup(tok->tok);
-	check_malloc_error(tmp);
-	if (argback(&(cmd[j]->arg), argnew(tmp)))
-		exit(1);
+	argback(&(cmd[j]->arg), argnew(tmp));
 }
 
 static	t_tok	*redir_aux(t_tok *tok, t_cmd **cmd, int j)
@@ -30,12 +28,9 @@ static	t_tok	*redir_aux(t_tok *tok, t_cmd **cmd, int j)
 
 	redir = redir_type(tok);
 	tok = tok->next;
-	if (redirback(&(cmd[j]->red), redirnew(redir)))
-		exit(1);
+	redirback(&(cmd[j]->red), redirnew(redir));
 	tmp = ft_strdup(tok->tok);
-	check_malloc_error(tmp);
-	if (argback(&(redirlast(cmd[j]->red)->arg), argnew(tmp)))
-		exit(1);
+	argback(&(redirlast(cmd[j]->red)->arg), argnew(tmp));
 	return (tok);
 }
 

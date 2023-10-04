@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 14:23:44 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/10/03 14:12:29 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/04 09:50:55 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,11 @@ int	search_pipe(t_shell *sh)
 	char	*tmp2;
 
 	line = ft_strdup("");
-	check_malloc_error(line);
 	loop_empty(line);
 	if (!line)
 		return (258);
 	tmp = ft_strjoin(" ", line);
-	check_malloc_error(tmp);
 	tmp2 = ft_strjoin(sh->readline, tmp);
-	check_malloc_error(tmp2);
 	free(line);
 	free(sh->readline);
 	sh->readline = tmp2;

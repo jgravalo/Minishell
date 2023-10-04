@@ -6,12 +6,13 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:51:56 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/10/03 16:07:08 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/04 10:42:39 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include "../inc/utils.h"
+#include "../libft/libft.h"
 
 int	count_pipes(t_shell *sh, t_tok *tok)
 {
@@ -49,13 +50,13 @@ void	init(t_cmd **cmd, int n)
 	while (i < n)
 	{
 		cmd[i] = malloc(sizeof (t_cmd));
-		if (!cmd[i])
-			exit(1);
+		check_malloc_error(cmd[i]);
 		cmd[i]->red = NULL;
 		cmd[i]->red_x = NULL;
 		cmd[i]->arg = NULL;
 		cmd[i]->arg_x = NULL;
 		cmd[i]->args = NULL;
+		cmd[i]->path = NULL;
 		i++;
 	}
 	cmd[i] = NULL;

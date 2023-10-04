@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_aux2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:52:19 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/10/03 10:05:33 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/04 10:12:50 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ char	*add_without_plus(char *var)
 	i = 0;
 	j = 0;
 	new = malloc(sizeof (char) * ft_strlen(var));
+	check_malloc_error(new);
 	while (var[i])
 	{
 		if (var[i] != '+')
@@ -45,6 +46,7 @@ static char	*for_equal(char *var)
 	j = 0;
 	i = 0;
 	new = malloc(sizeof (char) * (ft_strlen(var) + 3));
+	check_malloc_error(new);
 	while (var[j])
 	{
 		if (flag == 0 && var[j] == '=')

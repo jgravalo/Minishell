@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/03 09:59:48 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/04 10:43:55 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/utils.h"
 #include "../../inc/builtins.h"
+#include "../../libft/libft.h"
 
 static void	update_pwd(t_shell *sh, int error, char *dir)
 {
@@ -38,6 +39,15 @@ static void	update_pwd(t_shell *sh, int error, char *dir)
 	free(tmp);
 }
 
+static void	*get_dir_aux(char *dir, t_shell *sh)
+{
+	access_dir();
+	dir = ft_strdup(sh->pwd);
+	dir = ft_strjoin(dir, "/.");
+	update_pwd(sh, 1, dir);
+	return (NULL);
+}
+
 static char	*get_dir(t_shell *sh, t_cmd **cmd, int i)
 {
 	char	*dir;
@@ -56,13 +66,7 @@ static char	*get_dir(t_shell *sh, t_cmd **cmd, int i)
 	{
 		dir = ft_strdup(getcwd(buffer, 100));
 		if (!dir)
-		{
-			access_dir();
-			dir = ft_strdup(sh->pwd);
-			dir = ft_strjoin(dir, "/.");
-			update_pwd(sh, 1, dir);
-			return (NULL);
-		}
+			return (get_dir_aux(dir, sh));
 	}
 	return (dir);
 }

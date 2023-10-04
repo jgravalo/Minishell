@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:20:58 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/03 14:06:10 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/04 09:47:22 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,9 @@ static void	lexer_loop(char *line, t_shell *sh, int n)
 		}
 		size = get_len(line, &len) + 1;
 		sh->tmp = (char *)malloc(sizeof (char) * size);
-		if (!sh->tmp)
-			exit(1);
+		check_malloc_error(sh->tmp);
 		copy_token(sh->tmp, line, &cpy, size);
-		if (tokback(&(sh->tok), toknew(ft_strdup(sh->tmp))) == 1)
-			exit(1);
+		tokback(&(sh->tok), toknew(ft_strdup(sh->tmp)));
 		free(sh->tmp);
 		i++;
 	}

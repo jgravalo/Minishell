@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:39:29 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/26 18:24:03 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/04 10:44:06 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	set_argv(t_cmd **cmd)
 		if (argsize(ptr))
 		{
 			cmd[i]->args = malloc(sizeof (char *) * (argsize(ptr) + 1));
+			check_malloc_error(cmd[i]->args);
 			while (ptr)
 			{
-				cmd[i]->args[j] = ft_strdup(ptr->arg);
-				j++;
+				cmd[i]->args[j++] = ft_strdup(ptr->arg);
 				ptr = ptr->next;
 			}
 			cmd[i]->args[j] = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_list_quote.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:08:50 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 10:30:43 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/04 09:56:51 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ t_quote	*quotenew(int start, int end)
 	t_quote	*node;
 
 	node = (t_quote *)malloc(sizeof (*node));
-	if (!node)
-		return (NULL);
+	check_malloc_error(node);
 	node->start = start;
 	node->end = end;
 	node->next = NULL;

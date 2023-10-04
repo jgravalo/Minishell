@@ -6,12 +6,13 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 09:34:00 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/27 13:07:34 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/04 09:51:09 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
+#include "../inc/utils.h"
 
 char	*ft_strjoin(char *s1, char *s2)
 {
@@ -24,8 +25,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	if (!s2 || ft_strcmp("", s2) == 0)
 		return (ft_strdup(s1));
 	new = malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2)) + 1));
-	if (new == NULL)
-		return (NULL);
+	check_malloc_error(new);
 	i = -1;
 	j = 0;
 	if (s1)

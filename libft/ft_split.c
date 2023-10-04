@@ -6,10 +6,11 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 09:57:04 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/05/09 11:10:09 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/04 10:33:35 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../inc/utils.h"
 #include <stdlib.h>
 
 static int	ft_count_words(char const *s, char c)
@@ -89,8 +90,7 @@ char	**ft_split(char const *s, char c)
 	pos = 0;
 	cpy = 0;
 	strs = (char **)malloc(sizeof (char *) * (ft_count_words(s, c) + 1));
-	if (!strs)
-		return (NULL);
+	check_malloc_error(strs);
 	while (n < ft_count_words(s, c))
 	{
 		len = ft_strlen_charset(s, c, &pos);
@@ -98,7 +98,7 @@ char	**ft_split(char const *s, char c)
 		if (!strs[n])
 		{
 			ft_free_strs(strs, n);
-			return (NULL);
+			exit (1);
 		}
 		ft_strlcpy(strs[n++], s, &cpy, c);
 	}

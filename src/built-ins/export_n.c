@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:13:28 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/10/02 14:55:57 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/04 10:27:51 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ static int	replace_existing(char *line, t_shell *sh)
 	var = ft_substr(line, 0, i);
 	i = 0;
 	new = (char **)malloc(sizeof(char *) * (count_arr(sh->envp) + 1));
-	if (!new)
-		return (1);
+	check_malloc_error(new);
 	while (sh->envp[i] != NULL)
 	{
 		if (ft_varcmp(var, sh->envp[i], ft_strlen(var)) == 0)
@@ -81,7 +80,10 @@ static int	cat_existing(char *line, t_shell *sh)
 		{
 			tmp = ft_strjoin(ft_strchr(sh->envp[i], '='),
 					ft_strchr(line, '=') + 1);
+			free(sh->envp[i]);
 			sh->envp[i] = ft_strjoin(var, tmp);
+			free(var);
+			free(tmp);
 			break ;
 		}
 		i++;
@@ -95,8 +97,7 @@ static int	add_envp(char *var, t_shell *sh, int type)
 	int		i;
 
 	new = (char **)malloc(sizeof(char *) * (count_arr(sh->envp) + 2));
-	if (!new)
-		return (1);
+	check_malloc_error(new);
 	i = 0;
 	while (sh->envp[i] != NULL)
 	{
@@ -104,9 +105,10 @@ static int	add_envp(char *var, t_shell *sh, int type)
 		i++;
 	}
 	if (type == 2)
-		new[i++] = add_without_plus(var);
+		new[i] = add_without_plus(var);
 	else
-		new[i++] = ft_strdup(var);
+		new[i] = ft_strdup(var);
+	i++;
 	new[i] = NULL;
 	free_m(sh->envp);
 	sh->envp = new;

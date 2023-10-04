@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   compare_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:01:06 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/03 09:38:17 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/04 10:11:00 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,9 @@ int	compare_exit(char *argument)
 	if (ret == 0 || ret == 1)
 		return (ret);
 	number = malloc(sizeof (int) * count_numbers(argument));
+	check_malloc_error(number);
 	long_array = malloc(sizeof (int) * count_numbers(long_compare));
+	check_malloc_error(long_array);
 	set_numbers(number, argument);
 	set_numbers(long_array, long_compare);
 	ret = compare(number, long_array, count_numbers(long_compare));

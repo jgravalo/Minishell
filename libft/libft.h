@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 09:35:45 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/10/03 13:58:40 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/04 10:43:15 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void		ft_lstiter(t_list *lst, void (*f)(void *));
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 /*new ones*/
-size_t		ft_putadd(void *ptr);
 size_t		ft_putunbr(unsigned int n);
 size_t		ft_puthexnbr(unsigned int n, char *base);
 int			ft_contains_digit(char *str);

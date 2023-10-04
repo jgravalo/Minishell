@@ -6,12 +6,13 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 09:18:07 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/02 14:57:41 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/04 10:16:32 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include "../inc/utils.h"
+#include "../libft/libft.h"
 
 int	count_quotes(t_shell *shell, char *str)
 {
@@ -69,6 +70,7 @@ char	*remove_quotes(t_shell *shell, char *str)
 
 	len = count_quotes(shell, str);
 	tmp = malloc(sizeof (char) * ft_strlen(str) - len + 1);
+	check_malloc_error(tmp);
 	copy_new(shell, tmp, str);
 	free(str);
 	return (tmp);

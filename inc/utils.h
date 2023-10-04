@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 09:29:58 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/03 15:58:32 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/04 10:34:27 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,27 +61,7 @@ t_quote		*quotelast(t_quote *lst);
 
 /*string utils*/
 
-size_t		ft_strlen(const char *str);
-
-int			ft_strcmp(char *s1, char *s2);
-
-int			ft_strncmp(const char *s1, const char *s2, size_t n);
-
 int			ft_varcmp(const char *s1, const char *s2, size_t n);
-
-char		*ft_strcat(char *dest, char *src);
-
-char		*ft_strjoin(char *s1, char *s2);
-
-size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
-
-char		*ft_strdup(char *str);
-
-char		*ft_substr(char const *s, unsigned int start, size_t len);
-
-char		**ft_split(char const *s, char c);
-
-int64_t		ft_atoi(char *str);
 
 /*printing utils*/
 

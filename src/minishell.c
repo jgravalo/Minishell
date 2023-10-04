@@ -6,12 +6,13 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/03 17:23:35 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/04 10:42:28 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include "../inc/utils.h"
+#include "../libft/libft.h"
 #include <readline/readline.h>
 
 int	g_exit = 0;

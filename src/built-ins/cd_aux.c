@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 09:08:34 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/02 15:25:55 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/04 10:08:26 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static char	*copy_back_dir(char *str, int count)
 	char	*dir;
 
 	dir = malloc(sizeof (char) * count + 1);
+	check_malloc_error(dir);
 	ft_strlcpy(dir, str, count + 1);
 	free(str);
 	return (dir);

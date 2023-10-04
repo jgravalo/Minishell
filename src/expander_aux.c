@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:27:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/02 15:01:17 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/04 10:01:18 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	copy_and_remove_quotes(t_shell *sh, int size, char *str, int *cpy)
 	t_quote	*ptr;
 
 	sh->tmp = (char *)malloc(sizeof (char) * size);
+	check_malloc_error(sh->tmp);
 	copy_exp(sh->tmp, str, cpy, size);
 	if (sh->var_quoted)
 	{
