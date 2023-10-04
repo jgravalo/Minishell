@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:40:11 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/04 10:49:58 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/04 10:53:18 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	parser(t_shell *sh)
 	int	n;
 
 	n = count_pipes(sh, sh->tok);
-	sh->s_cmd = malloc(-1);
+	sh->s_cmd = malloc(sizeof (t_cmd *) * (n + 2));
 	check_malloc_error(sh->s_cmd);
 	init(sh->s_cmd, n + 1);
 	parse(sh->tok, sh->s_cmd);
