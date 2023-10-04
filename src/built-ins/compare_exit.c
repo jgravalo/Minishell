@@ -6,11 +6,12 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:01:06 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/04 10:11:00 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/04 10:50:53 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/utils.h"
+#include "../libft/libft.h"
 
 static int	count_numbers(char *argument)
 {

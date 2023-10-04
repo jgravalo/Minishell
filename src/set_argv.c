@@ -6,12 +6,13 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:39:29 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/04 10:44:06 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/04 10:50:05 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include "../inc/utils.h"
+#include "../libft/libft.h"
 
 void	set_argv(t_cmd **cmd)
 {

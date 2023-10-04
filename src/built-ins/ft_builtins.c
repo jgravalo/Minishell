@@ -6,12 +6,13 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 11:11:04 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/04 10:19:02 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/04 10:51:03 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/utils.h"
 #include "../../inc/builtins.h"
+#include "../libft/libft.h"
 
 void	ft_unset(t_shell *sh, char *var)
 {

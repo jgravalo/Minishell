@@ -6,11 +6,12 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:17:20 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/27 10:34:13 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/04 10:50:37 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/utils.h"
+#include "../libft/libft.h"
 
 int	is_digit(char c)
 {

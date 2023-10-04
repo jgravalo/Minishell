@@ -6,11 +6,12 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 09:08:34 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/04 10:08:26 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/04 10:50:25 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/utils.h"
+#include "../libft/libft.h"
 
 char	*cd_home(t_shell *sh, t_cmd **cmd, int i)
 {

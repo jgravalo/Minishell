@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   categorizer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:38:00 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 10:22:16 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/04 10:49:00 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include "../inc/utils.h"
+#include "../libft/libft.h"
 
 void	categorizer(t_tok *tok)
 {

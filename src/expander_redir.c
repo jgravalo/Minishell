@@ -6,12 +6,13 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:43:41 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/02 15:00:55 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/04 10:49:37 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include "../inc/utils.h"
+#include "../libft/libft.h"
 
 static void	add_redir_node(t_shell *sh, t_cmd *cmd, t_redir *ptr)
 {

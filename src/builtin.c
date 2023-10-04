@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:23:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/18 08:53:24 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/04 10:48:53 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include "../inc/utils.h"
 #include "../inc/builtins.h"
+#include "../libft/libft.h"
 
 int	check_builtin(char **args)
 {
