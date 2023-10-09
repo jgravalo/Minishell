@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:23:46 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/04 10:48:53 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/09 12:33:50 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,12 @@ int	builtin(t_shell *sh, t_cmd **cmd, int i)
 		else if (ft_strcmp(cmd[i]->args[0], "export") == 0)
 			sh->exit = export(sh, cmd, i);
 		else if (ft_strcmp(cmd[i]->args[0], "pwd") == 0)
-			sh->exit = pwd(sh->envp);
+			sh->exit = pwd(sh);
 		else if (ft_strcmp(cmd[i]->args[0], "unset") == 0)
 			sh->exit = unset(sh, cmd, i);
 		else if (ft_strcmp(cmd[i]->args[0], "exit") == 0)
 			ft_exit(sh, cmd, i);
+		sh->s_cmd = cmd;
 		return (1);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/04 10:43:55 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/09 13:49:07 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,23 @@
 #include "../../inc/builtins.h"
 #include "../../libft/libft.h"
 
+static void	update_aux(t_shell *sh)
+{	
+	char	*buffer;
+	char	*tmp;
+
+	buffer = NULL;
+	ft_export(sh, "PWD");
+	tmp = getcwd(buffer, 200);
+	change_var(sh, "PWD", tmp);
+	free(tmp);
+	if (sh->pwd)
+		free(sh->pwd);
+	sh->pwd = getcwd(buffer, 200);
+}
+
 static void	update_pwd(t_shell *sh, int error, char *dir)
 {
-	char	buffer[100];
 	char	*tmp;
 
 	tmp = ft_strdup(search_var_line("PWD", sh->envp));
@@ -29,7 +43,7 @@ static void	update_pwd(t_shell *sh, int error, char *dir)
 			&& search_var_line("PWD", sh->envp))
 			ft_export(sh, "OLDPWD");
 		change_var(sh, "OLDPWD", tmp);
-		change_var(sh, "PWD", getcwd(buffer, 200));
+		update_aux(sh);
 	}
 	else
 	{
@@ -40,11 +54,13 @@ static void	update_pwd(t_shell *sh, int error, char *dir)
 }
 
 static void	*get_dir_aux(char *dir, t_shell *sh)
-{
+{	
 	access_dir();
+	free(dir);
 	dir = ft_strdup(sh->pwd);
 	dir = ft_strjoin(dir, "/.");
 	update_pwd(sh, 1, dir);
+	free(dir);
 	return (NULL);
 }
 
@@ -63,8 +79,9 @@ static char	*get_dir(t_shell *sh, t_cmd **cmd, int i)
 	else if (ft_strcmp(dir, "-") == 0)
 		dir = cd_last(sh, dir);
 	else if (ft_strcmp(dir, ".") == 0)
-	{
-		dir = ft_strdup(getcwd(buffer, 100));
+	{	
+		free(dir);
+		dir = ft_strdup(getcwd(buffer, 200));
 		if (!dir)
 			return (get_dir_aux(dir, sh));
 	}
@@ -86,5 +103,6 @@ int	cd(t_shell *sh, t_cmd **cmd, int i)
 	update_pwd(sh, 0, NULL);
 	free(dir);
 	dir = NULL;
+	
 	return (0);
 }

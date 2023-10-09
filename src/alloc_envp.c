@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:27:15 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/04 09:45:17 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/09 14:12:20 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,10 @@ int	change_var(t_shell *sh, char *var, char *content)
 int	alloc_envp(t_shell *sh, char **envp)
 {
 	int		i;
-	char	buffer[100];
+	char	*buffer;
+	char	*tmp;
 
+	buffer = NULL;
 	sh->envp = (char **)malloc(sizeof (char *) * (count_arr(envp) + 1));
 	check_malloc_error(sh->envp);
 	i = 0;
@@ -86,7 +88,13 @@ int	alloc_envp(t_shell *sh, char **envp)
 	}
 	sh->envp[i] = NULL;
 	if (getenv("SHELL") != NULL)
-		change_var(sh, "SHELL", getcwd(buffer, 100));
+	{
+		tmp = getcwd(buffer, 200);
+		change_var(sh, "SHELL", tmp);
+		free(tmp);
+	}
 	get_shlvl(sh);
+	sh->pwd = getcwd(buffer, 200);
+	printf("shpwd es %s\n", sh->pwd);
 	return (0);
 }

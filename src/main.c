@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:26:52 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/03 13:42:53 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/09 13:38:25 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	if (!argc && !argv && !sh.envp)
 		return (0);
+	printf("envp es %s\n", sh.envp[0]);
 	new_shell(&sh);
 	free_m(sh.envp);
 	return (sh.exit);

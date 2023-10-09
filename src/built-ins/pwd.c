@@ -6,19 +6,30 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:00:08 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/04 10:50:31 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/09 13:00:32 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/utils.h"
 #include "../libft/libft.h"
 
-int	pwd(char **envp)
+int	pwd(t_shell *sh)
 {
 	char	*pwd;
+	char	*buf;
 
-	pwd = search_var_line("PWD", envp);
-	write(STDOUT_FILENO, pwd, ft_strlen(pwd));
-	write(STDOUT_FILENO, "\n", 1);
+	buf = NULL;
+	pwd = getcwd(buf, 200);
+	if (!pwd)
+	{	
+		write(STDOUT_FILENO, sh->pwd, ft_strlen(sh->pwd));
+		write(STDOUT_FILENO, "\n", 1);
+	}
+	else
+	{
+		write(STDOUT_FILENO, pwd, ft_strlen(pwd));
+		write(STDOUT_FILENO, "\n", 1);
+		free(pwd);
+	}
 	return (0);
 }

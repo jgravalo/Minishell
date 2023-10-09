@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:10:58 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/28 12:48:04 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/09 12:29:22 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	execute(t_shell *sh, t_cmd **cmd)
 	if (g_exit)
 		return ;
 	if (no_pipe_built_in(sh, cmd))
-		return ;
+		return ;	
 	fork_cmd(sh, cmd, &i);
 	if (cmd[i]->pid == 0)
 		child(sh, cmd, i);
