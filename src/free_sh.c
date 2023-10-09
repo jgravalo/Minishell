@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 12:11:53 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/09 13:49:48 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:30:04 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,4 @@ void	free_sh(t_shell *sh)
 	tokclear(&sh->tok);
 	free(sh->readline);
 	free_cmd(sh->s_cmd);
-	free(sh->pwd);
-	sh->pwd = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:00:08 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/09 13:00:32 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:26:30 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ int	pwd(t_shell *sh)
 	char	*buf;
 
 	buf = NULL;
+	printf("shpwd es %s\n", sh->pwd);
 	pwd = getcwd(buf, 200);
 	if (!pwd)
-	{	
+	{
 		write(STDOUT_FILENO, sh->pwd, ft_strlen(sh->pwd));
 		write(STDOUT_FILENO, "\n", 1);
 	}

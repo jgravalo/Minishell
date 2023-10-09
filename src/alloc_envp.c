@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:27:15 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/09 14:12:20 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:20:02 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,5 @@ int	alloc_envp(t_shell *sh, char **envp)
 	}
 	get_shlvl(sh);
 	sh->pwd = getcwd(buffer, 200);
-	printf("shpwd es %s\n", sh->pwd);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/09 13:47:16 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:30:15 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,7 @@ int	new_shell(t_shell *sh)
 		free_sh(sh);
 	}
 	free(sh->readline);
+	free(sh->pwd);
+	sh->pwd = NULL;
 	return (sh->exit);
 }

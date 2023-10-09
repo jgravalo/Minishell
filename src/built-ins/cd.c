@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/09 13:49:07 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:35:03 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "../../libft/libft.h"
 
 static void	update_aux(t_shell *sh)
-{	
+{
 	char	*buffer;
 	char	*tmp;
 
@@ -54,7 +54,7 @@ static void	update_pwd(t_shell *sh, int error, char *dir)
 }
 
 static void	*get_dir_aux(char *dir, t_shell *sh)
-{	
+{
 	access_dir();
 	free(dir);
 	dir = ft_strdup(sh->pwd);
@@ -67,7 +67,7 @@ static void	*get_dir_aux(char *dir, t_shell *sh)
 static char	*get_dir(t_shell *sh, t_cmd **cmd, int i)
 {
 	char	*dir;
-	char	buffer[100];
+	char	buffer[200];
 
 	dir = ft_strdup(cmd[i]->args[1]);
 	if (dir == NULL)
@@ -75,11 +75,11 @@ static char	*get_dir(t_shell *sh, t_cmd **cmd, int i)
 	else if (ft_strlen(dir) == 0)
 		return (NULL);
 	else if (dir[0] != '/' && ft_strcmp(dir, "..") == 0)
-		dir = cd_back(dir);
+		dir = cd_back(sh, dir);
 	else if (ft_strcmp(dir, "-") == 0)
 		dir = cd_last(sh, dir);
 	else if (ft_strcmp(dir, ".") == 0)
-	{	
+	{
 		free(dir);
 		dir = ft_strdup(getcwd(buffer, 200));
 		if (!dir)
@@ -103,6 +103,5 @@ int	cd(t_shell *sh, t_cmd **cmd, int i)
 	update_pwd(sh, 0, NULL);
 	free(dir);
 	dir = NULL;
-	
 	return (0);
 }

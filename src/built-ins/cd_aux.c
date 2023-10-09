@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 09:08:34 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/04 10:50:25 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:38:12 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,20 @@ static char	*get_back_dir(char *str)
 	return (copy_back_dir(str, i));
 }
 
-char	*cd_back(char *dir)
+char	*cd_back(t_shell *sh, char *dir)
 {
 	char	*tmp;
-	char	buf[100];
+	char	*tmp2;
+	char	buf[200];
 
 	free(dir);
-	tmp = ft_strjoin(getcwd(buf, 200), "/");
-	tmp = get_back_dir(tmp);
-	return (tmp);
+	tmp = getcwd(buf, 200);
+	if (tmp)
+		tmp2 = ft_strjoin(tmp, "/");
+	else
+		tmp2 = ft_strjoin(sh->pwd, "/");
+	tmp2 = get_back_dir(tmp2);
+	return (tmp2);
 }
 
 char	*cd_last(t_shell *sh, char *dir)
