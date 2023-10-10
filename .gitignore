@@ -7,3 +7,5 @@ test
 mpanic/
 libft/obj
 libft/libft.a
+.vscode
+.gitignore
