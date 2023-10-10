@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 16:56:43 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/10/04 10:49:10 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 09:38:22 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,54 +16,32 @@
 
 void	access_dir(void)
 {
-	write(2, "cd: error retrieving current directory: ", 40);
-	write(2, "getcwd: cannot access parent directories: ", 42);
-	write(2, "No such file or directory\n", 26);
+	ft_printf(2, "cd: error retrieving current directory: ");
+	ft_printf(2, "getcwd: cannot access parent directories: ");
+	ft_printf(2, "No such file or directory\n");
 }
 
 int	cmd_error(char *s, int n, int exit)
 {
-	char	*str;
-	char	*tmp;
-
-	tmp = ft_strjoin(s, ": ");
-	str = ft_strjoin(tmp, strerror(n));
-	write(2, "bash: ", 6);
-	write(2, str, ft_strlen(str));
-	write(2, "\n", 1);
-	free(tmp);
-	free(str);
+	ft_printf(2, "bash: %s: %s\n", s, strerror(n));
 	return (exit);
 }
 
 int	dir_error(char *s, int n, int exit)
 {
-	char	*str;
-	char	*tmp;
-
-	tmp = ft_strjoin(s, ": ");
-	str = ft_strjoin(tmp, strerror(n));
-	write(2, "bash: cd: ", 10);
-	write(2, str, ft_strlen(str));
-	write(2, "\n", 1);
-	free(tmp);
-	free(str);
+	ft_printf(2, "bash: cd: %s: %s\n", s, strerror(n));
 	free(s);
 	return (exit);
 }
 
 void	filedir_not_found(char *cmd)
 {
-	write(2, "bash: ", 6);
-	write(2, cmd, ft_strlen(cmd));
-	write(2, ": No such file or directory", 27);
-	write(2, "\n", 1);
+	ft_printf(2, "bash: %s: No such file or directory\n", cmd);
 	exit (127);
 }
 
 void	cmd_not_found(char *cmd)
 {
-	write(2, cmd, ft_strlen(cmd));
-	write(2, ": command not found\n", 20);
+	ft_printf(2, "%s: command not found\n", cmd);
 	exit(127);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 09:23:33 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/28 09:36:02 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 09:00:28 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,34 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-size_t	check_conversions(va_list args, char const *str)
+size_t	check_conversions(int fd, va_list args, char const *str)
 {
 	++str;
 	if (*str == 'c')
-		return (ft_printchar(va_arg(args, int)));
+		return (ft_printchar(fd, va_arg(args, int)));
 	else if (*str == 's')
-		return (ft_printstr(va_arg(args, char *)));
+		return (ft_printstr(fd, va_arg(args, char *)));
 	else if (*str == 'p')
-		return (ft_printadd(va_arg(args, void *)));
+		return (ft_printadd(fd, va_arg(args, void *)));
 	else if (*str == 'd')
-		return (ft_printnbr(va_arg(args, int)));
+		return (ft_printnbr(fd, va_arg(args, int)));
 	else if (*str == 'i')
-		return (ft_printnbr(va_arg(args, int)));
+		return (ft_printnbr(fd, va_arg(args, int)));
 	else if (*str == 'u')
-		return (ft_printunbr(va_arg(args, unsigned int)));
+		return (ft_printunbr(fd, va_arg(args, unsigned int)));
 	else if (*str == 'x')
-		return (ft_printhex(va_arg(args, unsigned int), "0123456789abcdef"));
+		return (ft_printhex(fd, va_arg(args, unsigned int),
+				"0123456789abcdef"));
 	else if (*str == 'X')
-		return (ft_printhex(va_arg(args, unsigned int), "0123456789ABCDEF"));
+		return (ft_printhex(fd, va_arg(args, unsigned int),
+				"0123456789ABCDEF"));
 	else if (*str == '%')
-		return (ft_printchar('%'));
+		return (ft_printchar(fd, '%'));
 	else
 		return (-1);
 }
 
-int	ft_printf(char const *str, ...)
+int	ft_printf(int fd, char const *str, ...)
 {
 	size_t	n;
 	va_list	args;
@@ -54,11 +56,11 @@ int	ft_printf(char const *str, ...)
 	{
 		if (*str == '%')
 		{
-			n = check_conversions(args, str);
+			n = check_conversions(fd, args, str);
 			str++;
 		}
 		else
-			n = ft_printchar(*str);
+			n = ft_printchar(fd, *str);
 		if ((int) n == -1)
 			return (-1);
 		total += n;

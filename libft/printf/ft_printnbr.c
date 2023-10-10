@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printnbr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 09:55:57 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/28 09:35:59 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 09:01:19 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static	char	*ft_create_string(long int number, char *str, size_t len)
 	return (str);
 }
 
-size_t	ft_printnbr(int n)
+size_t	ft_printnbr(int fd, int n)
 {
 	long	number;
 	size_t	count;
@@ -63,7 +63,7 @@ size_t	ft_printnbr(int n)
 	if (number == 0)
 		str[len - 1] = '0';
 	str = ft_create_string(number, str, len);
-	count = ft_putstr(str);
+	count = ft_printstr(fd, str);
 	free (str);
 	str = NULL;
 	return (count);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printunbr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 09:27:07 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/28 09:35:52 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 09:01:42 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static char	*ft_create_str(char *str, size_t len, unsigned long number)
 	return (str);
 }
 
-size_t	ft_printunbr(unsigned int n)
+size_t	ft_printunbr(int fd, unsigned int n)
 {
 	unsigned long	number;
 	size_t			count;
@@ -54,7 +54,7 @@ size_t	ft_printunbr(unsigned int n)
 	if (!str)
 		return (-1);
 	ft_create_str(str, len, number);
-	count = ft_putstr(str);
+	count = ft_printstr(fd, str);
 	if ((int) count == -1)
 	{
 		free (str);

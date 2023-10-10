@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_aux.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 09:08:34 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/09 16:38:12 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 09:37:01 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ static char	*get_back_dir(char *str)
 	slashes = 0;
 	while (str[i])
 	{
-		if (str[i] == '/')
+		if (str[i] == '/' && str[i + 1] != '.')
 			slashes++;
 		i++;
 	}
 	i = 0;
 	while (slashes > 1)
 	{
-		if (str[i] == '/')
+		if (str[i] == '/' && str[i + 1] != '.')
 			slashes--;
 		i++;
 	}
@@ -81,8 +81,6 @@ char	*cd_back(t_shell *sh, char *dir)
 
 char	*cd_last(t_shell *sh, char *dir)
 {
-	char	*tmp;
-
 	free(dir);
 	if (search_var_line("OLDPWD", sh->envp) == NULL)
 	{
@@ -90,9 +88,7 @@ char	*cd_last(t_shell *sh, char *dir)
 		sh->exit = 1;
 		return (NULL);
 	}
-	tmp = ft_strdup(search_var_line("OLDPWD", sh->envp));
-	if (!tmp)
-		tmp = ft_strdup(sh->old_pwd);
+	dir = ft_strdup(search_var_line("OLDPWD", sh->envp));
 	sh->cd_last = 1;
-	return (tmp);
+	return (dir);
 }

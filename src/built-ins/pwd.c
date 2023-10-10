@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:00:08 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/09 16:26:30 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 09:13:55 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	pwd(t_shell *sh)
 	char	*buf;
 
 	buf = NULL;
-	printf("shpwd es %s\n", sh->pwd);
 	pwd = getcwd(buf, 200);
 	if (!pwd)
 	{

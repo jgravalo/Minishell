@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 09:35:45 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/10/04 10:43:15 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 08:59:32 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,14 +99,14 @@ void		ft_printarr(int *arr, int n);
 char		*ft_strcat(char *dest, char *src);
 
 /*printf*/
-size_t		check_conversions(va_list args, char const *str);
-int			ft_printf(char const *str, ...);
-size_t		ft_printadd(void *ptr);
-size_t		ft_printchar(char c);
-size_t		ft_printhex(unsigned int n, char *base);
-size_t		ft_printnbr(int n);
-size_t		ft_printstr(char *s);
-size_t		ft_printunbr(unsigned int n);
+size_t		check_conversions(int fd, va_list args, char const *str);
+int			ft_printf(int fd, char const *str, ...);
+size_t		ft_printadd(int fd, void *ptr);
+size_t		ft_printchar(int fd, char c);
+size_t		ft_printhex(int fd, unsigned int n, char *base);
+size_t		ft_printnbr(int fd, int n);
+size_t		ft_printstr(int fd, char *s);
+size_t		ft_printunbr(int fd, unsigned int n);
 int			ft_isprint(int c);
 
 # ifndef BUFFER_SIZE

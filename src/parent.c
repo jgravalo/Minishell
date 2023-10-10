@@ -3,26 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   parent.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:59:17 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 13:59:00 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 09:06:32 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include "../inc/utils.h"
+#include "../libft/libft.h"
 
 static void	handler(int signal)
 {
 	if (signal == SIGINT)
 	{
-		printf("\n");
+		ft_printf(1, "\n");
 		return ;
 	}
 	else if (signal == SIGQUIT)
 	{
-		printf("Quit: 3\n");
+		ft_printf(2, "Quit: 3\n");
 	}
 }
 

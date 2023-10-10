@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:55:25 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/09 16:35:03 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 09:31:13 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,23 @@ static void	update_pwd(t_shell *sh, int error, char *dir)
 	{
 		change_var(sh, "OLDPWD", tmp);
 		change_var(sh, "PWD", dir);
+		if (sh->pwd)
+			free(sh->pwd);
+		sh->pwd = ft_strdup(dir);
 	}
 	free(tmp);
 }
 
 static void	*get_dir_aux(char *dir, t_shell *sh)
 {
+	char	*tmp;
+
 	access_dir();
 	free(dir);
-	dir = ft_strdup(sh->pwd);
-	dir = ft_strjoin(dir, "/.");
+	tmp = ft_strdup(sh->pwd);
+	dir = ft_strjoin(tmp, "/.");
 	update_pwd(sh, 1, dir);
+	free(tmp);
 	free(dir);
 	return (NULL);
 }
@@ -99,7 +105,7 @@ int	cd(t_shell *sh, t_cmd **cmd, int i)
 	if (chdir(dir) < 0)
 		return (dir_error(dir, errno, 1));
 	if (sh->cd_last)
-		printf("%s\n", dir);
+		ft_printf(1, "%s\n", dir);
 	update_pwd(sh, 0, NULL);
 	free(dir);
 	dir = NULL;

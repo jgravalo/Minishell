@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printstr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 09:52:53 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/05/29 13:20:04 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 09:01:59 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-size_t	ft_printstr(char *s)
+size_t	ft_printstr(int fd, char *s)
 {
 	unsigned int	i;
 
@@ -21,7 +21,7 @@ size_t	ft_printstr(char *s)
 		return (ft_putstr("(null)"));
 	while (s[i])
 	{
-		if ((int) ft_putchar(s[i]) == -1)
+		if ((int) ft_printchar(fd, s[i]) == -1)
 			return (-1);
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printadd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 09:28:29 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/28 09:36:04 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 08:58:10 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char	*ft_free(char *str)
 	return (NULL);
 }
 
-size_t	ft_printadd(void *ptr)
+size_t	ft_printadd(int fd, void *ptr)
 {
 	size_t			len;
 	unsigned long	n;
@@ -58,7 +58,7 @@ size_t	ft_printadd(void *ptr)
 	len = 0;
 	str = NULL;
 	if (!ptr)
-		return (ft_putstr("0x0"));
+		return (ft_printstr(fd, "0x0"));
 	n = (unsigned long int) ptr;
 	temp = n;
 	len = ft_add_len(temp, len);
@@ -66,13 +66,13 @@ size_t	ft_printadd(void *ptr)
 	if (!str)
 		return (-1);
 	str = ft_create_arr(str, temp, n, len - 1);
-	n = ft_putstr("0x");
+	n = ft_printstr(fd, "0x");
 	if ((int) n == -1)
 	{
 		str = ft_free(str);
 		return (-1);
 	}
-	n += ft_putstr(str);
+	n += ft_printstr(fd, str);
 	str = ft_free(str);
 	return (n);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printhex.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 08:30:53 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/28 09:36:00 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 09:01:00 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static char	*ft_create_arr(char *str, unsigned long number,
 	return (str);
 }
 
-size_t	ft_printhex(unsigned int n, char *base)
+size_t	ft_printhex(int fd, unsigned int n, char *base)
 {
 	unsigned long	number;
 	size_t			count;	
@@ -56,7 +56,7 @@ size_t	ft_printhex(unsigned int n, char *base)
 	if (!str)
 		return (-1);
 	ft_create_arr(str, number, len, base);
-	count = ft_putstr(str);
+	count = ft_printstr(fd, str);
 	if ((int) count == -1)
 	{
 		free (str);
