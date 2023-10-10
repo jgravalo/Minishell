@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reviser.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 14:23:44 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/10/10 09:50:10 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/10 19:12:13 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	search_pipe(t_shell *sh)
 	tokclear(&sh->tok);
 	lexer(sh, sh->readline);
 	categorizer(sh->tok);
-	if (reviser(sh->tok, sh) != 0)
+	if (reviser(sh->tok) != 0)
 		return (258);
 	return (0);
 }
@@ -79,7 +79,7 @@ int	reviser_loop(t_tok *tok, int *redir, int *pipe)
 	return (0);
 }
 
-int	reviser(t_tok *tok, t_shell *sh)
+int	reviser(t_tok *tok)
 {
 	int	pipe;
 	int	redir;
@@ -93,7 +93,6 @@ int	reviser(t_tok *tok, t_shell *sh)
 	if (redir == 1)
 		return (sintax_error("newline"));
 	if (pipe == 1)
-		if (search_pipe(sh) != 0)
-			return (258);
+		return (sintax_error("|"));
 	return (0);
 }

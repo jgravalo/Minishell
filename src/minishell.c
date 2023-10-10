@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/10 09:49:25 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/10 19:12:19 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	shell_body(t_shell *sh)
 	if (!sh->tok)
 		return (1);
 	categorizer(sh->tok);
-	if (reviser(sh->tok, sh) != 0)
+	if (reviser(sh->tok) != 0)
 	{
 		add_history(sh->readline);
 		tokclear(&sh->tok);

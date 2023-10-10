@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/04 10:48:01 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 19:12:25 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void	lexer(t_shell *shell, char *line);
 
 void	categorizer(t_tok *expanded);
 
-int		reviser(t_tok *lst, t_shell *sh);
+int		reviser(t_tok *lst);
 
 void	expander(t_shell *shell, t_cmd **cmd);
 
