@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_envp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:27:15 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/10 10:04:25 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/10 11:58:20 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int	alloc_envp(t_shell *sh, char **envp)
 		free(tmp);
 	}
 	get_shlvl(sh);
+	ft_unset(sh, "OLDPWD");
 	sh->pwd = getcwd(buffer, 200);
 	return (0);
 }
