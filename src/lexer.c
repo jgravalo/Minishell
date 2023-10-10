@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:20:58 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/04 10:49:51 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 19:28:10 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	lexer_loop(char *line, t_shell *sh, int n)
 	init_lex_variables(&i, &len, &cpy, &size);
 	while (i < n)
 	{
-		while (line[len] == ' ')
+		while (is_space(line[len]))
 		{
 			len++;
 			cpy++;

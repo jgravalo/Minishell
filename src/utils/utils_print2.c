@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_print2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:53:20 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 19:27:03 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/10 19:20:31 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_printbothlst(t_tok *lst)
 {
 	while (lst)
 	{
-		printf("%s\n", lst->tok);
+		printf("<%s>\n", lst->tok);
 		printf("%s\n", lst->type);
 		lst = lst->next;
 	}

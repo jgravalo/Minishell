@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_count.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:39:35 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/15 12:22:19 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/10 19:27:26 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ static void	loop(char *line, int *i, int *tokens, int *word)
 		quotes(line, i, tokens, word);
 	else if (count_meta(line, i, tokens) > 0)
 		*word = 0;
-	else if (line[*i] != ' ' && *word == 0)
+	else if (!is_space(line[*i]) && *word == 0)
 	{
 		(*i)++;
 		(*tokens)++;
 		*word = 1;
 	}
-	else if (line[*i] == ' ' && *word == 1)
+	else if (is_space(line[*i]) && *word == 1)
 	{
 		(*i)++;
 		*word = 0;

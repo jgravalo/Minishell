@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_count_aux.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:31:06 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 09:18:29 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/10 19:30:16 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,15 @@ int	is_redir(char *str)
 int	is_meta(char c)
 {
 	if (c == '<' || c == '>' || c == '|')
+		return (1);
+	else
+		return (0);
+}
+
+int	is_space(char c)
+{
+	if (c == ' ' || c == '\f' || c == '\n'
+		|| c == '\r' || c == '\t' || c == '\v')
 		return (1);
 	else
 		return (0);

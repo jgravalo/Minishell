@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/10 19:12:25 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 19:30:31 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,8 @@ void	parent_close(t_shell *shell);
 void	create_pipes(t_shell *sh);
 
 int		alloc_envp(t_shell *shell, char **envp);
+
+int		is_space(char c);
 
 int		new_shell(t_shell *shell);
 

@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/10 19:12:19 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 19:14:28 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	shell_body(t_shell *sh)
 	if (!sh->tok)
 		return (1);
 	categorizer(sh->tok);
+	ft_printbothlst(sh->tok);
 	if (reviser(sh->tok) != 0)
 	{
 		add_history(sh->readline);
