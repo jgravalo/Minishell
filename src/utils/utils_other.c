@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:16:39 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/04 10:39:54 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 11:54:05 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,18 @@ void	check_malloc_error(void *ptr)
 {
 	if (!ptr)
 		exit(1);
+}
+
+int	count_exit_numbers(int n)
+{
+	int	i;
+
+	i = 1;
+	n = n / 10;
+	while (n)
+	{
+		n = n / 10;
+		i++;
+	}
+	return (i);
 }

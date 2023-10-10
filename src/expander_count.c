@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:23:42 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/04 10:49:44 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 11:52:57 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	check_single(char *str, int *count, int *i)
 	return (0);
 }
 
-static int	check_double(char *str, int *count, int *i, char **envp)
+static int	check_double(char *str, int *count, int *i, t_shell *sh)
 {
 	char	*var;
 
@@ -63,9 +63,9 @@ static int	check_double(char *str, int *count, int *i, char **envp)
 			{
 				var = get_var(str, i);
 				if (ft_strcmp(var, "?") == 0)
-					(*count)++;
+					(*count) += count_exit_numbers(sh->exit);
 				else
-					(*count) += ft_strlen(search_var_line(var, envp));
+					(*count) += ft_strlen(search_var_line(var, sh->envp));
 				free(var);
 			}
 			else
@@ -78,7 +78,7 @@ static int	check_double(char *str, int *count, int *i, char **envp)
 	return (0);
 }
 
-static int	check_normal(char *str, int *count, int *i, char **envp)
+static int	check_normal(char *str, int *count, int *i, t_shell *sh)
 {
 	char	*var;
 
@@ -88,9 +88,9 @@ static int	check_normal(char *str, int *count, int *i, char **envp)
 		{
 			var = get_var(str, i);
 			if (ft_strcmp(var, "?") == 0)
-				(*count)++;
+				(*count) = count_exit_numbers(sh->exit);
 			else
-				(*count) += ft_strlen(search_var_line(var, envp));
+				(*count) += ft_strlen(search_var_line(var, sh->envp));
 			if (var)
 				free(var);
 		}
@@ -116,8 +116,8 @@ int	count_expstr(t_shell *sh, char *str, int *i)
 	while (str[*i])
 	{
 		check_single(str, &count, i);
-		check_double(str, &count, i, sh->envp);
-		check_normal(str, &count, i, sh->envp);
+		check_double(str, &count, i, sh);
+		check_normal(str, &count, i, sh);
 	}
 	return (count);
 }

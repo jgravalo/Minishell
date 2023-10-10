@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 09:29:58 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/04 10:34:27 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 11:50:19 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,7 @@ int			is_alpha(char c);
 int			is_alpha_num(char c);
 
 void		check_malloc_error(void *ptr);
+
+int			count_exit_numbers(int n);
 
 #endif
