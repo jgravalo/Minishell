@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_aux.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:17:20 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/10/04 10:50:37 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 09:57:02 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ int	is_alpha_num_exp(char c)
 
 int	write_not_valid(char *var)
 {
-	write(2, "bash: export: `", 15);
-	write(2, var, ft_strlen(var));
-	write(2, "': not a valid identifier\n", 27);
+	ft_printf(2, "bash: export: `%s': not a valid identifier\n", var);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:59:19 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/27 19:25:50 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/10 09:54:11 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ int	env(char **envp)
 	while (envp[i])
 	{
 		if (ft_strchr(envp[i], '=') != 0)
-		{
-			write(1, envp[i], ft_strlen(envp[i]));
-			write(1, "\n", 1);
-		}
+			ft_printf(1, "%s\n", envp[i]);
 		i++;
 	}
 	return (0);

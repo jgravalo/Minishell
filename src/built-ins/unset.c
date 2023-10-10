@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:00:23 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/04 10:19:47 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 09:59:16 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,8 @@ int	unset(t_shell *sh, t_cmd **cmd, int i)
 	{
 		if (ft_strchr(cmd[i]->args[j], '=') != NULL)
 		{
-			write(2, "bash: unset: `", 14);
-			write(2, cmd[i]->args[j],
-				ft_strlen(cmd[i]->args[j]));
-			write(2, "\': not a valid identifier\n", 26);
+			ft_printf(2, "bash: unset: `%s\': ", cmd[i]->args[j]);
+			ft_printf(2, "not a valid identifier\n");
 			sh->exit++;
 		}
 		sh->exit += unset_n(cmd[i]->args[j], sh);

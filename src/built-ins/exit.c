@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 14:37:09 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/10/04 10:50:43 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 09:56:07 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,12 @@ static void	exit_message(t_shell *sh, int type, char *argument)
 {
 	if (type == 2)
 	{
-		write(2, "bash: exit: ", 12);
-		if (ft_strlen(argument) > 0)
-			write(2, argument, ft_strlen(argument));
-		write(2, ": numeric argument required\n", 28);
+		ft_printf(2, "bash: exit: %s: numeric argument required\n", argument);
 		exit(255);
 	}
 	else
 	{
-		write(2, "bash: exit: too many arguments\n", 32);
+		ft_printf(2, "bash: exit: too many arguments\n");
 		sh->exit = 1;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 09:08:34 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/10 09:37:01 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/10 09:52:51 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*cd_home(t_shell *sh, t_cmd **cmd, int i)
 {
 	if (search_var_line("HOME", sh->envp) == NULL)
 	{
-		write(2, "bash: cd: HOME not set\n", 23);
+		ft_printf(2, "bash: cd: HOME not set\n");
 		sh->exit = 1;
 		return (NULL);
 	}
@@ -84,7 +84,7 @@ char	*cd_last(t_shell *sh, char *dir)
 	free(dir);
 	if (search_var_line("OLDPWD", sh->envp) == NULL)
 	{
-		write(2, "bash: cd: OLDPWD not set\n", 25);
+		ft_printf(2, "bash: cd: OLDPWD not set\n");
 		sh->exit = 1;
 		return (NULL);
 	}

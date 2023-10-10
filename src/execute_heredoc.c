@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:52:47 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/04 10:49:23 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 09:47:03 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	make_heredoc(t_shell *sh, t_redir *ptr)
 			O_WRONLY | O_CREAT | O_EXCL | O_TRUNC, 0600);
 	start_line = sh->line_number;
 	heredoc = here_loop(sh, ptr, start_line);
-	write(ptr->fd, heredoc, ft_strlen(heredoc));
+	ft_printf(ptr->fd, "%s", heredoc);
 	close(ptr->fd);
 	free(heredoc);
 	exit(g_exit);

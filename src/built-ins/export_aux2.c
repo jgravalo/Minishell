@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_aux2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:52:19 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/10/04 10:12:50 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 09:58:07 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,13 @@ static char	*put_var(char *var)
 void	write_var(char *var, char **envp, int i)
 {
 	var = put_var(envp[i]);
-	write(1, "declare -x ", 11);
+	ft_printf(1, "declare -x ");
 	if (!var)
-		write(1, envp[i], ft_strlen(envp[i]));
+		ft_printf(1, "%s", envp[i]);
 	else
 	{
-		write(1, var, ft_strlen(var));
+		ft_printf(1, "%s", var);
 		free(var);
 	}
-	write(1, "\n", 1);
+	ft_printf(1, "\n");
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_envp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:27:15 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/09 16:20:02 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 09:41:19 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@
 static void	over_999_shlvl(t_shell *sh, int shlvl, char *tmp)
 {
 	tmp = ft_itoa(shlvl + 1);
-	write(2, "bash: warning: shell level (", 28);
-	write(2, tmp, ft_strlen(tmp));
-	write(2, ") too high, resetting to 1\n", 27);
+	ft_printf(2, "bash: warning: shell level(%s) too high, resetting to 1\n");
 	free(tmp);
 	tmp = ft_itoa(1);
 	change_var(sh, "SHLVL", tmp);

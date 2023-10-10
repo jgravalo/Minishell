@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:35:48 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/10 09:15:05 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/10 09:49:25 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		write(1, "\n", 1);
+		ft_printf(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
@@ -44,7 +44,7 @@ static int	check_null(char *str)
 {
 	if (str == NULL)
 	{
-		write(1, "exit\n", 5);
+		ft_printf(1, "exit\n", 5);
 		return (1);
 	}
 	return (0);

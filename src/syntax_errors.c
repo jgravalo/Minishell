@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:23:10 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/09/28 09:26:02 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 09:52:12 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@
 
 int	quote_error(char quote)
 {
-	write(2, "bash: syntax error near expected token `", 40);
-	write(2, &quote, 1);
-	write(2, "\'\n", 2);
+	ft_printf(2, "bash: syntax error near unexpected token `%c\'\n", quote);
 	return (258);
 }
 

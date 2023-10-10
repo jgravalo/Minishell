@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reviser.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 14:23:44 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/10/04 10:50:12 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/10 09:50:10 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@
 
 int	sintax_error(char *s)
 {
-	write(2, "bash: syntax error near unexpected token `", 43);
-	write(2, s, ft_strlen(s));
-	write(2, "\'\n", 2);
+	ft_printf(2, "bash: syntax error near unexpected token `%s\'\n", s);
 	return (258);
 }
 
