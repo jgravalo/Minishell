@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:52:47 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/10 09:47:03 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/14 09:51:32 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,13 @@ static void	make_heredoc(t_shell *sh, t_redir *ptr)
 {
 	int					start_line;
 	char				*heredoc;
-	struct sigaction	sigint;
+	struct sigaction	sig;
 
-	ft_memset(&sigint, 0, sizeof(struct sigaction));
-	sigint.sa_flags = SA_RESTART;
-	sigint.sa_handler = exit_heredoc;
-	sigaction(SIGINT, &sigint, NULL);
-	signal(SIGINT, exit_heredoc);
-	signal(SIGQUIT, exit_heredoc);
+	ft_memset(&sig, 0, sizeof(struct sigaction));
+	sig.sa_flags = SA_RESTART;
+	sig.sa_handler = exit_heredoc;
+	sigaction(SIGINT, &sig, NULL);
+	sigaction(SIGQUIT, &sig, NULL);
 	ptr->fd = open("/tmp/here_tmp",
 			O_WRONLY | O_CREAT | O_EXCL | O_TRUNC, 0600);
 	start_line = sh->line_number;
@@ -81,12 +80,13 @@ static void	make_heredoc(t_shell *sh, t_redir *ptr)
 static void	parent(pid_t pid, t_redir *ptr)
 {
 	int					status;
-	struct sigaction	sigint;
+	struct sigaction	sig;
 
-	ft_memset(&sigint, 0, sizeof(struct sigaction));
-	sigint.sa_flags = SA_RESTART;
-	sigint.sa_handler = parent_heredoc;
-	sigaction(SIGINT, &sigint, NULL);
+	ft_memset(&sig, 0, sizeof(struct sigaction));
+	sig.sa_flags = SA_RESTART;
+	sig.sa_handler = parent_heredoc;
+	sigaction(SIGINT, &sig, NULL);
+	sigaction(SIGQUIT, &sig, NULL);
 	waitpid(pid, &status, 0);
 	if (g_exit)
 		return ;
