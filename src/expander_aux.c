@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:27:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/04 10:01:18 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/19 19:44:08 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void	init_variables(int *i, int *j, int *n, t_shell *sh)
 
 void	advance_space(char *str, int *len, int *cpy)
 {
-	while (str[*len] == ' ')
+	while (is_space(str[*len]))
 	{
 		(*len)++;
-		(cpy)++;
+		(*cpy)++;
 	}
 }
 

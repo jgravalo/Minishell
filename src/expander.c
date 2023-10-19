@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:01:54 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 10:19:21 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/19 19:55:42 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	count_expand(t_shell *sh, char *token, int *len)
 	count = 0;
 	ptr = sh->quote;
 	sh->var_cat = 0;
-	if (*len && token[*len] && token[*len - 1] && token[*len - 1] != ' ')
+	if (*len && token[*len] && token[*len - 1] && !is_space(token[*len - 1]))
 		sh->var_cat = 1;
 	while (token[*len])
 	{
@@ -41,7 +41,7 @@ int	count_expand(t_shell *sh, char *token, int *len)
 			return (count_quote(len, &count, ptr));
 		else if (sh->quote && sh->var_quoted == 0 && *len == sh->quote->start)
 			return (count);
-		else if (token[*len] == ' ')
+		else if (is_space(token[*len]))
 		{
 			(*len)++;
 			return (count);
@@ -57,7 +57,7 @@ void	copy_exp(char *dst, const char *src, int *cpy, size_t dstsize)
 	int	i;
 
 	i = 0;
-	while (src[*cpy] == ' ')
+	while (is_space(src[*cpy]))
 		(*cpy)++;
 	while (i < ((int) dstsize - 1))
 	{

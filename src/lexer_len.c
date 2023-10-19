@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_len.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:32:52 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/16 10:23:48 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/19 19:56:40 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ int	get_len(char *line, int *len)
 	count = meta_len(line, len);
 	if (count > 0)
 		return (count);
-	while (line[*len] != ' ' && is_meta(line[*len]) != 1 && line[*len] != '\0')
+	while (!is_space(line[*len]) && is_meta(line[*len]) != 1
+		&& line[*len] != '\0')
 	{
 		if (line[*len] == '\'' || line[*len] == '\"')
 			count += get_len_quotes(line, len);

@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:23:42 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/10 11:52:57 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/19 19:59:18 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*get_var(char *str, int *i)
 	j = 0;
 	(*i)++;
 	start = *i;
-	while (str[*i] && is_alpha_num(str[*i]) && str[*i] != ' '
+	while (str[*i] && is_alpha_num(str[*i]) && !is_space(str[*i])
 		&& str[*i] != '$' && str[*i] != '\"' && str[*i] != '\'')
 	{
 		(*i)++;
