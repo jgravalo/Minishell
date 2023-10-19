@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:26:52 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/09 16:29:12 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/19 16:10:15 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_shell				sh;
 
-	sh.line_number = 1;
 	sh.exit = 0;
 	if (alloc_envp(&sh, envp))
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 14:10:58 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/09 16:23:59 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/19 16:10:02 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	execute(t_shell *sh, t_cmd **cmd)
 	i = -1;
 	sh->children = 0;
 	create_pipes(sh);
-	heredoc(sh, cmd);
+	heredoc(cmd);
 	if (g_exit)
 		return ;
 	if (no_pipe_built_in(sh, cmd))

@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/10 19:30:31 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/19 16:09:49 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ typedef struct s_shell
 	int		next_redir;
 	int		var_quoted;
 	int		var_cat;
-	int		line_number;
 	int		heredoc_quoted;
 	int		stdin_cpy;
 	int		stdout_cpy;
@@ -230,7 +229,7 @@ void	copy_and_remove_quotes(t_shell *sh, int size, char *str, int *cpy);
 
 /*HEREDOC*/
 
-void	heredoc(t_shell *shell, t_cmd **cmd);
+void	heredoc(t_cmd **cmd);
 
 void	exit_heredoc(int sig);
 

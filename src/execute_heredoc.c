@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:52:47 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/14 09:51:32 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/19 16:10:38 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../inc/utils.h"
 #include "../libft/libft.h"
 
-static int	here_aux(char *str, t_redir *ptr, int start_line)
+static int	here_aux(char *str, t_redir *ptr)
 {
 	if (ft_strcmp(str, ptr->arg->arg) == 0)
 	{
@@ -23,14 +23,13 @@ static int	here_aux(char *str, t_redir *ptr, int start_line)
 	}
 	else if (str == NULL)
 	{
-		write_heredoc_eof(start_line, ptr->arg->arg);
 		free(str);
 		return (1);
 	}
 	return (0);
 }
 
-static char	*here_loop(t_shell *sh, t_redir *ptr, int start_line)
+static char	*here_loop(t_redir *ptr)
 {
 	char	*str;
 	char	*heredoc;
@@ -42,7 +41,7 @@ static char	*here_loop(t_shell *sh, t_redir *ptr, int start_line)
 	{
 		str = readline("> ");
 		tmp2 = str;
-		if (here_aux(str, ptr, start_line))
+		if (here_aux(str, ptr))
 			break ;
 		str = ft_strjoin(str, "\n");
 		free(tmp2);
@@ -51,14 +50,12 @@ static char	*here_loop(t_shell *sh, t_redir *ptr, int start_line)
 		heredoc = ft_strjoin(heredoc, str);
 		free(tmp);
 		free(tmp2);
-		sh->line_number++;
 	}
 	return (heredoc);
 }
 
-static void	make_heredoc(t_shell *sh, t_redir *ptr)
+static void	make_heredoc(t_redir *ptr)
 {
-	int					start_line;
 	char				*heredoc;
 	struct sigaction	sig;
 
@@ -69,8 +66,7 @@ static void	make_heredoc(t_shell *sh, t_redir *ptr)
 	sigaction(SIGQUIT, &sig, NULL);
 	ptr->fd = open("/tmp/here_tmp",
 			O_WRONLY | O_CREAT | O_EXCL | O_TRUNC, 0600);
-	start_line = sh->line_number;
-	heredoc = here_loop(sh, ptr, start_line);
+	heredoc = here_loop(ptr);
 	ft_printf(ptr->fd, "%s", heredoc);
 	close(ptr->fd);
 	free(heredoc);
@@ -94,7 +90,7 @@ static void	parent(pid_t pid, t_redir *ptr)
 	unlink("/tmp/here_tmp");
 }
 
-void	heredoc(t_shell *sh, t_cmd **cmd)
+void	heredoc(t_cmd **cmd)
 {
 	int		i;
 	pid_t	pid;
@@ -112,7 +108,7 @@ void	heredoc(t_shell *sh, t_cmd **cmd)
 				if (pid > 0)
 					parent(pid, ptr);
 				else if (pid == 0)
-					make_heredoc(sh, ptr);
+					make_heredoc(ptr);
 			}
 			if (g_exit)
 				return ;
