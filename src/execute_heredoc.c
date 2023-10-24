@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:52:47 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/24 13:37:24 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/24 13:41:57 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	make_heredoc(t_redir *ptr)
 	sigaction(SIGINT, &sig, NULL);
 	sigaction(SIGQUIT, &sig, NULL);
 	ptr->fd = open("/tmp/here_tmp",
-			O_WRONLY | O_CREAT | O_EXCL | O_TRUNC, 0600);
+			O_WRONLY | O_CREAT | O_TRUNC, 0600);
 	heredoc = here_loop(ptr);
 	if (heredoc)
 		ft_printf(ptr->fd, "%s", heredoc);
