@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:45:24 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/19 16:09:49 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/24 12:56:54 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,8 +234,6 @@ void	heredoc(t_cmd **cmd);
 void	exit_heredoc(int sig);
 
 void	parent_heredoc(int sig);
-
-void	write_heredoc_eof(int start_line, char *delimiter);
 
 /*ERRORS*/
 

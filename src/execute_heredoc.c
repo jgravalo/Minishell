@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:52:47 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/20 10:32:06 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/24 13:37:24 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,7 @@
 
 static int	here_aux(char *str, t_redir *ptr)
 {
-	if (ft_strcmp(str, ptr->arg->arg) == 0)
-	{
-		free(str);
-		return (1);
-	}
-	else if (str == NULL)
+	if (ft_strcmp(str, ptr->arg->arg) == 0 || str == NULL)
 	{
 		free(str);
 		return (1);
